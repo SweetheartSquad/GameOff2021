@@ -1,5 +1,5 @@
 import { Howler } from 'howler';
-import { Point } from 'pixi.js';
+import { Point, Texture } from 'pixi.js';
 import { resources } from './Game';
 
 export const zero = new Point(0, 0);
