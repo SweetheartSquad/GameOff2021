@@ -54,7 +54,7 @@ class Game {
 		this.app.loader.onComplete.once(() => {
 			const assetResources = (this.app.loader.resources.assets.data as string)
 				.trim()
-				.split('\n')
+				.split(/\r?\n/)
 				.map((i) => ({
 					url: `assets/${i}`,
 					name: i.split('/').pop()?.split('.')[0] || i,
