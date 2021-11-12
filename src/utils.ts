@@ -111,14 +111,12 @@ export function tex(texture: string) {
 	return resources.error.texture as Texture;
 }
 
-
 export function evalFn(fn: string) {
 	// eslint-disable-next-line @typescript-eslint/no-implied-eval
 	return Function(
 		`"use strict";return ${fn.replace(/\/\*\*[^]*?\*\//m, '').trim()}`
 	)();
 }
-
 
 export async function toggleFullscreen(element?: HTMLElement) {
 	element = document.documentElement;

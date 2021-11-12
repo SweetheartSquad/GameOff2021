@@ -7,7 +7,9 @@ module.exports = (env, argv) =>
 
 		// watcher
 		devServer: {
-			contentBase: './dist',
+			static: {
+				directory: './dist',
+			},
 			hot: true,
 		},
 	});
