@@ -1,6 +1,5 @@
-import { Texture } from '@pixi/core';
-import { Sprite } from '@pixi/sprite';
 import { Axes, Buttons, Gamepads } from 'input-gamepads.js';
+import { Sprite, Texture } from 'pixi.js';
 import { game } from './Game';
 import { keys, KEYS } from './input-keys';
 import { Mouse } from './input-mouse';
@@ -21,17 +20,7 @@ export function setScene(scene?: PhysicsScene): void {
 	newScene = scene;
 }
 
-export function getInput(): {
-	move: {
-		x: number;
-		y: number;
-	};
-	justMoved: {
-		x: number;
-		y: number;
-	};
-	interact: boolean;
-} {
+export function getInput() {
 	const res = {
 		move: {
 			x: gamepads.getAxis(Axes.LSTICK_H),
