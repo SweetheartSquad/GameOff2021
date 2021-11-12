@@ -1,5 +1,6 @@
 import { Howler } from 'howler';
 import { Point } from 'pixi.js';
+import { resources } from './Game';
 
 export const zero = new Point(0, 0);
 
@@ -100,4 +101,32 @@ export function removeFromArray<T>(array: T[], item: T) {
 
 export function randRange(min: number, max: number) {
 	return Math.random() * (max - min) + min;
+}
+
+export function tex(texture: string) {
+	let t = resources[texture]?.texture;
+	if (t) return t;
+	t = resources[`${texture}1`]?.texture;
+	if (t) return t;
+	return resources.error.texture as Texture;
+}
+
+
+export function evalFn(fn: string) {
+	// eslint-disable-next-line @typescript-eslint/no-implied-eval
+	return Function(
+		`"use strict";return ${fn.replace(/\/\*\*[^]*?\*\//m, '').trim()}`
+	)();
+}
+
+
+export async function toggleFullscreen(element?: HTMLElement) {
+	element = document.documentElement;
+
+	const isFullscreen = !!document.fullscreenElement || false;
+
+	await (isFullscreen
+		? document.exitFullscreen()
+		: element.requestFullscreen());
+	return !!document.fullscreenElement;
 }

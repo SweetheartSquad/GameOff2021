@@ -1,3 +1,4 @@
+textures/error.png
 textures/black.png
 textures/blank.png
 textures/border.png
