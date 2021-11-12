@@ -130,7 +130,7 @@ function update(): void {
 		window.scene = activeScene = newScene;
 		newScene = undefined;
 		if (activeScene) {
-			game.app.stage.addChildAt(activeScene.camera.display.container, 0);
+			game.app.stage.addChildAt(activeScene.camera.display.container, 1);
 		}
 	}
 
@@ -157,12 +157,12 @@ export function init(): void {
 	});
 	mouse = new Mouse(game.app.view, false);
 
-	setScene(new PhysicsScene());
 	const fill = new Sprite(Texture.WHITE);
 	fill.tint = 0x000000;
 	fill.width = size.x;
 	fill.height = size.x;
 	game.app.stage.addChildAt(fill, 0);
+	setScene(new PhysicsScene());
 
 	// start main loop
 	game.app.ticker.add(update);
