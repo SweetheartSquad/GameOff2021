@@ -155,6 +155,11 @@ export function init(): void {
 	mouse = new Mouse(game.app.view, false);
 
 	setScene(new PhysicsScene());
+	const fill = new Sprite(Texture.WHITE);
+	fill.tint = 0x000000;
+	fill.width = size.x;
+	fill.height = size.x;
+	game.app.stage.addChildAt(fill, 0);
 
 	// start main loop
 	game.app.ticker.add(update);
