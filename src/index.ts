@@ -44,7 +44,7 @@ function fail({ message, error }: { message: string; error: unknown }): void {
 function loadProgressHandler(loader?: { progress: number }): void {
 	// called during loading
 	if (loader?.progress !== undefined) {
-		progress = loader.progress;
+		progress = loader.progress || progress;
 		if (preloaded) {
 			progress *= 1 - preloadWeight;
 			progress += preloadWeight * 100;
@@ -124,7 +124,7 @@ document.addEventListener(
 	'chunk-progress-webpack-plugin',
 	({ detail: { loaded, total } }: LoadedEvent) => {
 		loadProgressHandler({
-			progress: (loaded / total) * 100,
+			progress: (loaded / total) * 100 || 0,
 		});
 	}
 );
