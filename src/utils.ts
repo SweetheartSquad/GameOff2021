@@ -4,7 +4,7 @@ import { Point } from 'pixi.js';
 export const zero = new Point(0, 0);
 
 export function delay(time: number) {
-	return new Promise((r) => setTimeout(r, time));
+	return new Promise<void>((r) => setTimeout(r, time));
 }
 
 // linear interpolation
