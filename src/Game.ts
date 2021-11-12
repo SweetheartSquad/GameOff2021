@@ -55,9 +55,19 @@ class Game {
 			const assetResources = (this.app.loader.resources.assets.data as string)
 				.trim()
 				.split(/\r?\n/)
+				.flatMap((i) => {
+					if (i.match(/\.x\d+\./)) {
+						const [base, count, ext] = i.split(/\.x(\d+)\./);
+						return new Array(parseInt(count, 10))
+							.fill('')
+							.map((_, idx) => `${base}.${idx + 1}.${ext}`);
+					}
+					return i;
+				})
+				.filter((i) => i)
 				.map((i) => ({
 					url: `assets/${i}`,
-					name: i.split('/').pop()?.split('.')[0] || i,
+					name: i.split('/').pop()?.split('.').slice(0, -1).join('.') || i,
 				}));
 			this.app.loader.reset();
 			this.app.loader.add(assetResources);
