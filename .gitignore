@@ -1,4 +1,7 @@
+progress/
 dist/
+
+Thumbs.db
 
 # Logs
 logs
