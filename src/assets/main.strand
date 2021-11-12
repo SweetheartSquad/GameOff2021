@@ -128,6 +128,7 @@
 		this.Block({ x: 0, y: 600, width: 3000 }),
 	].concat(
 		Grave(this, { x: -73, y: 499, to: 'extra1' }),
+		...new Array(50).fill(0).map(() => this.Npc({ passage: 'test-npc', x: (Math.random()-0.5)*300, y: (Math.random()-0.5)*300+100 })),
 	));
 
 
