@@ -120,7 +120,7 @@
 
 
 	this.Area('intro', [
-		this.Prop({ texture: 'splotch4', x: -200, y: 700, scale: 3, blur: true, offset: -10000 }),
+		this.Prop({ texture: 'splotch', x: -200, y: 700, scale: 3, blur: true, offset: -10000 }),
 		this.Block({ x: 200, y: 0, width: 450 }),
 		this.Block({ x: -750, y: 0, width: 1150 }),
 		this.Block({ x: -750, y: 500, height: 1000 }),

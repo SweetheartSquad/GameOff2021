@@ -15,7 +15,7 @@ textures/defaultIdle2.png
 textures/defaultRun1.png
 textures/defaultRun2.png
 textures/defaultRun3.png
-textures/splotch4.png
+textures/splotch.png
 textures/white.png
 audio/step.mp3
 audio/voiceDefault.mp3
