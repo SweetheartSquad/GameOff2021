@@ -1,0 +1,188 @@
+::start
+// some info for if you want to mod it:
+//
+// basic syntax examples:
+// 	::passage title
+// 	[[basic link]]
+// 	[[link with different label>passage title]]
+// 	[[link with different action|this.something=true;this.goto('passage title');]]
+// 	<<if this.something>><<elseif this.somethingElse>><<endif>>
+// 	<<do this.something=true;>>
+// 	<<print this.something>>
+// 	>passage break
+//
+// js examples:
+// 	this.goto('passage')
+// 	this.show('texture')
+// 	this.tween(object, 'property', to, duration, from, ease)
+// 	this.gameObject - npc/interrupt that triggered the dialog
+// 	this.scene      - game scene
+// 	this.voice      - audio to play as letters tick in
+// 	this.ease       - easing functions
+//
+// game object stuff:
+// 	this.Area(name, [objects])
+// 	this.Npc({ passage, x, y )
+// 	this.Goto({ area, x, y }, { x, y, width, height })
+// 	this.Prop({ texture, x, y, scale, flip, blur, animate, offset })
+// 	this.Block({ x, y, width, height, type, radius })
+// 	this.Interrupt({ passage, x, y, width, height })
+//
+// palette stuff:
+// this.scene.screenFilter.palette([255,255,255],[0,0,0]);
+// this.scene.screenFilter.randomizePalette();
+
+<<if !this.started>>
+<<do
+	// setup areas
+	function Grave(strand, options) {
+		const flip1 = Math.floor(options.x / 100) % 2 === 0;
+		const flip2 = Math.floor(options.x / 100) % 2 === 0;
+		return [
+			strand.Prop({
+				texture: 'hole',
+				x: options.x + 5 * (flip1 ? -1 : 1),
+				y: options.y + 20,
+				offset: -300,
+				flip: flip1,
+			}),
+			strand.Block({
+				x: options.x,
+				y: options.y - 60,
+				width: 40,
+			}),
+			strand.Goto(
+				{ area: options.to, x: 0, y: 0 },
+				{
+					x: options.x,
+					y: options.y - 30,
+					width: 40,
+					height: 50,
+				}
+			),
+		];
+	}
+	function Interior(strand, options) {
+		return [
+			strand.Prop({
+				texture: 'interior',
+				x: 0,
+				y: 100,
+				scale: 2,
+				offset: -10000,
+				blur: true,
+			}),
+			strand.Block({
+				x: -300,
+				y: -100,
+				width: 300,
+			}),
+			strand.Block({
+				x: 300,
+				y: -100,
+				width: 300,
+			}),
+			strand.Block({
+				x: 0,
+				y: -550,
+				width: 2000,
+			}),
+			strand.Block({
+				x: -350,
+				y: -320,
+				height: 2000,
+			}),
+			strand.Block({
+				x: 350,
+				y: -320,
+				height: 2000,
+			}),
+			strand.Block({
+				x: -150,
+				y: 10,
+				height: 200,
+			}),
+			strand.Block({
+				x: 150,
+				y: 10,
+				height: 200,
+			}),
+			strand.Goto(
+				{ area: 'intro', x: options.x, y: options.y },
+				{
+					x: 0,
+					y: 100,
+					width: 300,
+				}
+			),
+		];
+	}
+
+
+	this.Area('intro', [
+		this.Prop({ texture: 'splotch4', x: -200, y: 700, scale: 3, blur: true, offset: -10000 }),
+		this.Block({ x: 200, y: 0, width: 450 }),
+		this.Block({ x: -750, y: 0, width: 1150 }),
+		this.Block({ x: -750, y: 500, height: 1000 }),
+		this.Block({ x: 400, y: 500, height: 1000 }),
+		this.Block({ x: 0, y: 600, width: 3000 }),
+	].concat(
+		Grave(this, { x: -73, y: 499, to: 'extra1' }),
+	));
+
+
+	this.Area('extra1', [
+		this.Npc({ passage: 'test-npc', x: -56, y: -360 }),
+	].concat(
+		Interior(this, { x: -73, y: 529 }),
+	));
+
+	// start
+	this.started=true;
+	this.voice='None';
+
+	this.scene.goto({ area: 'intro', x: -85, y: 21 });
+
+	setTimeout(() => this.tween(this.scene.dialogue.sprBg, 'alpha', 1, 5000, 0), 1);
+>>
+<<endif>>
+todo: intro
+
+<<if this.debug>>[[debug skip|
+	this.scene.border.display.container.alpha=1;
+	this.show('');
+	this.goto('close');
+]]<<endif>>
+[[begin]]
+[[cws]]
+
+::close
+this should never render
+
+::end
+<<do this.voice='None';this.tween(this.scene.border.display.container, 'alpha', 0, 5000, 1)>>
+todo: ending
+
+[[restart|this.restart()]]
+
+::cws
+todo: content warnings
+
+[[back>start]]
+
+
+::begin
+todo: beginning
+>
+<<do this.voice='Default';this.show('', 5000);this.tween(this.scene.border.display.container, 'alpha', 1, 5000, 0);>>
+todo: beginning 2
+>
+todo: beginning 3
+
+[[todo>close]]
+
+
+::test-npc
+hello i am a test npc
+
+[[todo: remove>close]]

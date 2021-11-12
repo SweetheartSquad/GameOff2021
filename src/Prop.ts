@@ -1,0 +1,74 @@
+import { SCALE_MODES, Sprite } from 'pixi.js';
+import { resources } from './Game';
+import { GameObject } from './GameObject';
+import { Animator } from './Scripts/Animator';
+import { Display } from './Scripts/Display';
+import { Transform } from './Scripts/Transform';
+
+export class Prop extends GameObject {
+	spr: Sprite;
+
+	animator?: Animator;
+
+	transform: Transform;
+
+	display: Display;
+
+	constructor({
+		texture,
+		x,
+		y,
+		scale = 1,
+		animate = true,
+		flip,
+		blur,
+		offset,
+	}: {
+		texture: string;
+		x: number;
+		y: number;
+		scale?: number;
+		blur?: boolean;
+		flip?: boolean;
+		animate?: boolean;
+		offset?: number;
+	}) {
+		super();
+
+		this.spr = new Sprite(
+			resources[texture]?.texture || resources[`${texture}1`].texture
+		);
+		if (blur) {
+			this.spr.texture.baseTexture.scaleMode = SCALE_MODES.LINEAR;
+		}
+		this.spr.anchor.x = 0.5;
+		this.spr.anchor.y = 1.0;
+		this.spr.scale.x = this.spr.scale.y = scale;
+		if (flip) {
+			this.spr.scale.x *= -1;
+		}
+
+		this.scripts.push((this.transform = new Transform(this)));
+		this.scripts.push((this.display = new Display(this)));
+		if (animate && resources[`${texture}1`]?.texture) {
+			this.scripts.push(
+				(this.animator = new Animator(this, {
+					spr: this.spr,
+					freq: 1 / 400,
+				}))
+			);
+		}
+
+		this.display.container.addChild(this.spr);
+		this.transform.x = x;
+		this.transform.y = y;
+
+		if (offset) {
+			this.spr.y -= offset;
+			this.transform.y += offset;
+		}
+
+		this.display.updatePosition();
+		this.init();
+	}
+}
