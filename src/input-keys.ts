@@ -108,7 +108,10 @@ class Keys {
 		this.down[event.keyCode] = false;
 		this.justDown[event.keyCode] = false;
 		this.justUp[event.keyCode] = true;
-		if (this.capture.indexOf(event.keyCode) !== -1) {
+		if (
+			this.capture.indexOf(event.keyCode) !== -1 &&
+			(!document.activeElement || document.activeElement === document.body)
+		) {
 			event.preventDefault();
 			return false;
 		}
