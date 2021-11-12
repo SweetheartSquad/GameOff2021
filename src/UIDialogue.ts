@@ -14,7 +14,7 @@ import { Toggler } from './Scripts/Toggler';
 import { Transform } from './Scripts/Transform';
 import { size } from './size';
 import { TweenManager } from './Tweens';
-import { lerp } from './utils';
+import { lerp, tex } from './utils';
 
 export class UIDialogue extends GameObject {
 	sprBg: Sprite;
@@ -66,8 +66,8 @@ export class UIDialogue extends GameObject {
 		this.isOpen = false;
 		this.scripts.push((this.transform = new Transform(this)));
 		this.scripts.push((this.display = new Display(this)));
-		this.sprBg = new Sprite(resources.dialogueBg.texture);
-		this.sprEdge = new Sprite(resources.dialogueEdge1.texture);
+		this.sprBg = new Sprite(tex('dialogueBg'));
+		this.sprEdge = new Sprite(tex('dialogueEdge'));
 		this.sprBg.anchor.x = 1.0;
 		this.sprEdge.anchor.x = 1.0;
 		this.sprEdge.x = -this.sprBg.width;

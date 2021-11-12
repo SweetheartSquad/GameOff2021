@@ -106,7 +106,7 @@ export function randRange(min: number, max: number) {
 export function tex(texture: string) {
 	let t = resources[texture]?.texture;
 	if (t) return t;
-	t = resources[`${texture}1`]?.texture;
+	t = resources[`${texture}.1`]?.texture;
 	if (t) return t;
 	return resources.error.texture as Texture;
 }

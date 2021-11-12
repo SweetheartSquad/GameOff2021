@@ -6,7 +6,7 @@ import { Animator } from './Scripts/Animator';
 import { Body } from './Scripts/Body';
 import { Display } from './Scripts/Display';
 import { Transform } from './Scripts/Transform';
-import { lerp } from './utils';
+import { lerp, tex } from './utils';
 
 const FLIP_ESPILON = 0.01;
 
@@ -85,7 +85,7 @@ export class Character extends GameObject {
 		this.shadow.anchor.x = 0.5;
 		this.shadow.anchor.y = 0.75;
 		this.animation = 'Idle';
-		this.spr = new Sprite(resources[`${body}Idle1`].texture);
+		this.spr = new Sprite(tex(`${body}Idle`));
 
 		this.spr.anchor.x = 0.5;
 		this.spr.anchor.y = 1.0;

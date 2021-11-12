@@ -1,12 +1,13 @@
-import { Sprite, utils } from 'pixi.js';
+import { Sprite, Texture } from 'pixi.js';
 import { game, resources } from '../Game';
 import { GameObject } from '../GameObject';
 import { Script } from './Script';
 
 function getFrameCount(animation: string): number {
 	let count = 0;
-	// eslint-disable-next-line no-empty
-	while (resources[`${animation}${++count + 1}`]?.texture) {}
+	while (resources[`${animation}.${count + 1}`]?.texture) {
+		++count;
+	}
 	return count;
 }
 
@@ -19,11 +20,15 @@ export class Animator extends Script {
 
 	offset: number;
 
-	frameCount: number;
+	frameCount!: number;
 
-	frame: number;
+	private frames: number[] = [];
 
-	animation: string;
+	frame!: number;
+
+	animation!: string;
+
+	holds: { [frame: number]: number } = {};
 
 	constructor(
 		gameObject: GameObject,
@@ -32,24 +37,43 @@ export class Animator extends Script {
 		super(gameObject);
 		this.spr = spr;
 		this.freq = freq;
-		this.offset = ++offset;
-		this.frame = 0;
-		this.animation = this.spr.texture.textureCacheIds[0].slice(0, -1);
-		this.frameCount = getFrameCount(this.animation);
+		this.offset = offset;
+		offset += 0.5;
+		this.setAnimation(spr.texture.textureCacheIds[0]);
 	}
 
-	setAnimation(animation: string) {
-		if (this.animation === animation) return;
+	setAnimation(a: string, holds: { [frame: number]: number } = {}) {
+		if (this.animation === a) return;
+		const [animation, index] = a.split(/\.(\d+)$/);
 		this.animation = animation;
-		this.frameCount = getFrameCount(this.animation);
-		this.frame = 0;
+		this.frameCount = getFrameCount(animation);
+		this.frames = new Array(this.frameCount)
+			.fill(0)
+			.flatMap((_, idx) =>
+				holds?.[idx + 1] !== undefined
+					? new Array(holds[idx + 1]).fill(idx + 1)
+					: idx + 1
+			);
+		this.frame = (this.frameCount ? parseInt(index, 10) - 1 : 0) || 0;
+		this.offset = -game.app.ticker.lastTime;
+		this.holds = holds;
+		this.updateTexture();
+	}
+
+	updateTexture() {
+		this.spr.texture =
+			resources[
+				this.frameCount
+					? `${this.animation}.${this.frames[this.frame]}`
+					: this.animation
+			]?.texture || (resources.error.texture as Texture);
 	}
 
 	update(): void {
+		if (!this.frameCount) return;
 		const curTime = game.app.ticker.lastTime;
 		this.frame =
-			Math.floor(curTime * this.freq + this.offset * 0.5) % this.frameCount;
-		const tex = utils.TextureCache[`${this.animation}${this.frame + 1}`];
-		this.spr.texture = tex;
+			Math.floor((curTime + this.offset) * this.freq) % this.frames.length;
+		this.updateTexture();
 	}
 }
