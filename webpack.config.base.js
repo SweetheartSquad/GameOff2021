@@ -68,11 +68,9 @@ module.exports = (env, argv) => ({
 		new HtmlWebpackPlugin({
 			// creates index.html
 			title: pkg.description,
-			meta: {
-				viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
-				'theme-color': '#000000',
-			},
+			template: './src/index.html',
 			minify: true,
+			hash: true,
 			favicon: './src/assets/icon.png',
 		}),
 	],
