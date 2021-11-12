@@ -1,8 +1,11 @@
+import { Texture } from '@pixi/core';
+import { Sprite } from '@pixi/sprite';
 import { Axes, Buttons, Gamepads } from 'input-gamepads.js';
 import { game } from './Game';
 import { keys, KEYS } from './input-keys';
 import { Mouse } from './input-mouse';
 import { PhysicsScene } from './PhysicsScene';
+import { size } from './size';
 import { clamp } from './utils';
 
 const gamepads = new Gamepads();
