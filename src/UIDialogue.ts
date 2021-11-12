@@ -66,6 +66,7 @@ export class UIDialogue extends GameObject {
 		this.isOpen = false;
 		this.scripts.push((this.transform = new Transform(this)));
 		this.scripts.push((this.display = new Display(this)));
+		this.display.container.interactiveChildren = true;
 		this.sprBg = new Sprite(tex('dialogueBg'));
 		this.sprEdge = new Sprite(tex('dialogueEdge'));
 		this.sprBg.anchor.x = 1.0;

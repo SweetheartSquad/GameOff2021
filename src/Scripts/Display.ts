@@ -11,6 +11,7 @@ export class Display extends Script {
 	constructor(gameObject: GameObject) {
 		super(gameObject);
 		this.container = new Container();
+		this.container.interactiveChildren = false;
 	}
 
 	init(): void {
