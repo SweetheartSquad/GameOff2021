@@ -10,7 +10,7 @@
 		"build:prod": "webpack --config webpack.config.prod.js --mode production",
 		"build:optimize-images": "sh optimize-images.sh",
 		"build": "npm run build:optimize-images && npm run build:prod",
-		"lint": "eslint ./src/**/*.{js,ts}",
+		"lint": "eslint \"./src/**/*.{js,ts}\"",
 		"start": "webpack serve --config webpack.config.dev.js --mode development",
 		"start:prod": "npm run build && npm run serve"
 	},
