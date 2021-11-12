@@ -109,7 +109,7 @@ export class Mouse {
 		this.delta.y = this.y - this.prev.y;
 	};
 
-	onWheel = (event: MouseWheelEvent): void => {
+	onWheel = (event: WheelEvent): void => {
 		this.wheelY =
 			event.deltaY ||
 			(event as unknown as { originalEvent?: { wheelDelta?: number } })
