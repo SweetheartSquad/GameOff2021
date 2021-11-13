@@ -71,6 +71,13 @@ export class UIDialogue extends GameObject {
 		return size.y + this.height();
 	}
 
+	progress() {
+		return (
+			Math.abs(this.sprBg.y - this.closeY()) /
+			Math.abs(this.openY() - this.closeY())
+		);
+	}
+
 	constructor(strand: Strand) {
 		super();
 
@@ -151,12 +158,7 @@ export class UIDialogue extends GameObject {
 		}
 
 		// early return (still opening)
-		if (
-			Math.abs(this.sprBg.y - this.closeY()) /
-				Math.abs(this.openY() - this.closeY()) <
-			0.9
-		)
-			return;
+		if (this.progress() < 0.9) return;
 
 		if (this.isOpen && this.choices.length) {
 			if (this.containerChoices.alpha > 0.5) {
