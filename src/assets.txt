@@ -10,6 +10,7 @@ textures/hole.png
 textures/shadows.png
 textures/defaultIdle.x2.png
 textures/defaultRun.x3.png
+textures/basicAntIdle/basicAntIdle.x5.png
 textures/splotch.png
 textures/white.png
 audio/step.mp3

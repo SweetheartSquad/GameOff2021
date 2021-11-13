@@ -53,7 +53,7 @@ export class Character extends GameObject {
 	animation: 'Idle' | 'Run';
 
 	constructor({
-		body = 'default',
+		body = 'basicAnt',
 		x = 0,
 		y = 0,
 		scale = 0.3,
