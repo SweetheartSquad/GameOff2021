@@ -258,9 +258,13 @@ export class PhysicsScene {
 		this.container.children.sort(depthCompare);
 		this.container.addChild(this.graphics);
 
-		if (this.dialogue.isOpen) {
-			player.camPoint.y -= (this.dialogue.sprBg.y - this.dialogue.closeY()) / 2;
-		}
+		// adjust camera based on dialogue state
+		const p = this.dialogue.progress();
+		player.camPoint.y +=
+			(this.dialogue.height() / 2 / this.camera.display.container.scale.y) * p;
+		this.camera.display.container.scale.x =
+			this.camera.display.container.scale.y = 1 + p * 0.1;
+
 		if (this.interactionFocus) {
 			player.camPoint.y +=
 				(this.interactionFocus.y - player.transform.y) *
