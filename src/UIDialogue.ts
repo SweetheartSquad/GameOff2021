@@ -13,11 +13,13 @@ import { Display } from './Scripts/Display';
 import { Toggler } from './Scripts/Toggler';
 import { Transform } from './Scripts/Transform';
 import { size } from './size';
-import { TweenManager } from './Tweens';
+import { Tween, TweenManager } from './Tweens';
 import { lerp, tex } from './utils';
 
 export class UIDialogue extends GameObject {
 	sprScrim: Sprite;
+
+	tweenScrim?: Tween;
 
 	sprBg: Sprite;
 
@@ -278,6 +280,12 @@ export class UIDialogue extends GameObject {
 	}
 
 	scrim(amount: number, duration: number) {
-		TweenManager.tween(this.sprScrim, 'alpha', amount, duration);
+		if (this.tweenScrim) TweenManager.abort(this.tweenScrim);
+		this.tweenScrim = TweenManager.tween(
+			this.sprScrim,
+			'alpha',
+			amount,
+			duration
+		);
 	}
 }
