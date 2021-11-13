@@ -27,6 +27,7 @@ export class Toggler extends Script {
 	}
 
 	show(texture?: Texture, duration = 1000) {
+		if (texture === this.active.texture) return;
 		this.inactive = this.active === this.a ? this.b : this.a;
 		this.inactive.texture = texture || (resources.blank.texture as Texture);
 		this.container.addChild(this.inactive);
