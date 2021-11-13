@@ -21,7 +21,7 @@ export class Toggler extends Script {
 		this.active = this.a = new Sprite(resources.blank.texture);
 		this.inactive = this.b = new Sprite(resources.blank.texture);
 		this.a.anchor.x = this.a.anchor.y = this.b.anchor.x = this.b.anchor.y = 0.5;
-		this.a.alpha = 1;
+		this.a.alpha = 0;
 		this.b.alpha = 0;
 		this.container.addChild(this.a, this.b);
 	}
