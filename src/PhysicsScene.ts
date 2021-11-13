@@ -259,7 +259,7 @@ export class PhysicsScene {
 		this.container.addChild(this.graphics);
 
 		if (this.dialogue.isOpen) {
-			player.camPoint.x += (this.dialogue.width() - this.dialogue.sprBg.x) / 2;
+			player.camPoint.y -= (this.dialogue.sprBg.y - this.dialogue.closeY()) / 2;
 		}
 		if (this.interactionFocus) {
 			player.camPoint.y +=

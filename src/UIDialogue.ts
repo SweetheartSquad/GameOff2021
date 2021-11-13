@@ -59,8 +59,16 @@ export class UIDialogue extends GameObject {
 
 	voice = 'Default' as string | undefined;
 
-	width() {
-		return this.sprBg.width + this.sprEdge.width;
+	height() {
+		return this.sprBg.height + this.sprEdge.height;
+	}
+
+	openY() {
+		return size.y;
+	}
+
+	closeY() {
+		return size.y + this.height();
 	}
 
 	constructor(strand: Strand) {
@@ -75,19 +83,19 @@ export class UIDialogue extends GameObject {
 		this.sprScrim.tint = 0x000000;
 		this.sprScrim.width = size.x;
 		this.sprScrim.height = size.y;
-		this.sprScrim.alpha = 0;
+		this.sprScrim.alpha = 1;
 		this.sprBg = new Sprite(tex('dialogueBg'));
 		this.sprEdge = new Sprite(tex('dialogueEdge'));
-		this.sprBg.anchor.x = 1.0;
-		this.sprEdge.anchor.x = 1.0;
-		this.sprEdge.x = -this.sprBg.width;
-		this.transform.x = size.x;
+		this.sprBg.anchor.y = 1.0;
+		this.sprEdge.anchor.y = 1.0;
+		this.sprEdge.y = -this.sprBg.height;
+		this.transform.x = 0;
 
 		this.scripts.push((this.toggler = new Toggler(this)));
 		this.display.container.addChild(this.sprScrim);
 		this.display.container.addChild(this.toggler.container);
-		this.toggler.container.x -= size.x - (size.x - this.sprBg.width) / 2;
-		this.toggler.container.y += size.y / 2;
+		this.toggler.container.x += size.x / 2;
+		this.toggler.container.y = size.y / 2 - this.sprBg.height / 2;
 
 		this.display.container.addChild(this.sprBg);
 		this.strText = '';
@@ -99,7 +107,7 @@ export class UIDialogue extends GameObject {
 		this.textText = new Text(this.strText, fontDialogue);
 		this.textPrompt = new Text(this.strPrompt, fontPrompt);
 		this.textPrompt.alpha = 0;
-		this.textPrompt.x = -size.x / 2;
+		this.textPrompt.x = size.x / 2;
 		this.textPrompt.y = 20;
 		this.textPrompt.anchor.x = 0.5;
 		this.display.container.addChild(this.textPrompt);
@@ -115,12 +123,14 @@ export class UIDialogue extends GameObject {
 		this.sprBg.addChild(this.textText);
 		// @ts-ignore
 		window.text = this.textText;
+		this.textText.y -= this.sprBg.height;
 		this.textText.y += 20;
-		this.textText.x -= this.sprBg.width - 20;
+		this.textText.x = 20;
 		this.containerChoices.x = this.textText.x;
 		this.textText.style.wordWrap = true;
 		this.textText.style.wordWrapWidth = this.sprBg.width - 50;
 		this.sprBg.alpha = 0;
+		this.sprBg.y = this.closeY();
 
 		this.scripts.push(new Animator(this, { spr: this.sprEdge, freq: 1 / 200 }));
 
@@ -141,7 +151,12 @@ export class UIDialogue extends GameObject {
 		}
 
 		// early return (still opening)
-		if (this.sprBg.x > 20) return;
+		if (
+			Math.abs(this.sprBg.y - this.closeY()) /
+				Math.abs(this.openY() - this.closeY()) <
+			0.9
+		)
+			return;
 
 		if (this.isOpen && this.choices.length) {
 			if (this.containerChoices.alpha > 0.5) {
@@ -236,14 +251,9 @@ export class UIDialogue extends GameObject {
 			this.containerChoices.addChild(t);
 			return t;
 		});
-		this.containerChoices.y =
-			this.sprBg.height - this.containerChoices.height - 40;
+		this.containerChoices.y = -this.containerChoices.height - 40;
 		this.containerChoices.alpha = 0.0;
-		if (!this.isOpen) {
-			this.isOpen = true;
-			TweenManager.tween(this.sprBg, 'alpha', 1, 500);
-			TweenManager.tween(this.sprBg, 'x', 0, 500, undefined, cubicOut);
-		}
+		this.open();
 		this.pos = 0;
 		this.posTime = 0;
 	}
@@ -264,14 +274,31 @@ export class UIDialogue extends GameObject {
 		this.textText.text = this.strText;
 	}
 
+	private open() {
+		if (!this.isOpen) {
+			this.isOpen = true;
+			this.scrim(0.5, 500);
+			TweenManager.tween(this.sprBg, 'alpha', 1, 500);
+			TweenManager.tween(
+				this.sprBg,
+				'y',
+				this.openY(),
+				500,
+				undefined,
+				cubicOut
+			);
+		}
+	}
+
 	close() {
 		if (this.isOpen) {
 			this.isOpen = false;
+			this.scrim(0, 500);
 			TweenManager.tween(this.sprBg, 'alpha', 0, 500);
 			TweenManager.tween(
 				this.sprBg,
-				'x',
-				this.width(),
+				'y',
+				this.closeY(),
 				500,
 				undefined,
 				cubicIn
