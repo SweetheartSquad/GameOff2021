@@ -1,7 +1,7 @@
 import type { EventEmitter } from '@pixi/utils';
 import { cubicIn, cubicOut } from 'eases';
 import { Howl } from 'howler';
-import { Container, Sprite, Text } from 'pixi.js';
+import { Container, Sprite, Text, Texture } from 'pixi.js';
 import Strand from 'strand-core';
 import { fontDialogue, fontPrompt } from './font';
 import { game, resources } from './Game';
@@ -17,6 +17,8 @@ import { TweenManager } from './Tweens';
 import { lerp, tex } from './utils';
 
 export class UIDialogue extends GameObject {
+	sprScrim: Sprite;
+
 	sprBg: Sprite;
 
 	sprEdge: Sprite;
@@ -67,6 +69,11 @@ export class UIDialogue extends GameObject {
 		this.scripts.push((this.transform = new Transform(this)));
 		this.scripts.push((this.display = new Display(this)));
 		this.display.container.interactiveChildren = true;
+		this.sprScrim = new Sprite(Texture.WHITE);
+		this.sprScrim.tint = 0x000000;
+		this.sprScrim.width = size.x;
+		this.sprScrim.height = size.y;
+		this.sprScrim.alpha = 0;
 		this.sprBg = new Sprite(tex('dialogueBg'));
 		this.sprEdge = new Sprite(tex('dialogueEdge'));
 		this.sprBg.anchor.x = 1.0;
@@ -75,6 +82,7 @@ export class UIDialogue extends GameObject {
 		this.transform.x = size.x;
 
 		this.scripts.push((this.toggler = new Toggler(this)));
+		this.display.container.addChild(this.sprScrim);
 		this.display.container.addChild(this.toggler.container);
 		this.toggler.container.x -= size.x - (size.x - this.sprBg.width) / 2;
 		this.toggler.container.y += size.y / 2;
@@ -267,5 +275,9 @@ export class UIDialogue extends GameObject {
 				cubicIn
 			);
 		}
+	}
+
+	scrim(amount: number, duration: number) {
+		TweenManager.tween(this.sprScrim, 'alpha', amount, duration);
 	}
 }
