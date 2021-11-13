@@ -143,15 +143,16 @@
 	this.voice='None';
 
 	this.scene.goto({ area: 'intro', x: -85, y: 21 });
-
-	setTimeout(() => this.tween(this.scene.dialogue.sprBg, 'alpha', 1, 5000, 0), 1);
+	setTimeout(() => {
+		this.scene.dialogue.scrim(1, 0);
+		this.tween(this.scene.dialogue.sprBg, 'alpha', 1, 5000, 0);
+	}, 1);
 >>
 <<endif>>
 todo: intro
 
 <<if this.debug>>[[debug skip|
 	this.scene.border.display.container.alpha=1;
-	this.show('');
 	this.goto('close');
 ]]<<endif>>
 [[begin]]
@@ -175,7 +176,7 @@ todo: content warnings
 ::begin
 todo: beginning
 >
-<<do this.voice='Default';this.show('', 5000);this.tween(this.scene.border.display.container, 'alpha', 1, 5000, 0);>>
+<<do this.voice='Default';this.tween(this.scene.border.display.container, 'alpha', 1, 5000, 0);>>
 todo: beginning 2
 >
 todo: beginning 3
