@@ -148,7 +148,7 @@ export class PhysicsScene {
 			} else {
 				const { passage, label = 'talk', focus, gameObject } = top.plugin;
 				this.interactionFocus = focus ? add(top.position, focus) : top.position;
-				this.dialogue.prompt(`﴾ ${label.toUpperCase()} ﴿`, () => {
+				this.dialogue.prompt(`< ${label.toUpperCase()} >`, () => {
 					this.strand.gameObject = gameObject;
 					this.strand.goto(passage);
 				});

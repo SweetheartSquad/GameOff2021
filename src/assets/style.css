@@ -77,11 +77,5 @@ canvas {
 	font-family: 'font';
 	font-style: normal;
 	font-weight: normal;
-	src: url('./font/fantasque-sans-mono.regular.woff') format('woff');
-}
-
-@font-face {
-	font-family: 'font';
-	font-weight: bold;
-	src: url('./font/fantasque-sans-mono.bold.woff') format('woff');
+	src: url('./font/YujiSyuku-Regular.ttf') format('truetype');
 }

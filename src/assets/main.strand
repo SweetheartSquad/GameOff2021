@@ -185,6 +185,10 @@ todo: beginning 3
 
 
 ::test-npc
-hello i am a test npc
+"Tell me Sister, what do you think?"
+>
+P: "You want to know what I think? Here's what I think:"
 
-[[todo: remove>close]]
+[["I think we should stay.">close]]
+[["I think we should leave.">close]]
+[["I'm not sure...">close]]
