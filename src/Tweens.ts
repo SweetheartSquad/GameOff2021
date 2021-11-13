@@ -1,7 +1,7 @@
 import { game } from './Game';
 import { lerp, removeFromArray } from './utils';
 
-type Tween = {
+export type Tween = {
 	/** target */
 	t: any;
 	/** property */
@@ -28,7 +28,7 @@ export class TweenManager {
 		from?: V,
 		ease: (t: number) => number = (t) => t
 	) {
-		this.tweens.push({
+		const t = {
 			t: target,
 			p: property,
 			a: from ?? (target[property] as V),
@@ -36,15 +36,26 @@ export class TweenManager {
 			d: duration,
 			s: game.app.ticker.lastTime,
 			e: ease,
-		});
+		};
+		TweenManager.tweens.push(t);
+		return t;
+	}
+
+	static abort(tween: Tween) {
+		removeFromArray(TweenManager.tweens, tween);
+	}
+
+	static finish(tween: Tween) {
+		tween.t[tween.p] = tween.b;
+		removeFromArray(TweenManager.tweens, tween);
 	}
 
 	static update() {
 		const curTime = game.app.ticker.lastTime;
-		this.tweens.forEach((i) => {
+		TweenManager.tweens.forEach((i) => {
 			if (curTime > i.s + i.d) {
 				i.t[i.p] = i.b;
-				removeFromArray(this.tweens, i);
+				removeFromArray(TweenManager.tweens, i);
 				return;
 			}
 			i.t[i.p] = lerp(i.a, i.b, i.e((curTime - i.s) / i.d));
