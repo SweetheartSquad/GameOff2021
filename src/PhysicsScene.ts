@@ -126,13 +126,13 @@ export class PhysicsScene {
 				const collidesWith = player.bodySensor.body.collisionFilter.mask;
 				if (transition) {
 					player.bodySensor.body.collisionFilter.mask = 0;
-					this.dialogue.show('black', 300);
+					this.dialogue.scrim(1, 300);
 					await delay(300);
 				}
 				this.goto(goto.plugin.goto);
 				this.camera.setTarget(player.camPoint, true);
 				if (transition) {
-					this.dialogue.show('', 100);
+					this.dialogue.scrim(0, 100);
 					await delay(100);
 					player.bodySensor.body.collisionFilter.mask = collidesWith;
 				}
