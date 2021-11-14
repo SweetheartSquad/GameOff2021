@@ -132,7 +132,7 @@ export class UIDialogue extends GameObject {
 		this.textText.y += padding.y;
 		this.textText.x = padding.x;
 		this.textText.style.wordWrap = true;
-		this.textText.style.wordWrapWidth = this.sprBg.width - 50;
+		this.textText.style.wordWrapWidth = this.sprBg.width - padding.x * 2;
 		this.sprBg.alpha = 0;
 		this.sprBg.y = this.closeY();
 
