@@ -154,7 +154,8 @@ todo: intro
 <<if this.debug>>[[debug skip|
 	this.scene.border.display.container.alpha=1;
 	this.goto('close');
-]]<<endif>>
+]]
+[[passage select]]<<endif>>
 [[begin]]
 [[cws]]
 
@@ -185,6 +186,100 @@ todo: beginning 3
 
 
 ::test-npc
-hello i am a test npc
+"Tell me Sister, what do you think?"
+>
+P: "You want to know what I think? Here's what I think:"
 
-[[todo: remove>close]]
+[["I think we should stay.">close]]
+[["I think we should leave.">close]]
+[["I'm not sure...">close]]
+
+
+
+
+
+
+
+::test-frog
+"HALT!"
+>
+P: I freeze in my steps at the sound of the booming voice.
+>
+"WHO GOES THERE?"
+>
+P: The questions race: Who? Where?? Run???
+>
+P: The first two are immediately answered by the crash of a giant frog landing on the branch in front me.
+>
+P: I should run. The bark shudders and creaks under its weight as it starts walking towards me.
+
+I should definitely run.
+>
+"WELL? I'M TALKING TO YOU, LITTLE ONE."
+>
+P: I look up at what may as well be a solid wall of slime and bulk. The wall slowly blinks one glistening, bronzed eye, then the other.
+>
+P: "Wa-h-"
+>
+P: What. Stop talking, run.
+>
+"ASKED WHO Y'ARE. SPEAK."
+>
+P: He's SO BIG.
+>
+
+[["Oecophylla.">frog2-we]]
+[["Twenty.">frog2-i]]
+[["We're just passing through.">frog2-we]]
+
+::frog2-we
+P: "W-we're Oecophylla. We're just-"
+[[>frog2]]
+
+::frog2-i
+P: "I-I'm Sister Twenty. I'm here to-"
+[[>frog2]]
+
+::frog2
+P: The great beast lowers its head before I finish speaking.
+>
+P: Its mouth opens. It's going to eat me and I'm still not running why am I STILL NOT RUNNING.
+>
+"...WHAT? SPEAK UP."
+>
+P: It rotates its head.
+>
+P: "S-sister Twenty of Many Oecophylla!!"
+>
+P: The beast suddenly lets out a low rumbling warble. It reverberates my whole body, almost knocking me over.
+>
+"HA HA! SO MANY NAMES FOR SUCH A SMALL CREATURE!"
+>
+P: It's... laughing?
+>
+"TELL ME, LITTLE TWENNY..."
+>
+"WHY DO YOU TRESPASS ON MY DOMAIN?"
+>
+P: "Trespass?"
+>
+P: TODO: Explain stuff
+
+[["Are you going to eat us?"]]
+
+::"Are you going to eat us?"
+"EAT YOU?"
+>
+"HM. NOT HUNGRY."
+>
+"BUT I MIGHT."
+>
+P: WHAT.
+>
+"...WHY DO YOU ASK?"
+>
+P: "W-well we'd prefer if you did not!"
+>
+"MM, S'POSE YOU WOULD..."
+
+[[passage select]]

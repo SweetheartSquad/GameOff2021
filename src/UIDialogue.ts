@@ -8,7 +8,6 @@ import { game, resources } from './Game';
 import { GameObject } from './GameObject';
 import { KEYS, keys } from './input-keys';
 import { getInput } from './main';
-import { Animator } from './Scripts/Animator';
 import { Display } from './Scripts/Display';
 import { Toggler } from './Scripts/Toggler';
 import { Transform } from './Scripts/Transform';
@@ -16,14 +15,16 @@ import { size } from './size';
 import { Tween, TweenManager } from './Tweens';
 import { lerp, tex } from './utils';
 
+const padding = {
+	x: 90,
+	y: 50,
+};
 export class UIDialogue extends GameObject {
 	sprScrim: Sprite;
 
 	tweenScrim?: Tween;
 
 	sprBg: Sprite;
-
-	sprEdge: Sprite;
 
 	transform: Transform;
 
@@ -60,7 +61,7 @@ export class UIDialogue extends GameObject {
 	voice = 'Default' as string | undefined;
 
 	height() {
-		return this.sprBg.height + this.sprEdge.height;
+		return this.sprBg.height;
 	}
 
 	openY() {
@@ -92,10 +93,7 @@ export class UIDialogue extends GameObject {
 		this.sprScrim.height = size.y;
 		this.sprScrim.alpha = 1;
 		this.sprBg = new Sprite(tex('dialogueBg'));
-		this.sprEdge = new Sprite(tex('dialogueEdge'));
 		this.sprBg.anchor.y = 1.0;
-		this.sprEdge.anchor.y = 1.0;
-		this.sprEdge.y = -this.sprBg.height;
 		this.transform.x = 0;
 
 		this.scripts.push((this.toggler = new Toggler(this)));
@@ -115,7 +113,7 @@ export class UIDialogue extends GameObject {
 		this.textPrompt = new Text(this.strPrompt, fontPrompt);
 		this.textPrompt.alpha = 0;
 		this.textPrompt.x = size.x / 2;
-		this.textPrompt.y = 20;
+		this.textPrompt.y = 40;
 		this.textPrompt.anchor.x = 0.5;
 		this.display.container.addChild(this.textPrompt);
 		this.display.container.accessible = true;
@@ -124,22 +122,19 @@ export class UIDialogue extends GameObject {
 			this.complete();
 		});
 		this.containerChoices = new Container();
+		this.containerChoices.x = size.x - padding.x;
 		this.sprBg.addChild(this.containerChoices);
 		this.choices = [];
-		this.sprBg.addChild(this.sprEdge);
 		this.sprBg.addChild(this.textText);
 		// @ts-ignore
 		window.text = this.textText;
 		this.textText.y -= this.sprBg.height;
-		this.textText.y += 20;
-		this.textText.x = 20;
-		this.containerChoices.x = this.textText.x;
+		this.textText.y += padding.y;
+		this.textText.x = padding.x;
 		this.textText.style.wordWrap = true;
-		this.textText.style.wordWrapWidth = this.sprBg.width - 50;
+		this.textText.style.wordWrapWidth = this.sprBg.width - padding.x * 2;
 		this.sprBg.alpha = 0;
 		this.sprBg.y = this.closeY();
-
-		this.scripts.push(new Animator(this, { spr: this.sprEdge, freq: 1 / 200 }));
 
 		this.init();
 	}
@@ -219,15 +214,20 @@ export class UIDialogue extends GameObject {
 	}
 
 	say(text: string, actions?: { text: string; action: () => void }[]) {
+		const isPlayer = text.startsWith('P: ');
+		if (isPlayer) text = text.substr(2);
 		this.selected = undefined;
 		this.strText = text;
 		this.textText.text = '';
+		this.textText.style.fontStyle = isPlayer ? 'italic' : 'normal';
+		this.textText.alpha = isPlayer ? 1 : 0.6;
 		this.display.container.accessibleHint = text;
 		this.choices.forEach((i) => i.destroy());
-		this.choices = (actions || []).map((i, idx) => {
-			const strText = `${idx + 1}. ${i.text}`;
+		this.choices = (actions || []).map((i, idx, a) => {
+			const strText = a.length > 1 ? `${i.text} - ${idx + 1}` : i.text;
 			const t = new Text(strText, {
 				...this.textText.style,
+				fontStyle: 'italic',
 				wordWrapWidth: (this.textText.style.wordWrapWidth || 0) - 2,
 			}) as Text & EventEmitter;
 			t.accessible = true;
@@ -250,6 +250,7 @@ export class UIDialogue extends GameObject {
 				}
 			});
 			t.y += this.containerChoices.height;
+			t.anchor.x = 1.0;
 			this.containerChoices.addChild(t);
 			return t;
 		});
