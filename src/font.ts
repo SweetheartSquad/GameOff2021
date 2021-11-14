@@ -5,7 +5,7 @@ export const fontDialogue: Partial<ITextStyle> = {
 	fontSize: 24,
 	fill: 0xffffff,
 	align: 'left',
-	lineHeight: 20,
+	lineHeight: 26,
 	letterSpacing: -1,
 };
 export const fontPrompt: Partial<ITextStyle> = {
@@ -16,6 +16,6 @@ export const fontPrompt: Partial<ITextStyle> = {
 	strokeThickness: 8,
 	lineJoin: 'round',
 	align: 'center',
-	lineHeight: 20,
+	lineHeight: 26,
 	letterSpacing: 3,
 };
