@@ -47,6 +47,15 @@ export class StrandE extends Strand {
 							  }|this.goto('auto-${++autolink}')]]\n\n::auto-${autolink}\n`
 				)
 		);
+		// @ts-ignore
+		this.passages['passage select'] = {
+			title: 'passage select',
+			// @ts-ignore
+			body: `${Object.keys(this.passages)
+				.filter((i) => !i.startsWith('auto'))
+				.map((i) => `[[${i}]]`)
+				.join('\n')}[[back|this.back()]]`,
+		};
 	}
 
 	show(image: string, duration?: number) {

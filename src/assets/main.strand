@@ -154,7 +154,8 @@ todo: intro
 <<if this.debug>>[[debug skip|
 	this.scene.border.display.container.alpha=1;
 	this.goto('close');
-]]<<endif>>
+]]
+[[passage select]]<<endif>>
 [[begin]]
 [[cws]]
 
