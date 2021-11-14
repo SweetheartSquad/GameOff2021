@@ -381,3 +381,72 @@ P: A voice calls out from the group:
 >"...Yes, Sister Superior."
 
 [[passage select]]
+
+
+
+::mother-speech
+P: We all stop. There is no need for anyone to shush another in her presence.
+
+The rain itself quiets as if it senses our anticipation.
+>
+P: Mother is going to speak.
+>
+"..."
+>
+"Daughters. Sisters."
+>Mother!
+"We see fear in our faces."
+[[We are scared!>mother-speech2]]
+[[I don't want to die!>mother-speech2]]
+::mother-speech2
+"We smell grief in the air."
+[[We are crying!>mother-speech3]]
+[[I cannot continue!>mother-speech3]]
+::mother-speech3
+"Do not worry."
+[[We should not worry.>mother-speech4]]
+[[How could I not?>mother-speech4]]
+::mother-speech4
+"Do not weep for the sisters we've lost."
+[[We should not weep.>mother-speech5]]
+[[My cries go unanswered.>mother-speech5]]
+::mother-speech5
+"Our daughters, our sisters, are not gone."
+
+"Yes, our numbers are lessened, but look around."
+
+[[We see.>mother-speech6]]
+[[I see.>mother-speech6]]
+::mother-speech6
+"Listen."
+>
+"We are surrounded by our family."
+
+"Our strength."
+
+"Our gift and our blessing to ourselves and each other."
+>Our family...
+P: The sister to my left reaches out, clasps hands in mine.
+>In ours.
+"A sister is One, and one may be lost."
+
+"A sister of Many, will always have sisters."
+>Our sisters...
+"Our sisters of Many survive."
+>
+"So too will each One."
+>
+"..."
+>
+P: Mother... Her words trace themselves through our sisters and our self.
+[[We have faith.>mother-speech7]]
+[[I really do.>mother-speech7]]
+
+::mother-speech7
+P: The feeling passes in waves. Our sisters cheer, and we join with them. I can't help but notice how much quieter the crowd is than when it set out.
+
+Our hopes are brightened. My worry sets itself deep in my stomach.
+>
+P: But there's work to do.
+
+[[passage select]]
