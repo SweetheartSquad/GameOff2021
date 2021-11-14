@@ -283,3 +283,101 @@ P: "W-well we'd prefer if you did not!"
 "MM, S'POSE YOU WOULD..."
 
 [[passage select]]
+
+
+
+
+::test-deserter
+P: TODO: some inner monologuing
+>
+P: Wait...
+>
+P: Where did everyone go?
+>
+P: My thoughts of TODO paused, I suddenly realize that I'm walking completely alone.
+>
+P: The trail- did I wander off the scent trail while I was daydreaming?
+>
+P: I spin around, antennae flicking furiously.
+
+I'm so stupid. How could I- no. No, it's okay.
+
+I'm still on the trail.
+>
+P: It's faint, but certainly there. But then where are my sisters?
+>
+P: Did I just get turned around?
+>
+P: That doesn't seem right. I don't recognize this place.
+>
+P: Daylight is already fading, I need to move.
+
+[[Keep following the scent trail]]
+[[Go back the way I came]]
+
+::Keep following the scent trail
+P: There wouldn't be a trail here if someone hadn't been this way.
+>
+P: I have to follow it.
+>
+P: ...
+>
+TODO: actually find deserter
+
+[[Go back the way I came]]
+
+::Go back the way I came
+P: This is too risky. I need to find familiar ground and regroup.
+>
+P: ...
+>
+P: The scent is getting stronger here... I'm definitely getting closer to the rest of the group.
+>
+P: ...
+>
+P: There!
+>
+P: The trail: it's forked. A strong path -- clearly the original -- and a much weaker offshoot that led me astray.
+>
+P: I look back towards my absent-minded detour. I know that someone else lay that trail: someone who's still out there.
+
+[[Cover the faint branch]]
+[[Leave the fork alone]]
+
+::Cover the faint branch
+P: I take a few minutes to carefully repair the fork in the scent trail, making sure the faint branch is no longer connected.
+>
+P: This is dangerous. Who knows how far I could have gone without noticing I'd been separated?
+>
+P: More sisters may still be following our trail, and could make the same mistake.
+>
+P: Whoever did this, I'm sorry Sister. You'll have to find your own way back.
+[[>go-back-2]]
+
+
+::Leave the fork alone
+P: I have to admin, it's dangerous. More sisters may still be following our trail, and could make the same mistake I did.
+>
+P: But I can't bring myself to break the fork.
+>
+P: Whoever did this is even more lost than I had been. This is their only lifeline, and I can't sever that.
+>
+P: I'm sorry I can't do more for you Sister, but I hope you find your way back too.
+
+[[>go-back-2]]
+
+::go-back-2
+P: I hurry along the original route.
+>
+P: ...
+>
+P: It takes almost till nightfall, but I hear the marching of my kin ahead.
+>
+P: A voice calls out from the group:
+>
+"Sister Twenty of Many! Is that you?"
+>"Yes! Sister Superior, it's me!!"
+"Well pick up the pace! You're in the Queen Mother's court now: No dawdling!"
+>"...Yes, Sister Superior."
+
+[[passage select]]
