@@ -52,7 +52,7 @@ export class StrandE extends Strand {
 			title: 'passage select',
 			// @ts-ignore
 			body: `${Object.keys(this.passages)
-				.filter((i) => !i.startsWith('auto'))
+				.filter((i) => !i.match(/\d/))
 				.map((i) => `[[${i}]]`)
 				.join('\n')}[[back|this.back()]]`,
 		};
