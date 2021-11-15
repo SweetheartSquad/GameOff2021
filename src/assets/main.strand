@@ -175,14 +175,66 @@ todo: content warnings
 
 
 ::begin
-todo: beginning
+<<do this.voice='Default';>>
+P: Doubt comes to you so easily when you're bored.
 >
-<<do this.voice='Default';this.tween(this.scene.border.display.container, 'alpha', 1, 5000, 0);>>
-todo: beginning 2
+<<do this.tween(this.scene.border.display.container, 'alpha', 1, 5000, 0);>>
+P: Your mind wanders. You think about things. You ask yourself questions, and come up with answers that are yours and yours alone.
 >
-todo: beginning 3
+P: Sometimes I feel like this dubious boredom is itself just another expression of our shared existence and purpose.
+>
+P: We all march along the limb of the same tree, we all get caught up in our heads with the same thoughts, we all wonder if the others do the same.
+>
+P: Most of the time I think that I am being specifically punished with this burden, and that my sisters would not understand were I to share it aloud.
+>
+P: I doubt myself.
+>
+P: So I am briefly glad to be interrupted by someone shouting my name.
+>
+"Sister Twenty, look out!"
+[[Freeze]]
+[[Duck]]
+[[Dodge]]
 
-[[todo>close]]
+::Freeze
+P: I freeze in place. A moment later, my vision is flooded by a great branch collapsing down mere inches in front of me.
+[[Oh no.>begin2]]
+
+::Duck
+P: I fall to the ground instinctively. As soon as I do, I hear the crash of a great branch collapsing down mere inches in front of me, and cling on for dear life.
+[[Oh no.>begin2]]
+
+::Dodge
+P: I leap backwards on instinct, barreling into the one who called out, Sister Ten-and-nine. The two of us tumble down just as I hear the crash of a great branch collapsing into the path ahead.
+[[Oh no.>begin2]]
+
+::begin2
+P: All at once there is a panic. Sisters are screaming, reaching out, running. The fallen limb weighs heavy on the branch we walk. It dips, and I struggle to keep my balance.
+>
+P: It creaks and groans, and unleashes a horrible crack as something gives.
+>
+P: The world rushes away. I'm falling. This is it.
+
+[[We're going to die.>begin3]]
+[[I'm sorry Mother.>begin3]]
+[[I don't want to die.>begin3]]
+
+::begin3
+P: But I'm wrong.
+>
+P: I realize I'm being flung upwards. The branch snapped in front of me, and the leftover stump is recoiling.
+>I need to hold on!
+P: I grip as tightly as I can. I bite into the bark: Anything to stay put.
+>
+P: There's a jolt, a painful whiplash that wrenches every joint in my body.
+>
+P: But I hold.
+>
+P: My head aches. The canopy comes back into focus.
+>
+P: It starts to rain.
+
+[[>close]]
 
 
 ::test-npc
