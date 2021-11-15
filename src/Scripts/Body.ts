@@ -25,16 +25,21 @@ export class Body extends Script {
 		bodyDef: IChamferableBodyDefinition
 	) {
 		super(gameObject);
-		if (shape.type === 'rectangle') {
-			this.body = Bodies.rectangle(
-				0,
-				0,
-				shape.width || 0,
-				shape.height || 0,
-				bodyDef
-			);
-		} else {
-			this.body = Bodies.circle(0, 0, shape.radius || 0, bodyDef, 1);
+		switch (shape.type) {
+			case 'rectangle':
+				this.body = Bodies.rectangle(
+					0,
+					0,
+					shape.width || 0,
+					shape.height || 0,
+					bodyDef
+				);
+				break;
+			case 'circle':
+				this.body = Bodies.circle(0, 0, shape.radius || 0, bodyDef, 1);
+				break;
+			default:
+				throw new Error(`Unrecognized body type: ${shape.type}`);
 		}
 	}
 
