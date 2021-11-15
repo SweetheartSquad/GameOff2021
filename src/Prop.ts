@@ -1,9 +1,9 @@
 import { SCALE_MODES, Sprite } from 'pixi.js';
-import { resources } from './Game';
 import { GameObject } from './GameObject';
 import { Animator } from './Scripts/Animator';
 import { Display } from './Scripts/Display';
 import { Transform } from './Scripts/Transform';
+import { tex } from './utils';
 
 export class Prop extends GameObject {
 	spr: Sprite;
@@ -35,9 +35,8 @@ export class Prop extends GameObject {
 	}) {
 		super();
 
-		this.spr = new Sprite(
-			resources[texture]?.texture || resources[`${texture}1`].texture
-		);
+		const t = tex(texture);
+		this.spr = new Sprite(t);
 		if (blur) {
 			this.spr.texture.baseTexture.scaleMode = SCALE_MODES.LINEAR;
 		}
@@ -50,7 +49,7 @@ export class Prop extends GameObject {
 
 		this.scripts.push((this.transform = new Transform(this)));
 		this.scripts.push((this.display = new Display(this)));
-		if (animate && resources[`${texture}1`]?.texture) {
+		if (animate && t.textureCacheIds[0].match(/\.\d+$/)) {
 			this.scripts.push(
 				(this.animator = new Animator(this, {
 					spr: this.spr,
