@@ -43,6 +43,25 @@ export function toggleMute(): void {
 	muted = !muted;
 }
 
+export function partition<T>(arr: T[], condition: (i: T) => boolean): T[][] {
+	const a: T[] = [];
+	const b: T[] = [];
+	arr.forEach((i) => {
+		(condition(i) ? a : b).push(i);
+	});
+	return [a, b];
+}
+
+export function chunks<T>(arr: T[], count: number): T[][] {
+	const a: T[][] = [[]];
+	arr.forEach((i, idx) => {
+		const chunkIdx = Math.floor(idx / count);
+		const chunk = (a[chunkIdx] = a[chunkIdx] || []);
+		chunk.push(i);
+	});
+	return a;
+}
+
 export function ease(t: number): number {
 	/* eslint-disable */
 	if ((t /= 0.5) < 1) {
