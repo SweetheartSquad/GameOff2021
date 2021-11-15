@@ -120,6 +120,9 @@
 
 
 	this.Area('intro', [
+	]);
+
+	this.Area('test', [
 		this.Prop({ texture: 'splotch', x: -200, y: 700, scale: 3, blur: true, offset: -10000 }),
 		this.Block({ x: 200, y: 0, width: 450 }),
 		this.Block({ x: -750, y: 0, width: 1150 }),
@@ -129,20 +132,16 @@
 	].concat(
 		Grave(this, { x: -73, y: 499, to: 'extra1' }),
 		...new Array(50).fill(0).map(() => this.Npc({ passage: 'test-npc', x: (Math.random()-0.5)*300, y: (Math.random()-0.5)*300+400 })),
-	));
-
-
-	this.Area('extra1', [
-		this.Npc({ passage: 'test-npc', x: -56, y: -360 }),
-	].concat(
-		Interior(this, { x: -73, y: 529 }),
-	));
+	]);
+	this.Area('test-sub', [
+		this.Npc({ passage: 'test-npc', x: 0, y: 50 }),
+		this.Goto({ area: 'test' }, { x: 0, y: 100, width: 300 }),
+	]);
 
 	// start
 	this.started=true;
 	this.voice='None';
 
-	this.scene.goto({ area: 'intro', x: -85, y: 21 });
 	setTimeout(() => {
 		this.scene.dialogue.scrim(1, 0);
 		this.tween(this.scene.dialogue.sprBg, 'alpha', 1, 5000, 0);
@@ -151,8 +150,14 @@
 <<endif>>
 todo: intro
 
-<<if this.debug>>[[debug skip|
+<<if this.debug>>[[debug skip (intro)|
 	this.scene.border.display.container.alpha=1;
+	this.scene.goto({ area: 'intro' });
+	this.goto('close');
+]]
+[[debug skip (test)|
+	this.scene.border.display.container.alpha=1;
+	this.scene.goto({ area: 'test' });
 	this.goto('close');
 ]]
 [[passage select]]<<endif>>
@@ -233,6 +238,7 @@ P: But I hold.
 P: My head aches. The canopy comes back into focus.
 >
 P: It starts to rain.
+<<do this.scene.goto({ area: 'intro' });>>
 
 [[>close]]
 
