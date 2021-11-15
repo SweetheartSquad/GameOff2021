@@ -57,6 +57,7 @@ export class Prop extends GameObject {
 					freq: 1 / 400,
 				}))
 			);
+			this.animator.offset = Math.random() * 10000;
 		}
 
 		this.display.container.addChild(this.spr);

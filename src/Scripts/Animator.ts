@@ -11,14 +11,12 @@ function getFrameCount(animation: string): number {
 	return count;
 }
 
-let offset = 0;
-
 export class Animator extends Script {
 	spr: Sprite;
 
 	freq: number;
 
-	offset: number;
+	offset = 0;
 
 	frameCount!: number;
 
@@ -37,8 +35,6 @@ export class Animator extends Script {
 		super(gameObject);
 		this.spr = spr;
 		this.freq = freq;
-		this.offset = offset;
-		offset += 0.5;
 		this.setAnimation(spr.texture.textureCacheIds[0]);
 	}
 

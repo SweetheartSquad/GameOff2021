@@ -141,6 +141,7 @@ export class Character extends GameObject {
 		this.scripts.push(
 			(this.animatorBody = new Animator(this, { spr: this.spr }))
 		);
+		this.animatorBody.offset = Math.random() * 10000;
 
 		this.init();
 		this.update();
@@ -163,6 +164,7 @@ export class Character extends GameObject {
 			this.running = false;
 			this.animation = 'Idle';
 			this.animatorBody.setAnimation(`${this.body}Idle`);
+			this.animatorBody.offset = Math.random() * 10000;
 		}
 		this.animatorBody.freq = 1 / ((this.running ? 0.5 : 1.0) * 200);
 		if (this.running) {
