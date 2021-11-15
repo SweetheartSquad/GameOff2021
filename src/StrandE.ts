@@ -9,6 +9,7 @@ import { Interrupt } from './Interrupt';
 import { setScene } from './main';
 import { NPC } from './NPC';
 import { PhysicsScene } from './PhysicsScene';
+import { Poly } from './Poly';
 import { Prop } from './Prop';
 import { TweenManager } from './Tweens';
 import { chunks } from './utils';
@@ -102,6 +103,10 @@ export class StrandE extends Strand {
 
 	Block(...args: ConstructorParameters<typeof Block>) {
 		return new Block(...args);
+	}
+
+	Poly(...args: ConstructorParameters<typeof Poly>) {
+		return new Poly(...args);
 	}
 
 	Interrupt(...args: ConstructorParameters<typeof Interrupt>) {
