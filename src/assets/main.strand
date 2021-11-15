@@ -161,7 +161,9 @@ todo: ending
 [[restart|this.restart()]]
 
 ::cws
-todo: content warnings
+- bugs
+- death
+- todo: more content warnings
 
 [[back>start]]
 
