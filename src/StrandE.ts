@@ -115,9 +115,9 @@ export class StrandE extends Strand {
 		const display = new Display(go);
 		go.scripts.push(display);
 		const text = new Text(str, { ...fontIngame, ...font });
-		text.x = x;
-		text.y = y;
 		display.container.addChild(text);
+		display.container.x = transform.x = x;
+		display.container.y = transform.y = y;
 		return go;
 	}
 
