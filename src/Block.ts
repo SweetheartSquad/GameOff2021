@@ -6,15 +6,15 @@ export class Block extends GameObject {
 	body: Body;
 
 	constructor({
-		x,
-		y,
+		x = 0,
+		y = 0,
 		width = 10,
 		height = 10,
 		radius = 5,
 		type = 'rectangle',
 	}: {
-		x: number;
-		y: number;
+		x?: number;
+		y?: number;
 		width?: number;
 		height?: number;
 		radius?: number;
