@@ -11,6 +11,7 @@ import { NPC } from './NPC';
 import { PhysicsScene } from './PhysicsScene';
 import { Prop } from './Prop';
 import { TweenManager } from './Tweens';
+import { chunks } from './utils';
 
 let autolink = 0;
 export class StrandE extends Strand {
@@ -48,14 +49,23 @@ export class StrandE extends Strand {
 				)
 		);
 		// @ts-ignore
-		this.passages['passage select'] = {
-			title: 'passage select',
+		const passages = Object.keys(this.passages)
+			.filter((i) => !i.match(/\d/))
+			.map((i) => `[[${i}]]`);
+		const pages = chunks(passages, 25);
+		pages.forEach((i, idx) => {
+			if (pages.length > 1) {
+				i.push(`[[passage select ${(idx + 1) % pages.length}]]`);
+			}
+			i.push('[[back|this.back()]]');
 			// @ts-ignore
-			body: `${Object.keys(this.passages)
-				.filter((i) => !i.match(/\d/))
-				.map((i) => `[[${i}]]`)
-				.join('\n')}[[back|this.back()]]`,
-		};
+			this.passages[`passage select ${idx}`] = {
+				title: `passage select ${idx}`,
+				body: i.join('\n'),
+			};
+		});
+		// @ts-ignore
+		this.passages['passage select'] = this.passages['passage select 0'];
 	}
 
 	show(image: string, duration?: number) {
