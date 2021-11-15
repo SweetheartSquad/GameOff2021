@@ -48,7 +48,8 @@ export class StrandE extends Strand {
 							  }|this.goto('auto-${++autolink}')]]\n\n::auto-${autolink}\n`
 				)
 		);
-		// @ts-ignore
+
+		// create passage select for debugging purposes
 		const passages = Object.keys(this.passages)
 			.filter((i) => !i.match(/\d/))
 			.map((i) => `[[${i}]]`);
@@ -58,13 +59,11 @@ export class StrandE extends Strand {
 				i.push(`[[passage select ${(idx + 1) % pages.length}]]`);
 			}
 			i.push('[[back|this.back()]]');
-			// @ts-ignore
 			this.passages[`passage select ${idx}`] = {
 				title: `passage select ${idx}`,
 				body: i.join('\n'),
 			};
 		});
-		// @ts-ignore
 		this.passages['passage select'] = this.passages['passage select 0'];
 	}
 
