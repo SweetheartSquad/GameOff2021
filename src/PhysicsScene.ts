@@ -293,7 +293,6 @@ export class PhysicsScene {
 	debugDraw = (body: Body): void => {
 		const g = this.graphics;
 
-		// @ts-ignore
 		if (body.isSensor) {
 			g.beginFill(0xff0000, 0.1);
 		} else if (body.isStatic) {
