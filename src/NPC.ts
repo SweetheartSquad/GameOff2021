@@ -19,7 +19,7 @@ class Roam extends Script {
 
 	private offset: VMath.V = { x: 0, y: 0 };
 
-	range = [0, 200] as [number, number];
+	range = [0, 0] as [number, number];
 
 	speed: number = Math.random() * 0.2 + 0.8;
 
@@ -77,9 +77,11 @@ export class NPC extends Character {
 	constructor({
 		passage,
 		focus,
+		roam = 0,
 		...options
 	}: ConstructorParameters<typeof Character>[0] & {
 		passage?: string;
+		roam?: number;
 		focus?: VMath.V;
 	}) {
 		super({
@@ -105,6 +107,7 @@ export class NPC extends Character {
 			},
 		});
 		this.scripts.push((this.roam = new Roam(this)));
+		this.roam.range[1] = roam;
 		this.roam.target.x = this.transform.x;
 		this.roam.target.y = this.transform.y;
 	}
