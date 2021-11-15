@@ -1,8 +1,10 @@
 /* eslint-disable class-methods-use-this */
 import ease from 'eases';
+import { Text, TextStyle } from 'pixi.js';
 import Strand from 'strand-core';
 import { Area } from './Area';
 import { Block } from './Block';
+import { fontIngame } from './font';
 import { GameObject } from './GameObject';
 import { Goto } from './Goto';
 import { Interrupt } from './Interrupt';
@@ -11,6 +13,8 @@ import { NPC } from './NPC';
 import { PhysicsScene } from './PhysicsScene';
 import { Poly } from './Poly';
 import { Prop } from './Prop';
+import { Display } from './Scripts/Display';
+import { Transform } from './Scripts/Transform';
 import { TweenManager } from './Tweens';
 import { chunks } from './utils';
 
@@ -99,6 +103,22 @@ export class StrandE extends Strand {
 
 	Prop(...args: ConstructorParameters<typeof Prop>) {
 		return new Prop(...args);
+	}
+
+	Text(
+		str: string,
+		{ x = 0, y = 0, font }: { x: number; y: number; font?: Partial<TextStyle> }
+	) {
+		const go = new GameObject();
+		const transform = new Transform(go);
+		go.scripts.push(transform);
+		const display = new Display(go);
+		go.scripts.push(display);
+		const text = new Text(str, { ...fontIngame, ...font });
+		text.x = x;
+		text.y = y;
+		display.container.addChild(text);
+		return go;
 	}
 
 	Block(...args: ConstructorParameters<typeof Block>) {

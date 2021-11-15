@@ -19,3 +19,11 @@ export const fontPrompt: Partial<ITextStyle> = {
 	lineHeight: 26,
 	letterSpacing: 3,
 };
+export const fontIngame: Partial<ITextStyle> = {
+	fontFamily: 'font',
+	fontSize: 18,
+	fill: 0xffffff,
+	align: 'center',
+	lineHeight: 20,
+	letterSpacing: -1,
+};
