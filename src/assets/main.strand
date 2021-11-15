@@ -502,3 +502,136 @@ Our hopes are brightened. My worry sets itself deep in my stomach.
 P: But there's work to do.
 
 [[passage select]]
+
+
+
+
+
+
+::exile
+"Queen Mother, please allow us to introduce-"
+
+"No."
+>
+P: Mother cuts her off. Sister Superior Three doesn't seem to know how to react.
+>
+"...Queen Mother?"
+>
+P: It's strange seeing Three squirm under pressure. I didn't think she knew how.
+>
+P: Mother addresses me directly.
+>
+"Introduce yourself."
+>Answer
+P: "Sister Twenty of Many Oecophylla."
+>
+"No."
+>
+P: I do know how to squirm, but it doesn't make it easier.
+>
+P: "...No?"
+>
+"You have spoken a name. Is it yours?"
+
+"A name carries with it a weight."
+>
+"A responsibility."
+
+"An understanding."
+>
+"Do you understand the one which spills so freely from your wanton mouth? Do you bear it?"
+
+[["Yes, of course.">exile-2]]
+[["No, how could I?">exile-2]]
+[["Mother, what is this?">exile-2]]
+
+::exile-2
+P: I want to answer, but cannot. Mother is mad at me.
+>
+"Tell us: What is your name?"
+>My name...
+P: I want to crumple to the ground, but cannot. Mother is asking me a question.
+
+[["Sister Twenty"]]
+[["of Many"]]
+[["Oecophylla"]]
+
+::exile-names
+"Tell us your name!"
+
+<<if !this.exilename1>>[["Sister Twenty"]]<<endif>>
+<<if !this.exilename2>>[["of Many"]]<<endif>>
+<<if !this.exilename3>>[["Oecophylla"]]<<endif>>
+<<if this.exilename1&&this.exilename2&&this.exilename3>>[[>exile-noname]]<<endif>>
+
+::"Sister Twenty"
+<<do this.exilename1=true>>
+"Hah! We asked your name, child, not your position."
+>
+P: Mother is... laughing at me.
+>
+"Surely by now you understand that the latter is... flexible, to say the least."
+>
+"And we will not be saying the least."
+
+[[>exile-names]]
+
+::"of Many"
+<<do this.exilename2=true>>
+"Oh? Is that so?"
+>
+"Who is this Many you speak of?"
+>
+"Could it be our daughters, our sisters?"
+
+"We should think not."
+>
+"Any foolish enough to consider you among their number will soon find that number to be lacking, and oh so very... finite."
+>
+"You'd do well to remember how little the difference is between One and None."
+
+[[>exile-names]]
+
+::"Oecophylla"
+<<do this.exilename3=true>>
+"..."
+>
+"You DARE!"
+>
+P: Mother is shouting at me.
+>
+"Oecophylla!"
+>
+"It is our name! Our sisters' name. Our mother's name."
+
+"Do you understand?"
+>
+"Not mine. Certainly not yours. It is OUR name!"
+>
+P: Burning light flashes off her eyes.
+
+[[>exile-names]]
+
+::exile-noname
+P: Mother sighs.
+>
+"We do you a favour, child, whether you know it or not."
+>
+"The weight is heavy. It is one we carry together, or not at all."
+>
+"And so, it has been lifted from your shoulders."
+>
+P: I feel as heavy as ever.
+>
+"You have been unburdened: Stand up."
+>
+P: ...And I suppose I did crumple to the floor at some point.
+>
+P: Sister Superior Three offers a hand.
+
+The Queen Mother motions, and she retracts her offer.
+>
+P: I don't need her help anyway. I can stand on my own legs.
+>
+TODO: ENDING
+
