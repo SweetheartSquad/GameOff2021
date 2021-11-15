@@ -136,19 +136,20 @@
 <<endif>>
 todo: intro
 
-<<if this.debug>>[[debug skip (intro)|
+[[begin]]
+[[cws]]
+<<if this.debug>>
+[[debug - begin (skip intro)|
 	this.scene.border.display.container.alpha=1;
 	this.scene.goto({ area: 'intro' });
 	this.goto('close');
 ]]
-[[debug skip (test)|
+[[debug - test area|
 	this.scene.border.display.container.alpha=1;
 	this.scene.goto({ area: 'test' });
 	this.goto('close');
 ]]
-[[passage select]]<<endif>>
-[[begin]]
-[[cws]]
+[[debug - passage select]]<<endif>>
 
 ::close
 this should never render
