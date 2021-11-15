@@ -54,4 +54,8 @@ export class Body extends Script {
 	move(x: number, y: number) {
 		Matter.Body.setPosition(this.body, { x, y });
 	}
+
+	rotate(rotation: number) {
+		Matter.Body.rotate(this.body, rotation);
+	}
 }
