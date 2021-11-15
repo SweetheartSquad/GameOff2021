@@ -35,7 +35,7 @@
 <<if !this.started>>
 <<do
 	// setup areas
-	function Grave(strand, options) {
+	function Hole(strand, options) {
 		const flip1 = Math.floor(options.x / 100) % 2 === 0;
 		const flip2 = Math.floor(options.x / 100) % 2 === 0;
 		return [
@@ -62,75 +62,61 @@
 			),
 		];
 	}
-	function Interior(strand, options) {
-		return [
-			strand.Prop({
-				texture: 'interior',
-				x: 0,
-				y: 100,
-				scale: 2,
-				offset: -10000,
-				blur: true,
-			}),
-			strand.Block({
-				x: -300,
-				y: -100,
-				width: 300,
-			}),
-			strand.Block({
-				x: 300,
-				y: -100,
-				width: 300,
-			}),
-			strand.Block({
-				x: 0,
-				y: -550,
-				width: 2000,
-			}),
-			strand.Block({
-				x: -350,
-				y: -320,
-				height: 2000,
-			}),
-			strand.Block({
-				x: 350,
-				y: -320,
-				height: 2000,
-			}),
-			strand.Block({
-				x: -150,
-				y: 10,
-				height: 200,
-			}),
-			strand.Block({
-				x: 150,
-				y: 10,
-				height: 200,
-			}),
-			strand.Goto(
-				{ area: 'intro', x: options.x, y: options.y },
-				{
-					x: 0,
-					y: 100,
-					width: 300,
-				}
-			),
-		];
+
+	function TestSpecialNpc(strand, options) {
+		const npc = strand.Npc({
+			...options,
+			bodyCollision: { isStatic: true },
+			bodySensor: { plugin: { label: 'I Am Special' }, radius: 80 },
+			focus: { x: options.x + 100, y: options.y },
+		});
+		return npc;
 	}
 
 
 	this.Area('intro', [
+		this.Block({ x: -100, width: 40, height: 40 }),
+		this.Poly({ verts: [-1000,244, -47,244, 162,-168, -1000,-168] }),
+		this.Npc({ passage: 'intro-panic-1', x: -207, y: -75 }),
+		this.Npc({ passage: 'intro-panic-2', x: -290, y: 50, roam: 50 }),
+		this.Npc({ passage: 'intro-panic-3', x: -410, y: 150, roam: 200 }),
 	]);
 
 	this.Area('test', [
+		// bg
 		this.Prop({ texture: 'splotch', x: -200, y: 700, scale: 3, blur: true, offset: -10000 }),
-		this.Block({ x: 200, y: 0, width: 450 }),
-		this.Block({ x: -750, y: 0, width: 1150 }),
-		this.Block({ x: -750, y: 500, height: 1000 }),
-		this.Block({ x: 400, y: 500, height: 1000 }),
-		this.Block({ x: 0, y: 600, width: 3000 }),
-	].concat(
-		Grave(this, { x: -73, y: 499, to: 'extra1' }),
+
+		this.Text('physics', { x: 423, y: 78 }),
+		this.Block({ x: 200, y: 0, width: 50, height: 100 }),
+		this.Block({ type: 'circle', x: 300, y: 0, radius: 50 }),
+		this.Poly({ verts: [400,0, 600,-50, 580,200, 425,150] }),
+
+		this.Text('static prop', { x: 74, y: -163 }),
+		this.Prop({ texture: 'error', x: 100, y: -158 }),
+
+		this.Text('animated props', { x: 296, y: -163 }),
+		this.Prop({ texture: 'basicAntIdle', x: 284, y: -128 }),
+		this.Prop({ texture: 'basicAntIdle', x: 290, y: -118 }),
+		this.Prop({ texture: 'basicAntRun', x: 300, y: -138 }),
+		this.Prop({ texture: 'basicAntRun', x: 320, y: -148 }),
+
+		this.Text('npcs', { x: 340, y: 434 }),
+		this.Npc({ x: 302, y: 407 }),
+		this.Npc({ passage: 'test-npc', x: 342, y: 407 }),
+		this.Npc({ body: 'default', passage: 'test-npc', x: 442, y: 407, roam: 100 }),
+
+		this.Text('gotos', { x: -289, y: -61 }),
+		this.Goto({ area: 'test-sub' }, { x: -289, y: 0 }),
+		this.Goto({ area: 'test-sub', y: -100 }, { x: -289, y: 100, type: 'circle' }),
+
+		this.Text('interrupts', { x: -450, y: -61 }),
+		this.Interrupt({ x: -450, y: 0, passage: 'test-npc' }),
+		this.Interrupt({ x: -450, y: 100, type: 'circle',  passage: 'test-npc' }),
+		// helper fn
+		TestSpecialNpc(this, { x: -367, y: 411, passage: 'test-npc' }),
+		// spread compound
+		...Hole(this, { x: -200, y: 200, to: 'test-sub' }),
+		// spread procedural
 		...new Array(50).fill(0).map(() => this.Npc({ passage: 'test-npc', x: (Math.random()-0.5)*300, y: (Math.random()-0.5)*300+400 })),
 	]);
 	this.Area('test-sub', [
@@ -242,20 +228,54 @@ P: It starts to rain.
 
 [[>close]]
 
+::intro-panic-1
+"Half the retinue was in front of us... all gone..."
+[[>close]]
+
+::intro-panic-2
+"Mother... where is the Queen Mother!?"
+[[>close]]
+
+::intro-panic-3
+"We need to find shelter. We can't stay out like this."
+[[>close]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ::test-npc
-"Tell me Sister, what do you think?"
+"Hello I am an NPC."
 >
-P: "You want to know what I think? Here's what I think:"
+P: "And now I am the player."
+>
+P: I can monologue too.
 
-[["I think we should stay.">close]]
-[["I think we should leave.">close]]
-[["I'm not sure...">close]]
-
-
-
-
-
+[[go to sub area|this.scene.goto({ area: 'test-sub' })]]
+[[go to test area|this.scene.goto({ area: 'test' })]]
+[[go to menu|this.goto('start')]]
+[[leave>close]]
 
 
 ::test-frog
