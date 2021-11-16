@@ -51,12 +51,14 @@ export class Toggler extends Script {
 			y = 0,
 			scale = 1,
 			animate = true,
+			freq = 1 / 400,
 		}: {
 			duration?: number;
 			x?: number;
 			y?: number;
 			scale?: number;
 			animate?: boolean;
+			freq?: number;
 		} = {}
 	) {
 		if (tex !== this.active.animation) {
@@ -72,6 +74,7 @@ export class Toggler extends Script {
 		this.active.spr.position.y = y;
 		this.active.spr.scale.x = this.active.spr.scale.y = scale;
 		this.active.active = animate;
+		this.active.freq = freq;
 	}
 
 	destroy() {
