@@ -66,4 +66,8 @@ export class Body extends Script {
 	setAngle(angle: number) {
 		Matter.Body.setAngle(this.body, angle);
 	}
+
+	scale(scaleX: number, scaleY: number) {
+		Matter.Body.scale(this.body, scaleX, scaleY);
+	}
 }
