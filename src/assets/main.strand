@@ -560,6 +560,7 @@ P: But there's work to do.
 
 
 ::exile
+<<do this.show('queenIdle')>>
 "Queen Mother, please allow us to introduce-"
 
 "No."
