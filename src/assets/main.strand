@@ -149,10 +149,11 @@
 	}, 1);
 >>
 <<endif>>
-todo: intro
+P: We Follow The Something Path
 
-[[begin]]
-[[cws]]
+[[Begin]]
+[[Credits]]
+[[CWs]]
 <<if this.debug>>
 [[debug - begin (skip intro)|
 	this.scene.border.display.container.alpha=1;
@@ -166,6 +167,12 @@ todo: intro
 ]]
 [[debug - passage select>passage select]]<<endif>>
 
+::Credits
+Made by Sean, Michael, and IAN of SweetHeart Squad.
+
+[[More games|window.open('https://sweetheartsquad.itch.io', '_blank')]]
+[[Back|this.back()]]
+
 ::close
 this should never render
 
@@ -175,7 +182,7 @@ todo: ending
 
 [[restart|this.restart()]]
 
-::cws
+::CWs
 - bugs
 - death
 - todo: more content warnings
@@ -183,7 +190,7 @@ todo: ending
 [[back>start]]
 
 
-::begin
+::Begin
 <<do this.voice='Default';>>
 P: Doubt comes to you so easily when you're bored.
 >
