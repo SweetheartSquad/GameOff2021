@@ -164,7 +164,7 @@ todo: intro
 	this.scene.goto({ area: 'test' });
 	this.goto('close');
 ]]
-[[debug - passage select]]<<endif>>
+[[debug - passage select>passage select]]<<endif>>
 
 ::close
 this should never render
