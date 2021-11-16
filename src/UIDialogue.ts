@@ -262,7 +262,7 @@ export class UIDialogue extends GameObject {
 	}
 
 	show(image: string, duration?: number) {
-		this.toggler.show(resources[image]?.texture, duration);
+		this.toggler.show(image, duration);
 	}
 
 	prompt(label: string = this.strPrompt, action?: () => void) {

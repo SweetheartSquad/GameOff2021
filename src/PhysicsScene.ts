@@ -1,5 +1,5 @@
 import { Body, Composite, Events, Runner } from 'matter-js';
-import { Container, DisplayObject, Graphics, Texture } from 'pixi.js';
+import { Container, DisplayObject, Graphics } from 'pixi.js';
 import { Area } from './Area';
 import { Border } from './Border';
 import { Camera } from './Camera';
@@ -198,7 +198,6 @@ export class PhysicsScene {
 
 		this.strand.history.push('close');
 
-		this.dialogue.toggler.active.texture = resources.black.texture as Texture;
 		this.border.display.container.alpha = 0;
 		this.strand.goto('start');
 
