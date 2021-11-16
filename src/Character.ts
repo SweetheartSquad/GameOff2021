@@ -212,7 +212,11 @@ export class Character extends GameObject {
 	}
 
 	move(x: number, y: number) {
-		this.bodyCollision.move(x, y);
+		this.setPosition(this.transform.x + x, this.transform.y + y);
+	}
+
+	setPosition(x: number, y: number) {
+		this.bodyCollision.setPosition(x, y);
 		this.updatePosition();
 	}
 }

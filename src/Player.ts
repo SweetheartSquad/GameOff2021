@@ -98,10 +98,10 @@ export class Player extends Character {
 		}
 	}
 
-	move(x: number, y: number) {
-		super.move(x, y);
+	setPosition(x: number, y: number) {
+		super.setPosition(x, y);
 		this.followers.forEach((i) => {
-			i.move(x, y);
+			i.setPosition(x, y);
 		});
 		this.updateCamPoint();
 	}

@@ -230,7 +230,7 @@ export class PhysicsScene {
 		y?: number;
 	}) {
 		this.gotoArea(area);
-		player.move(x, y);
+		player.setPosition(x, y);
 		this.camera.setTarget(player.camPoint, true);
 	}
 

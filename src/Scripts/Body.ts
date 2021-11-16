@@ -52,6 +52,10 @@ export class Body extends Script {
 	}
 
 	move(x: number, y: number) {
+		this.setPosition(this.body.position.x + x, this.body.position.y + y);
+	}
+
+	setPosition(x: number, y: number) {
 		Matter.Body.setPosition(this.body, { x, y });
 	}
 
