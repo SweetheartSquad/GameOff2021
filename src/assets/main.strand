@@ -73,6 +73,21 @@
 		return npc;
 	}
 
+	function Queen(strand, options) {
+		const npc = strand.Npc({
+			...options,
+			bodyCollision: { isStatic: true },
+			bodySensor: { plugin: { label: 'Mother' }, radius: 100 },
+			focus: { x: 0, y: -200 },
+		});
+		npc.bodySensor.scale(5,1.2);
+		npc.bodyCollision.scale(25,6);
+		npc.bodyCollision.move(0,-50);
+		npc.display.container.visible = false;
+		const prop = strand.Prop({ ...options, texture: 'queenIdle', scale: (options.scale || 1) * 0.8 });
+		return [npc, prop];
+	}
+
 
 	this.Area('intro', [
 		this.Block({ x: -100, width: 40, height: 40 }),
@@ -98,7 +113,7 @@
 		this.Prop({ texture: 'basicAntIdle', x: 284, y: -128 }),
 		this.Prop({ texture: 'basicAntIdle', x: 290, y: -118 }),
 		this.Prop({ texture: 'basicAntRun', x: 300, y: -138 }),
-		this.Prop({ texture: 'basicAntRun', x: 320, y: -148 }),
+		...Queen(this, { x: 905, y: 469, passage: 'test-npc' }),
 
 		this.Text('npcs', { x: 340, y: 434 }),
 		this.Npc({ x: 302, y: 407 }),
