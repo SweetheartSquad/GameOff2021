@@ -28,6 +28,8 @@ export class Animator extends Script {
 
 	holds: { [frame: number]: number } = {};
 
+	active = true;
+
 	constructor(
 		gameObject: GameObject,
 		{ spr, freq = 1 / 200 }: { spr: Sprite; freq?: number }
@@ -66,7 +68,7 @@ export class Animator extends Script {
 	}
 
 	update(): void {
-		if (!this.frameCount) return;
+		if (!this.frameCount || !this.active) return;
 		const curTime = game.app.ticker.lastTime;
 		this.frame =
 			Math.floor((curTime + this.offset) * this.freq) % this.frames.length;

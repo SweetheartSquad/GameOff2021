@@ -43,15 +43,35 @@ export class Toggler extends Script {
 		this.container.addChild(this.sprA, this.sprB);
 	}
 
-	show(tex?: string, duration = 1000) {
-		if (tex === this.active.animation) return;
-		this.inactive =
-			this.active === this.animatorA ? this.animatorB : this.animatorA;
-		this.inactive.setAnimation(tex || 'blank');
-		this.container.addChild(this.inactive.spr);
-		[this.inactive, this.active] = [this.active, this.inactive];
-		TweenManager.tween(this.active.spr, 'alpha', 1, duration);
-		TweenManager.tween(this.inactive.spr, 'alpha', 0, duration);
+	show(
+		tex?: string,
+		{
+			duration = 1000,
+			x = 0,
+			y = 0,
+			scale = 1,
+			animate = true,
+		}: {
+			duration?: number;
+			x?: number;
+			y?: number;
+			scale?: number;
+			animate?: boolean;
+		} = {}
+	) {
+		if (tex !== this.active.animation) {
+			this.inactive =
+				this.active === this.animatorA ? this.animatorB : this.animatorA;
+			this.inactive.setAnimation(tex || 'blank');
+			this.container.addChild(this.inactive.spr);
+			[this.inactive, this.active] = [this.active, this.inactive];
+			TweenManager.tween(this.active.spr, 'alpha', 1, duration);
+			TweenManager.tween(this.inactive.spr, 'alpha', 0, duration);
+		}
+		this.active.spr.position.x = x;
+		this.active.spr.position.y = y;
+		this.active.spr.scale.x = this.active.spr.scale.y = scale;
+		this.active.active = animate;
 	}
 
 	destroy() {

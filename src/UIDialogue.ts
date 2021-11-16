@@ -261,8 +261,8 @@ export class UIDialogue extends GameObject {
 		this.posTime = 0;
 	}
 
-	show(image: string, duration?: number) {
-		this.toggler.show(image, duration);
+	show(...args: Parameters<Toggler['show']>) {
+		this.toggler.show(...args);
 	}
 
 	prompt(label: string = this.strPrompt, action?: () => void) {

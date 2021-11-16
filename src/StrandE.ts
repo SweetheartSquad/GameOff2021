@@ -72,8 +72,8 @@ export class StrandE extends Strand {
 		this.passages['passage select'] = this.passages['passage select 0'];
 	}
 
-	show(image: string, duration?: number) {
-		this.scene.dialogue.show(image, duration);
+	show(...args: Parameters<typeof this.scene['dialogue']['show']>) {
+		this.scene.dialogue.show(...args);
 	}
 
 	tween(...args: Parameters<typeof TweenManager['tween']>) {
