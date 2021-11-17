@@ -175,9 +175,9 @@ export class Character extends GameObject {
 			if (Math.abs(this.moving.x) > FLIP_ESPILON) {
 				this.flipped = this.moving.x < 0;
 			}
-			this.spr.anchor.y =
-				1 +
-				Math.abs(Math.sin(curTime * this.freq + this.offset * 0.5) ** 2) / 20;
+			// this.spr.anchor.y =
+			// 	1 +
+			// 	Math.abs(Math.sin(curTime * this.freq + this.offset * 0.5) ** 2) / 20;
 		} else {
 			this.spr.anchor.y = 1;
 		}
