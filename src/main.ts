@@ -46,6 +46,10 @@ export function getInput() {
 			keys.isJustDown(KEYS.Z) ||
 			keys.isJustDown(KEYS.X) ||
 			keys.isJustDown(KEYS.ENTER),
+		menu:
+			keys.isJustDown(KEYS.ESCAPE) ||
+			gamepads.isJustDown(Buttons.START) ||
+			gamepads.isJustDown(Buttons.BACK),
 	};
 
 	if (
