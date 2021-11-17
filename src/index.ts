@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/extensions
 import pkg from '../package.json';
 import './assets/style.css';
+import { DEBUG } from './debug';
 import { Resizer, ScaleModes } from './Resizer';
 import { size } from './size';
 
@@ -109,7 +110,7 @@ function play(): void {
 }
 
 playEl.onclick = play;
-if (process.env.NODE_ENV === 'development') {
+if (DEBUG) {
 	// @ts-ignore
 	window.debugPhysics = true;
 	playEl.click();

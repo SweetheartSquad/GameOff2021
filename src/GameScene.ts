@@ -3,8 +3,10 @@ import { Container, DisplayObject, Graphics } from 'pixi.js';
 import { Area } from './Area';
 import { Border } from './Border';
 import { Camera } from './Camera';
+import { DEBUG } from './debug';
 import { game, resources } from './Game';
 import { GameObject } from './GameObject';
+import { getInput } from './main';
 import { engine, world } from './Physics';
 import { Player } from './Player';
 import { ScreenFilter } from './ScreenFilter';
@@ -102,7 +104,7 @@ export class GameScene {
 			},
 		});
 		this.strand.scene = this;
-		this.strand.debug = process.env.NODE_ENV === 'development';
+		this.strand.debug = DEBUG;
 		this.dialogue = new UIDialogue(this.strand);
 		game.app.stage.addChild(this.dialogue.display.container);
 
@@ -281,7 +283,7 @@ export class GameScene {
 		g.clear();
 		// draw physics
 		// @ts-ignore
-		if (process.env.NODE_ENV === 'development' && window.debugPhysics) {
+		if (DEBUG && window.debugPhysics) {
 			Composite.allBodies(world).forEach(this.debugDraw);
 		}
 

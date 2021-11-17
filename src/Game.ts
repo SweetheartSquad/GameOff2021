@@ -10,6 +10,7 @@ import {
 import assets from './assets.txt';
 import main from './assets/main.strand';
 import frag from './assets/postprocess.frag.glsl';
+import { DEBUG } from './debug';
 import * as fonts from './font';
 import { init } from './main';
 import { size } from './size';
@@ -100,7 +101,7 @@ window.game = game;
 export let resources: Loader['resources'];
 
 // allow hot-reloading main.strand
-if (process.env.NODE_ENV === 'development') {
+if (DEBUG) {
 	// @ts-ignore
 	if (module.hot) {
 		// @ts-ignore
