@@ -171,17 +171,17 @@ this should never render
 
 ::debug menu
 
-[[debug - begin (skip intro)|
+[[begin (skip intro)|
 	this.scene.border.display.container.alpha=1;
 	this.scene.goto({ area: 'intro' });
 	this.goto('close');
 ]]
-[[debug - test area|
+[[test area|
 	this.scene.border.display.container.alpha=1;
 	this.scene.goto({ area: 'test' });
 	this.goto('close');
 ]]
-[[debug - passage select>passage select]]
+[[passage select>passage select]]
 [[close]]
 
 ::end
