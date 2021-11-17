@@ -1,5 +1,4 @@
-import { SCALE_MODES } from '@pixi/constants';
-import { TilingSprite } from '@pixi/sprite-tiling';
+import { SCALE_MODES, TilingSprite } from 'pixi.js';
 import { Camera } from './Camera';
 import { GameObject } from './GameObject';
 import { Animator } from './Scripts/Animator';
