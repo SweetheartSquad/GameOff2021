@@ -93,7 +93,7 @@
 		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 3, blur: true, mult: 0.2 }),
 		this.Prop({ texture: 'scene1_bg', x: 827, y: 658, offset: -10000 }),
 		this.Block({ x: -100, width: 40, height: 40 }),
-		this.Poly({ verts: [1000,244, 47,244, -162,-168, 1000,-168] }),
+		this.Poly({ verts: [-189,158, -207,-42, -143,-236, 215,-221, 462,-265, 569,-261, 638,-234, 706,-253, 1202,-225, 1335,-185, 1496,-50, 2103,-87, 2105,414, 1816,386, 1675,253, 1626,316, 1603,378, 1317,368, 1229,281, 968,190, 492,176, 175,221, -185,164] }),
 		this.Npc({ passage: 'intro-panic-1', x: 207, y: -75 }),
 		this.Npc({ passage: 'intro-panic-2', x: 290, y: 50, roam: 50 }),
 		this.Npc({ passage: 'intro-panic-3', x: 410, y: 150, roam: 200 }),
