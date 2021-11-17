@@ -12,7 +12,6 @@ textures/defaultIdle.x2.png
 textures/defaultRun.x3.png
 textures/basicAntIdle/basicAntIdle.x5.png
 textures/basicAntRun/basicAntRun.x11.png
-textures/splotch.png
 textures/white.png
 audio/step.mp3
 audio/voiceDefault.mp3

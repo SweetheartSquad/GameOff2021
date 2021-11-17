@@ -99,7 +99,6 @@
 
 	this.Area('test', [
 		// bg
-		this.Prop({ texture: 'splotch', x: -200, y: 700, scale: 3, blur: true, offset: -10000 }),
 
 		this.Text('physics', { x: 423, y: 78 }),
 		this.Block({ x: 200, y: 0, width: 50, height: 100 }),
