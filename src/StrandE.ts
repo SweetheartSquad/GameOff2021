@@ -13,6 +13,7 @@ import { NPC } from './NPC';
 import { PhysicsScene } from './PhysicsScene';
 import { Poly } from './Poly';
 import { Prop } from './Prop';
+import { PropParallax } from './PropParallax';
 import { Display } from './Scripts/Display';
 import { Transform } from './Scripts/Transform';
 import { TweenManager } from './Tweens';
@@ -103,6 +104,10 @@ export class StrandE extends Strand {
 
 	Prop(...args: ConstructorParameters<typeof Prop>) {
 		return new Prop(...args);
+	}
+
+	PropParallax(...args: ConstructorParameters<typeof PropParallax>) {
+		return new PropParallax(...args);
 	}
 
 	Text(
