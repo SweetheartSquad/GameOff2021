@@ -77,6 +77,5 @@ canvas {
 	font-family: 'font';
 	font-style: normal;
 	font-weight: normal;
-	/* https://fonts.googleapis.com/css2?family=Yuji+Syuku&text=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-=!@#$%5B%5D%7B%7D;':%22%7C,./%3C%3E?%60~%20%09%0A */
 	src: url('./font/YujiSyuku-Regular.woff2') format('woff2');
 }
