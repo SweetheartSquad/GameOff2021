@@ -6,11 +6,11 @@ import { Area } from './Area';
 import { Block } from './Block';
 import { fontIngame } from './font';
 import { GameObject } from './GameObject';
+import { GameScene } from './GameScene';
 import { Goto } from './Goto';
 import { Interrupt } from './Interrupt';
 import { setScene } from './main';
 import { NPC } from './NPC';
-import { PhysicsScene } from './PhysicsScene';
 import { Poly } from './Poly';
 import { Prop } from './Prop';
 import { PropParallax } from './PropParallax';
@@ -21,7 +21,7 @@ import { chunks } from './utils';
 
 let autolink = 0;
 export class StrandE extends Strand {
-	public scene!: PhysicsScene;
+	public scene!: GameScene;
 
 	public debug?: boolean;
 
@@ -84,7 +84,7 @@ export class StrandE extends Strand {
 
 	restart() {
 		const p = this.scene.screenFilter.targetPalette;
-		const newScene = new PhysicsScene();
+		const newScene = new GameScene();
 		newScene.screenFilter.targetPalette = p;
 		setScene(newScene);
 	}

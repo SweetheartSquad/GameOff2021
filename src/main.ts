@@ -1,22 +1,22 @@
 import { Axes, Buttons, Gamepads } from 'input-gamepads.js';
 import { Sprite, Texture } from 'pixi.js';
 import { game } from './Game';
+import { GameScene } from './GameScene';
 import { keys, KEYS } from './input-keys';
 import { Mouse } from './input-mouse';
-import { PhysicsScene } from './PhysicsScene';
 import { size } from './size';
 import { clamp } from './utils';
 
 const gamepads = new Gamepads();
 let mouse: Mouse;
-let activeScene: PhysicsScene | undefined;
-let newScene: PhysicsScene | undefined;
+let activeScene: GameScene | undefined;
+let newScene: GameScene | undefined;
 
-export function getActiveScene(): PhysicsScene | undefined {
+export function getActiveScene(): GameScene | undefined {
 	return activeScene;
 }
 
-export function setScene(scene?: PhysicsScene): void {
+export function setScene(scene?: GameScene): void {
 	newScene = scene;
 }
 
@@ -151,7 +151,7 @@ export function init(): void {
 	fill.width = size.x;
 	fill.height = size.x;
 	game.app.stage.addChildAt(fill, 0);
-	setScene(new PhysicsScene());
+	setScene(new GameScene());
 
 	// start main loop
 	game.app.ticker.add(update);

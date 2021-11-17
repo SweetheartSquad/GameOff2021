@@ -20,7 +20,7 @@ function depthCompare(a: DisplayObject, b: DisplayObject): number {
 	return a.y - b.y;
 }
 
-export class PhysicsScene {
+export class GameScene {
 	container = new Container();
 
 	graphics = new Graphics();
