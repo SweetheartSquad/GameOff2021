@@ -248,8 +248,16 @@ export class GameScene {
 	}
 
 	update(): void {
-		if (DEBUG && !this.dialogue.isOpen && getInput().menu) {
-			this.strand.goto('debug menu');
+		if (DEBUG) {
+			if (!this.dialogue.isOpen && getInput().menu) {
+				this.strand.goto('debug menu');
+			} else if (
+				this.dialogue.isOpen &&
+				this.strand.currentPassage.title === 'debug menu' &&
+				getInput().menu
+			) {
+				this.strand.goto('close');
+			}
 		}
 
 		const curTime = game.app.ticker.lastTime;
