@@ -158,7 +158,19 @@ P: We Follow The Something Path
 [[Begin]]
 [[Credits]]
 [[CWs]]
-<<if this.debug>>
+<<if this.debug>>[[debug menu]]<<endif>>
+
+::Credits
+Made by Sean, Michael, and IAN of SweetHeart Squad.
+
+[[More games|window.open('https://sweetheartsquad.itch.io', '_blank')]]
+[[Back|this.back()]]
+
+::close
+this should never render
+
+::debug menu
+
 [[debug - begin (skip intro)|
 	this.scene.border.display.container.alpha=1;
 	this.scene.goto({ area: 'intro' });
@@ -169,16 +181,8 @@ P: We Follow The Something Path
 	this.scene.goto({ area: 'test' });
 	this.goto('close');
 ]]
-[[debug - passage select>passage select]]<<endif>>
-
-::Credits
-Made by Sean, Michael, and IAN of SweetHeart Squad.
-
-[[More games|window.open('https://sweetheartsquad.itch.io', '_blank')]]
-[[Back|this.back()]]
-
-::close
-this should never render
+[[debug - passage select>passage select]]
+[[close]]
 
 ::end
 <<do this.voice='None';this.tween(this.scene.border.display.container, 'alpha', 0, 5000, 1)>>
