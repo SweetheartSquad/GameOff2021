@@ -13,7 +13,7 @@
 //
 // js examples:
 // 	this.goto('passage')
-// 	this.show('texture')
+// 	this.show('texture', { duration, x, y, scale, animate, freq })
 // 	this.tween(object, 'property', to, duration, from, ease)
 // 	this.gameObject - npc/interrupt that triggered the dialog
 // 	this.scene      - game scene
@@ -25,7 +25,9 @@
 // 	this.Npc({ passage, x, y )
 // 	this.Goto({ area, x, y }, { x, y, width, height })
 // 	this.Prop({ texture, x, y, scale, flip, blur, animate, offset })
+// 	this.PropParallax({ texture, scale, flip, blur, mult, animate, offset }),
 // 	this.Block({ x, y, width, height, type, radius })
+// 	this.Poly({ x, y, width, verts })
 // 	this.Interrupt({ passage, x, y, width, height })
 //
 // palette stuff:
