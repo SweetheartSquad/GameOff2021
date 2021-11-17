@@ -8,10 +8,9 @@ import {
 	Text,
 } from 'pixi.js';
 import assets from './assets.txt';
-import main from './assets/main.strand';
 import frag from './assets/postprocess.frag.glsl';
-import { DEBUG } from './debug';
 import * as fonts from './font';
+import { enableHotReload, main } from './GameHotReload';
 import { init } from './main';
 import { size } from './size';
 
@@ -100,24 +99,4 @@ window.game = game;
 // eslint-disable-next-line import/no-mutable-exports
 export let resources: Loader['resources'];
 
-// allow hot-reloading main.strand
-if (DEBUG) {
-	// @ts-ignore
-	if (module.hot) {
-		// @ts-ignore
-		module.hot.accept('./assets/main.strand', () => {
-			game.app.loader.reset();
-			game.app.loader.add('main', main);
-			game.app.loader.onComplete.once(() => {
-				// @ts-ignore
-				window.scene.strand.setSource(game.app.loader.resources.main.data);
-				// @ts-ignore
-				if (window.scene.strand.currentPassage?.title) {
-					// @ts-ignore
-					window.scene.strand.goto(window.scene.strand.currentPassage.title);
-				}
-			});
-			game.app.loader.load();
-		});
-	}
-}
+enableHotReload(game.app);
