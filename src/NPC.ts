@@ -1,5 +1,5 @@
 // eslint-disable-next-line max-classes-per-file
-import { Character } from './Character';
+import { Character, speed } from './Character';
 import {
 	BODY_ENVIRONMENT,
 	BODY_PLAYER,
@@ -21,7 +21,7 @@ class Roam extends Script {
 
 	range = [0, 0] as [number, number];
 
-	speed: number = Math.random() * 0.2 + 0.8;
+	speed: number = (Math.random() * 0.2 + 0.8) * speed;
 
 	private changeOffset = 0;
 

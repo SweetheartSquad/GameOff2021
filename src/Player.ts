@@ -1,7 +1,7 @@
 import { Howl } from 'howler';
 import { IChamferableBodyDefinition } from 'matter-js';
 import { Container, DisplayObject } from 'pixi.js';
-import { Character } from './Character';
+import { Character, speed } from './Character';
 import {
 	BODY_ENVIRONMENT,
 	BODY_PLAYER,
@@ -15,8 +15,8 @@ import { size } from './size';
 import { removeFromArray } from './utils';
 import { multiply } from './VMath';
 
-const playerSpeedX = 0.004;
-const playerSpeedY = 0.002;
+const playerSpeedX = 0.004 * speed;
+const playerSpeedY = 0.002 * speed;
 
 export class Player extends Character {
 	camPoint: DisplayObject;

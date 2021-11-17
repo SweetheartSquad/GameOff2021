@@ -12,6 +12,8 @@ const FLIP_ESPILON = 0.01;
 
 let offset = 0;
 
+export const speed = 0.5;
+
 export class Character extends GameObject {
 	bodyCollision: Body;
 
