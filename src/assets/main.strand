@@ -182,6 +182,40 @@ this should never render
 	this.goto('close');
 ]]
 [[passage select>passage select]]
+[[draw walls|
+	const canvas = window.game.app.renderer.context.gl.canvas;
+	const verts = [];
+	let poly;
+	const onClick = (event) => {
+		const rect = event.currentTarget.getBoundingClientRect();
+		let x = event.clientX - rect.left;
+		let y = event.clientY - rect.top;
+		const p = this.scene.camera.display.container.toLocal({ x, y });
+		x = Math.round(p.x);
+		y = Math.round(p.y);
+		verts.push([x,y]);
+		if (poly) {
+			poly.destroy();
+		}
+		poly = this.Poly({ verts: verts.flat() });
+	};
+	const onContextMenu = (event) => {
+		event.preventDefault();
+		canvas.removeEventListener('click', onClick);
+		canvas.removeEventListener('contextmenu', onContextMenu);
+		canvas.parentElement.style.cursor = 'inherit';
+		if (poly) {
+			console.log(`this.Poly({ verts: [${verts.map(i => i.join(',')).join(', ')}] }),`);
+			this.scene.drop(poly);
+		}
+	};
+	requestAnimationFrame(() => {
+		canvas.addEventListener('click', onClick);
+		canvas.addEventListener('contextmenu', onContextMenu);
+	});
+	canvas.parentElement.style.cursor = 'crosshair';
+	this.goto('close');
+]]
 [[close]]
 
 ::end
