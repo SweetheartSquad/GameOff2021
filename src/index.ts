@@ -1,5 +1,4 @@
 // eslint-disable-next-line import/extensions
-import pkg from '../package.json';
 import './assets/style.css';
 import { DEBUG } from './debug';
 import { Resizer, ScaleModes } from './Resizer';
@@ -14,7 +13,7 @@ const preloadWeight = 0.25;
 let progress = 0;
 
 function makeStr(mask: number) {
-	return `${pkg.description}\n${(mask * 100).toFixed(0)}%`;
+	return `Loading...\n${(mask * 100).toFixed(0)}%`;
 }
 
 const progressEl = document.createElement('p');
@@ -34,7 +33,7 @@ document.body.appendChild(resizer.element);
 
 const playEl = document.createElement('button');
 playEl.id = 'play';
-playEl.textContent = makeStr(0);
+playEl.textContent = 'Play';
 resizer.appendChild(playEl);
 
 function fail({ message, error }: { message: string; error: unknown }): void {
