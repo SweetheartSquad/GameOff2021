@@ -624,30 +624,36 @@ P: "Sister Twenty of Many Oecophylla."
 >
 "No."
 >
-P: I do know how to squirm, but it doesn't make it easier.
+P: And now it's my turn to squirm. I've had plenty of experience, but it doesn't make it easier.
 >
 P: "...No?"
 >
+P: Her mandibles click impatiently.
+>
 "You have spoken a name. Is it yours?"
-
-"A name carries with it a weight."
+>
+"A name carries with it a weight, child."
 >
 "A responsibility."
 
 "An understanding."
 >
-"Do you understand the one which spills so freely from your wanton mouth? Do you bear it?"
+"Do you understand the one which spills so freely from your wanton mouth?"
+
+"Do you bear it?"
 
 [["Yes, of course.">exile-2]]
 [["No, how could I?">exile-2]]
 [["Mother, what is this?">exile-2]]
 
 ::exile-2
-P: I want to answer, but cannot. Mother is mad at me.
+P: I want to answer, but cannot. Mother is mad at me, and she continues.
 >
 "Tell us: What is your name?"
 >My name...
-P: I want to crumple to the ground, but cannot. Mother is asking me a question.
+P: It's a simple answer, but the pressure is unbearable.
+
+I want to crumple to the ground, but Mother is asking me a question.
 
 [["Sister Twenty"]]
 [["of Many"]]
@@ -667,7 +673,7 @@ P: I want to crumple to the ground, but cannot. Mother is asking me a question.
 >
 P: Mother is... laughing at me.
 >
-"Surely by now you understand that the latter is... flexible, to say the least."
+"Surely by now you understand that the latter is flexible, to say the least."
 >
 "And we will not be saying the least."
 
@@ -710,13 +716,40 @@ P: Burning light flashes off her eyes.
 [[>exile-names]]
 
 ::exile-noname
-P: Mother sighs.
+P: What does she want me to say?
+>
+P: What do I have left?
+
+[["Daughter."]]
+[["I have no name."]]
+[["I don't know."]]
+
+::"Daughter."
+P: She sighs.
+>
+"Would that you still were..."
+[[>exile2]]
+
+::"I have no name."
+P: She sighs.
+>
+"We are relieved. You do understand."
+[[>exile2]]
+
+::"I don't know."
+P: She sighs.
 >
 "We do you a favour, child, whether you know it or not."
+[[>exile2]]
+
+::exile2
+"The weight of a name is heavy. It is one we carry together, or not at all."
 >
-"The weight is heavy. It is one we carry together, or not at all."
+"It is our self, and our path. Our purpose, and our spirit."
 >
-"And so, it has been lifted from your shoulders."
+"Yet for all we have given you, these are things which you do not share."
+>
+"So we have lifted this weight from your shoulders."
 >
 P: I feel as heavy as ever.
 >
@@ -727,7 +760,7 @@ P: ...And I suppose I did crumple to the floor at some point.
 P: Sister Superior Three offers a hand.
 
 The Queen Mother motions, and she retracts her offer.
->
+>Stand
 P: I don't need her help anyway. I can stand on my own legs.
 >
 TODO: ENDING
