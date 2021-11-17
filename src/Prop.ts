@@ -16,8 +16,8 @@ export class Prop extends GameObject {
 
 	constructor({
 		texture,
-		x,
-		y,
+		x = 0,
+		y = 0,
 		scale = 1,
 		animate = true,
 		flip,
@@ -25,8 +25,8 @@ export class Prop extends GameObject {
 		offset,
 	}: {
 		texture: string;
-		x: number;
-		y: number;
+		x?: number;
+		y?: number;
 		scale?: number;
 		blur?: boolean;
 		flip?: boolean;
