@@ -265,7 +265,10 @@ export class UIDialogue extends GameObject {
 		this.toggler.show(...args);
 	}
 
-	prompt(label: string = this.strPrompt, action?: () => void) {
+	prompt(
+		label: string = this.strPrompt,
+		action: (() => void) | undefined = undefined
+	) {
 		this.strPrompt = label;
 		this.textPrompt.text = label;
 		this.fnPrompt = action;
