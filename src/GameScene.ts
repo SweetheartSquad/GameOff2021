@@ -248,6 +248,10 @@ export class GameScene {
 	}
 
 	update(): void {
+		if (DEBUG && !this.dialogue.isOpen && getInput().menu) {
+			this.strand.goto('debug menu');
+		}
+
 		const curTime = game.app.ticker.lastTime;
 		this.screenFilter.uniforms.curTime = curTime;
 		this.screenFilter.uniforms.camPos = [
