@@ -17,4 +17,4 @@ audio/step.mp3
 audio/voiceDefault.mp3
 textures/queenIdle/queenIdle.x8.png
 textures/scene1_bg.png
-textures/parallaxBG.png
+textures/parallaxBG.jpg
