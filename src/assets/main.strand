@@ -182,6 +182,7 @@ this should never render
 	this.goto('close');
 ]]
 [[passage select>passage select]]
+[[toggle debugPhysics|window.debugPhysics=!window.debugPhysics]]
 [[draw walls|
 	const canvas = window.game.app.renderer.context.gl.canvas;
 	const verts = [];
