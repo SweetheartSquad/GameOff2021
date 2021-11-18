@@ -171,6 +171,14 @@ Made by Sean, Michael, and IAN of SweetHeart Squad.
 ::close
 this should never render
 
+
+
+::The End
+<<do this.voice='None';this.tween(this.scene.border.display.container, 'alpha', 0, 5000)>>
+
+[[Restart|this.restart()]]
+[[More games|window.open('https://sweetheartsquad.itch.io', '_blank')]]
+
 ::debug menu
 
 [[begin (skip intro)|
