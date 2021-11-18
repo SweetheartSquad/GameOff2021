@@ -82,6 +82,10 @@ export class StrandE extends Strand {
 		TweenManager.tween(...args);
 	}
 
+	scrim(...args: Parameters<typeof this.scene['dialogue']['scrim']>) {
+		this.scene.dialogue.scrim(...args);
+	}
+
 	restart() {
 		const p = this.scene.screenFilter.targetPalette;
 		const newScene = new GameScene();
