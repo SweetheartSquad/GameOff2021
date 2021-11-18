@@ -156,7 +156,7 @@
 	}, 1);
 >>
 <<endif>>
-P: We Follow The Something Path
+P: We Follow The Fickle Path
 
 [[Begin]]
 [[Credits]]
@@ -176,6 +176,9 @@ this should never render
 
 ::The End
 <<do this.voice='None';this.tween(this.scene.border.display.container, 'alpha', 0, 5000)>>
+P: We Follow The Fickle Path
+
+Made by Sean, IAN, and Michael of SweetHeart Squad.
 
 [[Restart|this.restart()]]
 [[More games|window.open('https://sweetheartsquad.itch.io', '_blank')]]
