@@ -1,7 +1,7 @@
 import type { EventEmitter } from '@pixi/utils';
 import { cubicIn, cubicOut } from 'eases';
 import { Howl } from 'howler';
-import { Container, Sprite, Text, Texture } from 'pixi.js';
+import { Container, Sprite, Text, TextMetrics, Texture } from 'pixi.js';
 import Strand from 'strand-core';
 import { fontDialogue, fontPrompt } from './font';
 import { game, resources } from './Game';
@@ -207,9 +207,7 @@ export class UIDialogue extends GameObject {
 				const id = voice.play();
 				voice.rate((letter.charCodeAt(0) % 30) / 30 + 0.5, id);
 			}
-			this.textText.text =
-				this.strText.substr(0, this.pos) +
-				this.strText.substr(this.pos).replace(/[^\s]/g, '\u00A0');
+			this.textText.text = this.strText.substr(0, this.pos);
 		}
 	}
 
@@ -217,7 +215,13 @@ export class UIDialogue extends GameObject {
 		const isPlayer = text.startsWith('P: ');
 		if (isPlayer) text = text.substr(2);
 		this.selected = undefined;
-		this.strText = text;
+		this.strText = TextMetrics.measureText(
+			text,
+			// @ts-ignore
+			this.textText.style,
+			true
+		).lines.join('\n');
+
 		this.textText.text = '';
 		this.textText.style.fontStyle = isPlayer ? 'italic' : 'normal';
 		this.textText.alpha = isPlayer ? 1 : 0.6;
