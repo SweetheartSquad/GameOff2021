@@ -772,5 +772,129 @@ The Queen Mother motions, and she retracts her offer.
 >Stand
 P: I don't need her help anyway. I can stand on my own legs.
 >
-TODO: ENDING
+"Our daughters will allow you safe passage, of course."
+>
+"A courtesy that will not be extended should you return."
+
+[["You're kicking me out?"]]
+[["Passage to where?"]]
+[["I understand."]]
+
+
+::"Passage to where?"
+"Where you choose to go is of no concern to us."
+>
+"All that matters is that you go."
+[[>exile3]]
+
+::"You're kicking me out?"
+"Let us make ourselves perfectly clear, nameless one:"
+>
+"Our age has made us sentimental, and we are allowing you to leave before you should come to any harm."
+[[>exile3]]
+
+::"I understand."
+"Good."
+[[>exile3]]
+
+::exile3
+"Daughter Three, show her out."
+
+[["Wait..."]]
+[["Goodbye, Mother."]]
+[["I won't forget this."]]
+
+::"Wait..."
+"No."
+[[>exile4]]
+
+::"Goodbye, Mother."
+P: She doesn't respond.
+[[>exile4]]
+
+::"I won't forget this."
+"Then take the memory to the grave."
+[[>exile4]]
+
+::exile4
+<<do this.show('')>>
+P: My sisters - the word stings in my head - usher me away.
+>
+P: I don't fight it.
+>
+P: They lead me back to the entrance. I want to say something - anything to feel like this isn't the end.
+>
+P: Instead, I stand there in silence, and they give me a shove, and close the door.
+>
+TODO: walkaround bit where people wont talk to you, you need to just walk out
+>
+<<do this.scrim(1)>>
+P: ...
+>
+P: It's still difficult to accept just how much changed that day.
+>
+P: You'll forgive me if I gloss over the finer details of life in exile.
+>
+P: Not nearly as romantic as it sounds. I'm not much different than you, or anyone else here, for that matter. It just took me a bit longer to make my way.
+>
+P: ...Hm? My name?
+
+[[I'm still trying to come up with a new one.]]
+[[I decided I didn't need it.]]
+[[They never really took anything.]]
+
+::I'm still trying to come up with a new one.
+P: Had a few since those days, but nothing that quite stuck.
+>
+P: Plenty of time to find one that does though.
+[[>I decided I didn't need it.]]
+
+::I decided I didn't need it.
+P: I don't particularly miss having one.
+>
+P: Sure, sometimes there's that awkward moment, meeting someone on the road: We say our greetings, they introduce themselves, and I dodge the response.
+>
+P: But you'd be surprised how many travelers are content in their anonymity, and see no reason to question yours.
+>
+P: What's more important, really?
+>
+P: A handful of words you'll use once and forget, or a warm meal after a long day?
+>
+P: Something to call yourself, or knowing who you are?
+>
+P: A legacy, or a life?
+>
+P: ...It's rhetorical.
+<<print new Array(30).fill('\u200B').join('')>>
+I made my choice a long time ago.
+<<print new Array(30).fill('\u200B').join('')>>
+I don't doubt my decision.
+<<print new Array(40).fill('\u200B').join('')>>
+[[The End]]
+
+::They never really took anything.
+// TODO: maybe you get to pick if you like the nickname earlier
+P: Sister Twenty of Many Oecophylla, at your service. Twenny if you're in a hurry.
+>
+P: What are they going to do, hunt me down? Arrest me for disobedience and kick me out again?
+>
+P: No, Mother's finished with me. Haven't even seen another Oecophylla since then.
+>
+P: She- no, all of them, they were so concerned with what it meant to be one.
+
+To be Many!
+>
+P: Why let them decide? It's mine as much as theirs.
+>
+P: That's something I'm not sure they ever understood: The name, the path, the life - it's something we share, not something we are.
+>
+P: Sometimes wish I had known how to make them see that.
+>
+P: ...Not that it matters now.
+<<print new Array(30).fill('\u200B').join('')>>
+It's not worth explaining myself to them.
+<<print new Array(30).fill('\u200B').join('')>>
+I doubt it ever was.
+<<print new Array(40).fill('\u200B').join('')>>
+[[The End]]
 
