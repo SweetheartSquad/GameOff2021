@@ -3,7 +3,6 @@ textures/black.png
 textures/blank.png
 textures/border.png
 textures/dialogueBg.png
-textures/dialogueEdge.x3.png
 textures/ditherGrid.png
 textures/hole.png
 textures/shadows.png
