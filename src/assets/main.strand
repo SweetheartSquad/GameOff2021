@@ -379,25 +379,118 @@ P: It starts to rain.
 
 
 ::outside-inn
-"hello i am an inn would you like to come inside"
+"Ho there!"
+<<if this.metbunty>>
+[[>bunty]]
+<<else>>
+[[>outside-inn2]]
+<<endif>>
 
-[["inn no"]]
-[["inn yes"]]
+::outside-inn2
+<<do this.metbunty=true>>
+P: A roly poly?
+>
+"Quite the weather we're having, eh little miss?"
+>
+P: Is he joking?
+>
+P: "Um, yes. Suppose you could say that."
+>
+"Ho ho! I love the rain! The exhilarations of nature!!"
+>
+P: A large droplet splashes against my back, giving me a shiver.
+>
+"...But isn't it a touch too wet for you?"
+>
+P: "..."
+>
+P: "YES!!!"
+>
+P: "Uh, that is- yes, yes it is. We're looking for shelter, in fact."
+>
+"Well then, you're in luck!!"
+>
+P: "Oh? Could do with a bit of luck right about now..."
+>
+"It just so happens that right over yonder lies the finest inn this side of the forest!"
+>
+P: He gestures with half a dozen legs towards a large hole in the trunk behind him.
+>
+"Yes ma'am, The Bunty Nathans will take good care of you and yours for but a bargain!"
+>
+P: Oh no.
+>
+"Warm beds, cool baths (for the wet-inclined), even a breakfast buffet*!"
 
-::"inn no"
-"aw too bad"
+"All for but a modest fee: You won't find a better deal on this tree, little miss!"
+
+"*Please note the buffet is strictly vegetarian. Breakfast hours are from-"
+
+[["ok I get it">outside-inn3]]
+[["please stop">outside-inn3]]
+
+::outside-inn3
+"Ho ho but there's more! If you check in at The Bunty Nathans tonight and TONIGHT ONLY, we're offering a specialty discount!"
+
+"TWO nights for the price of ONE: That's right, you can stay one whole night free!"
+
+[["What if I just want one night?"]]
+[["And what is the price?"]]
+
+::"What if I just want one night?"
+"Well I'm afraid that will cost you ONE night for the price of one."
+
+"A little less special, but still an unbeatable steal!"
+[["And what is the price?"]]
+
+::"And what is the price?"
+"Ah, never manage the numbers, myself."
+
+"Just head on in, and Nathan at the desk will fill you in on all the details."
+>
+"I'm Bunty, by the by."
+
+[["Nice to meet you Bunty."]]
+[["I'll just head on in, then.">bunty-enter]]
+[["We'll have to talk it over.">bunty-cancel]]
+
+::"Nice to meet you Bunty."
+<<do this.buntyname=true>>
+"The pleasure's all mine, miss...?"
+>
+P: "...Twenty of Many Oecophylla."
+>
+"Of many? Well, I do hope you'll tell your friends us about us too!"
+
+[["I'll just head on in, then.">bunty-enter]]
+[["We'll have to talk it over.">bunty-cancel]]
+
+::bunty-cancel
+"Well, I'll be here if you need me!"
 [[>close]]
 
-::"inn yes"
-"great lets go"
->
+::bunty-enter
 <<do this.scrim(1, 1000)>>
-P: oh wow we're going inside an inn
+"Ho ho, wonderful!"
 >
 <<do this.scene.goto({ area: 'inn-inside' })>>
-"ok were inside an inn now"
-
+"Do be sure to tell Nathan that Bunty sent you!"
 [[>close]]
+
+
+::bunty
+P: "Hello again, Bunty."
+>
+"Little miss<<if this.buntyname>> Twenty<<endif>>!"
+
+"Checking in?"
+
+[["Yes.">bunty-enter]]
+[["No thank you.">bunty-cancel]]
+
+
+
+
 
 
 
