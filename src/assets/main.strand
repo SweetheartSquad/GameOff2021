@@ -192,7 +192,7 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 
 ::debug menu
 <<do
-	this.scene.strand.passages['area warp'] = { title: 'area warp', body: Object.keys(this.scene.areas).filter(i => i !== 'root').map(i => '[['+i+'|this.scene.gotoArea("'+i+'")]]').concat('[[back|this.back()]]').join('\n') };
+	this.scene.strand.passages['area warp'] = { title: 'area warp', body: Object.keys(this.scene.areas).filter(i => i !== 'root').map(i => '[['+i+'|this.scene.goto({ area: "'+i+'" })]]').concat('[[back|this.back()]]').join('\n') };
 >>
 
 [[begin (skip intro)|
