@@ -242,6 +242,30 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 	canvas.parentElement.style.cursor = 'crosshair';
 	this.goto('close');
 ]]
+[[teleport|
+	const canvas = window.game.app.renderer.context.gl.canvas;
+	const verts = [];
+	let poly;
+	const onClick = (event) => {
+		const rect = event.currentTarget.getBoundingClientRect();
+		let x = event.clientX - rect.left;
+		let y = event.clientY - rect.top;
+		const p = this.scene.camera.display.container.toLocal({ x, y });
+		this.scene.player.setPosition(p.x, p.y);
+	};
+	const onContextMenu = (event) => {
+		event.preventDefault();
+		canvas.removeEventListener('click', onClick);
+		canvas.removeEventListener('contextmenu', onContextMenu);
+		canvas.parentElement.style.cursor = 'inherit';
+	};
+	requestAnimationFrame(() => {
+		canvas.addEventListener('click', onClick);
+		canvas.addEventListener('contextmenu', onContextMenu);
+	});
+	canvas.parentElement.style.cursor = 'crosshair';
+	this.goto('close');
+]]
 [[close]]
 
 ::end
