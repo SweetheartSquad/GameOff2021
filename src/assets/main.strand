@@ -119,8 +119,16 @@
 		this.Prop({ texture: 'rainSplash', x: -914, y: -23, freq: 1/100 }),
 		this.Prop({ texture: 'rainSplash', x: -1367, y: 86, freq: 1/100 }),
 		this.Prop({ texture: 'pillbug', x: -1731, y: -22 }),
+		...AntProp({ x: 140, y: -86 }),
+		...AntProp({ x: 180, y: 5, flip: true }),
+		...AntProp({ x: 268, y: -11 }),
+		...AntProp({ x: 477, y: -24 }),
+		...AntProp({ x: 576, y: 28, flip: true }),
+		...AntProp({ x: 322, y: -61, flip: true }),
+		this.Npc({ body: 'basicAnt', passage: 'outside-inn-ant', x: -745, y: 152 }),
 		this.Poly({ verts: [168,130, 167,-135, -89,-107, -484,-104, -794,-120, -1360,-199, -1622,-214, -1623,174, -1026,146, -878,173, -781,158, -681,215, -367,200, -98,204, 169,132] }),
 		this.Interrupt({ passage: 'outside-inn', x: -1625, y: -18, height: 500 }),
+		this.Interrupt({ passage: 'outside-inn-ants', x: 160, y: 10, height: 500 }),
 	]);
 
 	this.Area('inn-inside', [
@@ -375,15 +383,108 @@ P: It starts to rain.
 
 
 
+::inn-intro
+<<do this.scrim(1,1000)>>
+P: The rain is picking up again.
+>
+P: I don't think it's just a shower. We're going to need to take shelter to make it through this one.
+>
+P: Thankfully I'm not the only one who thinks so. Mother calls the march to a halt.
+>
+P: We prepare to make camp. Or, we try to, but it's immediately clear we do not have the time or resources to handle heavy rainfall.
+>
+P: A proper travel nest takes the combined effort of dozens of sisters. We need to have already scouted structurally sound leaves, we need bodies to hold them down, and we need silk-producing larvae to stitch them in place.
+>
+P: We had all of these when we set out. The sister nurses will still see to the larvae, but it does little good when we're so far off the scouted path and have lost more sisters than Mother cares to admit.
+>
+P: We've made it this far, but we've just been roughing it. Our luck is running out.
+<<do this.scene.goto({ area: 'inn-outside' })>>
+
+[[>close]]
+
+
+::outside-inn-ants
+"Sister Twenty! How goes the scouting operation?"
+<<if this.innproposal>>
+[["We've finished.">outside-inn-ants-finished]]
+<<elseif this.metbunty>>
+[["How do we feel about roly polies?">outside-inn-ants-proposal]]
+<<endif>>
+[["Nothing yet.">outside-inn-ants2]]
+
+
+::outside-inn-ants2
+"Hm. Better get back to it then - our construction plans are coming along, but we're counting on you to support them."
+[["...Of course.">close]]
+
+
+::outside-inn-ants-proposal
+<<do this.scrim(1, 1000)>>
+<<do this.innproposal=true>>
+P: TODO: some sort of monologue
+>
+<<do this.show('queenStandingIdle')>>
+"What's this we hear about 'alternative arrangements' for our travel nest?"
+>
+<<do this.show('')>>
+<<do this.scrim(0.5, 1000)>>
+P: TODO: some more monologue
+>
+"TODO: some more dialogue"
+>
+"..."
+>"Is there something else?"
+"No, it's probably nothing. Just..."
+>
+"Have you seen Sister Twenty-and-seven? We expected her to have returned by now."
+
+[["Yes.">sister27]]
+[["No.">sister27no]]
+
+::sister27no
+"Hm. She must have gone to scout further ahead..."
+[[>close]]
+
+::sister27
+P: <<if this.metoutsideinnant>>"She wanted to scout the limb up ahead. She didn't come back?"
+<<else>>"Passed her just a moment ago. She didn't come back this way?"
+<<endif>>
+>
+"No. She did not."
+>
+"..."
+>
+"That's all. Thank you, Sister."
+
+[[>close]]
+
+
+::outside-inn-ants-finished
+<<do this.scrim(1, 1000)>>
+TODO: monologue, make final decision
+
+[[>close]]
 
 
 
 
+::outside-inn-ant
+<<if this.metoutsideinnant>>
+"Staying out here is a death sentence..."
+[[>close]]
+<<else>>
+<<do this.metoutsideinnant=true>>
+"There's a good leaf on this one. We should get it."
 
+[["It's too dangerous."]]
+[["Maybe later.">close]]
+<<endif>>
 
-
-
-
+::"It's too dangerous."
+P: "In this rain, and with that slope? Climbing out there is a death sentence."
+>
+"Staying out here is a death sentence..."
+[[>close]]
 
 
 
@@ -398,7 +499,15 @@ P: It starts to rain.
 <<endif>>
 
 ::outside-inn2
-<<do this.metbunty=true>>
+<<do
+	this.metbunty=true;
+	// remove npc ant on branch
+	const a = this.scene.areas['inn-outside'].find(i => i.body);
+	if (a) {
+		a.destroy();
+		this.scene.areas['inn-outside'].splice(this.scene.areas['inn-outside'].indexOf(a), 1);
+	}
+>>
 P: A roly poly?
 >
 "Quite the weather we're having, eh little miss?"
@@ -421,7 +530,7 @@ P: "Uh, that is- yes, yes it is. We're looking for shelter, in fact."
 >
 "Well then, you're in luck!!"
 >
-P: "Oh? Could do with a bit of luck right about now..."
+P: "Oh? Could do with a bit more luck right about now..."
 >
 "It just so happens that right over yonder lies the finest inn this side of the forest!"
 >
