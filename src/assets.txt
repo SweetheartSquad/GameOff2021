@@ -19,3 +19,4 @@ textures/bg_innOutside.png
 textures/InnOutside_flicker/InnOutside_flicker.x2.png
 textures/parallaxBG.jpg
 textures/rain.x3.png
+textures/pillbug.png
