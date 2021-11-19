@@ -200,11 +200,6 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 	this.scene.goto({ area: 'intro' });
 	this.goto('close');
 ]]
-[[test area|
-	this.scene.border.display.container.alpha=1;
-	this.scene.goto({ area: 'test' });
-	this.goto('close');
-]]
 [[passage select>passage select]]
 [[area warp]]
 [[toggle debugPhysics|window.debugPhysics=!window.debugPhysics]]
@@ -389,9 +384,6 @@ P: "And now I am the player."
 >
 P: I can monologue too.
 
-[[go to sub area|this.scene.goto({ area: 'test-sub' })]]
-[[go to test area|this.scene.goto({ area: 'test' })]]
-[[go to menu|this.goto('start')]]
 [[leave>close]]
 
 
