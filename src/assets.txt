@@ -3,9 +3,7 @@ textures/black.png
 textures/blank.png
 textures/border.png
 textures/dialogueBg.png
-textures/dialogueEdge.x3.png
 textures/ditherGrid.png
-textures/interior.png
 textures/hole.png
 textures/shadows.png
 textures/defaultIdle.x2.png
@@ -17,4 +15,5 @@ audio/step.mp3
 audio/voiceDefault.mp3
 textures/queenIdle/queenIdle.x8.png
 textures/scene1_bg.png
+textures/bg_innOutside.x2.png
 textures/parallaxBG.jpg
