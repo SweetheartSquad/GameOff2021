@@ -5,7 +5,6 @@ textures/border.png
 textures/dialogueBg.png
 textures/dialogueEdge.x3.png
 textures/ditherGrid.png
-textures/interior.png
 textures/hole.png
 textures/shadows.png
 textures/defaultIdle.x2.png
