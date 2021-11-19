@@ -26,6 +26,7 @@ export class PropParallax extends GameObject {
 		texture,
 		x = 0,
 		y = 0,
+		alpha = 1,
 		scale = 1,
 		animate = true,
 		flip,
@@ -36,6 +37,7 @@ export class PropParallax extends GameObject {
 		texture: string;
 		x?: number;
 		y?: number;
+		alpha?: number;
 		scale?: number;
 		blur?: boolean;
 		flip?: boolean;
@@ -52,6 +54,7 @@ export class PropParallax extends GameObject {
 		}
 		this.spr.anchor.x = 0.5;
 		this.spr.anchor.y = 0.5;
+		this.spr.alpha = alpha;
 		this.spr.scale.x = this.spr.scale.y = scale;
 		if (flip) {
 			this.spr.scale.x *= -1;
