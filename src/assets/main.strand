@@ -191,6 +191,9 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 [[More games|window.open('https://sweetheartsquad.itch.io', '_blank')]]
 
 ::debug menu
+<<do
+	this.scene.strand.passages['area warp'] = { title: 'area warp', body: Object.keys(this.scene.areas).filter(i => i !== 'root').map(i => '[['+i+'|this.scene.gotoArea("'+i+'")]]').concat('[[back|this.back()]]').join('\n') };
+>>
 
 [[begin (skip intro)|
 	this.scene.border.display.container.alpha=1;
@@ -203,6 +206,7 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 	this.goto('close');
 ]]
 [[passage select>passage select]]
+[[area warp]]
 [[toggle debugPhysics|window.debugPhysics=!window.debugPhysics]]
 [[draw walls|
 	const canvas = window.game.app.renderer.context.gl.canvas;
