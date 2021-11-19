@@ -24,6 +24,7 @@ export class Prop extends GameObject {
 		flip,
 		blur,
 		offset,
+		freq = 1 / 400,
 	}: {
 		texture: string;
 		x?: number;
@@ -34,6 +35,7 @@ export class Prop extends GameObject {
 		flip?: boolean;
 		animate?: boolean;
 		offset?: number;
+		freq?: number;
 	}) {
 		super();
 
@@ -56,7 +58,7 @@ export class Prop extends GameObject {
 			this.scripts.push(
 				(this.animator = new Animator(this, {
 					spr: this.spr,
-					freq: 1 / 400,
+					freq,
 				}))
 			);
 			this.animator.offset = Math.random() * 10000;

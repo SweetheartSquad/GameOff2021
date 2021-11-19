@@ -33,6 +33,7 @@ export class PropParallax extends GameObject {
 		blur,
 		offset = 0,
 		mult = 1,
+		freq = 1 / 400,
 	}: {
 		texture: string;
 		x?: number;
@@ -44,6 +45,7 @@ export class PropParallax extends GameObject {
 		animate?: boolean;
 		offset?: number;
 		mult?: number;
+		freq?: number;
 	}) {
 		super();
 
@@ -66,7 +68,7 @@ export class PropParallax extends GameObject {
 			this.scripts.push(
 				(this.animator = new Animator(this, {
 					spr: this.spr,
-					freq: 1 / 400,
+					freq,
 				}))
 			);
 			this.animator.offset = Math.random() * 10000;
