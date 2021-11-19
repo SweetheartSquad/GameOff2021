@@ -38,23 +38,23 @@
 <<if !this.started>>
 <<do
 	// setup areas
-	function Hole(strand, options) {
+	const Hole = (options) => {
 		const flip1 = Math.floor(options.x / 100) % 2 === 0;
 		const flip2 = Math.floor(options.x / 100) % 2 === 0;
 		return [
-			strand.Prop({
+			this.Prop({
 				texture: 'hole',
 				x: options.x + 5 * (flip1 ? -1 : 1),
 				y: options.y + 20,
 				offset: -300,
 				flip: flip1,
 			}),
-			strand.Block({
+			this.Block({
 				x: options.x,
 				y: options.y - 60,
 				width: 40,
 			}),
-			strand.Goto(
+			this.Goto(
 				{ area: options.to, x: 0, y: 0 },
 				{
 					x: options.x,
@@ -66,8 +66,8 @@
 		];
 	}
 
-	function TestSpecialNpc(strand, options) {
-		const npc = strand.Npc({
+	const TestSpecialNpc = (options) => {
+		const npc = this.Npc({
 			...options,
 			bodyCollision: { isStatic: true },
 			bodySensor: { plugin: { label: 'I Am Special' }, radius: 80 },
@@ -76,8 +76,8 @@
 		return npc;
 	}
 
-	function Queen(strand, options) {
-		const npc = strand.Npc({
+	const Queen = (options) => {
+		const npc = this.Npc({
 			...options,
 			bodyCollision: { isStatic: true },
 			bodySensor: { plugin: { label: 'Mother' }, radius: 100 },
@@ -87,7 +87,7 @@
 		npc.bodyCollision.scale(25,6);
 		npc.bodyCollision.move(0,-50);
 		npc.display.container.visible = false;
-		const prop = strand.Prop({ ...options, texture: 'queenIdle', scale: (options.scale || 1) * 0.8 });
+		const prop = this.Prop({ ...options, texture: 'queenIdle', scale: (options.scale || 1) * 0.8 });
 		return [npc, prop];
 	}
 
@@ -134,7 +134,7 @@
 		this.Prop({ texture: 'basicAntIdle', x: 284, y: -128 }),
 		this.Prop({ texture: 'basicAntIdle', x: 290, y: -118 }),
 		this.Prop({ texture: 'basicAntRun', x: 300, y: -138 }),
-		...Queen(this, { x: 905, y: 469, passage: 'test-npc' }),
+		...Queen({ x: 905, y: 469, passage: 'test-npc' }),
 
 		this.Text('npcs', { x: 340, y: 434 }),
 		this.Npc({ x: 302, y: 407 }),
@@ -149,9 +149,9 @@
 		this.Interrupt({ x: -450, y: 0, passage: 'test-npc' }),
 		this.Interrupt({ x: -450, y: 100, type: 'circle',  passage: 'test-npc' }),
 		// helper fn
-		TestSpecialNpc(this, { x: -367, y: 411, passage: 'test-npc' }),
+		TestSpecialNpc({ x: -367, y: 411, passage: 'test-npc' }),
 		// spread compound
-		...Hole(this, { x: -200, y: 200, to: 'test-sub' }),
+		...Hole({ x: -200, y: 200, to: 'test-sub' }),
 		// spread procedural
 		...new Array(50).fill(0).map(() => this.Npc({ passage: 'test-npc', x: (Math.random()-0.5)*300, y: (Math.random()-0.5)*300+400 })),
 	]);
