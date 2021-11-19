@@ -102,6 +102,13 @@
 		this.Npc({ passage: 'intro-panic-3', x: 410, y: 150, roam: 200 }),
 	]);
 
+	this.Area('inn', [
+		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 3, blur: true, mult: 0.2 }),
+		this.Prop({ texture: 'bg_innOutside', x: -727, y: 488, offset: -10000 }),
+		this.Prop({ texture: 'InnOutside_flicker', x: -2157, y: 50 }),
+		this.Poly({ verts: [168,130, 167,-135, -89,-107, -484,-104, -794,-120, -1360,-199, -1622,-214, -1623,174, -1026,146, -878,173, -781,158, -681,235, -367,253, -98,204, 169,132] }),
+	]);
+
 	this.Area('test', [
 		// bg
 		this.PropParallax({ texture: 'parallaxBG', offset: -1000000, scale: 3, blur: true, mult: 0.2 }),
