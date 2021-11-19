@@ -18,5 +18,4 @@ textures/scene1_bg.png
 textures/bg_innOutside.png
 textures/InnOutside_flicker/InnOutside_flicker.x2.png
 textures/parallaxBG.jpg
-textures/parallaxBG2.png
 textures/rainSplash/rainSplash.x5.pngtextures/rainSplash/rainSplash.x5.png
