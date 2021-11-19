@@ -103,10 +103,14 @@
 	]);
 
 	this.Area('inn-outside', [
-		this.PropParallax({ texture: 'rain', offset: 100000, mult: 1 }),
 		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
+		this.PropParallax({ texture: 'rain', offset: 100000, mult: 1.1, freq: 1/200 }),
+		this.PropParallax({ texture: 'rain', offset: 200000, mult: 1.2, scale: 2, blur: true, freq: 1/300 }),
 		this.Prop({ texture: 'bg_innOutside', x: -727, y: 488, offset: -10000 }),
 		this.Prop({ texture: 'InnOutside_flicker', x: -2157, y: 50 }),
+		this.Prop({ texture: 'rainSplash', x: -392, y: 129, freq: 1/100 }),
+		this.Prop({ texture: 'rainSplash', x: -914, y: -23, freq: 1/100 }),
+		this.Prop({ texture: 'rainSplash', x: -1367, y: 86, freq: 1/100 }),
 		this.Prop({ texture: 'pillbug', x: -1731, y: -22 }),
 		this.Poly({ verts: [168,130, 167,-135, -89,-107, -484,-104, -794,-120, -1360,-199, -1622,-214, -1623,174, -1026,146, -878,173, -781,158, -681,215, -367,200, -98,204, 169,132] }),
 		this.Interrupt({ passage: 'outside-inn', x: -1625, y: -18, height: 500 }),
