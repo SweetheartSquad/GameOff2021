@@ -98,6 +98,17 @@
 		];
 	};
 
+	const PropParallaxAuto = (options) => {
+		const gameObject = this.PropParallax(options);
+		gameObject.scripts.push({
+			gameObject,
+			update() {
+				gameObject.spr.tilePosition.x = Date.now()/1000%gameObject.spr.width * options.speed;
+			},
+		});
+		return gameObject;
+	};
+
 
 	this.Area('intro', [
 		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
