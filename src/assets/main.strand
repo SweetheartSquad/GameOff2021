@@ -474,9 +474,7 @@ P: We've made it this far, but we've just been roughing it. Our luck is running 
 
 ::outside-inn-ants
 "Sister Twenty! How goes the scouting operation?"
-<<if this.innproposal>>
-[["We've finished.">outside-inn-ants-finished]]
-<<elseif this.metbunty>>
+<<if this.metbunty>>
 [["How do we feel about roly polies?">outside-inn-ants-proposal]]
 <<endif>>
 [["Nothing yet.">outside-inn-ants2]]
@@ -489,7 +487,6 @@ P: We've made it this far, but we've just been roughing it. Our luck is running 
 
 ::outside-inn-ants-proposal
 <<do this.scrim(1, 1000)>>
-<<do this.innproposal=true>>
 P: TODO: some sort of monologue
 >
 <<do this.show('queenStandingIdle')>>
@@ -500,39 +497,8 @@ P: TODO: some sort of monologue
 P: TODO: some more monologue
 >
 "TODO: some more dialogue"
->
-"..."
->"Is there something else?"
-"No, it's probably nothing. Just..."
->
-"Have you seen Sister Twenty-and-seven? We expected her to have returned by now."
 
-[["Yes.">sister27]]
-[["No.">sister27no]]
-
-::sister27no
-"Hm. She must have gone to scout further ahead..."
-[[>close]]
-
-::sister27
-P: <<if this.metoutsideinnant>>"She wanted to scout the limb up ahead. She didn't come back?"
-<<else>>"Passed her just a moment ago. She didn't come back this way?"
-<<endif>>
->
-"No. She did not."
->
-"..."
->
-"That's all. Thank you, Sister."
-
-[[>close]]
-
-
-::outside-inn-ants-finished
-<<do this.scrim(1, 1000)>>
-TODO: monologue, make final decision
-
-[[>close]]
+[[>march]]
 
 
 
@@ -633,15 +599,15 @@ P: Oh no.
 [["And what is the price?"]]
 
 ::"And what is the price?"
-"Ah, never manage the numbers, myself."
+"Never manage the numbers myself, ho ho!"
 
 "Just head on in, and Nathan at the desk will fill you in on all the details."
 >
 "I'm Bunty, by the by."
 
 [["Nice to meet you Bunty."]]
-[["I'll just head on in, then.">bunty-enter]]
-[["We'll have to talk it over.">bunty-cancel]]
+[["I'll just head on in, then."]]
+[["We'll have to talk it over."]]
 
 ::"Nice to meet you Bunty."
 <<do this.buntyname=true>>
@@ -651,21 +617,222 @@ P: "...Twenty of Many Oecophylla."
 >
 "Of many? Well, I do hope you'll tell your friends us about us too!"
 
-[["I'll just head on in, then.">bunty-enter]]
-[["We'll have to talk it over.">bunty-cancel]]
+[["I'll just head on in, then."]]
+[["We'll have to talk it over."]]
 
-::bunty-cancel
-"Well, I'll be here if you need me!"
-[[>close]]
 
-::bunty-enter
+::"We'll have to talk it over."
+"Of course! Just head on in and talk it over with Nathan!"
+>
+<<do this.scrim(1, 1000)>>
+P: "No, we-"
+
+The large roly poly doesn't let me finish, and starts pushing me inside.
+[[>bunty-enter]]
+
+
+::"I'll just head on in, then."
 <<do this.scrim(1, 1000)>>
 "Ho ho, wonderful!"
->
-<<do this.scene.goto({ area: 'inn-inside' })>>
+[[>bunty-enter]]
+::bunty-enter
 "Do be sure to tell Nathan that Bunty sent you!"
-[[>close]]
+>
+P: The interior of the inn is welcomingly warm, and more importantly dry.
 
+The eager bug stays out in the rain, and laughs at seemingly nothing in particular.
+>
+<<do this.show('pillbug')>>
+P: Sure enough, inside there's another giant pill millipede sitting at a small stand, complete with a hand-carved sign.
+>
+"Welcome, welcome!"
+
+"How can I help you this evening?"
+
+[["Bunty sent me."]]
+[["I'm looking for shelter."]]
+[["We need your help."]]
+
+::"Bunty sent me."
+"Ah, I hope he didn't give you too much trouble!"
+>
+"Pay no mind to my brother... He means well, but he can be a bit much."
+>
+"Sometimes it takes my whole will to not just roll up and away when he gets going, ho ho!"
+>
+P: I can see the family resemblence, but just smile and nod.
+>
+"I suppose he sent you my way for a reason, though!"
+
+"Tell me: how can I help?"
+
+[["I'm looking for shelter."]]
+[["We need your help."]]
+
+::"I'm looking for shelter."
+"Well you've come to the right place!"
+>
+"Would this be a suite for one?"
+>
+P: "No, not just for me: For my sisters and Mother as well."
+[[>nathan2]]
+
+
+::"We need your help."
+"'We'?"
+>
+P: "Yes, our Mother, our sisters as well. We need somewhere to stay."
+[[>nathan2]]
+
+
+::nathan2
+"Ah, a family vacation!"
+>"No, it's-"
+"That's lovely. Family is SO important, and it can be so hard to make time for them, no matter how hard we try."
+>"That's not-"
+"That's why our family went into business together! Not a day goes by that I'm not thankful to live and work among mine."
+>"Okay, but-"
+"Though it does make Bunty's job harder: Can't be shouting day in and day out if Granny Grey is sleeping upstairs!"
+>"Who-?"
+"Luckily big brother's happy to do his part from outside - much easier on our ears, ho ho!"
+>"Please-"
+"But you're here about a room for YOUR family! So, just how many in your party, then?"
+>
+P: He finally stops to let me speak, and I realize that I don't even know the answer to his question.
+>
+P: How many did we lose when the branch broke? How many have we lost since then?
+>
+P: The last proper headcount was before we set out, and numbered over a hundred. We can't be more than half at this point.
+
+[["Many."]]
+[["About fifty."]]
+[["A few dozen.">"About fifty."]]
+
+::"Many."
+"...Could you be more specific?"
+>
+P: "Unfortunately not."
+>
+"Hmm... well."
+[[>nathan3]]
+
+::"About fifty."
+"Ho ho! Why, I can't remember the last time I saw a family so big!"
+[[>nathan3]]
+
+::nathan3
+"Luckily your bodies are quite small, so I'm sure we'll be able to make room."
+
+"And how long will you be staying?"
+>"Just for the night."
+"Are you sure? Perhaps Bunty didn't mention, but we actually have a special deal tonight: stay two nights for the price of one!"
+>"We just need one."
+"Alright, suit yourself!"
+
+"And how will you be paying?"
+>
+P: "..."
+>
+P: I knew this was coming.
+
+The big bug looks at me expectantly.
+
+[["I can't pay."]]
+[["We don't have any money."]]
+
+
+::"I can't pay."
+P: He seems confused at the statement, so I continue.
+[[>nathan4]]
+
+::"We don't have any money."
+P: He seems confused at the statement, so I continue.
+[[>nathan4]]
+
+::nathan4
+P: "Our sisters have no need for money. We support ourselves on the path, and support each other at home."
+
+"It is a crude instrument, and it serves no purpose for us."
+>
+"...No purpose!?"
+>
+"But you need money!! To pay for things! For food, for protection, for property..."
+>
+"For booking a night's stay at The Bunty Nathan's!!"
+>
+P: "..."
+>
+"...You're serious, aren't you?"
+
+"No money! None!"
+>"Yes."
+"I'm afraid you're out of luck, then. This inn accepts paying tenants only."
+>"But-"
+"Our prices are a steal, but this is still a business. If I let you stay for nothing in return, you'd truly be a thief!"
+>"Isn't there some other way we could pay?"
+"How would you pay without money!?"
+
+[["Is there nothing else you need?">nathan5]]
+[["An exchange?">nathan5]]
+[["We can work.">nathan5]]
+
+::nathan5
+"No, I don't think that- well, actually. Perhaps..."
+>
+P: He trails off, stopping to think. His legs twitch one-by-one, a wave starting from the top and flicking down his limbs, as if he's tapping things off in his head.
+>
+P: For all their talk of money, there's always something else these types want. I don't know what it is, but he'll figure that out for me.
+>
+"...You're a weaver, yes?"
+>
+P: "What? No."
+
+"Only the sister nurses are permitted."
+>
+"Mmm, but there are weavers with you, then?"
+>"Yes, of course."
+"Ho ho! Then I think I may have a deal that will benefit us both!"
+>
+"We offer very fine accommodations at The Bunty Nathan's, but I will admit that the furnishings in our rooms may be a tad... underwhelming."
+>
+"There's only so much you can do with reclaimed wood!"
+
+"But if we had some silk covers, or curtains, maybe even a pillow or two..."
+>
+P: "You want us to... make decorations for you?"
+>
+"Not just decorations: Ambiance!"
+>
+"A whole new market segment, in fact! Executive suites, for the bug on the go!"
+
+"Ho ho, Bunty is going to love this..."
+>"Um..."
+"And we'd even be advertising your work to our future customers!"
+
+"Think of all the free exposure!"
+>"Exposure?"
+"Yes, I think this could benefit business for both of us!"
+
+"I'm convinced: One night's stay, for one night's weaver work!"
+
+"What do you say?"
+
+[["I'll have to ask the others.">nathan6]]
+[["We'll consider it.">nathan6]]
+[["I'm not sure about this.">nathan6]]
+
+::nathan6
+"Of course, of course, discuss terms with your family before making any decisions."
+>
+"I'll need to do the same: contracts don't write themselves, ho ho!"
+>
+<<do this.show('')>>
+P: With that, he suddenly spurs into action: The roly poly uncurls itself and takes off at a surprising pace deeper into the tree.
+>
+P: I'm left alone in the lobby. It's still raining outside.
+>
+P: I allow myself the luxury of a few more moments of shelter, and make my way back out.
+[[>close]]
 
 ::bunty
 P: "Hello again, Bunty."
@@ -674,10 +841,10 @@ P: "Hello again, Bunty."
 
 "Checking in?"
 
-[["Yes.">bunty-enter]]
-[["No thank you.">bunty-cancel]]
+>"Not yet."
 
-
+"Well, I'll be here if you need me!"
+[[>close]]
 
 
 
