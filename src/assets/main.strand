@@ -413,32 +413,49 @@ P: It starts to rain.
 ::intro-end
 TODO: continue intro
 >
-<<do this.scrim(1, 1000)>>
 TODO: segue into march
 [[>march]]
 
 
 
 ::march
+<<do
+	// sets up progression
+	// march events will go to `${name}-march`,
+	// and can be "ended" by going to `march` again
+	if(!this.marchEvents || !this.marchEvents.length) {
+		this.marchEvents = [
+			'inn',
+			'frog',
+			'deserter',
+		];
+	}
+	this.marchEvent = this.marchEvents.shift();
+	this.scrim(1, 1000);
+>>
+TODO: common march intro
+>
 <<do this.scene.goto({ area: 'march' })>>
-TODO: march intro
->
-<<do this.scrim(0.5, 10000)>>
-TODO: march body
->
-<<do this.scrim(1, 1000)>>
-TODO: march end
->
-TODO: next event
-[[>close]]
+TODO: common march intro 2
+[[...|this.scrim(0.5, 10000);this.goto(this.marchEvent+'-march');]]
 
 
-::inn-intro
-<<do this.scrim(1,1000)>>
+
+
+
+
+
+
+
+
+
+
+::inn-march
 P: The rain is picking up again.
 >
 P: I don't think it's just a shower. We're going to need to take shelter to make it through this one.
 >
+<<do this.scrim(1, 1000)>>
 P: Thankfully I'm not the only one who thinks so. Mother calls the march to a halt.
 >
 P: We prepare to make camp. Or, we try to, but it's immediately clear we do not have the time or resources to handle heavy rainfall.
