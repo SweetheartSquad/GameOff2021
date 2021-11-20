@@ -59,7 +59,7 @@ export class StrandE extends Strand {
 		const passages = Object.keys(this.passages)
 			.filter((i) => !i.match(/\d/))
 			.map((i) => `[[${i}]]`);
-		const pages = chunks(passages, 25);
+		const pages = chunks(passages, 24);
 		pages.forEach((i, idx) => {
 			if (pages.length > 1) {
 				i.push(`[[passage select ${(idx + 1) % pages.length}]]`);
