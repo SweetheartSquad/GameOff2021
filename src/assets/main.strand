@@ -119,6 +119,7 @@
 		this.Npc({ passage: 'intro-panic-1', x: 207, y: -75 }),
 		this.Npc({ passage: 'intro-panic-2', x: 290, y: 50, roam: 50 }),
 		this.Npc({ passage: 'intro-panic-3', x: 410, y: 150, roam: 200 }),
+		this.Interrupt({ passage: 'intro-end', x: 1411, y: 183, height: 500 }),
 	]);
 
 	this.Area('march', [
@@ -409,8 +410,27 @@ P: It starts to rain.
 "We need to find shelter. We can't stay out like this."
 [[>close]]
 
+::intro-end
+TODO: continue intro
+>
+<<do this.scrim(1, 1000)>>
+TODO: segue into march
+[[>march]]
 
 
+
+::march
+<<do this.scene.goto({ area: 'march' })>>
+TODO: march intro
+>
+<<do this.scrim(0.5, 10000)>>
+TODO: march body
+>
+<<do this.scrim(1, 1000)>>
+TODO: march end
+>
+TODO: next event
+[[>close]]
 
 
 ::inn-intro
