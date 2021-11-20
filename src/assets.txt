@@ -14,10 +14,13 @@ textures/white.png
 audio/step.mp3
 audio/voiceDefault.mp3
 textures/queenIdle/queenIdle.x8.png
+textures/queenStandingIdle/queenStandingIdle.x8.png
 textures/scene1_bg.png
 textures/bg_innOutside.png
+textures/bg_innInside.jpg
 textures/InnOutside_flicker/InnOutside_flicker.x2.png
 textures/parallaxBG.jpg
-textures/rain.x3.png
-textures/parallaxBG2.png
+textures/rain/rain.x3.png
 textures/rainSplash/rainSplash.x5.png
+textures/pillbug.png
+textures/marchScrim.png

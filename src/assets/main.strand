@@ -91,25 +91,70 @@
 		return [npc, prop];
 	}
 
+	const AntProp = (options) => {
+		return [
+			this.Prop({ texture: 'basicAntIdle', freq: 1/200, ...options, scale: 0.52 * (options.scale || 1) }),
+			this.Prop({ texture: 'shadows', offset: (options.offset || 0)-5, ...options, scale: 0.7 * (options.scale || 1) }),
+		];
+	};
+
+	const PropParallaxAuto = (options) => {
+		const gameObject = this.PropParallax(options);
+		gameObject.scripts.push({
+			gameObject,
+			update() {
+				gameObject.spr.tilePosition.x = Date.now()/1000%gameObject.spr.width * options.speed;
+			},
+		});
+		return gameObject;
+	};
+
 
 	this.Area('intro', [
-		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 3, blur: true, mult: 0.2 }),
+		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
+		this.PropParallax({ texture: 'rain', offset: 100000, mult: 1.1, alpha: 0.2, freq: 1/200 }),
 		this.Prop({ texture: 'scene1_bg', x: 827, y: 658, offset: -10000 }),
 		this.Block({ x: -100, width: 40, height: 40 }),
 		this.Poly({ verts: [-189,158, -207,-42, -143,-236, 215,-221, 462,-265, 569,-261, 638,-234, 706,-253, 1202,-225, 1335,-185, 1496,-50, 2103,-87, 2105,414, 1816,386, 1675,253, 1626,316, 1603,378, 1317,368, 1229,281, 968,190, 492,176, 175,221, -185,164] }),
 		this.Npc({ passage: 'intro-panic-1', x: 207, y: -75 }),
 		this.Npc({ passage: 'intro-panic-2', x: 290, y: 50, roam: 50 }),
 		this.Npc({ passage: 'intro-panic-3', x: 410, y: 150, roam: 200 }),
+		this.Interrupt({ passage: 'intro-end', x: 1411, y: 183, height: 500 }),
+	]);
+
+	this.Area('march', [
+		PropParallaxAuto({ texture: 'parallaxBG', offset: -200000, scale: 3, blur: true, mult: 1, speed: -8 }),
+		PropParallaxAuto({ texture: 'parallaxBG', x: 500, offset: -100000, scale: 2, blur: true, mult: 1, alpha: 0.1, speed: -20 }),
+		this.Prop({ texture: 'basicAntRun', x: 620, y: 250+10, scale: 2 }),
+		this.Prop({ texture: 'basicAntRun', x: 410, y: 250+20, scale: 2 }),
+		this.Prop({ texture: 'basicAntRun', x: 180, y: 250+0, scale: 2 }),
+		this.Prop({ texture: 'basicAntRun', x: -10, y: 250+5, scale: 2 }),
+		this.Prop({ texture: 'basicAntRun', x: -210, y: 250+0, scale: 2 }),
+		this.Prop({ texture: 'basicAntRun', x: -400, y: 250+30, scale: 2 }),
+		this.Prop({ texture: 'basicAntRun', x: -620, y: 250+10, scale: 2 }),
+		this.PropParallax({ texture: 'marchScrim', offset: 100000  }),
 	]);
 
 	this.Area('inn-outside', [
-		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 3, blur: true, mult: 0.2 }),
-		this.PropParallax({ texture: 'rain', offset: 100000, mult: 1 }),
+		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
+		this.PropParallax({ texture: 'rain', offset: 100000, mult: 1.1, freq: 1/200 }),
+		this.PropParallax({ texture: 'rain', offset: 200000, mult: 1.2, scale: 2, blur: true, freq: 1/300 }),
 		this.Prop({ texture: 'bg_innOutside', x: -727, y: 488, offset: -10000 }),
 		this.Prop({ texture: 'InnOutside_flicker', x: -2157, y: 50 }),
+		this.Prop({ texture: 'rainSplash', x: -392, y: 129, freq: 1/100 }),
+		this.Prop({ texture: 'rainSplash', x: -914, y: -23, freq: 1/100 }),
+		this.Prop({ texture: 'rainSplash', x: -1367, y: 86, freq: 1/100 }),
 		this.Prop({ texture: 'pillbug', x: -1731, y: -22 }),
+		...AntProp({ x: 140, y: -86 }),
+		...AntProp({ x: 180, y: 5, flip: true }),
+		...AntProp({ x: 268, y: -11 }),
+		...AntProp({ x: 477, y: -24 }),
+		...AntProp({ x: 576, y: 28, flip: true }),
+		...AntProp({ x: 322, y: -61, flip: true }),
+		this.Npc({ body: 'basicAnt', passage: 'outside-inn-ant', x: -745, y: 152 }),
 		this.Poly({ verts: [168,130, 167,-135, -89,-107, -484,-104, -794,-120, -1360,-199, -1622,-214, -1623,174, -1026,146, -878,173, -781,158, -681,215, -367,200, -98,204, 169,132] }),
 		this.Interrupt({ passage: 'outside-inn', x: -1625, y: -18, height: 500 }),
+		this.Interrupt({ passage: 'outside-inn-ants', x: 160, y: 10, height: 500 }),
 	]);
 
 	this.Area('inn-inside', [
@@ -119,8 +164,8 @@
 
 	this.Area('test', [
 		// bg
-		this.PropParallax({ texture: 'parallaxBG', offset: -1000000, scale: 3, blur: true, mult: 0.2 }),
-		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 0.5, blur: true, mult: 0.4 }),
+		this.PropParallax({ texture: 'parallaxBG', offset: -1000000, scale: 3, blur: true, mult: 0.6 }),
+		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 0.5, blur: true, mult: 0.2 }),
 		this.Prop({ texture: 'parallaxBG', x: -200, y: 700, offset: -10000 }),
 
 		this.Text('physics', { x: 423, y: 78 }),
@@ -287,11 +332,13 @@ todo: ending
 
 ::Begin
 <<do this.voice='Default';>>
+<<do this.scene.goto({ area: 'march' })>>
 P: Doubt comes to you so easily when you're bored.
 >
-<<do this.tween(this.scene.border.display.container, 'alpha', 1, 5000, 0);>>
+<<do this.tween(this.scene.border.display.container, 'alpha', 1, 5000);>>
 P: Your mind wanders. You think about things. You ask yourself questions, and come up with answers that are yours and yours alone.
 >
+<<do this.scrim(0.5, 10000)>>
 P: Sometimes I feel like this dubious boredom is itself just another expression of our shared existence and purpose.
 >
 P: We all march along the limb of the same tree, we all get caught up in our heads with the same thoughts, we all wonder if the others do the same.
@@ -308,14 +355,17 @@ P: So I am briefly glad to be interrupted by someone shouting my name.
 [[Dodge]]
 
 ::Freeze
+<<do this.scrim(1, 100)>>
 P: I freeze in place. A moment later, my vision is flooded by a great branch collapsing down mere inches in front of me.
 [[Oh no.>begin2]]
 
 ::Duck
+<<do this.scrim(1, 100)>>
 P: I fall to the ground instinctively. As soon as I do, I hear the crash of a great branch collapsing down mere inches in front of me, and cling on for dear life.
 [[Oh no.>begin2]]
 
 ::Dodge
+<<do this.scrim(1, 100)>>
 P: I leap backwards on instinct, barreling into the one who called out, Sister Ten-and-nine. The two of us tumble down just as I hear the crash of a great branch collapsing into the path ahead.
 [[Oh no.>begin2]]
 
@@ -333,7 +383,7 @@ P: The world rushes away. I'm falling. This is it.
 ::begin3
 P: But I'm wrong.
 >
-P: I realize I'm being flung upwards. The branch snapped in front of me, and the leftover stump is recoiling.
+P: I realize I'm being flung upwards. The branch snapped in front of me, and the leftover stump is recoiling. I need to hold on. I need to hold on.
 >I need to hold on!
 P: I grip as tightly as I can. I bite into the bark: Anything to stay put.
 >
@@ -360,6 +410,36 @@ P: It starts to rain.
 "We need to find shelter. We can't stay out like this."
 [[>close]]
 
+::intro-end
+TODO: continue intro
+>
+TODO: segue into march
+[[>march]]
+
+
+
+::march
+<<do
+	// sets up progression
+	// march events will go to `${name}-march`,
+	// and can be "ended" by going to `march` again
+	if(!this.marchEvents || !this.marchEvents.length) {
+		this.marchEvents = [
+			'inn',
+			'frog',
+			'deserter',
+		];
+		// TODO: decide if we want to randomize
+		// this.marchEvents = this.shuffle(this.marchEvents);
+	}
+	this.marchEvent = this.marchEvents.shift();
+	this.scrim(1, 1000);
+>>
+TODO: common march intro
+>
+<<do this.scene.goto({ area: 'march' })>>
+TODO: common march intro 2
+[[...|this.scrim(0.5, 10000);this.goto(this.marchEvent+'-march');]]
 
 
 
@@ -372,32 +452,401 @@ P: It starts to rain.
 
 
 
+::inn-march
+P: The rain is picking up again.
+>
+P: I don't think it's just a shower. We're going to need to take shelter to make it through this one.
+>
+<<do this.scrim(1, 1000)>>
+P: Thankfully I'm not the only one who thinks so. Mother calls the march to a halt.
+>
+P: We prepare to make camp. Or, we try to, but it's immediately clear we do not have the time or resources to handle heavy rainfall.
+>
+P: A proper travel nest takes the combined effort of dozens of sisters. We need to have already scouted structurally sound leaves, we need bodies to hold them down, and we need silk-producing larvae to stitch them in place.
+>
+P: We had all of these when we set out. The sister nurses will still see to the larvae, but it does little good when we're so far off the scouted path and have lost more sisters than Mother cares to admit.
+>
+P: We've made it this far, but we've just been roughing it. Our luck is running out.
+<<do this.scene.goto({ area: 'inn-outside' })>>
 
+[[>close]]
+
+
+::outside-inn-ants
+"Sister Twenty! How goes the scouting operation?"
+<<if this.metbunty>>
+[["How do we feel about roly polies?">outside-inn-ants-proposal]]
+<<endif>>
+[["Nothing yet.">outside-inn-ants2]]
+
+
+::outside-inn-ants2
+"Hm. Better get back to it then - our construction plans are coming along, but we're counting on you to support them."
+[["...Of course.">close]]
+
+
+::outside-inn-ants-proposal
+<<do this.scrim(1, 1000)>>
+P: TODO: some sort of monologue
+>
+<<do this.show('queenStandingIdle')>>
+"What's this we hear about 'alternative arrangements' for our travel nest?"
+>
+<<do this.show('')>>
+<<do this.scrim(0.5, 1000)>>
+P: TODO: some more monologue
+>
+"TODO: some more dialogue"
+
+[[>march]]
+
+
+
+
+::outside-inn-ant
+<<if this.metoutsideinnant>>
+"Staying out here is a death sentence..."
+[[>close]]
+<<else>>
+<<do this.metoutsideinnant=true>>
+"There's a good leaf on this one. We should get it."
+
+[["It's too dangerous."]]
+[["Maybe later.">close]]
+<<endif>>
+
+::"It's too dangerous."
+P: "In this rain, and with that slope? Climbing out there is a death sentence."
+>
+"Staying out here is a death sentence..."
+[[>close]]
 
 
 
 
 
 ::outside-inn
-"hello i am an inn would you like to come inside"
+"Ho there!"
+<<if this.metbunty>>
+[[>bunty]]
+<<else>>
+[[>outside-inn2]]
+<<endif>>
 
-[["inn no"]]
-[["inn yes"]]
+::outside-inn2
+<<do
+	this.metbunty=true;
+	// remove npc ant on branch
+	const a = this.scene.areas['inn-outside'].find(i => i.body);
+	if (a) {
+		a.destroy();
+		this.scene.areas['inn-outside'].splice(this.scene.areas['inn-outside'].indexOf(a), 1);
+	}
+>>
+P: A roly poly?
+>
+"Quite the weather we're having, eh little miss?"
+>
+P: Is he joking?
+>
+P: "Um, yes. Suppose you could say that."
+>
+"Ho ho! I love the rain! The exhilarations of nature!!"
+>
+P: A large droplet splashes against my back, giving me a shiver.
+>
+"...But isn't it a touch too wet for you?"
+>
+P: "..."
+>
+P: "YES!!!"
+>
+P: "Uh, that is- yes, yes it is. We're looking for shelter, in fact."
+>
+"Well then, you're in luck!!"
+>
+P: "Oh? Could do with a bit more luck right about now..."
+>
+"It just so happens that right over yonder lies the finest inn this side of the forest!"
+>
+P: He gestures with half a dozen legs towards a large hole in the trunk behind him.
+>
+"Yes ma'am, The Bunty Nathan's will take good care of you and yours for but a bargain!"
+>
+P: Oh no.
+>
+"Warm beds, cool baths (for the wet-inclined), even a breakfast buffet*!"
 
-::"inn no"
-"aw too bad"
-[[>close]]
+"All for but a modest fee: You won't find a better deal on this tree, little miss!"
 
-::"inn yes"
-"great lets go"
+"*Please note the buffet is strictly vegetarian. Breakfast hours are from-"
+
+[["ok I get it">outside-inn3]]
+[["please stop">outside-inn3]]
+
+::outside-inn3
+"Ho ho but there's more! If you check in at The Bunty Nathan's tonight and TONIGHT ONLY, we're offering a specialty discount!"
+
+"TWO nights for the price of ONE: That's right, you can stay one whole night free!"
+
+[["What if I just want one night?"]]
+[["And what is the price?"]]
+
+::"What if I just want one night?"
+"Well I'm afraid that will cost you ONE night for the price of one."
+
+"A little less special, but still an unbeatable steal!"
+[["And what is the price?"]]
+
+::"And what is the price?"
+"Never manage the numbers myself, ho ho!"
+
+"Just head on in, and Nathan at the desk will fill you in on all the details."
+>
+"I'm Bunty, by the by."
+
+[["Nice to meet you Bunty."]]
+[["I'll just head on in, then."]]
+[["We'll have to talk it over."]]
+
+::"Nice to meet you Bunty."
+<<do this.buntyname=true>>
+"The pleasure's all mine, miss...?"
+>
+P: "...Twenty of Many Oecophylla."
+>
+"Of many? Well, I do hope you'll tell your friends us about us too!"
+
+[["I'll just head on in, then."]]
+[["We'll have to talk it over."]]
+
+
+::"We'll have to talk it over."
+"Of course! Just head on in and talk it over with Nathan!"
 >
 <<do this.scrim(1, 1000)>>
-P: oh wow we're going inside an inn
->
-<<do this.scene.goto({ area: 'inn-inside' })>>
-"ok were inside an inn now"
+P: "No, we-"
 
+The large roly poly doesn't let me finish, and starts pushing me inside.
+[[>bunty-enter]]
+
+
+::"I'll just head on in, then."
+<<do this.scrim(1, 1000)>>
+"Ho ho, wonderful!"
+[[>bunty-enter]]
+::bunty-enter
+"Do be sure to tell Nathan that Bunty sent you!"
+>
+P: The interior of the inn is welcomingly warm, and more importantly dry.
+
+The eager bug stays out in the rain, and laughs at seemingly nothing in particular.
+>
+<<do this.show('pillbug')>>
+P: Sure enough, inside there's another giant pill millipede sitting at a small stand, complete with a hand-carved sign.
+>
+"Welcome, welcome!"
+
+"How can I help you this evening?"
+
+[["Bunty sent me."]]
+[["I'm looking for shelter."]]
+[["We need your help."]]
+
+::"Bunty sent me."
+"Ah, I hope he didn't give you too much trouble!"
+>
+"Pay no mind to my brother... He means well, but he can be a bit much."
+>
+"Sometimes it takes my whole will to not just roll up and away when he gets going, ho ho!"
+>
+P: I can see the family resemblence, but just smile and nod.
+>
+"I suppose he sent you my way for a reason, though!"
+
+"Tell me: how can I help?"
+
+[["I'm looking for shelter."]]
+[["We need your help."]]
+
+::"I'm looking for shelter."
+"Well you've come to the right place!"
+>
+"Would this be a suite for one?"
+>
+P: "No, not just for me: For my sisters and Mother as well."
+[[>nathan2]]
+
+
+::"We need your help."
+"'We'?"
+>
+P: "Yes, our Mother, our sisters as well. We need somewhere to stay."
+[[>nathan2]]
+
+
+::nathan2
+"Ah, a family vacation!"
+>"No, it's-"
+"That's lovely. Family is SO important, and it can be so hard to make time for them, no matter how hard we try."
+>"That's not-"
+"That's why our family went into business together! Not a day goes by that I'm not thankful to live and work among mine."
+>"Okay, but-"
+"Though it does make Bunty's job harder: Can't be shouting day in and day out if Granny Grey is sleeping upstairs!"
+>"Who-?"
+"Luckily big brother's happy to do his part from outside - much easier on our ears, ho ho!"
+>"Please-"
+"But you're here about a room for YOUR family! So, just how many in your party, then?"
+>
+P: He finally stops to let me speak, and I realize that I don't even know the answer to his question.
+>
+P: How many did we lose when the branch broke? How many have we lost since then?
+>
+P: The last proper headcount was before we set out, and numbered over a hundred. We can't be more than half at this point.
+
+[["Many."]]
+[["About fifty."]]
+[["A few dozen.">"About fifty."]]
+
+::"Many."
+"...Could you be more specific?"
+>
+P: "Unfortunately not."
+>
+"Hmm... well."
+[[>nathan3]]
+
+::"About fifty."
+"Ho ho! Why, I can't remember the last time I saw a family so big!"
+[[>nathan3]]
+
+::nathan3
+"Luckily your bodies are quite small, so I'm sure we'll be able to make room."
+
+"And how long will you be staying?"
+>"Just for the night."
+"Are you sure? Perhaps Bunty didn't mention, but we actually have a special deal tonight: stay two nights for the price of one!"
+>"We just need one."
+"Alright, suit yourself!"
+
+"And how will you be paying?"
+>
+P: "..."
+>
+P: I knew this was coming.
+
+The big bug looks at me expectantly.
+
+[["I can't pay."]]
+[["We don't have any money."]]
+
+
+::"I can't pay."
+P: He seems confused at the statement, so I continue.
+[[>nathan4]]
+
+::"We don't have any money."
+P: He seems confused at the statement, so I continue.
+[[>nathan4]]
+
+::nathan4
+P: "Our sisters have no need for money. We support ourselves on the path, and support each other at home."
+
+"It is a crude instrument, and it serves no purpose for us."
+>
+"...No purpose!?"
+>
+"But you need money!! To pay for things! For food, for protection, for property..."
+>
+"For booking a night's stay at The Bunty Nathan's!!"
+>
+P: "..."
+>
+"...You're serious, aren't you?"
+
+"No money! None!"
+>"Yes."
+"I'm afraid you're out of luck, then. This inn accepts paying tenants only."
+>"But-"
+"Our prices are a steal, but this is still a business. If I let you stay for nothing in return, you'd truly be a thief!"
+>"Isn't there some other way we could pay?"
+"How would you pay without money!?"
+
+[["Is there nothing else you need?">nathan5]]
+[["An exchange?">nathan5]]
+[["We can work.">nathan5]]
+
+::nathan5
+"No, I don't think that- well, actually. Perhaps..."
+>
+P: He trails off, stopping to think. His legs twitch one-by-one, a wave starting from the top and flicking down his limbs, as if he's tapping things off in his head.
+>
+P: For all their talk of money, there's always something else these types want. I don't know what it is, but he'll figure that out for me.
+>
+"...You're a weaver, yes?"
+>
+P: "What? No."
+
+"Only the sister nurses are permitted."
+>
+"Mmm, but there are weavers with you, then?"
+>"Yes, of course."
+"Ho ho! Then I think I may have a deal that will benefit us both!"
+>
+"We offer very fine accommodations at The Bunty Nathan's, but I will admit that the furnishings in our rooms may be a tad... underwhelming."
+>
+"There's only so much you can do with reclaimed wood!"
+
+"But if we had some silk covers, or curtains, maybe even a pillow or two..."
+>
+P: "You want us to... make decorations for you?"
+>
+"Not just decorations: Ambiance!"
+>
+"A whole new market segment, in fact! Executive suites, for the bug on the go!"
+
+"Ho ho, Bunty is going to love this..."
+>"Um..."
+"And we'd even be advertising your work to our future customers!"
+
+"Think of all the free exposure!"
+>"Exposure?"
+"Yes, I think this could benefit business for both of us!"
+
+"I'm convinced: One night's stay, for one night's weaver work!"
+
+"What do you say?"
+
+[["I'll have to ask the others.">nathan6]]
+[["We'll consider it.">nathan6]]
+[["I'm not sure about this.">nathan6]]
+
+::nathan6
+"Of course, of course, discuss terms with your family before making any decisions."
+>
+"I'll need to do the same: contracts don't write themselves, ho ho!"
+>
+<<do this.show('')>>
+P: With that, he suddenly spurs into action: The roly poly uncurls itself and takes off at a surprising pace deeper into the tree.
+>
+P: I'm left alone in the lobby. It's still raining outside.
+>
+P: I allow myself the luxury of a few more moments of shelter, and make my way back out.
 [[>close]]
+
+::bunty
+P: "Hello again, Bunty."
+>
+"Little miss<<if this.buntyname>> Twenty<<endif>>!"
+
+"Checking in?"
+
+>"Not yet."
+
+"Well, I'll be here if you need me!"
+[[>close]]
+
+
 
 
 
@@ -415,7 +864,9 @@ P: I can monologue too.
 [[leave>close]]
 
 
-::test-frog
+::frog-march
+TODO: somehow get to the frog
+>
 "HALT!"
 >
 P: I freeze in my steps at the sound of the booming voice.
@@ -502,7 +953,7 @@ P: "W-well we'd prefer if you did not!"
 
 
 
-::test-deserter
+::deserter-march
 P: TODO: some inner monologuing
 >
 P: Wait...

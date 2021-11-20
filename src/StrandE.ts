@@ -17,7 +17,7 @@ import { PropParallax } from './PropParallax';
 import { Display } from './Scripts/Display';
 import { Transform } from './Scripts/Transform';
 import { TweenManager } from './Tweens';
-import { chunks } from './utils';
+import { chunks, shuffle } from './utils';
 
 let autolink = 0;
 export class StrandE extends Strand {
@@ -59,7 +59,7 @@ export class StrandE extends Strand {
 		const passages = Object.keys(this.passages)
 			.filter((i) => !i.match(/\d/))
 			.map((i) => `[[${i}]]`);
-		const pages = chunks(passages, 25);
+		const pages = chunks(passages, 24);
 		pages.forEach((i, idx) => {
 			if (pages.length > 1) {
 				i.push(`[[passage select ${(idx + 1) % pages.length}]]`);
@@ -80,6 +80,10 @@ export class StrandE extends Strand {
 	tween(...args: Parameters<typeof TweenManager['tween']>) {
 		// @ts-ignore
 		TweenManager.tween(...args);
+	}
+
+	shuffle(...args: Parameters<typeof shuffle>) {
+		return shuffle(...args);
 	}
 
 	scrim(...args: Parameters<typeof this.scene['dialogue']['scrim']>) {

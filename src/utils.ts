@@ -120,6 +120,17 @@ export function removeFromArray<T>(array: T[], item: T) {
 	}
 }
 
+export function shuffle<T>(array: T[]) {
+	const pool = array.slice();
+	const shuffled = [];
+	while (pool.length) {
+		const i = randItem(pool);
+		removeFromArray(pool, i);
+		shuffled.push(i);
+	}
+	return shuffled;
+}
+
 export function randRange(min: number, max: number) {
 	return Math.random() * (max - min) + min;
 }
