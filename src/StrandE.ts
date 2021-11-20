@@ -17,7 +17,7 @@ import { PropParallax } from './PropParallax';
 import { Display } from './Scripts/Display';
 import { Transform } from './Scripts/Transform';
 import { TweenManager } from './Tweens';
-import { chunks } from './utils';
+import { chunks, shuffle } from './utils';
 
 let autolink = 0;
 export class StrandE extends Strand {
@@ -80,6 +80,10 @@ export class StrandE extends Strand {
 	tween(...args: Parameters<typeof TweenManager['tween']>) {
 		// @ts-ignore
 		TweenManager.tween(...args);
+	}
+
+	shuffle(...args: Parameters<typeof shuffle>) {
+		return shuffle(...args);
 	}
 
 	scrim(...args: Parameters<typeof this.scene['dialogue']['scrim']>) {
