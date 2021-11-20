@@ -429,6 +429,8 @@ TODO: segue into march
 			'frog',
 			'deserter',
 		];
+		// TODO: decide if we want to randomize
+		// this.marchEvents = this.shuffle(this.marchEvents);
 	}
 	this.marchEvent = this.marchEvents.shift();
 	this.scrim(1, 1000);
