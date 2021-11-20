@@ -64,17 +64,6 @@ export function chunks<T>(arr: T[], count: number): T[][] {
 	return a;
 }
 
-export function shuffle<T>(array: T[]) {
-	const pool = array.slice();
-	const shuffled = [];
-	while (pool.length) {
-		const i = randItem(pool);
-		removeFromArray(pool, i);
-		shuffled.push(i);
-	}
-	return shuffled;
-}
-
 export function ease(t: number): number {
 	/* eslint-disable */
 	if ((t /= 0.5) < 1) {
@@ -129,6 +118,17 @@ export function removeFromArray<T>(array: T[], item: T) {
 	if (idx !== -1) {
 		array.splice(idx, 1);
 	}
+}
+
+export function shuffle<T>(array: T[]) {
+	const pool = array.slice();
+	const shuffled = [];
+	while (pool.length) {
+		const i = randItem(pool);
+		removeFromArray(pool, i);
+		shuffled.push(i);
+	}
+	return shuffled;
 }
 
 export function randRange(min: number, max: number) {
