@@ -111,7 +111,7 @@ function play(): void {
 playEl.onclick = play;
 if (DEBUG) {
 	// @ts-ignore
-	window.debugPhysics = true;
+	window.debugPhysics = false;
 	playEl.click();
 }
 
