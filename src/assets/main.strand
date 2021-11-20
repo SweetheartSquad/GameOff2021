@@ -697,7 +697,9 @@ P: I can monologue too.
 [[leave>close]]
 
 
-::test-frog
+::frog-march
+TODO: somehow get to the frog
+>
 "HALT!"
 >
 P: I freeze in my steps at the sound of the booming voice.
@@ -784,7 +786,7 @@ P: "W-well we'd prefer if you did not!"
 
 
 
-::test-deserter
+::deserter-march
 P: TODO: some inner monologuing
 >
 P: Wait...
