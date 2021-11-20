@@ -23,3 +23,4 @@ textures/parallaxBG.jpg
 textures/rain/rain.x3.png
 textures/rainSplash/rainSplash.x5.png
 textures/pillbug.png
+textures/marchScrim.png

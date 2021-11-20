@@ -120,6 +120,19 @@
 		this.Npc({ passage: 'intro-panic-3', x: 410, y: 150, roam: 200 }),
 	]);
 
+	this.Area('march', [
+		PropParallaxAuto({ texture: 'parallaxBG', offset: -200000, scale: 3, blur: true, mult: 1, speed: -8 }),
+		PropParallaxAuto({ texture: 'parallaxBG', x: 500, offset: -100000, scale: 2, blur: true, mult: 1, alpha: 0.1, speed: -20 }),
+		this.Prop({ texture: 'basicAntRun', x: 620, y: 250+10, scale: 2 }),
+		this.Prop({ texture: 'basicAntRun', x: 410, y: 250+20, scale: 2 }),
+		this.Prop({ texture: 'basicAntRun', x: 180, y: 250+0, scale: 2 }),
+		this.Prop({ texture: 'basicAntRun', x: -10, y: 250+5, scale: 2 }),
+		this.Prop({ texture: 'basicAntRun', x: -210, y: 250+0, scale: 2 }),
+		this.Prop({ texture: 'basicAntRun', x: -400, y: 250+30, scale: 2 }),
+		this.Prop({ texture: 'basicAntRun', x: -620, y: 250+10, scale: 2 }),
+		this.PropParallax({ texture: 'marchScrim', offset: 100000  }),
+	]);
+
 	this.Area('inn-outside', [
 		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
 		this.PropParallax({ texture: 'rain', offset: 100000, mult: 1.1, freq: 1/200 }),
