@@ -331,11 +331,13 @@ todo: ending
 
 ::Begin
 <<do this.voice='Default';>>
+<<do this.scene.goto({ area: 'march' })>>
 P: Doubt comes to you so easily when you're bored.
 >
-<<do this.tween(this.scene.border.display.container, 'alpha', 1, 5000, 0);>>
+<<do this.tween(this.scene.border.display.container, 'alpha', 1, 5000);>>
 P: Your mind wanders. You think about things. You ask yourself questions, and come up with answers that are yours and yours alone.
 >
+<<do this.scrim(0.5, 10000)>>
 P: Sometimes I feel like this dubious boredom is itself just another expression of our shared existence and purpose.
 >
 P: We all march along the limb of the same tree, we all get caught up in our heads with the same thoughts, we all wonder if the others do the same.
@@ -352,14 +354,17 @@ P: So I am briefly glad to be interrupted by someone shouting my name.
 [[Dodge]]
 
 ::Freeze
+<<do this.scrim(1, 100)>>
 P: I freeze in place. A moment later, my vision is flooded by a great branch collapsing down mere inches in front of me.
 [[Oh no.>begin2]]
 
 ::Duck
+<<do this.scrim(1, 100)>>
 P: I fall to the ground instinctively. As soon as I do, I hear the crash of a great branch collapsing down mere inches in front of me, and cling on for dear life.
 [[Oh no.>begin2]]
 
 ::Dodge
+<<do this.scrim(1, 100)>>
 P: I leap backwards on instinct, barreling into the one who called out, Sister Ten-and-nine. The two of us tumble down just as I hear the crash of a great branch collapsing into the path ahead.
 [[Oh no.>begin2]]
 
