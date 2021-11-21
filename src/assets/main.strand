@@ -157,11 +157,6 @@
 		this.Interrupt({ passage: 'outside-inn-ants', x: 160, y: 10, height: 500 }),
 	]);
 
-	this.Area('inn-inside', [
-		this.Prop({ texture: 'bg_innInside', offset: -10000 }),
-		this.Npc({ passage: 'test-npc', x: 207, y: -75 }),
-	]);
-
 	this.Area('test', [
 		// bg
 		this.PropParallax({ texture: 'parallaxBG', offset: -1000000, scale: 3, blur: true, mult: 0.6 }),

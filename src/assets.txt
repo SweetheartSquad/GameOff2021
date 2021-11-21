@@ -17,7 +17,6 @@ textures/queenIdle/queenIdle.x8.png
 textures/queenStandingIdle/queenStandingIdle.x8.png
 textures/scene1_bg.png
 textures/bg_innOutside.png
-textures/bg_innInside.jpg
 textures/InnOutside_flicker/InnOutside_flicker.x2.png
 textures/parallaxBG.jpg
 textures/rain/rain.x3.png
