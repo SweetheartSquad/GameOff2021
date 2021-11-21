@@ -329,12 +329,6 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 ]]
 [[close]]
 
-::end
-<<do this.voice='None';this.tween(this.scene.border.display.container, 'alpha', 0, 5000, 1)>>
-todo: ending
-
-[[restart|this.restart()]]
-
 ::CWs
 - bugs
 - death
