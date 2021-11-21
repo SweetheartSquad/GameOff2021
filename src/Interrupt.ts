@@ -9,16 +9,16 @@ export class Interrupt extends GameObject {
 		width = 80,
 		height = 80,
 		radius = 40,
-		x,
-		y,
+		x = 0,
+		y = 0,
 	}: {
 		passage?: string;
 		type?: ConstructorParameters<typeof Body>[1]['type'];
 		width?: ConstructorParameters<typeof Body>[1]['width'];
 		height?: ConstructorParameters<typeof Body>[1]['height'];
 		radius?: ConstructorParameters<typeof Body>[1]['radius'];
-		x: number;
-		y: number;
+		x?: number;
+		y?: number;
 	}) {
 		super();
 		this.scripts.push(
