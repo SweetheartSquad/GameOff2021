@@ -1128,14 +1128,30 @@ P: "W-well we'd prefer if you did not!"
 
 
 ::deserter-march
-<<do this.scene.areas.march.filter(i => i.animator && i.transform.x !== -10).forEach(i => this.tween(i.spr, 'alpha', 0, 10000))>>
-P: TODO: some inner monologuing
+<<do this.scene.areas.march.filter(i => i.animator && i.transform.x !== -10).forEach(i => this.tween(i.spr, 'alpha', 0, 30000))>>
+P: I'm not sure why, but my thoughts keep drifting to Sister Nurse Five.
+
+My old sister nurse.
+>
+P: There are so many more recent losses. Why do I keep going back to that one?
+>
+P: It keeps reeling around in my head.
+>
+P: Her whole generation is nearly gone.
+>
+P: I remember Sister Five, but can't help but feel I never knew her. Not really.
+
+Sister Superior Three is the only one left who did.
+>
+P: And Mother, of course...
+>
+P: Perhaps that's enough. For Mother to remember us.
 >
 P: Wait...
 >
 P: Where did everyone go?
 >
-P: My thoughts of TODO paused, I suddenly realize that I'm walking completely alone.
+P: My thoughts of rememberance paused, I suddenly realize that I'm walking completely alone.
 >
 <<do this.scrim(1, 1000)>>
 P: The trail- did I wander off the scent trail while I was daydreaming?
