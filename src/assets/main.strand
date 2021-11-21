@@ -455,7 +455,9 @@ TODO: common march intro 2
 ::inn-march
 P: The rain is picking up again.
 >
-P: I don't think it's just a shower. We're going to need to take shelter to make it through this one.
+P: I don't think it's just a shower.
+
+We're going to need to take shelter to make it through this one.
 >
 <<do this.scrim(1, 1000)>>
 P: Thankfully I'm not the only one who thinks so. Mother calls the march to a halt.
@@ -487,17 +489,105 @@ P: We've made it this far, but we've just been roughing it. Our luck is running 
 
 ::outside-inn-ants-proposal
 <<do this.scrim(1, 1000)>>
-P: TODO: some sort of monologue
+P: The reaction is mixed, to say the least.
+
+Nonetheless, a formal report is delivered, and passed along.
+>
+P: Nest construction efforts seem to slow to a halt.
+>
+P: Some time later, I receive a summons from the Sister Superior.
 >
 <<do this.show('queenStandingIdle')>>
-"What's this we hear about 'alternative arrangements' for our travel nest?"
+"We've heard much about these 'alternative arrangements' for our travel nest."
+>
+"Sister Twenty, this is your doing?"
+>
+P: Sister Superior Three of Many is a full head shorter than me, but still manages to make me feel as if I am being looked down on with every word.
+>"Yes. We've found a solution."
+"A solution."
+>
+"Correct us if we're wrong Sister, but it sounded like this 'solution' required the use of currency. Foreign currency, at that."
+>"No, you misunderstand."
+P: "It's already been worked out! We don't need to pay: They just want a fair trade."
+>
+"Oh? And what exactly would you have us trade?"
+>
+P: "The innkeeper is aware of the sister nurses' weaving. They are willing to exchange room and board for woven commodities, provided by our sisters."
+>
+"..."
+>
+"You want us to sell our bodies, to sell the gifts provided by our sisters-to-be, and you call this a 'fair trade'?"
+>
+"And all this for the grudging hospitality a measly pair of shill-bugs, of all people?!"
+>"But..."
+P: "What else are we to do?"
+
+"It's unglamorous work, but it is but work."
+>
+P: "Are we so proud that we would rather die than labour for a night's survival?"
+>
+"It is you who misunderstands, Sister."
+
+"We are not discussing our options for survival."
+>"What do you mean?"
+"Mother has already been informed of your report. This inn sounds more than suitable, and we are prepared to spend the night there while the storm passes."
+>
+P: "...Then what's the problem? If Mother has decided, we should discuss the final terms with Nathan and get out of this weather!"
+>
+"Sister Twenty, whether the roly polies wish to house us or not is irrelevant."
+>"What?"
+"From your report, there are only two of them. Perhaps a third, but likely unable to fight."
+>"Fight!?"
+"We do not intend to provoke violence, of course."
+
+"But if these greedy fools value their lives less than money, we will be glad to take them."
+
+[["You can't do this!">outside-inn-ants-proposal2]]
+[["We see your point...">outside-inn-ants-proposal2]]
+
+::outside-inn-ants-proposal2
+"Mother thanks you for your diligence, Sister."
+>
+"But please, for our sake: remember that you are part of the Queen Mother's retinue."
+>
+"Even when acting alone, you are an extension of Mother, and of our sisters."
+>
+"You do not act alone. We act together."
+>"...Yes, Sister Superior."
+P: She seems satisfied to leave it at that.
+>
+"Now, go- return to our sisters."
+
+"We believe the advance regiment will have succeeded in staking their ground by now, and they will be needing your support."
+>
+P: Of course they had already started.
 >
 <<do this.show('')>>
-<<do this.scrim(0.5, 1000)>>
-P: TODO: some more monologue
+P: There really was nothing I could've said to stop it.
 >
-"TODO: some more dialogue"
+P: Rain continues to beat down as I trek across the branch to the inn yet again.
+>
+P: The Bunty Nathan's looks much the same as when I first entered. Warm and welcoming. A nice little receptionist's stand.
 
+But there was no doorman to pass, and no one is seated at the desk.
+>
+P: There's plenty of other activity - sisters mill about the entrance, working out where to sleep, what to eat, when to leave.
+>
+P: I need the rest, so I focus on the former, and soon find myself leading a group to the first of the vacant tenant rooms.
+>
+P: Inside, it's a bit cramped, but neatly arranged.
+
+There's a little table, a dresser off to one side, and two sturdy-looking bedframes.
+>
+P: It's nice. Cozy.
+>
+P: We're sleeping four sisters to a bed, so I lay down on one edge, leaving space for the others when they do the same.
+>
+P: The surface is hard and flat.
+>
+P: It really could use a pillow.
+>
+P: I try to fall asleep.
 [[>march]]
 
 
@@ -658,9 +748,9 @@ P: Sure enough, inside there's another giant pill millipede sitting at a small s
 >
 "Pay no mind to my brother... He means well, but he can be a bit much."
 >
-"Sometimes it takes my whole will to not just roll up and away when he gets going, ho ho!"
+"Sometimes takes my whole will to not roll up mid-conversation when he gets going, ho ho!"
 >
-P: I can see the family resemblence, but just smile and nod.
+P: I'm starting to see the family resemblence, but just smile and nod.
 >
 "I suppose he sent you my way for a reason, though!"
 
@@ -793,7 +883,9 @@ P: "What? No."
 >"Yes, of course."
 "Ho ho! Then I think I may have a deal that will benefit us both!"
 >
-"We offer very fine accommodations at The Bunty Nathan's, but I will admit that the furnishings in our rooms may be a tad... underwhelming."
+"We offer very fine accommodations at The Bunty Nathan's. Very cozy!"
+
+"But I will admit that the furnishings in our rooms may be a tad... underwhelming."
 >
 "There's only so much you can do with reclaimed wood!"
 
@@ -830,6 +922,8 @@ P: "You want us to... make decorations for you?"
 P: With that, he suddenly spurs into action: The roly poly uncurls itself and takes off at a surprising pace deeper into the tree.
 >
 P: I'm left alone in the lobby. It's still raining outside.
+>
+P: It's not exactly what I had in mind, but this does seem to solve our problem.
 >
 P: I allow myself the luxury of a few more moments of shelter, and make my way back out.
 [[>close]]
