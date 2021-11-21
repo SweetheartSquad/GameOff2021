@@ -503,6 +503,10 @@ P: But there's ground to cover.
 	// and can be "ended" by going to `march` again
 	if(!this.marchEvents || !this.marchEvents.length) {
 		this.marchEvents = [
+			'feeding',
+			'feeding',
+			'feeding',
+			'feeding',
 			'inn',
 			'frog',
 			'deserter',
@@ -524,6 +528,147 @@ TODO: common march intro 2
 
 
 
+
+
+
+::feeding-march
+P: Before I can lose myself in my thoughts, I am called upon by Sister Superior Three.
+>
+<<do this.fed = (this.fed || 0) + 1>>
+"Sister Twenty. You are being placed on feeding duties today."
+[[...|this.scrim(1, 1000);this.goto('feeding-'+this.fed)]]
+
+::feeding-1
+P: She leads me through the marching order, easily cutting in and out between other sisters.
+>
+P: ...I've never fed Mother before.
+>
+P: We all share food of course, but it is a responsibility and privilege reserved for those in her retinue.
+>
+P: Our retinue, I remind myself.
+>
+P: I follow along meekly, until I am standing before the Queen Mother's palanquin.
+>
+<<do this.show('queenIdle')>>
+P: I do not know what to say.
+
+[["Hello Mother.">"Hungry?"]]
+[["Hungry?"]]
+[["...">feeding-1-2]]
+
+::"Hungry?"
+P: I receive a swat to the back of the head from Three.
+>
+"Shh!"
+[[>feeding-1-2]]
+
+::feeding-1-2
+P: Sister Superior clears her throat, and addresses Mother:
+>
+"Queen Mother, please allow us to introduce Sister Twenty of Many Oecophylla."
+>
+"Sister Twenty, please begin your duty to Queen Mother One and Many Oecophylla."
+>
+P: She steps back, and I am left face to face with Mother.
+>
+P: "..."
+>
+P: "...Sorry. This is the first time-"
+>
+"We are aware. We do not forget our own daughters, our own sisters."
+>
+P: Her voice is calm, and firm. The same as it always is.
+>
+"Despite Daughter Three's formalities, there is no need for special treatment. We all must eat, so we all share food."
+>
+P: I nod, and regurgitate some of the contents of my stomach.
+>
+P: She asks for no special treatment, but I can't help but give up a larger portion than I usually would to another sister.
+
+If she notices, she does not comment.
+>
+P: Mother partakes of her meal in small sips and licks, seemingly in no hurry.
+>
+P: Why would she be? She will still be seated here whether she finishes now or later.
+>
+P: I stand in anxious silence as she eats.
+>
+"..."
+>
+"Daughter Twenty."
+>"Yes?"
+"We do not wish to be uncomfortable."
+
+"Speak with us, if we would have anything to say."
+>
+P: I shouldn't be shocked that she could see through my nerves so clearly, but it catches me off-guard regardless.
+[[>feeding-questions]]
+
+::feeding-2
+P: Again?
+>
+P: I suppose there are fewer of us, so it shouldn't be surprising.
+>
+<<do this.show('queenIdle')>>
+P: The ceremony of it keeps me on edge, but it is not long before Mother is contently feasting on a conserved lunch of mine from earlier that day.
+[[>feeding-questions]]
+
+
+::feeding-3
+<<do this.show('queenIdle')>>
+P: I am used to the routine by now, but I have new reason to be anxious.
+>
+P: Mother needs to be fed, but my own stomach is painfully empty.
+>
+P: I regurgitate what little reserves I have, but it is a meager helping at best.
+>
+P: My worries go unaddressed. Mother does not comment on the size of her meal, and eats as if nothing is out of the ordinary.
+>
+P: Perhaps she is so well-fed that it makes no difference to her?
+>
+P: Perhaps she knows how hungry our sisters are, and sees no reason to remind us.
+[[>feeding-questions]]
+
+
+::feeding-4
+P: I find myself almost looking forward to the occasion.
+>
+P: If only for the opportunity to speak with Mother, to hear her thoughts and words directly.
+>
+<<do this.show('queenIdle')>>
+P: I prepare her meal as usual.
+>
+P: She continues to eat, and I consider what to say.
+
+But before I've said anything, she speaks.
+>
+"Please, Daughter."
+>
+"The path has been long and hard on us all."
+>
+"We need our rest."
+
+"No questions today."
+>
+P: I nod, and continue the rest of the feeding in silence.
+>
+<<do this.show('')>>
+P: ...
+[[>march]]
+
+
+::feeding-questions
+P: She continues to eat, and I consider what to say.
+
+[["TODO: questions"]]
+
+::"TODO: questions"
+TODO: answers
+>
+<<do this.show('')>>
+She finishes her meal, and I return to my place in the marching order.
+
+[[>march]]
 
 
 
