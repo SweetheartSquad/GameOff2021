@@ -1392,7 +1392,7 @@ P: For the first time, her sullen mood cracks, and she laughs.
 P: I can tell her patience - what little of it there was - has thinned.
 [["Farewell."]]
 [["I hope to see you again someday."]]
-[["You will always be a sister to me."]]
+[["You will always be a sister to us."]]
 
 ::"Farewell."
 "Farewell, Twenty."
@@ -1402,7 +1402,7 @@ P: I can tell her patience - what little of it there was - has thinned.
 "For my sake, I hope that you do not."
 [[>deserter-end3]]
 
-::"You will always be a sister to me."
+::"You will always be a sister to us."
 "...Do you think that a kindness?"
 >
 "To be forever branded by circumstance of birth?"
