@@ -346,6 +346,10 @@ todo: ending
 ::Begin
 <<do this.voice='Default';>>
 <<do this.scene.goto({ area: 'march' })>>
+<<do
+	this.counti = 0;
+	this.countwe = 0;
+>>
 P: Doubt comes to you so easily when you're bored.
 >
 <<do this.tween(this.scene.border.display.container, 'alpha', 1, 5000);>>
@@ -389,9 +393,9 @@ P: It creaks and groans, and unleashes a horrible crack as something gives.
 >
 P: The world rushes away. I'm falling. This is it.
 
-[[We're going to die.>begin3]]
-[[I'm sorry Mother.>begin3]]
-[[I don't want to die.>begin3]]
+[[We're going to die.|++this.countwe;this.goto('begin3')]]
+[[I'm sorry Mother.|++this.counti;this.goto('begin3')]]
+[[I don't want to die.|++this.counti;this.goto('begin3')]]
 
 ::begin3
 P: But I'm wrong.
@@ -440,27 +444,27 @@ P: Mother is going to speak.
 "Daughters. Sisters."
 >Mother!
 "We see fear in our faces."
-[[We are scared!>mother-speech2]]
-[[I don't want to die!>mother-speech2]]
+[[We are scared!|++this.countwe;this.goto('mother-speech2')]]
+[[I don't want to die!|++this.counti;this.goto('mother-speech2')]]
 ::mother-speech2
 "We smell grief in the air."
-[[We are crying!>mother-speech3]]
-[[I cannot continue!>mother-speech3]]
+[[We are crying!|++this.countwe;this.goto('mother-speech3')]]
+[[I cannot continue!|++this.counti;this.goto('mother-speech3')]]
 ::mother-speech3
 "Do not worry."
-[[We should not worry.>mother-speech4]]
-[[How could I not?>mother-speech4]]
+[[We should not worry.|++this.countwe;this.goto('mother-speech4')]]
+[[How could I not?|++this.counti;this.goto('mother-speech4')]]
 ::mother-speech4
 "Do not weep for the sisters we've lost."
-[[We should not weep.>mother-speech5]]
-[[My cries go unanswered.>mother-speech5]]
+[[We should not weep.|++this.countwe;this.goto('mother-speech5')]]
+[[My cries go unanswered.|++this.counti;this.goto('mother-speech5')]]
 ::mother-speech5
 "Our daughters, our sisters, are not gone."
 
 "Yes, our numbers are lessened, but look around."
 
-[[We see.>mother-speech6]]
-[[I see.>mother-speech6]]
+[[We see.|++this.countwe;this.goto('mother-speech6')]]
+[[I see.|++this.counti;this.goto('mother-speech6')]]
 ::mother-speech6
 "Listen."
 >
@@ -483,8 +487,8 @@ P: The sister to my left reaches out, clasps hands in mine.
 "..."
 >
 P: Mother... Her words trace themselves through our sisters and our self.
-[[We have faith.>mother-speech7]]
-[[I really do.>mother-speech7]]
+[[We have faith.|++this.countwe;this.goto('mother-speech7')]]
+[[I really do.|++this.counti;this.goto('mother-speech7')]]
 
 ::mother-speech7
 P: The feeling passes in waves. Our sisters cheer, and we join with them. I can't help but notice how much quieter the crowd is than when it set out.
@@ -622,8 +626,8 @@ P: "...Then what's the problem? If Mother has decided, we should discuss the fin
 
 "But if these greedy fools value their lives less than money, we will be glad to take them."
 
-[["You can't do this!">outside-inn-ants-proposal2]]
-[["We see your point...">outside-inn-ants-proposal2]]
+[["You can't do this!"|++this.counti;this.goto('outside-inn-ants-proposal2')]]
+[["We see your point..."|++this.countwe;this.goto('outside-inn-ants-proposal2')]]
 
 ::outside-inn-ants-proposal2
 "Mother thanks you for your diligence, Sister."
@@ -751,7 +755,7 @@ P: Oh no.
 
 "*Please note the buffet is strictly vegetarian. Breakfast hours are from-"
 
-[["ok I get it">outside-inn3]]
+[["ok I get it"|++this.counti;this.goto('outside-inn3')]]
 [["please stop">outside-inn3]]
 
 ::outside-inn3
@@ -763,6 +767,7 @@ P: Oh no.
 [["And what is the price?"]]
 
 ::"What if I just want one night?"
+<<do ++this.counti>>
 "Well I'm afraid that will cost you ONE night for the price of one."
 
 "A little less special, but still an unbeatable steal!"
@@ -792,6 +797,7 @@ P: "...Twenty of Many Oecophylla."
 
 
 ::"We'll have to talk it over."
+<<do ++this.countwe>>
 "Of course! Just head on in and talk it over with Nathan!"
 >
 <<do this.scrim(1, 1000)>>
@@ -802,6 +808,7 @@ The large roly poly doesn't let me finish, and starts pushing me inside.
 
 
 ::"I'll just head on in, then."
+<<do ++this.counti>>
 <<do this.scrim(1, 1000)>>
 "Ho ho, wonderful!"
 [[>bunty-enter]]
@@ -840,6 +847,7 @@ P: I'm starting to see the family resemblence, but just smile and nod.
 [["We need your help."]]
 
 ::"I'm looking for shelter."
+<<do ++this.counti>>
 "Well you've come to the right place!"
 >
 "Would this be a suite for one?"
@@ -849,6 +857,7 @@ P: "No, not just for me: For my sisters and Mother as well."
 
 
 ::"We need your help."
+<<do ++this.countwe>>
 "'We'?"
 >
 P: "Yes, our Mother, our sisters as well. We need somewhere to stay."
@@ -912,10 +921,12 @@ The big bug looks at me expectantly.
 
 
 ::"I can't pay."
+<<do ++this.counti>>
 P: He seems confused at the statement, so I continue.
 [[>nathan4]]
 
 ::"We don't have any money."
+<<do ++this.countwe>>
 P: He seems confused at the statement, so I continue.
 [[>nathan4]]
 
@@ -942,9 +953,9 @@ P: "..."
 >"Isn't there some other way we could pay?"
 "How would you pay without money!?"
 
-[["Is there nothing else you need?">nathan5]]
+[["Is there nothing else you need?"|++this.counti;this.goto('nathan5')]]
 [["An exchange?">nathan5]]
-[["We can work.">nathan5]]
+[["We can work."|++this.countwe;this.goto('nathan5')]]
 
 ::nathan5
 "No, I don't think that- well, actually. Perhaps..."
@@ -989,9 +1000,9 @@ P: "You want us to... make decorations for you?"
 
 "What do you say?"
 
-[["I'll have to ask the others.">nathan6]]
-[["We'll consider it.">nathan6]]
-[["I'm not sure about this.">nathan6]]
+[["I'll have to ask the others."|++this.counti;this.goto('nathan6')]]
+[["We'll consider it."|++this.countwe;this.goto('nathan6')]]
+[["I'm not sure about this."|++this.counti;this.goto('nathan6')]]
 
 ::nathan6
 "Of course, of course, discuss terms with your family before making any decisions."
@@ -1073,10 +1084,12 @@ P: He's SO BIG.
 [["We're just passing through.">frog2-we]]
 
 ::frog2-we
+<<do ++this.countwe>>
 P: "W-we're Oecophylla. We're just-"
 [[>frog2]]
 
 ::frog2-i
+<<do ++this.counti>>
 P: "I-I'm Sister Twenty. I'm here to-"
 [[>frog2]]
 
@@ -1207,6 +1220,7 @@ P: I look back towards my absent-minded detour. I know that someone else lay tha
 [[Leave the fork alone]]
 
 ::Cover the faint branch
+<<do ++this.countwe>>
 P: I take a few minutes to carefully repair the fork in the scent trail, making sure the faint branch is no longer connected.
 >
 P: This is dangerous. Who knows how far I could have gone without noticing I'd been separated?
@@ -1218,6 +1232,7 @@ P: Whoever did this, I'm sorry Sister. You'll have to find your own way back.
 
 
 ::Leave the fork alone
+<<do ++this.counti>>
 P: I have to admit, it's a bit dangerous. More sisters may still be trying to find and follow our trail, and could make the same mistake I did.
 >
 P: But I can't bring myself to break the fork.
@@ -1279,6 +1294,7 @@ P: "Yes."
 [["We need to get back."]]
 
 ::"We need to get back."
+<<do ++this.countwe>>
 "Oh 'we' do, do 'we'?"
 >
 P: "Yes! If we hurry, we'll probably make it back by nightfall, but the others have not stopped in our absence."
@@ -1291,6 +1307,7 @@ P: "Well..."
 [[>worried2]]
 
 ::"I was worried about you."
+<<do ++this.counti>>
 "You were?"
 [[>worried2]]
 
@@ -1369,6 +1386,7 @@ She keeps walking.
 [["...Then go.">deserter-end2]]
 
 ::"Then I will come with you."
+<<do ++this.counti>>
 "No, you will not."
 >
 P: "W-what?"
@@ -1381,6 +1399,7 @@ P: "W-what?"
 [[>deserter-end2]]
 
 ::"And what if we make you?"
+<<do ++this.countwe>>
 P: For the first time, her sullen mood cracks, and she laughs.
 >
 "Did you forget that I have no need to follow the path?"
@@ -1399,10 +1418,12 @@ P: I can tell her patience - what little of it there was - has thinned.
 [[>deserter-end3]]
 
 ::"I hope to see you again someday."
+<<do ++this.counti>>
 "For my sake, I hope that you do not."
 [[>deserter-end3]]
 
 ::"You will always be a sister to us."
+<<do ++this.countwe>>
 "...Do you think that a kindness?"
 >
 "To be forever branded by circumstance of birth?"
