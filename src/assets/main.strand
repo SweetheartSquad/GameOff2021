@@ -157,6 +157,15 @@
 		this.Interrupt({ passage: 'outside-inn-ants', x: 160, y: 10, height: 500 }),
 	]);
 
+	this.Area('deserter-path', [
+		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
+		this.Prop({ texture: 'bg_innOutside', x: 793, y: 492, flip: true, offset: -10000 }),
+		this.Npc({ body: 'basicAnt', x: 1359, y: -16 }),
+		this.Poly({ verts: [-59,-116, -88,135, 832,168, 986,155, 1503,147, 1482,-188, 916,-124, 561,-97, -59,-116] }),
+		this.Interrupt({ passage: 'deserter-wall', x: -63, height: 500 }),
+		this.Interrupt({ passage: 'deserter', x: 1359, height: 500 }),
+	]);
+
 	this.Area('town', [
 		this.Prop({ texture: 'town_bg', offset: -10000 }),
 		this.Prop({ texture: 'innTable1', x: -537, y: -652 }),
@@ -1119,6 +1128,7 @@ P: "W-well we'd prefer if you did not!"
 
 
 ::deserter-march
+<<do this.scene.areas.march.filter(i => i.animator && i.transform.x !== -10).forEach(i => this.tween(i.spr, 'alpha', 0, 10000))>>
 P: TODO: some inner monologuing
 >
 P: Wait...
@@ -1127,6 +1137,7 @@ P: Where did everyone go?
 >
 P: My thoughts of TODO paused, I suddenly realize that I'm walking completely alone.
 >
+<<do this.scrim(1, 1000)>>
 P: The trail- did I wander off the scent trail while I was daydreaming?
 >
 P: I spin around, antennae flicking furiously.
@@ -1139,7 +1150,7 @@ P: It's faint, but certainly there. But then where are my sisters?
 >
 P: Did I just get turned around?
 >
-P: That doesn't seem right. I don't recognize this place.
+P: That doesn't seem right. I don't recognize this part of the tree.
 >
 P: Daylight is already fading, I need to move.
 
@@ -1147,15 +1158,19 @@ P: Daylight is already fading, I need to move.
 [[Go back the way I came]]
 
 ::Keep following the scent trail
+<<do this.scene.goto({ area: 'deserter-path' })>>
 P: There wouldn't be a trail here if someone hadn't been this way.
 >
 P: I have to follow it.
 >
+P: So I pick up the pace, and I do.
+>
 P: ...
 >
-TODO: actually find deserter
-
-[[Go back the way I came]]
+P: Eventually, the scent gets stronger.
+>
+P: They must be nearby.
+[[>close]]
 
 ::Go back the way I came
 P: This is too risky. I need to find familiar ground and regroup.
@@ -1168,9 +1183,9 @@ P: ...
 >
 P: There!
 >
-P: The trail: it's forked. A strong path -- clearly the original -- and a much weaker offshoot that led me astray.
+P: The trail: it's forked. A strong path - clearly the original - and a much weaker offshoot that led me astray.
 >
-P: I look back towards my absent-minded detour. I know that someone else lay that trail: someone who's still out there.
+P: I look back towards my absent-minded detour. I know that someone else lay that trail: Someone who's still out there.
 
 [[Cover the faint branch]]
 [[Leave the fork alone]]
@@ -1180,14 +1195,14 @@ P: I take a few minutes to carefully repair the fork in the scent trail, making 
 >
 P: This is dangerous. Who knows how far I could have gone without noticing I'd been separated?
 >
-P: More sisters may still be following our trail, and could make the same mistake.
+P: More sisters may still be trying to find and follow our trail, and could make the same mistake.
 >
 P: Whoever did this, I'm sorry Sister. You'll have to find your own way back.
 [[>go-back-2]]
 
 
 ::Leave the fork alone
-P: I have to admin, it's dangerous. More sisters may still be following our trail, and could make the same mistake I did.
+P: I have to admit, it's a bit dangerous. More sisters may still be trying to find and follow our trail, and could make the same mistake I did.
 >
 P: But I can't bring myself to break the fork.
 >
@@ -1198,6 +1213,7 @@ P: I'm sorry I can't do more for you Sister, but I hope you find your way back t
 [[>go-back-2]]
 
 ::go-back-2
+<<do this.scene.areas.march.filter(i => i.animator).forEach(i => this.tween(i.spr, 'alpha', 1, 10000))>>
 P: I hurry along the original route.
 >
 P: ...
@@ -1208,10 +1224,194 @@ P: A voice calls out from the group:
 >
 "Sister Twenty of Many! Is that you?"
 >"Yes! Sister Superior, it's me!!"
-"Well pick up the pace! You're in the Queen Mother's court now: No dawdling!"
->"...Yes, Sister Superior."
+"Well pick up the pace!! No dawdling in the Queen Mother's retinue!"
 
-[[passage select]]
+[["...Yes, Sister Superior.">march]]
+
+
+
+::deserter-wall
+P: I came out all this way, I can't head back now.
+[[>close]]
+
+
+::deserter
+<<do
+	const marchers = this.scene.areas.march.filter(i => i.animator);
+	marchers.forEach(i => i.spr.alpha = 0);
+	marchers[3].spr.alpha = 1;
+	marchers[2].spr.alpha = 1;
+>>
+P: "Sister!"
+>
+<<do this.scrim(1, 1000)>>
+P: I'm relieved to find them, but... I don't recognize her. She's clearly older than I am - probably a Ten-and, but I don't know who.
+>
+<<do this.scene.goto({ area: 'march' })>>
+P: She responds, but keeps walking, forcing me to match her pace.
+>
+<<do this.scrim(0.5, 5000)>>
+"Ugh. I should've figured that someone would notice I was missing..."
+>
+P: Ah, hah... I probably shouldn't correct her.
+>
+"Followed me all the way out here, huh?"
+>
+P: "Yes."
+
+[["I was worried about you."]]
+[["We need to get back."]]
+
+::"We need to get back."
+"Oh 'we' do, do 'we'?"
+>
+P: "Yes! If we hurry, we'll probably make it back by nightfall, but the others have not stopped in our absence."
+>
+P: "At least, as far as we know."
+>
+"They let you walk all the way out here, but they aren't waiting for you?"
+>
+P: "Well..."
+[[>worried2]]
+
+::"I was worried about you."
+"You were?"
+[[>worried2]]
+
+::worried2
+"...Actually, sorry who are you exactly?"
+>
+P: Oh good, at least it's not just me.
+>
+P: "Sister Twenty. And you are...?"
+>
+"I'm not."
+>
+P: "...Pardon?"
+>
+"I'm not your sister, Twenty. Not anymore."
+>
+P: "Are- are you feeling well?"
+
+"We've walked quite a long way, do you need to rest?"
+>
+"I'm fine. You can stop if you want, don't mind me."
+>
+P: "But Sister, you-"
+>
+<<do
+	this.deserterwho = 0;
+	this.deserterwhere = 0;
+	this.deserterwhy = 0;
+>>
+"Stop."
+
+"I said I'm not your sister."
+
+[["But... who were you?">deserter-who]]
+[["But... where are you going?">deserter-where]]
+[["But... why aren't you stopping?">deserter-why]]
+
+::deserter-qs
+She keeps walking.
+
+<<if !this.deserterwho>>[["Who were you?">deserter-who]]<<endif>>
+<<if !this.deserterwhere>>[["Where are you going?">deserter-where]]<<endif>>
+<<if !this.deserterwhy>>[["Why aren't you stopping?">deserter-why]]<<endif>>
+<<if this.deserterwho + this.deserterwhere + this.deserterwhy >= 2>>[["You aren't coming back?">deserter-end]]<<endif>>
+
+::deserter-who
+<<do this.deserterwho=1>>
+"Does it matter? I was, and now I'm not."
+>
+"I'm sure someone who knew will notice eventually."
+
+"You can ask them when you go back, if you care."
+[[>deserter-qs]]
+
+::deserter-where
+<<do this.deserterwhere=1>>
+"Away."
+[[>deserter-qs]]
+
+::deserter-why
+<<do this.deserterwhy=1>>
+"Because following your Mother would just get me killed."
+>
+"Because for once in my life I have decided to do something, and I am not going to let the doubts of others prevent me from doing it."
+>
+"Because I am tired."
+[[>deserter-qs]]
+
+
+
+::deserter-end
+"No, I am not."
+
+[["Then I will come with you."]]
+[["And what if we make you?"]]
+[["...Then go.">deserter-end2]]
+
+::"Then I will come with you."
+"No, you will not."
+>
+P: "W-what?"
+>
+"I have made a decision."
+>
+"<<if this.deserterwhy>>I have already told you why: <<endif>>Do not burden me with your doubts."
+
+"Do not allow yourself to be burdened by mine."
+[[>deserter-end2]]
+
+::"And what if we make you?"
+P: For the first time, her sullen mood cracks, and she laughs.
+>
+"Did you forget that I have no need to follow the path?"
+>
+"I'd sooner send us both to the forest floor than allow you to carry me anywhere."
+[[>deserter-end2]]
+
+::deserter-end2
+P: I can tell her patience - what little of it there was - has thinned.
+[["Farewell."]]
+[["I hope to see you again someday."]]
+[["You will always be a sister to me."]]
+
+::"Farewell."
+"Farewell, Twenty."
+[[>deserter-end3]]
+
+::"I hope to see you again someday."
+"For my sake, I hope that you do not."
+[[>deserter-end3]]
+
+::"You will always be a sister to me."
+"...Do you think that a kindness?"
+>
+"To be forever branded by circumstance of birth?"
+>
+"You pity me with your words of kinship. I do not want them."
+[[>deserter-end3]]
+
+::deserter-end3
+<<do this.scrim(1, 1000)>>
+P: I stop walking, and she continues.
+>
+P: She says nothing more, and slowly shrinks into the distance.
+>
+P: I've said what I could, and decide to head back.
+>
+P: ...
+[[>go-back-2]]
+
+
+
+
+
+
+
+
 
 
 
