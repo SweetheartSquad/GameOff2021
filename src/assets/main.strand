@@ -112,6 +112,7 @@
 
 	this.Area('intro', [
 		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
+		this.PropParallax({ texture: 'rain', offset: -50000, mult: 0.8, scale: 0.5, alpha: 0.1, freq: 1/200 }),
 		this.PropParallax({ texture: 'rain', offset: 100000, mult: 1.1, alpha: 0.2, freq: 1/200 }),
 		this.Prop({ texture: 'scene1_bg', x: 827, y: 658, offset: -10000 }),
 		this.Block({ x: -100, width: 40, height: 40 }),
@@ -137,6 +138,7 @@
 
 	this.Area('inn-outside', [
 		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
+		this.PropParallax({ texture: 'rain', offset: -50000, mult: 0.8, scale: 0.5, alpha: 0.5, freq: 1/200 }),
 		this.PropParallax({ texture: 'rain', offset: 100000, mult: 1.1, freq: 1/200 }),
 		this.PropParallax({ texture: 'rain', offset: 200000, mult: 1.2, scale: 2, blur: true, freq: 1/300 }),
 		this.Prop({ texture: 'bg_innOutside', x: -727, y: 488, offset: -10000 }),
@@ -144,7 +146,7 @@
 		this.Prop({ texture: 'rainSplash', x: -392, y: 129, freq: 1/100 }),
 		this.Prop({ texture: 'rainSplash', x: -914, y: -23, freq: 1/100 }),
 		this.Prop({ texture: 'rainSplash', x: -1367, y: 86, freq: 1/100 }),
-		this.Prop({ texture: 'pillbug', x: -1731, y: -22 }),
+		this.Prop({ texture: 'pillBugIdle', x: -1731, y: -22 }),
 		...AntProp({ x: 140, y: -86 }),
 		...AntProp({ x: 180, y: 5, flip: true }),
 		...AntProp({ x: 268, y: -11 }),
@@ -720,7 +722,7 @@ P: Nest construction efforts seem to slow to a halt.
 >
 P: Some time later, I receive a summons from the Sister Superior.
 >
-<<do this.show('queenStandingIdle')>>
+<<do this.show('superior')>>
 "We've heard much about these 'alternative arrangements' for our travel nest."
 >
 "Sister Twenty, this is your doing?"
@@ -958,7 +960,7 @@ P: The interior of the inn is welcomingly warm, and more importantly dry.
 
 The eager bug stays out in the rain, and laughs at seemingly nothing in particular.
 >
-<<do this.show('pillbug')>>
+<<do this.show('pillBugIdle')>>
 P: Sure enough, inside there's another giant pill millipede sitting at a small stand, complete with a hand-carved sign.
 >
 "Welcome, welcome!"
