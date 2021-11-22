@@ -13,7 +13,7 @@ import { getInput } from './main';
 import { NPC, Roam } from './NPC';
 import { size } from './size';
 import { removeFromArray } from './utils';
-import { distance2, multiply } from './VMath';
+import { distance, multiply } from './VMath';
 
 const playerSpeedX = 0.004 * speed;
 const playerSpeedY = 0.002 * speed;
@@ -117,7 +117,7 @@ export class Player extends Character {
 		this.updateCamPoint();
 	}
 
-	async walkTo(x: number, y: number) {
+	async walkTo(x: number, y: number, range = 5) {
 		const { roam } = this;
 		if (!roam) return;
 		roam.active = true;
@@ -125,7 +125,7 @@ export class Player extends Character {
 		roam.target.y = y;
 		await new Promise<void>((r) => {
 			const onUpdate = () => {
-				if (distance2(roam.target, this.transform) > 2) return;
+				if (distance(roam.target, this.transform) > range) return;
 				game.app.ticker.remove(onUpdate);
 				r();
 			};
@@ -134,8 +134,8 @@ export class Player extends Character {
 		roam.active = false;
 	}
 
-	walkBy(x: number, y: number) {
-		return this.walkTo(this.transform.x + x, this.transform.y + y);
+	walkBy(x: number, y: number, range?: number) {
+		return this.walkTo(this.transform.x + x, this.transform.y + y, range);
 	}
 
 	follow(npc: NPC) {
