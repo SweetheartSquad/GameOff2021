@@ -194,7 +194,7 @@
 		this.Prop({ texture: 'frogBranch', x: 1041, y: 689, offset: -10000 }),
 		this.Poly({ verts: [-86,-200, -89,172, 81,155, 110,55, 195,37, 306,153, 565,131, 868,48, 1016,-82, 1760,-642, 1867,-686, 2178,-889, 2178,-1019, 1849,-1019, 1622,-877, 1456,-812, 648,-273, 320,-218, -87,-202] }),
 		frogEnd,
-		this.Interrupt({ passage: 'frog-wall', x: -1125+1041, y: -515+689, height: 1000 }),
+		this.Interrupt({ passage: 'frog-wall', x: -1125+1041, y: 174, height: 1000 }),
 	]);
 
 	this.Area('test', [
