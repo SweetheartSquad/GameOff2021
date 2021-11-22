@@ -1,6 +1,16 @@
-import { Howl } from 'howler';
+import { Howl, Howler } from 'howler';
 import { resources } from './Game';
 import { delay } from './utils';
+
+let muted = false;
+export function toggleMute(): void {
+	if (muted) {
+		Howler.mute(false);
+	} else {
+		Howler.mute(true);
+	}
+	muted = !muted;
+}
 
 function getHowl(howl: string) {
 	const h = resources[howl]?.data as Maybe<Howl>;

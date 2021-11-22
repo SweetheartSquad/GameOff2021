@@ -1,4 +1,3 @@
-import { Howler } from 'howler';
 import { Point, Texture } from 'pixi.js';
 import { resources } from './Game';
 
@@ -33,16 +32,6 @@ export function slerp(from: number, to: number, by: number): number {
 // returns v, clamped between min and max
 export function clamp(min: number, v: number, max: number): number {
 	return Math.max(min, Math.min(v, max));
-}
-
-let muted = false;
-export function toggleMute(): void {
-	if (muted) {
-		Howler.mute(false);
-	} else {
-		Howler.mute(true);
-	}
-	muted = !muted;
 }
 
 export function partition<T>(arr: T[], condition: (i: T) => boolean): T[][] {
