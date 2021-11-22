@@ -171,11 +171,19 @@
 	]);
 
 	this.Area('town', [
-		this.Prop({ texture: 'town_bg', offset: -10000 }),
-		this.Prop({ texture: 'innTable1', x: -537, y: -652 }),
-		this.Block({ x: -537, y: -652 }),
-		this.Prop({ texture: 'innTable2', x: 427, y: -528 }),
-		this.Block({ x: 427, y: -528 }),
+		this.Prop({ texture: 'town_bg', y: 334, offset: -10000 }),
+		this.Poly({ verts: [-439,-187, -639,-135, -705,-15, -614,205, -449,291, -170,324, 50,319, 395,302, 595,205, 673,76, 702,-88, 688,-185, 551,-223] }),
+		this.Poly({ verts: [448,-252, 382,-275, 174,-275] }),
+		this.Poly({ verts: [33,-278, -118,-288, -188,-298, -337,-239] }),
+		this.Goto({ area: 'town', x: 0, y: 0 }, { type: 'circle', x: -394, y: -211 }),
+		this.Goto({ area: 'town', x: 0, y: 0 }, { type: 'circle', x: 104, y: -294 }),
+		this.Goto({ area: 'town', x: 0, y: 0 }, { type: 'circle', x: 501, y: -253 }),
+		this.Prop({ texture: 'innTable1', x: -399, y: -57 }),
+		this.Prop({ texture: 'shadows', x: -399, y: -57+15, offset: -20, scale: 2, alpha: 0.5 }),
+		this.Block({ type: 'circle', x: -399, y: -57, radius: 10 }),
+		this.Prop({ texture: 'innTable2', x: 304, y: -107 }),
+		this.Prop({ texture: 'shadows', x: 304, y: -107+15, offset: -20, scale: 2, alpha: 0.5 }),
+		this.Block({ type: 'circle', x: 304, y: -107, radius: 10 }),
 		this.Npc({ passage: 'test-npc', x: 207, y: -75 }),
 	]);
 
