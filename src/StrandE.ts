@@ -3,6 +3,7 @@ import ease from 'eases';
 import { Text, TextStyle } from 'pixi.js';
 import Strand from 'strand-core';
 import { Area } from './Area';
+import { music, sfx } from './Audio';
 import { Block } from './Block';
 import { fontIngame } from './font';
 import { GameObject } from './GameObject';
@@ -88,6 +89,14 @@ export class StrandE extends Strand {
 
 	scrim(...args: Parameters<typeof this.scene['dialogue']['scrim']>) {
 		this.scene.dialogue.scrim(...args);
+	}
+
+	sfx(...args: Parameters<typeof sfx>) {
+		return sfx(...args);
+	}
+
+	music(...args: Parameters<typeof music>) {
+		return music(...args);
 	}
 
 	restart() {
