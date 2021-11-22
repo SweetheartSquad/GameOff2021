@@ -21,7 +21,7 @@ textures/InnOutside_flicker/InnOutside_flicker.x2.png
 textures/parallaxBG.jpg
 textures/rain/rain.x3.png
 textures/rainSplash/rainSplash.x5.png
-textures/pillbug.png
+textures/pillBugIdle/pillBugIdle.x6.png
 textures/marchScrim.png
 textures/town_bg.png
 textures/innTable1.png
