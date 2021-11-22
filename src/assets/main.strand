@@ -279,6 +279,7 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 
 ::debug menu
 <<do
+	this.scene.border.display.container.alpha=1;
 	this.scene.strand.passages['area warp'] = { title: 'area warp', body: Object.keys(this.scene.areas).filter(i => i !== 'root').map(i => '[['+i+'|this.scene.goto({ area: "'+i+'" }); this.goto("close")]]').concat('[[back|this.back()]]').join('\n') };
 >>
 
