@@ -720,7 +720,7 @@ P: Nest construction efforts seem to slow to a halt.
 >
 P: Some time later, I receive a summons from the Sister Superior.
 >
-<<do this.show('queenStandingIdle')>>
+<<do this.show('superior')>>
 "We've heard much about these 'alternative arrangements' for our travel nest."
 >
 "Sister Twenty, this is your doing?"
