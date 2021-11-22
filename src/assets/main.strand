@@ -688,6 +688,8 @@ P: She continues to eat, and I consider what to say.
 // only first 6 questions will be shown
 // question template:
 // <<if this.qc<6 && othercondition>><<do ++this.qc>>[[a]]<<endif>>
+<<if this.qc<6 && this.innquestion>><<do ++this.qc>>[["What happened to the roly polies?"]]<<endif>>
+<<if this.qc<6 && this.innquestion>><<do ++this.qc>>[["Why didn't we stay at the inn?"]]<<endif>>
 <<if this.qc<6 && this.deserterquestion>><<do ++this.qc>>[["Who was the sister that ran away?"]]<<endif>>
 <<if this.qc<6>>[["...">feeding-questions-none]]<<endif>>
 
@@ -715,6 +717,58 @@ P: She finishes her meal, and I return to my place in the marching order.
 
 "Please, speak no more."
 [[>feeding-questions-2]]
+
+::"What happened to the roly polies?"
+<<do this.innquestion=false>>
+"The keepers of the inn?"
+>
+"They were dealt with."
+>"So they're..."
+"If you ask whether they still live, we do not know or care."
+>
+"They did not co-operate, and were evicted from the premises."
+
+"That is the start and end of the matter."
+>
+"Why is this of any concern?"
+
+[["They were willing to help us."]]
+[["I didn't want to hurt them."]]
+
+::"They were willing to help us."
+<<do ++this.countwe>>
+"They were willing to extort us."
+>
+"Make no mistake Daughter: We cannot trust those who would hold us for sale."
+[[>feeding-questions-2]]
+
+::"I didn't want to hurt them."
+<<do ++this.counti>>
+"They chose a path of mercantilism and deceit."
+>
+"Our path, however, is not one that knows expense."
+>
+"Any suffering that night was of their own making."
+[[>feeding-questions-2]]
+
+::"Why didn't we stay at the inn?"
+<<do this.innquestion=false>>
+<<do ++this.countwe>>
+"Daughter, the inn was a fortunate detour, but it is not part of our path."
+>
+"We must keep moving, and build the home that is meant for us."
+>
+"Besides, we could not stay even if our fates aligned."
+
+"The tree upon which they staked their claim was already dead and rotting."
+>"What?"
+"Why do you think we had such difficulty finding suitable leaves for a nest that night?"
+>
+"And did you not notice we were the only 'customers'?"
+>
+"Never trust a merchant's word, Daughter."
+[[>feeding-questions-2]]
+
 
 
 
@@ -864,6 +918,7 @@ P: The surface is hard and flat.
 P: It really could use a pillow.
 >
 P: I try to fall asleep.
+<<do this.innquestion=true>>
 [[>march]]
 
 
