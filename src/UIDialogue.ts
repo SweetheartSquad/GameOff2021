@@ -1,10 +1,10 @@
 import type { EventEmitter } from '@pixi/utils';
 import { cubicIn, cubicOut } from 'eases';
-import { Howl } from 'howler';
 import { Container, Sprite, Text, TextMetrics, Texture } from 'pixi.js';
 import Strand from 'strand-core';
+import { sfx } from './Audio';
 import { fontDialogue, fontPrompt } from './font';
-import { game, resources } from './Game';
+import { game } from './Game';
 import { GameObject } from './GameObject';
 import { KEYS, keys } from './input-keys';
 import { getInput } from './main';
@@ -202,10 +202,9 @@ export class UIDialogue extends GameObject {
 		if (prevPos !== this.pos) {
 			const letter = this.strText?.[this.pos]?.replace(/[^\w]/, '');
 			if (this.pos % 2 && letter && this.voice !== 'None') {
-				const voice = (resources[`voice${this.voice}`]?.data ||
-					resources.voiceDefault.data) as Howl;
-				const id = voice.play();
-				voice.rate((letter.charCodeAt(0) % 30) / 30 + 0.5, id);
+				sfx(`voice${this.voice}`, {
+					rate: (letter.charCodeAt(0) % 30) / 30 + 0.5,
+				});
 			}
 			this.textText.text = this.strText.substr(0, this.pos);
 		}
