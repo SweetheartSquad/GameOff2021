@@ -547,8 +547,9 @@ TODO: common march intro 2
 P: Before I can lose myself in my thoughts, I am called upon by Sister Superior Three.
 >
 <<do this.fed = (this.fed || 0) + 1>>
+<<do this.scrim(1, 1000);this.show('superior')>>
 "Sister Twenty. You are being placed on feeding duties today."
-[[...|this.scrim(1, 1000);this.goto('feeding-'+this.fed)]]
+[[...|this.show('');this.goto('feeding-'+this.fed)]]
 
 ::feeding-1
 P: She leads me through the marching order, easily cutting in and out between other sisters.
