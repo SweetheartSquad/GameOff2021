@@ -187,6 +187,11 @@
 		this.Npc({ passage: 'test-npc', x: 207, y: -75 }),
 	]);
 
+	this.Area('frog', [
+		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
+		this.Prop({ texture: 'frogBranch', offset: -10000 }),
+	]);
+
 	this.Area('test', [
 		// bg
 		this.PropParallax({ texture: 'parallaxBG', offset: -1000000, scale: 3, blur: true, mult: 0.6 }),
