@@ -4,6 +4,7 @@ import { GameObject } from './GameObject';
 import { Animator } from './Scripts/Animator';
 import { Display } from './Scripts/Display';
 import { Transform } from './Scripts/Transform';
+import { size } from './size';
 import { tex } from './utils';
 import { V } from './VMath';
 
@@ -50,7 +51,7 @@ export class PropParallax extends GameObject {
 		super();
 
 		const t = tex(texture);
-		this.spr = new TilingSprite(t, t.width, t.height);
+		this.spr = new TilingSprite(t, size.x, size.y);
 		if (blur) {
 			this.spr.texture.baseTexture.scaleMode = SCALE_MODES.LINEAR;
 		}
