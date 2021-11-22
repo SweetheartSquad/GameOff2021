@@ -684,14 +684,34 @@ P: ...
 P: She continues to eat, and I consider what to say.
 
 [["TODO: questions"]]
+<<if this.deserterquestion>>[["Who was the sister that ran away?"]]<<endif>>
 
 ::"TODO: questions"
 TODO: answers
->
+[[>feeding-questions]]
+
+::feeding-questions-2
 <<do this.show('')>>
 She finishes her meal, and I return to my place in the marching order.
 
 [[>march]]
+
+::"Who was the sister that ran away?"
+"Who was she?"
+>
+"A coward."
+
+"A traitor, and a heretic."
+>
+"We need not spoil our appetite with discussion of such things."
+
+"Please, speak no more."
+[[>feeding-questions-2]]
+
+
+
+
+
 
 
 
@@ -1532,6 +1552,7 @@ She keeps walking.
 "I'm sure someone who knew will notice eventually."
 
 "You can ask them when you go back, if you care."
+<<do this.deserterquestion=true>>
 [[>deserter-qs]]
 
 ::deserter-where
