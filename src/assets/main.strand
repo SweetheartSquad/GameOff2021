@@ -683,20 +683,27 @@ P: ...
 ::feeding-questions
 P: She continues to eat, and I consider what to say.
 
-[["TODO: questions"]]
-<<if this.deserterquestion>>[["Who was the sister that ran away?"]]<<endif>>
+// TODO: more questions
+<<do this.qc=0>>
+// question template:
+// <<if this.qc<6 && othercondition>><<do ++this.qc>>[[a]]<<endif>>
+<<if this.qc<6 && this.deserterquestion>><<do ++this.qc>>[["Who was the sister that ran away?"]]<<endif>>
+<<if this.qc<6>>[["...">feeding-questions-none]]<<endif>>
 
-::"TODO: questions"
-TODO: answers
-[[>feeding-questions]]
+::feeding-questions-none
+P: I can't think of anything. Nothing I'd care to ask her, at least.
+>
+P: I can tell Mother is disappointed, but she goes back to eating without pressing the issue.
+[[>feeding-questions-2]]
 
 ::feeding-questions-2
 <<do this.show('')>>
-She finishes her meal, and I return to my place in the marching order.
+P: She finishes her meal, and I return to my place in the marching order.
 
 [[>march]]
 
 ::"Who was the sister that ran away?"
+<<do this.deserterquestion=false>>
 "Who was she?"
 >
 "A coward."
