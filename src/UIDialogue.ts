@@ -266,7 +266,7 @@ export class UIDialogue extends GameObject {
 	}
 
 	show(...args: Parameters<Toggler['show']>) {
-		this.toggler.show(...args);
+		return this.toggler.show(...args);
 	}
 
 	prompt(

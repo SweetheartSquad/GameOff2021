@@ -74,12 +74,12 @@ export class StrandE extends Strand {
 	}
 
 	show(...args: Parameters<typeof this.scene['dialogue']['show']>) {
-		this.scene.dialogue.show(...args);
+		return this.scene.dialogue.show(...args);
 	}
 
 	tween(...args: Parameters<typeof TweenManager['tween']>) {
 		// @ts-ignore
-		TweenManager.tween(...args);
+		return TweenManager.tween(...args);
 	}
 
 	shuffle(...args: Parameters<typeof shuffle>) {
