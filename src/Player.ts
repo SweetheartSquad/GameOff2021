@@ -1,6 +1,6 @@
-import { Howl } from 'howler';
 import { IChamferableBodyDefinition } from 'matter-js';
 import { Container, DisplayObject } from 'pixi.js';
+import { sfx } from './Audio';
 import { Character, speed } from './Character';
 import {
 	BODY_ENVIRONMENT,
@@ -8,7 +8,7 @@ import {
 	SENSOR_INTERACTION,
 	SENSOR_PLAYER,
 } from './collision';
-import { game, resources } from './Game';
+import { game } from './Game';
 import { getInput } from './main';
 import { NPC, Roam } from './NPC';
 import { size } from './size';
@@ -72,11 +72,13 @@ export class Player extends Character {
 	}
 
 	update(): void {
-		const step = this.spr.texture.textureCacheIds[0] === 'defaultRun1' ? 1 : 0;
-		if (step === 1 && step !== this.step) {
-			const sfxStep = resources.step.data as Howl;
-			const id = sfxStep.play();
-			sfxStep.rate(Math.random() * 0.2 + 0.9, id);
+		const step = this.animatorBody.frame;
+		if (
+			this.animation === 'Run' &&
+			step !== this.step &&
+			(step === 4 || step === 9)
+		) {
+			sfx('step', { rate: Math.random() * 0.2 + 0.9 });
 		}
 		this.step = step;
 		this.updateCamPoint();
