@@ -57,7 +57,7 @@ export class PropParallax extends GameObject {
 		this.spr.anchor.x = 0.5;
 		this.spr.anchor.y = 0.5;
 		this.spr.alpha = alpha;
-		this.spr.scale.x = this.spr.scale.y = scale;
+		this.spr.tileScale.x = this.spr.tileScale.y = scale;
 		if (flip) {
 			this.spr.scale.x *= -1;
 		}
@@ -95,11 +95,9 @@ export class PropParallax extends GameObject {
 		this.transform.x = camera.display.container.pivot.x;
 		this.transform.y = camera.display.container.pivot.y + this.offset;
 		this.spr.tilePosition.x =
-			(-camera.display.container.pivot.x * this.mult) / this.spr.scale.x +
-			this.tileOffset.x;
+			-camera.display.container.pivot.x * this.mult + this.tileOffset.x;
 		this.spr.tilePosition.y =
-			(-camera.display.container.pivot.y * this.mult) / this.spr.scale.y +
-			this.tileOffset.y;
+			-camera.display.container.pivot.y * this.mult + this.tileOffset.y;
 		super.update();
 	}
 }
