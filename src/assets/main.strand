@@ -730,7 +730,7 @@ P: We've made it this far, but we've just been roughing it. Our luck is running 
 
 ::outside-inn-ants2
 "Hm. Better get back to it then - our construction plans are coming along, but we're counting on you to support them."
-[["...Of course.">close]]
+[["...Of course."|this.scene.player.walkBy(-30, 0);this.goto('close')]]
 
 
 ::outside-inn-ants-proposal
@@ -1182,7 +1182,7 @@ P: I'm left alone in the lobby. It's still raining outside.
 P: It's not exactly what I had in mind, but this does seem to solve our problem.
 >
 P: I allow myself the luxury of a few more moments of shelter, and make my way back out.
-[[>close]]
+[[...|this.scene.player.walkBy(30,0);this.goto('close')]]
 
 ::bunty
 P: "Hello again, Bunty."
@@ -1192,7 +1192,7 @@ P: "Hello again, Bunty."
 "Checking in?"
 
 >"Not yet."
-
+<<do this.scene.player.walkBy(30,0)>>
 "Well, I'll be here if you need me!"
 [[>close]]
 
@@ -1302,6 +1302,11 @@ P: "W-well we'd prefer if you did not!"
 
 [[passage select]]
 
+
+::frog-wall
+TODO: can't go this way
+<<do this.scene.player.walkBy(30, 0)>>
+[[>close]]
 
 
 
