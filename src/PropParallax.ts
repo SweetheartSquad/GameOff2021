@@ -51,7 +51,7 @@ export class PropParallax extends GameObject {
 		super();
 
 		const t = tex(texture);
-		this.spr = new TilingSprite(t, size.x, size.y);
+		this.spr = new TilingSprite(t, size.x + 2, size.y + 2);
 		if (blur) {
 			this.spr.texture.baseTexture.scaleMode = SCALE_MODES.LINEAR;
 		}
