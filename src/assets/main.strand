@@ -167,7 +167,7 @@
 		this.Npc({ body: 'basicAnt', x: 1359, y: -16 }),
 		this.Poly({ verts: [-59,-116, -88,135, 832,168, 986,155, 1503,147, 1482,-188, 916,-124, 561,-97, -59,-116] }),
 		this.Interrupt({ passage: 'deserter-wall', x: -63, height: 500 }),
-		this.Interrupt({ passage: 'deserter', x: 1359, height: 500 }),
+		this.Interrupt({ passage: 'deserter', x: 1300, height: 500 }),
 	]);
 
 	this.Area('town', [
@@ -1432,6 +1432,7 @@ P: A voice calls out from the group:
 
 
 ::deserter-wall
+<<do this.scene.player.walkBy(30,0)>>
 P: I came out all this way, I can't head back now.
 [[>close]]
 
@@ -1442,6 +1443,7 @@ P: I came out all this way, I can't head back now.
 	marchers.forEach(i => i.spr.alpha = 0);
 	marchers[3].spr.alpha = 1;
 	marchers[2].spr.alpha = 1;
+	this.scene.player.walkTo(1302, -13);
 >>
 P: "Sister!"
 >
