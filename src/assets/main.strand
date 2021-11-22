@@ -141,6 +141,7 @@
 		this.PropParallax({ texture: 'rain', offset: -50000, mult: 0.8, scale: 0.5, alpha: 0.5, freq: 1/200 }),
 		this.PropParallax({ texture: 'rain', offset: 100000, mult: 1.1, freq: 1/200 }),
 		this.PropParallax({ texture: 'rain', offset: 200000, mult: 1.2, scale: 2, blur: true, freq: 1/300 }),
+		this.PropParallax({ texture: 'black', offset: 50000, mult: 0, alpha: 0.2 }),
 		this.Prop({ texture: 'bg_innOutside', x: -727, y: 488, offset: -10000 }),
 		this.Prop({ texture: 'InnOutside_flicker', x: -2157, y: 50 }),
 		this.Prop({ texture: 'rainSplash', x: -392, y: 129, freq: 1/100 }),
