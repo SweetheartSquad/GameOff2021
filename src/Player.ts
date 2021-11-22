@@ -8,17 +8,19 @@ import {
 	SENSOR_INTERACTION,
 	SENSOR_PLAYER,
 } from './collision';
-import { resources } from './Game';
+import { game, resources } from './Game';
 import { getInput } from './main';
-import { NPC } from './NPC';
+import { NPC, Roam } from './NPC';
 import { size } from './size';
 import { removeFromArray } from './utils';
-import { multiply } from './VMath';
+import { distance2, multiply } from './VMath';
 
 const playerSpeedX = 0.004 * speed;
 const playerSpeedY = 0.002 * speed;
 
 export class Player extends Character {
+	roam?: Roam;
+
 	camPoint: DisplayObject;
 
 	canMove: boolean;
@@ -55,6 +57,10 @@ export class Player extends Character {
 				},
 			},
 		});
+		this.scripts.push((this.roam = new Roam(this)));
+		this.roam.active = false;
+		this.roam.freq.value = 0;
+		this.roam.freq.range = 0;
 		this.camPoint = new Container();
 		this.camPoint.visible = false;
 		this.display.container.addChild(this.camPoint);
@@ -75,17 +81,22 @@ export class Player extends Character {
 		this.step = step;
 		this.updateCamPoint();
 
-		const input = getInput();
-		input.move = multiply(input.move, this.canMove ? 1 : 0);
-		// update player
-		this.bodyCollision.body.force.x +=
-			input.move.x * playerSpeedX * this.bodyCollision.body.mass;
-		this.bodyCollision.body.force.y +=
-			input.move.y * playerSpeedY * this.bodyCollision.body.mass;
-		this.moving = {
-			x: input.move.x,
-			y: input.move.y,
-		};
+		if (this.roam?.active) {
+			this.moving.x = this.bodyCollision.body.velocity.x;
+			this.moving.y = this.bodyCollision.body.velocity.y;
+		} else {
+			const input = getInput();
+			input.move = multiply(input.move, this.canMove ? 1 : 0);
+			// update player
+			this.bodyCollision.body.force.x +=
+				input.move.x * playerSpeedX * this.bodyCollision.body.mass;
+			this.bodyCollision.body.force.y +=
+				input.move.y * playerSpeedY * this.bodyCollision.body.mass;
+			this.moving = {
+				x: input.move.x,
+				y: input.move.y,
+			};
+		}
 		super.update();
 	}
 
@@ -104,6 +115,27 @@ export class Player extends Character {
 			i.setPosition(x, y);
 		});
 		this.updateCamPoint();
+	}
+
+	async walkTo(x: number, y: number) {
+		const { roam } = this;
+		if (!roam) return;
+		roam.active = true;
+		roam.target.x = x;
+		roam.target.y = y;
+		await new Promise<void>((r) => {
+			const onUpdate = () => {
+				if (distance2(roam.target, this.transform) > 2) return;
+				game.app.ticker.remove(onUpdate);
+				r();
+			};
+			game.app.ticker.add(onUpdate);
+		});
+		roam.active = false;
+	}
+
+	walkBy(x: number, y: number) {
+		return this.walkTo(this.transform.x + x, this.transform.y + y);
 	}
 
 	follow(npc: NPC) {
