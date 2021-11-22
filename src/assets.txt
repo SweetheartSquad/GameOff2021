@@ -16,6 +16,8 @@ textures/superior/superior.x8.png
 textures/scene1_bg.png
 textures/bg_innOutside.png
 textures/InnOutside_flicker/InnOutside_flicker.x2.png
+textures/innInside/innInside.x3.png
+textures/innInside_empty.png
 textures/parallaxBG.jpg
 textures/rain/rain.x3.png
 textures/rainSplash/rainSplash.x5.png

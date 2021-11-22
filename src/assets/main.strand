@@ -141,12 +141,14 @@
 		this.PropParallax({ texture: 'rain', offset: -50000, mult: 0.8, scale: 0.5, alpha: 0.5, freq: 1/200 }),
 		this.PropParallax({ texture: 'rain', offset: 100000, mult: 1.1, freq: 1/200 }),
 		this.PropParallax({ texture: 'rain', offset: 200000, mult: 1.2, scale: 2, blur: true, freq: 1/300 }),
+		this.PropParallax({ texture: 'black', offset: 50000, mult: 0, alpha: 0.2 }),
 		this.Prop({ texture: 'bg_innOutside', x: -727, y: 488, offset: -10000 }),
 		this.Prop({ texture: 'InnOutside_flicker', x: -2157, y: 50 }),
 		this.Prop({ texture: 'rainSplash', x: -392, y: 129, freq: 1/100 }),
 		this.Prop({ texture: 'rainSplash', x: -914, y: -23, freq: 1/100 }),
 		this.Prop({ texture: 'rainSplash', x: -1367, y: 86, freq: 1/100 }),
 		this.Prop({ texture: 'pillBugIdle', x: -1731, y: -22 }),
+		this.Prop({ texture: 'shadows', x: -1731+20, y: -22+15, scale: 2, alpha: 0.5, offset: -20 }),
 		...AntProp({ x: 140, y: -86 }),
 		...AntProp({ x: 180, y: 5, flip: true }),
 		...AntProp({ x: 268, y: -11 }),
@@ -792,12 +794,14 @@ P: There really was nothing I could've said to stop it.
 >
 P: Rain continues to beat down as I trek across the branch to the inn yet again.
 >
+<<do this.show('innInside_empty', { y: 90 })>>
 P: The Bunty Nathan's looks much the same as when I first entered. Warm and welcoming. A nice little receptionist's stand.
 
 But there was no doorman to pass, and no one is seated at the desk.
 >
 P: There's plenty of other activity - sisters mill about the entrance, working out where to sleep, what to eat, when to leave.
 >
+<<do this.show('')>>
 P: I need the rest, so I focus on the former, and soon find myself leading a group to the first of the vacant tenant rooms.
 >
 P: Inside, it's a bit cramped, but neatly arranged.
@@ -960,7 +964,7 @@ P: The interior of the inn is welcomingly warm, and more importantly dry.
 
 The eager bug stays out in the rain, and laughs at seemingly nothing in particular.
 >
-<<do this.show('pillBugIdle')>>
+<<do this.show('innInside', { y: 90 })>>
 P: Sure enough, inside there's another giant pill millipede sitting at a small stand, complete with a hand-carved sign.
 >
 "Welcome, welcome!"
@@ -1150,9 +1154,10 @@ P: "You want us to... make decorations for you?"
 >
 "I'll need to do the same: contracts don't write themselves, ho ho!"
 >
-<<do this.show('')>>
-P: With that, he suddenly spurs into action: The roly poly uncurls itself and takes off at a surprising pace deeper into the tree.
+<<do this.show('innInside_empty', { y: 90 })>>
+P: With that, he suddenly spurs into action: The roly poly flops onto the ground and takes off at a surprising pace deeper into the tree.
 >
+<<do this.show('')>>
 P: I'm left alone in the lobby. It's still raining outside.
 >
 P: It's not exactly what I had in mind, but this does seem to solve our problem.
