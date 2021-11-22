@@ -147,6 +147,7 @@
 		this.Prop({ texture: 'rainSplash', x: -914, y: -23, freq: 1/100 }),
 		this.Prop({ texture: 'rainSplash', x: -1367, y: 86, freq: 1/100 }),
 		this.Prop({ texture: 'pillBugIdle', x: -1731, y: -22 }),
+		this.Prop({ texture: 'shadows', x: -1731+20, y: -22+15, scale: 2, alpha: 0.5, offset: -20 }),
 		...AntProp({ x: 140, y: -86 }),
 		...AntProp({ x: 180, y: 5, flip: true }),
 		...AntProp({ x: 268, y: -11 }),
