@@ -1,7 +1,7 @@
 import { Container, Sprite } from 'pixi.js';
 import { resources } from '../Game';
 import { GameObject } from '../GameObject';
-import { TweenManager } from '../Tweens';
+import { Tween, TweenManager } from '../Tweens';
 import { Animator } from './Animator';
 import { Script } from './Script';
 
@@ -19,6 +19,8 @@ export class Toggler extends Script {
 	active: Animator;
 
 	inactive: Animator;
+
+	tweens: Tween[] = [];
 
 	constructor(gameObject: GameObject) {
 		super(gameObject);
@@ -67,8 +69,12 @@ export class Toggler extends Script {
 			this.inactive.setAnimation(tex || 'blank');
 			this.container.addChild(this.inactive.spr);
 			[this.inactive, this.active] = [this.active, this.inactive];
-			TweenManager.tween(this.active.spr, 'alpha', 1, duration);
-			TweenManager.tween(this.inactive.spr, 'alpha', 0, duration);
+			this.tweens.forEach((i) => TweenManager.finish(i));
+			this.tweens.length = 0;
+			this.tweens.push(
+				TweenManager.tween(this.active.spr, 'alpha', 1, duration),
+				TweenManager.tween(this.inactive.spr, 'alpha', 0, duration)
+			);
 		}
 		this.active.spr.position.x = x;
 		this.active.spr.position.y = y;
