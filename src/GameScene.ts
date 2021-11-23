@@ -118,6 +118,12 @@ export class GameScene {
 			if (interrupt) {
 				interactions.length = 0;
 				this.strand.gameObject = interrupt.plugin.gameObject as GameObject;
+				if (interrupt.plugin.focus) {
+					this.interactionFocus = add(
+						interrupt.position,
+						interrupt.plugin.focus
+					);
+				}
 				this.strand.goto(interrupt.plugin.interrupt.passage);
 				return;
 			}
