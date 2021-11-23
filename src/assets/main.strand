@@ -1742,7 +1742,7 @@ P: If they find the fresh leaves we need, then our journey could be coming to an
 P: But day after day, the parties come back with news of dead, crumbled plants.
 >
 P: When the shelter is finished, the party sets out, and we retire for the night.
-[[>ending-2]]
+[[>ending-start-2]]
 
 
 ::ending-start-2
@@ -1765,7 +1765,7 @@ P: We celebrate as we work, letting the excitement drive our mouths and limbs.
 P: There is scarcely time to think of anything but the work ahead.
 >
 P: A home for the Many, built by all.
-[[>ending-3]]
+[[>ending-start-3]]
 
 ::ending-start-3
 P: Many days pass, full of tireless work.
