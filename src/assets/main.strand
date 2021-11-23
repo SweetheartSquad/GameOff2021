@@ -188,7 +188,7 @@
 
 	const frogEnd = this.Interrupt({ passage: 'frog-end', x: 1982, y: -915, width: 1000 });
 	frogEnd.body.rotate(Math.PI/4);
-	this.frogBridgeFg = this.Prop({ texture: 'frogBranch_fg', x: 1249, y: -55, offset: 5000 });
+	this.frogBridgeFg = this.Prop({ texture: 'frogBranch_fg', x: 1249, y: -55, offset: -60 });
 	this.frog = this.Prop({ texture: 'frog', x: 947, y: -239, offset: -100 });
 	this.frog.spr.alpha = 0;
 	const frogBridge = this.Interrupt({ passage: 'frog-bridge', x: 722, y: -238, focus: { x: 150, y: -200 }, width: 360 });
