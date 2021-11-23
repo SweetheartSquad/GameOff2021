@@ -534,6 +534,8 @@ P: But there's ground to cover.
 	// and can be "ended" by going to `march` again
 	if(!this.marchEvents || !this.marchEvents.length) {
 		this.marchEvents = [
+			'cordyceps',
+			'cordyceps',
 			'feeding',
 			'feeding',
 			'feeding',
@@ -777,6 +779,447 @@ P: She finishes her meal, and I return to my place in the marching order.
 >
 "Never trust a merchant's word, Daughter."
 [[>feeding-questions-2]]
+
+
+::cordyceps-march
+<<if !this.cordyceps>>
+<<do this.cordyceps=true;this.goto('cordyceps-1')>>
+<<else>>
+<<do this.cordyceps=false;this.goto('cordyceps-2')>>
+<<endif>>
+
+::cordyceps-1
+P: The march itself is - for once - uneventful.
+>
+P: The weather is clear. There are no delays or interruptions.
+
+We make much needed progress.
+>
+<<do this.scrim(1, 1000)>>
+P: We even manage to find a decently stable collection of leaves to stake camp.
+>
+P: Nothing long-term, but more than good enough for a single night.
+>
+P: ...
+>
+P: Figures that when we finally have the opportunity to relax a little, I'm left feeling restless.
+>
+P: After tossing and turning without relief, I give up.
+
+I find the sister on night watch, and volunteer to take her shift.
+>
+P: She's more than happy to trade places.
+>
+P: ...
+>
+P: It's a quiet night. A couple moths circle overhead for a bit, but move on without ever landing. The temporary nest rustles as resting sisters shuffle and care to the young.
+>
+P: I hear footsteps from behind me.
+>
+P: Turning around, I see another Sister walking this way.
+
+"Sister Thirty-and-three, right? You couldn't sleep either?"
+>
+P: She doesn't answer, just continues walking slowly forward.
+>
+P: "Sister Thirty-and-three? Are you alright?"
+>
+"the"
+>
+P: She's mumbling, almost too quietly to even hear.
+>
+"the"
+  "the"
+>"Sister?"
+"pain"
+>"Pain? Sister are you hurt?"
+"Painful Painful"
+
+"vertigo"
+>
+P: Her words don't seem to be directed at me: she ignores my questions and continues along at a lilting pace.
+>
+"vertigo"
+  "aching"    "pain"
+    "aching"    "pain"
+>
+P: She takes a step forward, then another, and another.
+[[Block her path]]
+[[Let her walk]]
+
+::Block her path
+P: "This isn't funny, Sister. You need to stop, we can't- hey! Stop! Put me down!"
+>
+P: Sister Thirty-and-three lifts me with ease, and tosses me aside.
+>
+P: It doesn't seem like she's trying to hurt me - it's almost absent-minded - but still I yelp in fear of falling off the branch and scramble back.
+[[>Let her walk]]
+
+::Let her walk
+P: She keeps walking.
+>
+"pain"    "aching"    "vertigo"
+         "pain"        "vertigo"
+>
+P: She walks right up to the edge of the leaf.
+> "Sister, no!!"
+P: She takes another step, and she's gone.
+>
+P: What... what just happened?!
+>
+P: I should get help. I should tell someone.
+
+I should do SOMETHING.
+>
+P: But it's too late. It's a straight drop to the forest floor here.
+
+If we didn't leave the path for half our sisters, we certainly won't do it for one.
+>
+P: I could wake the others, but what would be the point?
+>
+P: All it would do is interrupt their rest for a problem that can't be fixed.
+
+Better they find out in the morning.
+>
+P: ...
+>
+P: I resign myself to the rest of the watch, and prepare a report for tomorrow.
+
+[[>march]]
+
+::cordyceps-2
+P: The march is long, but something about the rhythm clicks with my feet today.
+>
+P: Left, right, left, right.
+>
+P: Step, step, step, step.
+>
+P: Tap, tap, tap, tap.
+>
+<<do this.scrim(1, 1000)>>
+P: Before I know it, we're making camp for the night.
+>
+P: ...
+>
+P: The rhythm continues in dreams.
+>
+P: Left, right, left, right.
+>
+P: Step, step, step, step.
+>
+P: Tap, tap! TAP!! TAP!!!
+>
+P: I bolt awake, realizing that someone is tapping next to my head.
+>"Ahh!"
+P: A sister, Thirty-and...-something, is hovering over me.
+>
+"Sorry to wake you Sister Twenty, but please come quickly, we need your help!"
+>
+P: It's far too early for this...
+
+But I get up anyway, dozily letting myself be led to a scrap of leaf on the other side of camp.
+>
+P: I enter the makeshift abode to find a handful of sisters standing in a circle.
+
+One of of them - Thirty-and-five? - is tied up.
+>
+P: "Wait- what's going on here?!"
+>
+P: She's secured to a twig, stuck in place with thick strands of silk woven tightly around her arms and torso.
+
+The other four sisters have taken positions around her.
+>
+P: "Why is she being held like this? Explain yourselves!"
+>
+"...We were hoping you'd be able to help us figure that out."
+>
+P: The tied up sister is facing me. Her legs kick and scratch at the ground, but she says nothing, and doesn't appear to be making any progress in loosening her bonds.
+>
+"You were the witness to Sister Thirty-and-three's fall, correct?"
+>
+P: Her 'fall'.
+
+"...Yes. What does that have to do with this?"
+>
+"Sister Thirty-and-five, the two of them were close."
+
+"We caught her about to have a similar accident tonight."
+>
+P: 'Accident'.
+>
+"It took all four of us to apprehend her."
+
+"We've sent for Sister Superior as well, but wanted you to confirm our suspicion."
+>
+P: I take a closer look at the subdued sister: her legs continue to struggle, but I realize that her movement isn't frantic or agitated.
+
+She isn't trying to escape: her motions are rhythmic, as if she is walking in place.
+>
+"Sister Twenty, when you saw her that night... Was there anything strange about her?"
+>
+P: "Yes, of course! What sort of a question is that?!"
+>
+"...Aside from the fall. How did she look?"
+
+"Was she... fuzzy?"
+>"...Fuzzy?"
+P: She gestures at Thirty-and-five.
+>
+P: I move to lean in for a closer look, antennae flicking curiously.
+
+As I do, another sister holds out an arm to block me.
+>
+"Careful! We do not know if she is dangerous..."
+>
+P: I nod, and continue more slowly, keeping a distance.
+
+It is difficult to see at first, but then a thin, light strand on her shoulder catches my eye.
+>
+P: And another. And another.
+>
+P: It creeps out from the joints of her exoskeleton, crawls along her limbs and body.
+
+Ever her face is touched: Translucent fuzz lining the edges of her mouth and eyes.
+>
+P: Having seen it, her whole body takes on an unnatural aura that hadn't quite registered before.
+
+It's off-putting. Sickening.
+>
+P: "It's... it's everywhere. And it's coming from inside her!"
+>
+"Yes, it seems that way."
+>
+P: "...How is she still alive?"
+>
+"It seems impossible, doesn't it?"
+>
+"...But the real question is whether it is the same as the previous case."
+>
+P: I think back, trying to recall specific details.
+>
+P: "It's difficult to say. It was the middle of the night, and it all happened so fast."
+
+"These protrusions: they are not familiar."
+>
+P: "Her behaviour, however..."
+
+"Sister Thirty-and-three walked like this too."
+>
+P: "Has she said anything?"
+>
+"No, nothing at all since the sister nurse here tied her up."
+>
+P: "Hmm. Thirty-and-three spoke gibberish before she- before the fall."
+>
+P: "No, 'gibberish' is wrong- but it didn't make sense."
+
+"Just single words, over and over."
+>
+P: "'Pain', 'ache', things like that."
+>
+<<do this.show('superior')>>
+P: At that moment, the door is flung open, and Sister Superior Three enters.
+>
+"What is-"
+>
+P: She stops, suddenly enraptured by the sight of the incapacitated Thirty-and-five.
+>
+"...Back! BACK!!"
+>"Sister Superior?"
+"Get back, all of you! Do not go near her!!"
+>
+P: The other sisters and I exchange uncertain glances, but do as she says, taking a few tentative steps away.
+>
+"What are you all standing around for!?"
+
+"We must dispose of her at once!"
+>"D-dispose?"
+P: "But she is our sister! We must help her!"
+>
+"Do you not see!? She is POSSESSED!!"
+>
+"Our sister is lost, and if we do not act quickly, all of us will follow her into the abyss!"
+>
+"Oh this explains so much... Of course we have strayed from the path."
+
+"All along, we have had a devil in our midst!"
+
+[["Stop!"]]
+[["...">cordyceps-2-silent]]
+
+
+::cordyceps-2-silent
+"...Well!? Stop balking and-"
+
+"Wait, how long has she been here?"
+>
+"Who found her? Who touched her?!"
+[[>cordyceps-2-hands]]
+
+::"Stop!"
+P: "Sister Superior, surely you are over-reacting?"
+
+"She is well-secured, and we can think this through-"
+>
+"Ignorant fools! We are in danger, just to breathe the same air with this foul being..."
+
+"Who found her? Who touched her?!"
+[[>cordyceps-2-hands]]
+
+::cordyceps-2-hands
+P: Slowly, the whole group except the Superior and I raise their hands.
+>
+"Oh no."
+>
+P: She shakes her head, eyes darting across faces, and then settling on me.
+>
+"Twenty, come, quickly now."
+>
+P: She takes me by the hand, and drags me to the shelter's entrance.
+>
+"Our sisters... Our poor sisters."
+>
+"We are sorry. You must stay here."
+>
+P: She shuts the door, leading me outside.
+>
+P: I can hardly think straight. I wish I was still asleep.
+
+Sister Superior Three lights a torch on the embers of the campfire.
+>
+P: "What are you doing?"
+>
+"We must cleanse them all before it gets worse!"
+>
+P: "We-What!?!"
+>
+P: She can't be serious.
+
+Even if Thirty-and-five is beyond saving, there are four more sisters in there!
+>
+"We must act fast."
+
+"They have been in contact with a devil!"
+
+[["So have I!"]]
+[["So have you!"]]
+[["So what!?"]]
+
+::"So have you!"
+<<do ++this.countwe>>
+P: "We both stood in that room!"
+
+"Our hands have touched, and these hands have been in the presence of not only Thirty-and-five, but Thirty-and-three as well."
+>
+P: "Do you intend to burn the two of us next!?"
+[[>cordyceps-2-burn]]
+
+::"So have I!"
+<<do ++this.counti>>
+P: "I inspected Sister Thirty-and-five, even spoke with Thirty-and-three before she fell."
+>
+P: "Do you intend to burn me as well!?"
+[[>cordyceps-2-burn]]
+
+::"So what!?"
+P: "They are our sisters!"
+>
+P: "What is this devil, that would have you kill at a moment's notice?!"
+>
+P: "How many would it take for you to hesitate? Ten? Twenty??"
+
+"The whole colony!?"
+[[>cordyceps-2-burn]]
+
+::cordyceps-2-burn
+"..."
+>
+P: The blazing rod dances and flickers as she considers it.
+
+She's seriously considering it!
+>
+"How long were you in that room?"
+>
+P: "Not much longer than you."
+>
+"And you've shown no signs since the first incident?"
+
+"No strange urges, no thoughts or words that were not our own?"
+>"No, nothing."
+P: She sighs.
+>
+P: She douses the flame.
+>
+<<do this.show('')>>
+P: Still holding the torch, she returns to the sisters in waiting.
+
+I follow, surprised and relieved my words stayed her hand, but this is not yet over.
+>
+P: The other sisters look up eagerly at her return.
+
+How could they even begin to guess at what they just narrowly avoided?
+>
+<<do this.show('superior')>>
+"We march as usual, at first light."
+>
+P: She glares razors at the quartet.
+>
+"The four of you will not."
+>
+P: They start to protest, but she cuts them off, and continues.
+>
+"You will stay here, and you will count steps in our absence."
+
+"You will count until we have stopped marching, and again until we have begun. Only then will you begin to walk yourselves."
+>
+"Is this clear? Remain on the path, keep your pace."
+
+"But do so at a distance."
+>
+"Each of you has been tainted, but perhaps not doomed."
+
+"If any one is to stray from the path, your sisters will see to you."
+>
+She drops the torch on the ground, and stares at each of them in turn, waiting for a solemn nod of understanding and obedience.
+>
+"...Good."
+>
+"Farewell sisters. We hope you will be able to join us."
+
+"Please see to Thirty-and-five after we depart."
+>
+<<do this.show('')>>
+P: She turns to leave.
+
+I hang back for a moment, not wanting to part on such a dour note.
+
+[["It will be okay."]]
+[["I will be thinking of you."]]
+[["We will meet again."|++this.countwe;this.goto('"It will be okay."')]]
+
+::"It will be okay."
+P: They look towards the bound Thirty-and-five, still silently scraping her feet along the floor.
+>
+"We hope you are right, Sister."
+[[>cordyceps-2-end]]
+
+::"I will be thinking of you."
+<<do ++this.counti>>
+"...Thank you, Sister."
+[[>cordyceps-2-end]]
+
+::cordyceps-2-end
+P: I shut the door, and look around for Sister Superior.
+>
+P: The sun is beginning to shine.
+
+[[>march]]
+
+
+
+
+
+
 
 
 
