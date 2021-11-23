@@ -1988,14 +1988,14 @@ P: I don't need her help anyway. I can stand on my own legs.
 "Daughter Three, show her out."
 
 [["Wait..."]]
-[["Goodbye, Mother."]]
+[["Farewell, Mother."]]
 [["I won't forget this."]]
 
 ::"Wait..."
 "No."
 [[>exile4]]
 
-::"Goodbye, Mother."
+::"Farewell, Mother."
 P: She doesn't respond.
 [[>exile4]]
 
