@@ -189,16 +189,20 @@
 	const frogEnd = this.Interrupt({ passage: 'frog-end', x: 1982, y: -915, width: 1000 });
 	frogEnd.body.rotate(Math.PI/4);
 	this.frogBridgeFg = this.Prop({ texture: 'frogBranch_fg', x: 1249, y: -55, offset: 5000 });
+	this.frog = this.Prop({ texture: 'frog', x: 947, y: -239, offset: -100 });
+	this.frog.spr.alpha = 0;
+	const frogBridge = this.Interrupt({ passage: 'frog-bridge', x: 722, y: -238, focus: { x: 150, y: -200 }, width: 360 });
+	frogBridge.body.rotate(0.54);
 	this.Area('frog', [
 		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
 		this.Prop({ texture: 'frogBranch_bg', x: 1041, y: 689, offset: -10000 }),
 		this.frogBridgeFg,
-		this.Prop({ texture: 'frog', x: 947, y: -239 }),
-		this.Poly({ verts: [-86,-200, -89,172, 81,155, 110,55, 195,37, 306,153, 565,131, 868,48, 1016,-82, 1760,-642, 1867,-686, 2178,-889, 2178,-1019, 1849,-1019, 1622,-877, 1456,-812, 648,-273, 320,-218, -87,-202] }),
+		this.frog,
+		this.Poly({ verts: [-86,-202, -88,171, 124,152, 205,81, 302,96, 358,133, 565,126, 870,46, 949,-40, 1002,-134, 1038,-249, 838,-113, 819,-160, 908,-163, 1632,-690, 1655,-728, 1679,-700, 1579,-647, 1760,-640, 1868,-690, 2178,-889, 1915,-1081, 1850,-1016, 1623,-875, 1481,-828, 1430,-815, 1398,-818, 583,-347, 579,-311, 544,-267, 319,-220, -86,-202] }),
 		frogEnd,
 		this.Interrupt({ passage: 'frog-wall', x: -84, y: 174, height: 1000 }),
-		this.Interrupt({ passage: 'frog-bridge', type: 'circle', x: 711, y: -210, radius: 20 }),
-		this.Interrupt({ passage: 'frog-end', type: 'circle', x: 1619, y: -764, radius: 20 }),
+		frogBridge,
+		this.Interrupt({ passage: 'frog-end', type: 'circle', x: 1619, y: -764, radius: 100 }),
 	]);
 
 	this.Area('test', [
@@ -1394,6 +1398,19 @@ P: "W-well we'd prefer if you did not!"
 ::frog-wall
 TODO: can't go this way
 <<do this.scene.player.walkBy(30, 0)>>
+[[>close]]
+
+
+::frog-bridge
+<<do this.tween(this.frogBridgeFg.spr, 'alpha', 0.25, 500)>>
+<<do this.tween(this.frog.spr, 'alpha', 1, 500)>>
+
+[[>close]]
+
+::frog-end
+<<do this.tween(this.frogBridgeFg.spr, 'alpha', 1, 500)>>
+<<do this.tween(this.frog.spr, 'alpha', 0, 500)>>
+
 [[>close]]
 
 
