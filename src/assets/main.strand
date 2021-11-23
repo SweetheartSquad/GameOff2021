@@ -115,7 +115,6 @@
 		this.PropParallax({ texture: 'rain', offset: -50000, mult: 0.8, scale: 0.5, alpha: 0.1, freq: 1/200 }),
 		this.PropParallax({ texture: 'rain', offset: 100000, mult: 1.1, alpha: 0.2, freq: 1/200 }),
 		this.Prop({ texture: 'scene1_bg', x: 827, y: 658, offset: -10000 }),
-		this.Block({ x: -100, width: 40, height: 40 }),
 		this.Poly({ verts: [-189,158, -207,-42, -143,-236, 215,-221, 462,-265, 569,-261, 638,-234, 706,-253, 1202,-225, 1335,-185, 1496,-50, 2103,-87, 2105,414, 1816,386, 1675,253, 1626,316, 1603,378, 1317,368, 1229,281, 968,190, 492,176, 175,221, -189,158] }),
 		this.Npc({ passage: 'intro-panic-1', x: 207, y: -75 }),
 		this.Npc({ passage: 'intro-panic-2', x: 290, y: 50, roam: 50 }),
@@ -167,16 +166,34 @@
 		this.Npc({ body: 'basicAnt', x: 1359, y: -16 }),
 		this.Poly({ verts: [-59,-116, -88,135, 832,168, 986,155, 1503,147, 1482,-188, 916,-124, 561,-97, -59,-116] }),
 		this.Interrupt({ passage: 'deserter-wall', x: -63, height: 500 }),
-		this.Interrupt({ passage: 'deserter', x: 1359, height: 500 }),
+		this.Interrupt({ passage: 'deserter', x: 1300, height: 500 }),
 	]);
 
 	this.Area('town', [
-		this.Prop({ texture: 'town_bg', offset: -10000 }),
-		this.Prop({ texture: 'innTable1', x: -537, y: -652 }),
-		this.Block({ x: -537, y: -652 }),
-		this.Prop({ texture: 'innTable2', x: 427, y: -528 }),
-		this.Block({ x: 427, y: -528 }),
+		this.Prop({ texture: 'town_bg', y: 334, offset: -10000 }),
+		this.Poly({ verts: [-439,-187, -639,-135, -705,-15, -614,205, -449,291, -170,324, 50,319, 395,302, 595,205, 673,76, 702,-88, 688,-185, 551,-223] }),
+		this.Poly({ verts: [448,-252, 382,-275, 174,-275] }),
+		this.Poly({ verts: [33,-278, -118,-288, -188,-298, -337,-239] }),
+		this.Goto({ area: 'town', x: 0, y: 0 }, { type: 'circle', x: -394, y: -211 }),
+		this.Goto({ area: 'town', x: 0, y: 0 }, { type: 'circle', x: 104, y: -294 }),
+		this.Goto({ area: 'town', x: 0, y: 0 }, { type: 'circle', x: 501, y: -253 }),
+		this.Prop({ texture: 'innTable1', x: -399, y: -57 }),
+		this.Prop({ texture: 'shadows', x: -399, y: -57+15, offset: -20, scale: 2, alpha: 0.5 }),
+		this.Block({ type: 'circle', x: -399, y: -57, radius: 10 }),
+		this.Prop({ texture: 'innTable2', x: 304, y: -107 }),
+		this.Prop({ texture: 'shadows', x: 304, y: -107+15, offset: -20, scale: 2, alpha: 0.5 }),
+		this.Block({ type: 'circle', x: 304, y: -107, radius: 10 }),
 		this.Npc({ passage: 'test-npc', x: 207, y: -75 }),
+	]);
+
+	const frogEnd = this.Interrupt({ passage: 'frog-end', x: 1982, y: -915, width: 1000 });
+	frogEnd.body.rotate(Math.PI/4);
+	this.Area('frog', [
+		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
+		this.Prop({ texture: 'frogBranch', x: 1041, y: 689, offset: -10000 }),
+		this.Poly({ verts: [-86,-200, -89,172, 81,155, 110,55, 195,37, 306,153, 565,131, 868,48, 1016,-82, 1760,-642, 1867,-686, 2178,-889, 2178,-1019, 1849,-1019, 1622,-877, 1456,-812, 648,-273, 320,-218, -87,-202] }),
+		frogEnd,
+		this.Interrupt({ passage: 'frog-wall', x: -1125+1041, y: 174, height: 1000 }),
 	]);
 
 	this.Area('test', [
@@ -262,6 +279,7 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 
 ::debug menu
 <<do
+	this.scene.border.display.container.alpha=1;
 	this.scene.strand.passages['area warp'] = { title: 'area warp', body: Object.keys(this.scene.areas).filter(i => i !== 'root').map(i => '[['+i+'|this.scene.goto({ area: "'+i+'" }); this.goto("close")]]').concat('[[back|this.back()]]').join('\n') };
 >>
 
@@ -539,8 +557,9 @@ TODO: common march intro 2
 P: Before I can lose myself in my thoughts, I am called upon by Sister Superior Three.
 >
 <<do this.fed = (this.fed || 0) + 1>>
+<<do this.scrim(1, 1000);this.show('superior')>>
 "Sister Twenty. You are being placed on feeding duties today."
-[[...|this.scrim(1, 1000);this.goto('feeding-'+this.fed)]]
+[[...|this.show('');this.goto('feeding-'+this.fed)]]
 
 ::feeding-1
 P: She leads me through the marching order, easily cutting in and out between other sisters.
@@ -583,7 +602,7 @@ P: "...Sorry. This is the first time-"
 >
 P: Her voice is calm, and firm. The same as it always is.
 >
-"Despite Daughter Three's formalities, there is no need for special treatment. We all must eat, so we all share food."
+"Despite Daughter Three's insistence on formalities, there is no need for special treatment. We all must eat, so we all share food."
 >
 P: I nod, and regurgitate some of the contents of my stomach.
 >
@@ -664,15 +683,97 @@ P: ...
 ::feeding-questions
 P: She continues to eat, and I consider what to say.
 
-[["TODO: questions"]]
+// TODO: more questions
+<<do this.qc=0>>
+// only first 6 questions will be shown
+// question template:
+// <<if this.qc<6 && othercondition>><<do ++this.qc>>[[a]]<<endif>>
+<<if this.qc<6 && this.innquestion>><<do ++this.qc>>[["What happened to the roly polies?"]]<<endif>>
+<<if this.qc<6 && this.innquestion>><<do ++this.qc>>[["Why didn't we stay at the inn?"]]<<endif>>
+<<if this.qc<6 && this.deserterquestion>><<do ++this.qc>>[["Who was the sister that ran away?"]]<<endif>>
+<<if this.qc<6>>[["...">feeding-questions-none]]<<endif>>
 
-::"TODO: questions"
-TODO: answers
+::feeding-questions-none
+P: I can't think of anything. Nothing I'd care to ask her, at least.
 >
+P: I can tell Mother is disappointed, but she goes back to eating without pressing the issue.
+[[>feeding-questions-2]]
+
+::feeding-questions-2
 <<do this.show('')>>
-She finishes her meal, and I return to my place in the marching order.
+P: She finishes her meal, and I return to my place in the marching order.
 
 [[>march]]
+
+::"Who was the sister that ran away?"
+<<do this.deserterquestion=false>>
+"Who was she?"
+>
+"A coward."
+
+"A traitor, and a heretic."
+>
+"We need not spoil our appetite with discussion of such things."
+
+"Please, speak no more."
+[[>feeding-questions-2]]
+
+::"What happened to the roly polies?"
+<<do this.innquestion=false>>
+"The keepers of the inn?"
+>
+"They were dealt with."
+>"So they're..."
+"If you ask whether they still live, we do not know or care."
+>
+"They did not co-operate, and were evicted from the premises."
+
+"That is the start and end of the matter."
+>
+"Why is this of any concern?"
+
+[["They were willing to help us."]]
+[["I didn't want to hurt them."]]
+
+::"They were willing to help us."
+<<do ++this.countwe>>
+"They were willing to extort us."
+>
+"Make no mistake Daughter: We cannot trust those who would hold us for sale."
+[[>feeding-questions-2]]
+
+::"I didn't want to hurt them."
+<<do ++this.counti>>
+"They chose a path of mercantilism and deceit."
+>
+"Our path, however, is not one that knows expense."
+>
+"Any suffering that night was of their own making."
+[[>feeding-questions-2]]
+
+::"Why didn't we stay at the inn?"
+<<do this.innquestion=false>>
+<<do ++this.countwe>>
+"Daughter, the inn was a fortunate detour, but it is not part of our path."
+>
+"We must keep moving, and build the home that is meant for us."
+>
+"Besides, we could not stay even if our fates aligned."
+
+"The tree upon which they staked their claim was already dead and rotting."
+>"What?"
+"Why do you think we had such difficulty finding suitable leaves for a nest that night?"
+>
+"And did you not notice we were the only 'customers'?"
+>
+"Never trust a merchant's word, Daughter."
+[[>feeding-questions-2]]
+
+
+
+
+
+
 
 
 
@@ -711,7 +812,7 @@ P: We've made it this far, but we've just been roughing it. Our luck is running 
 
 ::outside-inn-ants2
 "Hm. Better get back to it then - our construction plans are coming along, but we're counting on you to support them."
-[["...Of course.">close]]
+[["...Of course."|this.scene.player.walkBy(-30, 0);this.goto('close')]]
 
 
 ::outside-inn-ants-proposal
@@ -817,6 +918,7 @@ P: The surface is hard and flat.
 P: It really could use a pillow.
 >
 P: I try to fall asleep.
+<<do this.innquestion=true>>
 [[>march]]
 
 
@@ -1163,7 +1265,7 @@ P: I'm left alone in the lobby. It's still raining outside.
 P: It's not exactly what I had in mind, but this does seem to solve our problem.
 >
 P: I allow myself the luxury of a few more moments of shelter, and make my way back out.
-[[>close]]
+[[...|this.scene.player.walkBy(30,0);this.goto('close')]]
 
 ::bunty
 P: "Hello again, Bunty."
@@ -1173,7 +1275,7 @@ P: "Hello again, Bunty."
 "Checking in?"
 
 >"Not yet."
-
+<<do this.scene.player.walkBy(30,0)>>
 "Well, I'll be here if you need me!"
 [[>close]]
 
@@ -1284,6 +1386,11 @@ P: "W-well we'd prefer if you did not!"
 [[passage select]]
 
 
+::frog-wall
+TODO: can't go this way
+<<do this.scene.player.walkBy(30, 0)>>
+[[>close]]
+
 
 
 ::deserter-march
@@ -1310,7 +1417,7 @@ P: Wait...
 >
 P: Where did everyone go?
 >
-P: My thoughts of rememberance paused, I suddenly realize that I'm walking completely alone.
+P: My thoughts of remembrance paused, I suddenly realize that I'm walking completely alone.
 >
 <<do this.scrim(1, 1000)>>
 P: The trail- did I wander off the scent trail while I was daydreaming?
@@ -1408,6 +1515,7 @@ P: A voice calls out from the group:
 
 
 ::deserter-wall
+<<do this.scene.player.walkBy(30,0)>>
 P: I came out all this way, I can't head back now.
 [[>close]]
 
@@ -1418,6 +1526,7 @@ P: I came out all this way, I can't head back now.
 	marchers.forEach(i => i.spr.alpha = 0);
 	marchers[3].spr.alpha = 1;
 	marchers[2].spr.alpha = 1;
+	this.scene.player.walkTo(1302, -13);
 >>
 P: "Sister!"
 >
@@ -1506,6 +1615,7 @@ She keeps walking.
 "I'm sure someone who knew will notice eventually."
 
 "You can ask them when you go back, if you care."
+<<do this.deserterquestion=true>>
 [[>deserter-qs]]
 
 ::deserter-where

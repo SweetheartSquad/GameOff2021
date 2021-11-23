@@ -3,6 +3,7 @@ import ease from 'eases';
 import { Text, TextStyle } from 'pixi.js';
 import Strand from 'strand-core';
 import { Area } from './Area';
+import { music, sfx } from './Audio';
 import { Block } from './Block';
 import { fontIngame } from './font';
 import { GameObject } from './GameObject';
@@ -74,12 +75,12 @@ export class StrandE extends Strand {
 	}
 
 	show(...args: Parameters<typeof this.scene['dialogue']['show']>) {
-		this.scene.dialogue.show(...args);
+		return this.scene.dialogue.show(...args);
 	}
 
 	tween(...args: Parameters<typeof TweenManager['tween']>) {
 		// @ts-ignore
-		TweenManager.tween(...args);
+		return TweenManager.tween(...args);
 	}
 
 	shuffle(...args: Parameters<typeof shuffle>) {
@@ -88,6 +89,14 @@ export class StrandE extends Strand {
 
 	scrim(...args: Parameters<typeof this.scene['dialogue']['scrim']>) {
 		this.scene.dialogue.scrim(...args);
+	}
+
+	sfx(...args: Parameters<typeof sfx>) {
+		return sfx(...args);
+	}
+
+	music(...args: Parameters<typeof music>) {
+		return music(...args);
 	}
 
 	restart() {

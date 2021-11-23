@@ -3,6 +3,8 @@ import { GameObject } from './GameObject';
 import { Body } from './Scripts/Body';
 
 export class Interrupt extends GameObject {
+	body: Body;
+
 	constructor({
 		passage,
 		type = 'rectangle',
@@ -22,7 +24,7 @@ export class Interrupt extends GameObject {
 	}) {
 		super();
 		this.scripts.push(
-			new Body(
+			(this.body = new Body(
 				this,
 				{
 					type,
@@ -41,7 +43,7 @@ export class Interrupt extends GameObject {
 						mask: SENSOR_PLAYER,
 					},
 				}
-			)
+			))
 		);
 	}
 }

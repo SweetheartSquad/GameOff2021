@@ -12,7 +12,7 @@ import { Script } from './Scripts/Script';
 import { randRange } from './utils';
 import * as VMath from './VMath';
 
-class Roam extends Script {
+export class Roam extends Script {
 	active: boolean;
 
 	target: VMath.V = { x: 0, y: 0 };
