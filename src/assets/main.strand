@@ -1726,11 +1726,78 @@ P: ...
 
 
 
+::ending-start
+P: We stop for the night, as we always do. Sister Superior Three assigns a group of us to build a shelter.
+>
+P: Together we scrape what bits of fresh leaf we can find into a makeshift shelter.
+>
+P: We find a little more than usual. It makes the building easier, but we still must be careful to make good use of the scraps.
+>
+P: As we work, Sister Superior Three gathers some sisters into a scouting party.
+>
+P: They will travel ahead at various degree, combing for a place to start our nest.
+>
+P: If they find the fresh leaves we need, then our journey could be coming to an end.
+>
+P: But day after day, the parties come back with news of dead, crumbled plants.
+>
+P: When the shelter is finished, the party sets out, and we retire for the night.
+[[>ending-2]]
 
 
+::ending-start-2
+"Sisters! Wake up! Wake up!!"
+>
+P: I awake to shouting. Some sisters have already left the shelter. I stumble after them, half-asleep.
+>
+P: As the sun hits my face, so too does a scent. A happy scent, a fresh scent, a scent of something new.
+>
+P: The scouting party found something.
+>
+P: We gather ourselves and begin to follow the chemical trail. We chatter excitedly as we bound along.
+>
+P: By the time I arrive, a chain of sisters have already begun folding the first leaves. I join a second chain.
+>
+P: Others grab the larvae and begin to weave their silk between the leaves.
+>
+P: We celebrate as we work, letting the excitement drive our mouths and limbs. 
+>
+P: There is scarcely time to think of anything but the work ahead.
+>
+P: A home for the Many, built by all.
+[[>ending-3]]
 
+::ending-start-3
+P: Many days pass, full of tireless work.
+>
+P: Our food stores grow, our nurseries blossom, and the nest begins to feel like home.
+>
+P: The nest expands to tree after tree.
+>
+P: And soon, the work slows, but it never stops. There is always much to do.
+>
+P: One pleasant day, I am doing waste management with some Ten-and sisters, when Sister Superior Three arrives.
+>
+"Sister Twenty, it is my duty to inform you that mother has called for an audience with you."
 
+[["Yes, of course.">ending-start-4]]
+[["Me?">ending-start-4]]
 
+::ending-start-4
+"Come along," says Three. I follow.
+>
+P: As we pass through the many passages and rooms of the nest, I beam with pride at our work.
+>
+P: Near Mother's chamber, a strange feeling comes over me.
+>
+P: Whatever awaits me beyond this door will be momentous.
+>
+P: I follow Sister Three into the chamber.
+
+//if exile
+[[>exile]]
+//if hero (or whatever we call it)
+//[[>hero]]
 
 
 ::exile
