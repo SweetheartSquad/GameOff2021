@@ -227,7 +227,7 @@
 		this.Text('npcs', { x: 340, y: 434 }),
 		this.Npc({ x: 302, y: 407 }),
 		this.Npc({ passage: 'test-npc', x: 342, y: 407 }),
-		this.Npc({ body: 'default', passage: 'test-npc', x: 442, y: 407, roam: 100 }),
+		this.Npc({ body: 'childAnt', passage: 'test-npc', x: 442, y: 407, roam: 100, scale: 0.6 }),
 
 		this.Text('gotos', { x: -289, y: -61 }),
 		this.Goto({ area: 'test-sub' }, { x: -289, y: 0 }),

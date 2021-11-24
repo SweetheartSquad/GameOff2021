@@ -8,6 +8,8 @@ textures/hole.png
 textures/shadows.png
 textures/basicAntIdle/basicAntIdle.x5.png
 textures/basicAntRun/basicAntRun.x10.png
+textures/childAntIdle/childAntIdle.x5.png
+textures/childAntRun/childAntRun.x8.png
 textures/white.png
 audio/step.mp3
 audio/voiceDefault.mp3
