@@ -109,7 +109,7 @@ export class UIDialogue extends GameObject {
 		this.posTime = 0;
 		this.posDelay = 2;
 		this.selected = undefined;
-		this.textText = new Text(this.strText, fontDialogue);
+		this.textText = new Text(this.strText, { ...fontDialogue });
 		this.textPrompt = new Text(this.strPrompt, fontPrompt);
 		this.textPrompt.alpha = 0;
 		this.textPrompt.x = size.x / 2;
@@ -212,7 +212,8 @@ export class UIDialogue extends GameObject {
 
 	say(text: string, actions?: { text: string; action: () => void }[]) {
 		const isPlayer = text.startsWith('P: ');
-		if (isPlayer) text = text.substr(2);
+		const isBig = text.startsWith('B: ');
+		if (isPlayer || isBig) text = text.substr(2);
 		this.selected = undefined;
 		this.strText = TextMetrics.measureText(
 			text,
@@ -223,6 +224,9 @@ export class UIDialogue extends GameObject {
 
 		this.textText.text = '';
 		this.textText.style.fontStyle = isPlayer ? 'italic' : 'normal';
+		this.textText.style.fontSize = isBig
+			? Number(fontDialogue.fontSize ?? 0) + 10
+			: fontDialogue.fontSize;
 		this.textText.alpha = isPlayer ? 1 : 0.6;
 		this.display.container.accessibleHint = text;
 		this.choices.forEach((i) => i.destroy());
