@@ -213,7 +213,7 @@ export class UIDialogue extends GameObject {
 	say(text: string, actions?: { text: string; action: () => void }[]) {
 		const isPlayer = text.startsWith('P: ');
 		const isBig = text.startsWith('B: ');
-		if (isPlayer || isBig) text = text.substr(2);
+		if (isPlayer || isBig) text = text.substr(3);
 		this.selected = undefined;
 
 		this.textText.style.fontStyle = isPlayer ? 'italic' : 'normal';
