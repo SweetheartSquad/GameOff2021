@@ -235,7 +235,7 @@ export class UIDialogue extends GameObject {
 		this.choices = (actions || []).map((i, idx, a) => {
 			const strText = a.length > 1 ? `${i.text} - ${idx + 1}` : i.text;
 			const t = new Text(strText, {
-				...this.textText.style,
+				...fontDialogue,
 				fontStyle: 'italic',
 				wordWrapWidth: (this.textText.style.wordWrapWidth || 0) - 2,
 			}) as Text & EventEmitter;
