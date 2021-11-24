@@ -10,6 +10,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16
+      - run: npm ci
       - run: npm run build
       - id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.1.0
