@@ -1750,23 +1750,63 @@ P: I can monologue too.
 
 
 ::frog-march
-TODO: somehow get to the frog
+<<do this.scrim(1, 1000)>>
+P: It's my turn to scout ahead.
 >
-"HALT!"
+P: The branches have been getting more treacherous lately.
+>
+P: Many of them are cracked and unstable. It's crucial that we plot a course through those that are not, or we risk another disaster.
+>
+P: Everyone has been on edge since then, but caution can only take us so far: we have to take some risks.
+>
+<<do this.scene.goto({ area: 'frog' })>>
+P: We have to keep moving, stay on the path.
+>
+P: The tree we currently walk cannot be trusted. I spend my time searching for a crossing to one of its neighbours.
+>
+P: It's a long search, without much success. In addition to the dry, aging branches, the canopy here is thin.
+
+Trees stand too far apart, branches waving but not touching.
+>
+P: Just when I'm ready to give up: I find it.
+[[>close]]
+
+
+::frog-wall
+P: I can't go back without checking this out first.
+<<do this.scene.player.walkBy(30, 0)>>
+[[>close]]
+
+
+::frog-bridge
+P: Someone has bridged this gap!
+>
+P: It's a good sign: surely this means we're getting closer to safe territory.
+
+Maybe even-
+>
+B: "HALT!"
 >
 P: I freeze in my steps at the sound of the booming voice.
 >
-"WHO GOES THERE?"
+B: "WHO GOES THERE?"
 >
 P: The questions race: Who? Where?? Run???
 >
+<<do
+	this.scrim(1, 50);
+	setTimeout(() => this.scrim(0.5, 500), 50);
+	this.tween(this.frogBridgeFg.spr, 'alpha', 0.25, 500);
+	this.tween(this.frog.spr, 'alpha', 1, 500);
+	this.scene.camera.display.container.pivot.y += 50;
+>>
 P: The first two are immediately answered by the crash of a giant frog landing on the branch in front me.
 >
-P: I should run. The bark shudders and creaks under its weight as it starts walking towards me.
+P: I should run. The bridge shudders and creaks under its weight as it takes a step towards me.
 
 I should definitely run.
 >
-"WELL? I'M TALKING TO YOU, LITTLE ONE."
+B: "WELL? I'M TALKING TO YOU, LITTLE ONE."
 >
 P: I look up at what may as well be a solid wall of slime and bulk. The wall slowly blinks one glistening, bronzed eye, then the other.
 >
@@ -1774,7 +1814,7 @@ P: "Wa-h-"
 >
 P: What. Stop talking, run.
 >
-"ASKED WHO Y'ARE. SPEAK."
+B: "ASKED WHO Y'ARE. SPEAK."
 >
 P: He's SO BIG.
 >
@@ -1798,21 +1838,27 @@ P: The great beast lowers its head before I finish speaking.
 >
 P: Its mouth opens. It's going to eat me and I'm still not running why am I STILL NOT RUNNING.
 >
-"...WHAT? SPEAK UP."
+<<do this.scrim(1, 100)>>
+P: I can't look.
 >
-P: It rotates its head.
+P: ...
 >
+B: "...WHAT? SPEAK UP."
+>
+<<do this.scrim(0.5, 2000)>>
+P: It rotates its head, angling an ear drum towards me.
+>Speak up
 P: "S-sister Twenty of Many Oecophylla!!"
 >
 P: The beast suddenly lets out a low rumbling warble. It reverberates my whole body, almost knocking me over.
 >
-"HA HA! SO MANY NAMES FOR SUCH A SMALL CREATURE!"
+B: "HA HA! SO MANY NAMES FOR SUCH A SMALL CREATURE!"
 >
 P: It's... laughing?
 >
-"TELL ME, LITTLE TWENNY..."
+B: "TELL ME, LITTLE TWENNY..."
 >
-"WHY DO YOU TRESPASS ON MY DOMAIN?"
+B: "WHY DO YOU TRESPASS ON MY DOMAIN?"
 >
 P: "Trespass?"
 >
@@ -1821,34 +1867,22 @@ P: TODO: Explain stuff
 [["Are you going to eat us?"]]
 
 ::"Are you going to eat us?"
-"EAT YOU?"
+B: "EAT YOU?"
 >
-"HM. NOT HUNGRY."
+B: "HM. NOT HUNGRY."
 >
-"BUT I MIGHT."
+B: "BUT I MIGHT."
 >
 P: WHAT.
 >
-"...WHY DO YOU ASK?"
+B: "...WHY DO YOU ASK?"
 >
 P: "W-well we'd prefer if you did not!"
 >
-"MM, S'POSE YOU WOULD..."
+B: "MM, S'POSE YOU WOULD..."
 
 [[passage select]]
 
-
-::frog-wall
-TODO: can't go this way
-<<do this.scene.player.walkBy(30, 0)>>
-[[>close]]
-
-
-::frog-bridge
-<<do this.tween(this.frogBridgeFg.spr, 'alpha', 0.25, 500)>>
-<<do this.tween(this.frog.spr, 'alpha', 1, 500)>>
-
-[[>close]]
 
 ::frog-end
 <<do this.tween(this.frogBridgeFg.spr, 'alpha', 1, 500)>>
