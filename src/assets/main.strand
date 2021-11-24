@@ -312,7 +312,7 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 		y = Math.round(p.y);
 		verts.push([x,y]);
 		if (poly) {
-			poly.destroy();
+			this.destroy(poly);
 		}
 		poly = this.Poly({ verts: verts.flat() });
 	};
@@ -1411,8 +1411,7 @@ P: "In this rain, and with that slope? Climbing out there is a death sentence."
 	// remove npc ant on branch
 	const a = this.scene.areas['inn-outside'].find(i => i.body);
 	if (a) {
-		a.destroy();
-		this.scene.areas['inn-outside'].splice(this.scene.areas['inn-outside'].indexOf(a), 1);
+		this.destroy(a);
 	}
 >>
 P: A roly poly?
