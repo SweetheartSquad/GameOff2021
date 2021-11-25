@@ -1771,12 +1771,90 @@ P: Just when I'm ready to give up: I find it.
 
 
 ::frog-wall
+<<if this.donefrog>>
+<<do this.goto('frog-wall-3')>>
+<<elseif this.metfrog>>
+<<do this.goto('frog-wall-2')>>
+<<else>>
+<<do this.goto('frog-wall-1')>>
+<<endif>>
+
+::frog-wall-1
 P: I can't go back without checking this out first.
 <<do this.scene.player.walkBy(30, 0)>>
 [[>close]]
 
+::frog-wall-2
+P: 'Buddy system'.
+>
+<<do this.scrim(1, 1000)>>
+P: There's really only one solution, so I follow the pheremone trail back to the main group and report what I've learned.
+>
+P: ...
+>
+"And this frog on the bridge - it's going to let us pass? It's safe?"
+
+[["Maybe...">frog-wall-2-2]]
+[["I don't think so."|++this.counti;this.goto('frog-wall-2-2')]]
+[["We don't have any other choice."|++this.countwe;this.goto('frog-wall-2-2')]]
+
+::frog-wall-2-2
+P: "There was no aggression in his words, but..."
+>
+<<do
+
+	this.scene.areas[this.scene.area].push(
+		...this.AntProp({ x: -208, y: -73 }),
+		...this.AntProp({ x: -317, y: 48 }),
+		...this.AntProp({ x: -483, y: -2 }),
+		...this.AntProp({ x: -431, y: 49, flip: true }),
+	);
+	this.frogfollower = this.Npc({ passage: 'frog-follower', x: this.scene.player.transform.x+50, y: this.scene.player.transform.y+50 });
+	this.scene.areas[this.scene.area].push(this.frogfollower);
+	this.scene.goto({ area: 'frog' });
+	
+	this.scene.player.follow(this.frogfollower);
+	this.donefrog=true;
+>>
+<<if this.frogeat>>
+P: "He did outright say he might eat us."
+<<else>>
+P: "His talk of safety did not seem particularly sincere."
+<<endif>>
+>
+"...There were no other routes?"
+>"No."
+"Then we must trust this beast, whether he deserves it or not."
+>
+"Take Sister Ten-and-nine with you: we will follow closely behind, and join on the other side, should our path be uninterrupted."
+
+<<do this.scene.player.walkBy(30, 0)>>
+[[>close]]
+
+
+::frog-wall-3
+P: We didn't walk all the way out here just to turn back now.
+<<do this.scene.player.walkBy(30, 0)>>
+[[>close]]
+
+::frog-follower
+P: Sister Ten-and-nine is quiet.
+>"How do you feel about this?"
+"...We feel anxious, but eager to get it over with."
+>
+"The rest of our sisters are counting on us, Twenty. Let's not let them down."
+[[>close]]
 
 ::frog-bridge
+<<if this.donefrog>>
+<<do this.goto('frog-bridge-3')>>
+<<elseif this.metfrog>>
+<<do this.goto('frog-bridge-2')>>
+<<else>>
+<<do this.metfrog=true;this.goto('frog-bridge-1')>>
+<<endif>>
+
+::frog-bridge-1
 P: Someone has bridged this gap!
 >
 P: It's a good sign: surely this means we're getting closer to safe territory.
@@ -1804,7 +1882,7 @@ P: I should run. The bridge shudders and creaks under its weight as it takes a s
 
 I should definitely run.
 >
-B: "WELL? I'M TALKING TO YOU, LITTLE ONE."
+B: "WELL? TALKING TO YOU, LITTLE ONE."
 >
 P: I look up at what may as well be a solid wall of slime and bulk. The wall slowly blinks one glistening, bronzed eye, then the other.
 >
@@ -1850,21 +1928,67 @@ P: "S-sister Twenty of Many Oecophylla!!"
 >
 P: The beast suddenly lets out a low rumbling warble. It reverberates my whole body, almost knocking me over.
 >
-B: "HA HA! SO MANY NAMES FOR SUCH A SMALL CREATURE!"
+B: "HA HA! MANY NAMES FOR SUCH A SMALL CREATURE!"
 >
 P: It's... laughing?
 >
 B: "TELL ME, LITTLE TWENNY..."
 >
-B: "WHY DO YOU TRESPASS ON MY DOMAIN?"
+B: "WHY D'YOU TRESPASS ON MY DOMAIN?"
 >
-P: "Trespass?"
+P: "Trespass? You mean on this bridge?"
 >
-P: TODO: Explain stuff
+B: "MY DOMAIN. YOU WISH TO CROSS?"
+>
+P: "Y-yes. You built this?"
+>
+B: "BUILD? HA!"
 
-[["Are you going to eat us?"]]
+"NO, YOU LITTLE ONES, ALWAYS BUILDING..."
+>
+B: "EASIER TO TAKE."
+>
+P: 'Take from who?', I want to ask.
 
-::"Are you going to eat us?"
+Better not.
+>
+B: "CAN'T LET YOU CROSS THOUGH."
+>"Why not?"
+B: "BUDDY SYSTEM ONLY."
+>"What?"
+B: "NO CROSSING ALONE."
+>
+B: "COME BACK WITH A BUDDY."
+[[...|this.scene.player.walkBy(-30,30);this.goto('close')]]
+
+
+::frog-bridge-2
+P: I approach the hulking beast once again.
+>
+B: "STILL ALONE?"
+>"Yes."
+B: "THEN Y'DON'T CROSS."
+
+
+<<if !this.frogregret>>[["Am I going to regret this?"]]<<endif>>
+<<if !this.frogeat>>[["You're not going to eat us?"]]<<endif>>
+[["Back later, then."]]
+
+::"Am I going to regret this?"
+<<do this.frogregret=true>>
+<<do ++this.counti>>
+B: "REGRET?"
+>
+B: "DIDN'T REALIZE LITTLE ONES COULD DO THAT."
+>
+<<do this.scene.player.walkBy(-30,30)>>
+P: Ugh- okay, walking away now...
+[[>close]]
+
+
+::"You're not going to eat us?"
+<<do this.frogeat=true>>
+<<do ++this.countwe>>
 B: "EAT YOU?"
 >
 B: "HM. NOT HUNGRY."
@@ -1873,20 +1997,81 @@ B: "BUT I MIGHT."
 >
 P: WHAT.
 >
-B: "...WHY DO YOU ASK?"
+B: "...WHY D'YOU ASK?"
 >
 P: "W-well we'd prefer if you did not!"
 >
 B: "MM, S'POSE YOU WOULD..."
+>
+B: "BETTER FIND A BUDDY QUICKLY, THEN."
+[[>"Back later, then."]]
 
-[[passage select]]
+::"Back later, then."
+<<do this.scene.player.walkBy(-30,30)>>
+B: "SAFETY IN NUMBERS, LITTLE TWENNY."
+[[>close]]
 
+
+::frog-bridge-3
+B: "LITTLE TWENNY! YOU BROUGHT A BUDDY."
+>"Yes."
+P: "Now may we cross?"
+>
+B: "MM. JUST ONE MORE THING."
+>
+<<do this.scrim(1,100)>>
+P: His tongue flicks out with a dull smack.
+
+It smashes into Sister Ten-and-nine, pinning her to the floor.
+>
+<<do this.scene.player.stopFollow(this.frogfollower);this.destroy(this.frogfollower)>>
+"H-help..."
+>"Sister!!"
+<<do this.scrim(0.5,1000)>>
+P: There's a sickening sqeulch as the tongue snaps back, disappearing her into the beast's maw.
+>"No!!!"
+"BLEURGH!"
+>"You... ATE her!!"
+"MM. S'POSE I WAS HUNGRY."
+>"What!?"
+"YOU TASTE BAD THOUGH, LITTLE ONE."
+
+"CROSS IF YOU WANT, M'DONE HERE."
+>
+P: In a single massive leap, the horrible beast disappears into the canopy above.
+<<do
+	this.scrim(1, 50);
+	setTimeout(() => this.scrim(0.5, 500), 50);
+	this.tween(this.frogBridgeFg.spr, 'alpha', 1, 100);
+	this.tween(this.frog.spr, 'alpha', 0, 100);
+	this.scene.camera.display.container.pivot.y += 50;
+>>
+>
+P: She's gone. She was walking behind me, and now she's just... gone.
+>
+P: ...
+>
+P: I better cross before it decides to come back.
+[[...|this.destroy(this.gameObject);this.goto('close')]]
 
 ::frog-end
-<<do this.tween(this.frogBridgeFg.spr, 'alpha', 1, 500)>>
-<<do this.tween(this.frog.spr, 'alpha', 0, 500)>>
+P: He seems to have truly lost interest...
+>
+P: <<if this.frogregret>>I knew this was a bad idea. I knew it!<<else>>I can't believe we just walked right into it.<<endif>>
 
-[[>close]]
+<<if this.frogeat>>He literally said he would eat us!!<<else>>Of course he just wanted to eat us!!<<endif>>
+>
+P: Stupid. I'm so stupid.
+>
+<<do this.scrim(1,1000)>>
+P: The others cross safely, at least.
+>
+P: There are some trite words thanking Ten-and-nine for her sacrifice... I can't even bear to listen to it all.
+>
+P: When the marching order resumes, I take my place, and someone else takes the place behind me. Ten-and-nine's place.
+>
+P: They don't really care that she's gone. They just keep walking.
+[[>march]]
 
 
 
