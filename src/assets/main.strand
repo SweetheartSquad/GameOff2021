@@ -91,7 +91,7 @@
 		return [npc, prop];
 	}
 
-	const AntProp = (options) => {
+	this.AntProp = (options) => {
 		return [
 			this.Prop({ texture: 'basicAntIdle', freq: 1/200, ...options, scale: 0.52 * (options.scale || 1) }),
 			this.Prop({ texture: 'shadows', offset: (options.offset || 0)-5, ...options, scale: 0.7 * (options.scale || 1) }),
@@ -148,12 +148,12 @@
 		this.Prop({ texture: 'rainSplash', x: -1367, y: 86, freq: 1/100 }),
 		this.Prop({ texture: 'pillBugIdle', x: -1731, y: -22 }),
 		this.Prop({ texture: 'shadows', x: -1731+20, y: -22+15, scale: 2, alpha: 0.5, offset: -20 }),
-		...AntProp({ x: 140, y: -86 }),
-		...AntProp({ x: 180, y: 5, flip: true }),
-		...AntProp({ x: 268, y: -11 }),
-		...AntProp({ x: 477, y: -24 }),
-		...AntProp({ x: 576, y: 28, flip: true }),
-		...AntProp({ x: 322, y: -61, flip: true }),
+		...this.AntProp({ x: 140, y: -86 }),
+		...this.AntProp({ x: 180, y: 5, flip: true }),
+		...this.AntProp({ x: 268, y: -11 }),
+		...this.AntProp({ x: 477, y: -24 }),
+		...this.AntProp({ x: 576, y: 28, flip: true }),
+		...this.AntProp({ x: 322, y: -61, flip: true }),
 		this.Npc({ body: 'basicAnt', passage: 'outside-inn-ant', x: -745, y: 152 }),
 		this.Poly({ verts: [168,130, 167,-135, -89,-107, -484,-104, -794,-120, -1360,-199, -1622,-214, -1623,174, -1026,146, -878,173, -781,158, -681,215, -367,200, -98,204, 168,130] }),
 		this.Interrupt({ passage: 'outside-inn', x: -1625, y: -18, height: 500 }),
