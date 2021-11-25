@@ -864,6 +864,7 @@ P: She continues to eat, and I consider what to say.
 // only first 6 questions will be shown
 // question template:
 // <<if this.qc<6 && othercondition>><<do ++this.qc>>[[a]]<<endif>>
+<<if this.qc<6 && this.frogquestion>><<do ++this.qc>>[["Why did we let the frog go?"]]<<endif>>
 <<if this.qc<6 && this.innquestion>><<do ++this.qc>>[["What happened to the roly polies?"]]<<endif>>
 <<if this.qc<6 && this.innquestion>><<do ++this.qc>>[["Why didn't we stay longer at the inn?"]]<<endif>>
 <<if this.qc<6 && this.deserterquestion>><<do ++this.qc>>[["Who was the sister that ran away?"]]<<endif>>
@@ -880,6 +881,43 @@ P: I can tell Mother is disappointed, but she goes back to eating without pressi
 P: She finishes her meal, and I return to my place in the marching order.
 
 [[>march]]
+
+::"Why did we let the frog go?"
+<<do this.frogquestion=false>>
+P: "That monster, that terrible beast..."
+
+"Why let such cruelty go unpunished?"
+>
+"'Cruelty'? Do you believe what he did was cruel?"
+>
+P: "Of course! He murdered our sister!"
+
+"What could be more cruel?!"
+>
+"Sister Twenty, what did you prepare for dinner tonight?"
+>"What?"
+P: The non-sequitur throws me off.
+
+"It-uh, um? It's leftovers? From the beetle we caught two days ago. But what does-"
+>
+"Was it cruel, when we tore that beetle's legs from its body?"
+
+"Or when we sprayed its innards with acid?"
+>
+P: "...That's different."
+>
+"The beetle would likely disagree."
+>
+P: I can feel my antennae cringe inwards.
+
+Mother takes another lick of the partially digested slurry of protein.
+>
+"The frog let us pass."
+>
+"We mourn the sister who paid dearly for that passage, and we detest the beast for having chosen such a price."
+>
+"But we cannot fault him for his choice."
+[[>feeding-questions-2]]
 
 ::"Who was the sister that ran away?"
 <<do this.deserterquestion=false>>
@@ -2223,6 +2261,7 @@ P: I better cross before it decides to come back.
 [[...|this.destroy(this.gameObject);this.goto('close')]]
 
 ::frog-end
+<<do this.frogquestion=true>>
 P: He seems to have truly lost interest...
 >
 P: <<if this.frogregret>>I knew this was a bad idea. I knew it!<<else>>I can't believe we just walked right into it.<<endif>>
