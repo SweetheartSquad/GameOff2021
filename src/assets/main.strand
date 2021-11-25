@@ -2740,10 +2740,12 @@ P: Something to call yourself, or knowing who you are?
 >
 P: A legacy, or a life?
 >
-P: ...It's rhetorical.
-<<print new Array(30).fill('\u200B').join('')>>
+P: ...No, don't- It's rhetorical.
+>
+P: It's something you have to answer for yourself.
+<<print new Array(20).fill('\u200B').join('')>>
 I made my choice a long time ago.
-<<print new Array(30).fill('\u200B').join('')>>
+<<print new Array(20).fill('\u200B').join('')>>
 I don't doubt my decision.
 <<print new Array(40).fill('\u200B').join('')>>
 [[The End]]
@@ -2767,9 +2769,9 @@ P: That's something I'm not sure they ever understood: The name, the path, the l
 P: Sometimes wish I had known how to make them see that.
 >
 P: ...Not that it matters now.
-<<print new Array(30).fill('\u200B').join('')>>
+<<print new Array(20).fill('\u200B').join('')>>
 It's not worth explaining myself to them.
-<<print new Array(30).fill('\u200B').join('')>>
+<<print new Array(20).fill('\u200B').join('')>>
 I doubt it ever was.
 <<print new Array(40).fill('\u200B').join('')>>
 [[The End]]
