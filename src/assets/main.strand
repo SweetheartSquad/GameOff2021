@@ -183,7 +183,24 @@
 		this.Prop({ texture: 'innTable2', x: 304, y: -107 }),
 		this.Prop({ texture: 'shadows', x: 304, y: -107+15, offset: -20, scale: 2, alpha: 0.5 }),
 		this.Block({ type: 'circle', x: 304, y: -107, radius: 10 }),
-		this.Npc({ passage: 'test-npc', x: 207, y: -75 }),
+		this.Npc({ passage: 'test-npc', x: 335, y: -134 }),
+	]);
+
+	this.Area('town-exile', [
+		this.Prop({ texture: 'town_bg', y: 334, offset: -10000 }),
+		this.Poly({ verts: [-439,-187, -639,-135, -705,-15, -614,205, -449,291, -170,324, 50,319, 395,302, 595,205, 673,76, 702,-88, 688,-185, 551,-223] }),
+		this.Poly({ verts: [448,-252, 382,-275, 174,-275] }),
+		this.Poly({ verts: [33,-278, -118,-288, -188,-298, -337,-239] }),
+		this.Interrupt({ passage: 'exile-refuse-1', type: 'circle', x: -394, y: -211 }),
+		this.Interrupt({ passage: 'exile-refuse-2', type: 'circle', x: 104, y: -294, focus: { x: 0, y: -400 } }),
+		this.Interrupt({ passage: 'exile-refuse-3', type: 'circle', x: 501, y: -253 }),
+		this.Interrupt({ passage: 'exile-exit', x: -30, y: 278, width: 1000 }),
+		this.Prop({ texture: 'innTable1', x: -399, y: -57 }),
+		this.Prop({ texture: 'shadows', x: -399, y: -57+15, offset: -20, scale: 2, alpha: 0.5 }),
+		this.Block({ type: 'circle', x: -399, y: -57, radius: 10 }),
+		this.Prop({ texture: 'innTable2', x: 304, y: -107 }),
+		this.Prop({ texture: 'shadows', x: 304, y: -107+15, offset: -20, scale: 2, alpha: 0.5 }),
+		this.Block({ type: 'circle', x: 304, y: -107, radius: 10 }),
 	]);
 
 	const frogEnd = this.Interrupt({ passage: 'frog-end', x: 1982, y: -915, width: 1000 });
@@ -2694,15 +2711,32 @@ P: My sisters - the word stings in my head - usher me away.
 >
 P: I don't fight it.
 >
+<<do this.scene.goto({ area: 'town-exile', x: -369, y: -156 })>>
 P: They lead me back to the entrance. I want to say something - anything to feel like this isn't the end.
 >
-P: Instead, I stand there in silence, and they give me a shove, and close the door.
->
-TODO: walkaround bit where people wont talk to you, you need to just walk out
->
-<<do this.scrim(1, 1000)>>
+P: Instead, I stand there in silence, and they shove me out the door.
+[[>close]]
+
+::exile-refuse-1
+// TODO: area-specific refusals
+P: I'm not welcome here.
+[[...|this.scene.player.walkBy(0,50);this.goto('close')]]
+
+::exile-refuse-2
+// TODO: area-specific refusals
+P: I'm not welcome here.
+[[...|this.scene.player.walkBy(0,50);this.goto('close')]]
+
+::exile-refuse-3
+// TODO: area-specific refusals
+P: I'm not welcome here.
+[[...|this.scene.player.walkBy(0,50);this.goto('close')]]
+
+
+::exile-exit
 P: ...
 >
+<<do this.scrim(1, 1000)>>
 P: It's still difficult to accept just how much changed that day.
 >
 P: You'll forgive me if I gloss over the finer details of life in exile.
