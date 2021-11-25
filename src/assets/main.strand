@@ -464,6 +464,7 @@ The rain itself quiets as if it senses our anticipation.
 >
 P: Queen Mother One and Many Oecophylla is going to speak.
 >
+<<do this.show('queenIdle')>>
 "..."
 >
 "Daughters. Sisters."
@@ -511,6 +512,7 @@ P: The sister to my left reaches out, clasps hands in mine.
 >
 "..."
 >
+<<do this.show('')>>
 P: Mother... Her words trace themselves through our sisters and our self.
 [[We have faith.|++this.countwe;this.goto('mother-speech7')]]
 [[I really do.|++this.counti;this.goto('mother-speech7')]]
