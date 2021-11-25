@@ -549,6 +549,7 @@ P: But there's ground to cover.
 		];
 		// TODO: decide if we want to randomize
 		// this.marchEvents = this.shuffle(this.marchEvents);
+		this.marchEvents.push('ending');
 	}
 	this.marchEvent = this.marchEvents.shift();
 	this.scrim(1, 1000);
@@ -2403,7 +2404,7 @@ P: ...
 
 
 
-::ending-start
+::ending-march
 P: We stop for the night, as we always do. Sister Superior Three assigns a group of us to build a shelter.
 >
 P: Together we scrape what bits of fresh leaf we can find into a makeshift shelter.
