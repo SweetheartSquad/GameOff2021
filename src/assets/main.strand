@@ -869,6 +869,7 @@ P: She continues to eat, and I consider what to say.
 <<if this.qc<6 && this.innquestion>><<do ++this.qc>>[["What happened to the roly polies?"]]<<endif>>
 <<if this.qc<6 && this.innquestion>><<do ++this.qc>>[["Why didn't we stay longer at the inn?"]]<<endif>>
 <<if this.qc<6 && this.deserterquestion>><<do ++this.qc>>[["Who was the sister that ran away?"]]<<endif>>
+<<if this.qc<6 && this.fatherquestion!==false>><<do ++this.qc>>[["What was Father like?"]]<<endif>>
 <<if this.qc<6>>[["...">feeding-questions-none]]<<endif>>
 
 ::feeding-questions-none
@@ -882,6 +883,32 @@ P: I can tell Mother is disappointed, but she goes back to eating without pressi
 P: She finishes her meal, and I return to my place in the marching order.
 
 [[>march]]
+
+::"What was Father like?"
+<<do this.fatherquestion=false>>
+"Your father?"
+>
+P: She stops eating, suddenly focused and severe.
+>
+"Trust us when we say that is best you did not know him."
+
+"Not that you even could..."
+>
+P: "...Oh."
+>
+"Do not misunderstand: We are glad for the time we had with him. We remember him fondly."
+
+"But..."
+>
+"Your father was not like us."
+
+"Could not be like us."
+>
+"Perhaps when we have followed the path to its end, when we have built a nest - a home - you will have a brother or two."
+>
+"Then you will see what we mean."
+
+[[>feeding-questions-2]]
 
 ::"Why did we let the frog go?"
 <<do this.frogquestion=false>>
