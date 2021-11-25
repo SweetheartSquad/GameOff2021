@@ -870,6 +870,7 @@ P: She continues to eat, and I consider what to say.
 <<if this.qc<6 && this.innquestion>><<do ++this.qc>>[["What happened to the roly polies?"]]<<endif>>
 <<if this.qc<6 && this.innquestion>><<do ++this.qc>>[["Why didn't we stay longer at the inn?"]]<<endif>>
 <<if this.qc<6 && this.deserterquestion>><<do ++this.qc>>[["Who was the sister that ran away?"]]<<endif>>
+<<if this.qc<6 && this.motherquestion!==false>><<do ++this.qc>>[["What was your mother like?"]]<<endif>>
 <<if this.qc<6 && this.fatherquestion!==false>><<do ++this.qc>>[["What was Father like?"]]<<endif>>
 <<if this.qc<6>>[["...">feeding-questions-none]]<<endif>>
 
@@ -910,6 +911,38 @@ P: "...Oh."
 "Then you will see what we mean."
 
 [[>feeding-questions-2]]
+
+::"What was your mother like?"
+<<do this.motherquestion=false>>
+P: It's something that I've wondered about for awhile: Mother calls herself 'One and Many', but she can't be the first.
+
+Everyone has a mother, right?
+>
+"...We do not speak of her."
+>
+"Do you understand?"
+
+[["What?">"Why not?"]]
+[["Why not?"]]
+[["Yes, Mother."]]
+
+::"Why not?"
+"Daughter Twenty, why do you ask this of us? Who wishes to know?"
+
+"Have you been in contact with the False Queen?"
+>"I-"
+"No, it would be impossible. You simply do not know what you ask..."
+>
+"Mother holds no power here. We walk our own path."
+
+"Do you understand?"
+
+[["Yes, Mother."]]
+
+::"Yes, Mother."
+"...Good. Then that is that."
+[[>feeding-questions-2]]
+
 
 ::"Why did we let the frog go?"
 <<do this.frogquestion=false>>
