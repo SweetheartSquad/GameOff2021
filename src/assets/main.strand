@@ -537,15 +537,15 @@ P: But there's ground to cover.
 	// and can be "ended" by going to `march` again
 	if(!this.marchEvents || !this.marchEvents.length) {
 		this.marchEvents = [
-			'cordyceps',
-			'cordyceps',
-			'feeding',
-			'feeding',
-			'feeding',
-			'feeding',
 			'inn',
+			'feeding',
+			'cordyceps',
 			'frog',
+			'feeding',
 			'deserter',
+			'feeding',
+			'cordyceps',
+			'feeding',
 		];
 		// TODO: decide if we want to randomize
 		// this.marchEvents = this.shuffle(this.marchEvents);
