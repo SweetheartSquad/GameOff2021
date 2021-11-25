@@ -866,6 +866,8 @@ P: She continues to eat, and I consider what to say.
 // only first 6 questions will be shown
 // question template:
 // <<if this.qc<6 && othercondition>><<do ++this.qc>>[[a]]<<endif>>
+<<if this.qc<6 && this.cordy2question>><<do ++this.qc>>[["What happened to Thirty-and-five?"]]
+<<elseif this.qc<6 && this.cordy1question>><<do ++this.qc>>[["What happened to Sister Thirty-and-three?"]]<<endif>>
 <<if this.qc<6 && this.frogquestion>><<do ++this.qc>>[["Why did we let the frog go?"]]<<endif>>
 <<if this.qc<6 && this.innquestion>><<do ++this.qc>>[["What happened to the roly polies?"]]<<endif>>
 <<if this.qc<6 && this.innquestion>><<do ++this.qc>>[["Why didn't we stay longer at the inn?"]]<<endif>>
@@ -885,6 +887,77 @@ P: I can tell Mother is disappointed, but she goes back to eating without pressi
 P: She finishes her meal, and I return to my place in the marching order.
 
 [[>march]]
+
+::"What happened to Thirty-and-five?"
+<<do this.cordy2question=false;this.cordy1question=false>>
+P: "Sister Superior spoke as if she knew..."
+>
+P: "She called her a devil."
+>
+"You doubt her?"
+
+[["Yes.">devil]]
+[["No.">devil]]
+
+::devil
+P: "She is convinced this is the second case."
+
+<<if !this.cordy1question>>"We spoke of the first, yet we did nothing then. Why?"<<else>>"If they were related, why was nothing done after the first?"<<endif>>
+>
+"You would have us take a more direct approach?"
+
+"Should we burn any who have associated with devilry, as Daughter Three has suggested?"
+>"No!"
+"Do not worry, we would never."
+
+"Daughter Three means well, but her methods are influenced more by fear than by efficacy."
+>
+"There are no simple solutions to those who would tempt us off the path."
+
+[["Then what is there to do?"]]
+[["Are we safe?"]]
+[["Have I been tainted?"]]
+
+::"Then what is there to do?"
+"We must care for each other, Daughter Twenty."
+>
+"And we must walk."
+[[>feeding-questions-2]]
+
+::"Are we safe?"
+<<do ++this.countwe>>
+"No less than before."
+>
+"Moreso, even, for the devils we know have been routed."
+>
+"We must simply hope they are the last of those we don't."
+[[>feeding-questions-2]]
+
+::"Have I been tainted?"
+<<do ++this.counti>>
+"Of course."
+>"What?!"
+"We all are, Daughter Twenty."
+>
+"Such is the nature of devils."
+[[>feeding-questions-2]]
+
+::"What happened to Sister Thirty-and-three?"
+<<do this.cordy1question=false>>
+P: "It... it doesn't make any sense. Why would she do that?"
+>
+"Daughter, must we speak of such sorrowful things while we eat?"
+>
+"...But sorrow will not be lifted by silence. We will answer."
+>
+"Our daughter, our sister, Thirty-and-three was no longer herself."
+
+"She was lost to us before the fall."
+>"What do you mean?"
+"We mean, Daughter Twenty, that you should remember your sister."
+
+"And not the creature you saw that night."
+[[>feeding-questions-2]]
 
 ::"What was Father like?"
 <<do this.fatherquestion=false>>
@@ -1148,6 +1221,7 @@ Better they find out in the morning.
 >
 P: ...
 >
+<<do this.cordy1question=true>>
 P: I resign myself to the rest of the watch, and prepare a report for tomorrow.
 
 [[>march]]
@@ -1478,6 +1552,7 @@ P: They look towards the bound Thirty-and-five, still silently scraping her feet
 ::cordyceps-2-end
 P: I shut the door, and look around for Sister Superior.
 >
+<<do this.cordy2question=true>>
 P: The sun is beginning to shine.
 
 [[>march]]
