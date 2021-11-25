@@ -720,7 +720,7 @@ P: She continues to eat, and I consider what to say.
 // question template:
 // <<if this.qc<6 && othercondition>><<do ++this.qc>>[[a]]<<endif>>
 <<if this.qc<6 && this.innquestion>><<do ++this.qc>>[["What happened to the roly polies?"]]<<endif>>
-<<if this.qc<6 && this.innquestion>><<do ++this.qc>>[["Why didn't we stay at the inn?"]]<<endif>>
+<<if this.qc<6 && this.innquestion>><<do ++this.qc>>[["Why didn't we stay longer at the inn?"]]<<endif>>
 <<if this.qc<6 && this.deserterquestion>><<do ++this.qc>>[["Who was the sister that ran away?"]]<<endif>>
 <<if this.qc<6>>[["...">feeding-questions-none]]<<endif>>
 
@@ -782,7 +782,7 @@ P: She finishes her meal, and I return to my place in the marching order.
 "Any suffering that night was of their own making."
 [[>feeding-questions-2]]
 
-::"Why didn't we stay at the inn?"
+::"Why didn't we stay longer at the inn?"
 <<do this.innquestion=false>>
 <<do ++this.countwe>>
 "Daughter, the inn was a fortunate detour, but it is not part of our path."
