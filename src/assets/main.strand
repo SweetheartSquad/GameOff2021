@@ -99,11 +99,12 @@
 	};
 
 	const PropParallaxAuto = (options) => {
+		const start = Date.now();
 		const gameObject = this.PropParallax(options);
 		gameObject.scripts.push({
 			gameObject,
 			update() {
-				gameObject.spr.tilePosition.x = Date.now()/1000%gameObject.spr.width * options.speed;
+				gameObject.spr.tilePosition.x = (Date.now()-start)/1000 * options.speed;
 			},
 		});
 		return gameObject;
