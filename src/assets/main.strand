@@ -528,6 +528,10 @@ P: But there's ground to cover.
 
 ::march
 <<do
+	this.march = (this.march || 0) + 1;
+	if (!this.passages['march-'+this.march]) {
+		this.march = 1;
+	}
 	// sets up progression
 	// march events will go to `${name}-march`,
 	// and can be "ended" by going to `march` again
@@ -548,12 +552,25 @@ P: But there's ground to cover.
 	}
 	this.marchEvent = this.marchEvents.shift();
 	this.scrim(1, 1000);
+	setTimeout(() => {
+		this.scene.goto({ area: 'march' });
+		setTimeout(() => {
+			this.scrim(0.5, 10000);
+			this.goto('march-'+this.march);
+		}, 100);
+	}, 1000);
 >>
-TODO: common march intro
->
-<<do this.scene.goto({ area: 'march' })>>
-TODO: common march intro 2
-[[...|this.scrim(0.5, 10000);this.goto(this.marchEvent+'-march');]]
+
+::march-1
+TODO: march 1
+[[>march-end]]
+
+::march-2
+TODO: march 2
+[[>march-end]]
+
+::march-end
+<<do this.goto(this.marchEvent+'-march')>>
 
 
 
