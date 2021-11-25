@@ -255,14 +255,14 @@ export class GameScene {
 
 	update(): void {
 		if (DEBUG) {
-			if (!this.dialogue.isOpen && getInput().menu) {
-				this.strand.goto('debug menu');
-			} else if (
+			if (
 				this.dialogue.isOpen &&
 				this.strand.currentPassage.title === 'debug menu' &&
 				getInput().menu
 			) {
 				this.strand.goto('close');
+			} else if (getInput().menu) {
+				this.strand.goto('debug menu');
 			}
 		}
 
