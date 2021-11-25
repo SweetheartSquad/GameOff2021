@@ -358,6 +358,7 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 	this.goto('close');
 ]]
 [[close]]
+[[back|this.back()]]
 
 ::CWs
 - bugs
