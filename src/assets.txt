@@ -14,7 +14,7 @@ textures/white.png
 audio/step.mp3
 audio/voiceDefault.mp3
 textures/queenIdle/queenIdle.x8.png
-textures/superior/superior.x8.png
+textures/superiorIdle/superiorIdle.x8.png
 textures/scene1_bg.png
 textures/bg_innOutside.png
 textures/InnOutside_flicker/InnOutside_flicker.x2.png

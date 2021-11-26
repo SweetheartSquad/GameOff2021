@@ -761,7 +761,7 @@ P: ...
 P: Before I can lose myself in my thoughts, I am called upon by Sister Superior Three.
 >
 <<do this.fed = (this.fed || 0) + 1>>
-<<do this.scrim(1, 1000);this.show('superior')>>
+<<do this.scrim(1, 1000);this.show('superiorIdle')>>
 "Sister Twenty. You are being placed on feeding duties today."
 [[...|this.show('');this.goto('feeding-'+this.fed)]]
 
@@ -1754,7 +1754,7 @@ P: "No, 'gibberish' is wrong- but it didn't make sense."
 P: "'Pain', 'ache', things like that."
 >
 <<do this.scrim(1, 100)>>
-<<do this.show('superior')>>
+<<do this.show('superiorIdle')>>
 P: At that moment, the door is flung open, and Sister Superior Three enters.
 >
 "What is-"
@@ -1898,7 +1898,7 @@ P: The other sisters look up eagerly at her return.
 How could they even begin to guess at what they just narrowly avoided?
 >
 <<do this.scrim(1, 1000)>>
-<<do this.show('superior')>>
+<<do this.show('superiorIdle')>>
 "We march as usual, at first light."
 >
 P: She glares razors at the quartet.
@@ -2019,7 +2019,7 @@ P: Nest construction efforts seem to slow to a halt.
 >
 P: Some time later, I receive a summons from the Sister Superior.
 >
-<<do this.show('superior')>>
+<<do this.show('superiorIdle')>>
 "We've heard much about these 'alternative arrangements' for our travel nest."
 >
 "Sister Twenty, this is your doing?"
