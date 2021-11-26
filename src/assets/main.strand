@@ -1177,7 +1177,7 @@ Mother takes another lick of the partially digested slurry of protein.
 	this.Area('camp', [
 		...campBasics,
 		!this.camplittlesister && this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -203, y: 179 }),
-		!this.campother && this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -203, y: 179 }),
+		!this.donefrog && this.Npc({ passage: '19-camp', x: -103, y: 279 }),
 	].filter(i => i));
 	this.scrim(1, 1000);
 	this.camppromise = new Promise(r => {
@@ -1329,6 +1329,56 @@ P: She squeezes my hand and wails when I pass her to an unfamiliar sister nurse.
 
 
 
+
+
+
+
+
+
+
+::19-camp
+<<if this.talked19>><<do this.goto('19-camp-2')>><<else>>
+P: Sister Ten-and-nine perks up when she sees me.
+<<endif>>
+>
+<<do this.talked19=true>>
+"Sister Twenty! How are you?"
+
+[["I've been better."]]
+[["We could all use some rest."]]
+[["Fine, how are you?"]]
+
+::"I've been better."
+<<do ++this.counti>>
+P: "My legs are tired, my back hurts, and I want to sleep."
+
+"How are you, Ten-and-nine?"
+[[>"Fine, how are you?"]]
+
+
+::"We could all use some rest."
+<<do ++this.countwe>>
+P: "Our sisters worked hard today..."
+
+"How are you, Ten-and-nine?"
+[[>"Fine, how are you?"]]
+
+
+::"Fine, how are you?"
+"Ah, you know how it is..."
+>
+"Always one step behind you, ah ha!"
+[[>close]]
+
+::19-camp-2
+"...You look tired, Twenty."
+>
+"Have you been getting enough rest?"
+>
+P: "...No. You?"
+>
+P: She just laughs.
+[[>close]]
 
 
 
