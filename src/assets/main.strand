@@ -1337,7 +1337,11 @@ P: She squeezes my hand and wails when I pass her to an unfamiliar sister nurse.
 
 
 ::19-camp
-<<if this.talked19>><<do this.goto('19-camp-2')>><<else>>
+<<if this.talked192>>
+<<do this.goto('19-camp-3')>>
+<<elseif this.talked19>>
+<<do this.goto('19-camp-2')>>
+<<else>>
 P: Sister Ten-and-nine perks up when she sees me.
 <<endif>>
 >
@@ -1371,6 +1375,51 @@ P: "Our sisters worked hard today..."
 [[>close]]
 
 ::19-camp-2
+"Is something wrong, Sister Twenty?"
+>
+P: "No, it's just..."
+
+[["I wanted to thank you."]]
+[["It's nothing."]]
+
+::"It's nothing."
+P: She tilts her head slightly in confusion, but waves farewell.
+[[>close]]
+
+::"I wanted to thank you."
+<<do ++this.counti>>
+"Thank us? What for?"
+>
+P: "Back when- when the branch fell. You called out to warn me, and..."
+
+"Well I don't think I would have made it if you hadn't."
+>
+P: "So... thank you."
+>
+P: She seems surprised.
+>
+"We did what any of us would do!"
+
+"There's no need for thanks."
+>
+P: "Need or not, I wanted to."
+>
+"...You're welcome, then!"
+>
+"Now..."
+>
+P: She pats me on the head.
+>
+"Go get some rest. You look exhausted."
+>
+P: "Hah... Alright. Good night, Sister."
+>
+<<do this.scrim(1, 1000)>>
+<<do this.talked192=true>>
+"Good night, Twenty."
+[[>march]]
+
+::19-camp-3
 "...You look tired, Twenty."
 >
 "Have you been getting enough rest?"
