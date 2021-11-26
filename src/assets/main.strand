@@ -1168,17 +1168,43 @@ Mother takes another lick of the partially digested slurry of protein.
 			this.scene.goto({ area: 'march' });
 		}
 	}
+
+	const Tent = (options) => {
+		const block = this.Block({ type: 'circle', x: options.x, y: options.y-110, radius: 80 });
+		block.body.scale(2,1);
+		const result = [
+			this.Prop({ texture: 'mediumTent', x: options.x, y: options.y, offset: -90, flip: options.flip }),
+			block,
+		];
+		const door = { type: 'circle', x: options.x + (options.flip ? 120 : -120), y: options.y-75, radius: 40 };
+		if (options.goto) {
+			result.push(this.Goto(options.goto, door));
+		}
+		if (options.passage) {
+			result.push(this.Interrupt({ passage: options.passage, ...door }));
+		}
+		return result;
+	};
+
+	// TODO: real camp area setup
 	const campBasics = [
 		this.Prop({ texture: 'town_bg', y: 334, offset: -10000 }),
 		this.Poly({ verts: [-439,-187, -639,-135, -705,-15, -614,205, -449,291, -170,324, 50,319, 395,302, 595,205, 673,76, 702,-88, 688,-185, 551,-223, 448,-252, 382,-275, 174,-275, 33,-278, -118,-288, -188,-298, -337,-239] }),
 		this.Prop({ texture: 'fire', x: 91, y: -78 }),
 		this.Block({ type: 'circle', x: 91, y: -78, radius: 10 }),
 	];
+	const tents = [
+		...Tent({ x: 100, y: -200, passage: 'test-npc' }),
+		...Tent({ x: 400, y: -110, goto: { area: 'camp' } }),
+		...Tent({ x: -400, y: -90, goto: { area: 'camp' }, flip: true }),
+	];
 	this.Area('camp', [
 		...campBasics,
+		...tents,
 		!this.camplittlesister2 && this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -203, y: 179 }),
 		!this.donefrog && this.Npc({ passage: '19-camp', x: -103, y: 279 }),
 	].filter(i => i));
+
 	this.scrim(1, 1000);
 	this.camppromise = new Promise(r => {
 		setTimeout(() => {
