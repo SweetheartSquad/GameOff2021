@@ -188,6 +188,31 @@
 		this.Npc({ passage: 'test-npc', x: 335, y: -134 }),
 	]);
 
+	this.campcordyguard = this.Npc({ passage: 'cordyceps-2-guard' });
+	// TODO: real bg + placements
+	this.Area('camp-cordy2', [
+		this.Prop({ texture: 'town_bg', y: 334, offset: -10000 }),
+		this.Poly({ verts: [-439,-187, -639,-135, -705,-15, -614,205, -449,291, -170,324, 50,319, 395,302, 595,205, 673,76, 702,-88, 688,-185, 551,-223] }),
+		this.Poly({ verts: [448,-252, 382,-275, 174,-275] }),
+		this.Poly({ verts: [33,-278, -118,-288, -188,-298, -337,-239] }),
+		this.Goto({ area: 'camp-cordy2-inside', x: 0, y: 0 }, { type: 'circle', x: -394, y: -211 }),
+		this.campcordyguard,
+	]);
+	
+	this.cordycircle = [
+		...this.AntProp({ x: -101, y: -78 }),
+		...this.AntProp({ x: -73, y: -130 }),
+		...this.AntProp({ x: 125, y: -91, flip: true }),
+		...this.AntProp({ x: 97, y: -126, flip: true }),
+	];
+	this.Area('camp-cordy2-inside', [
+		this.Prop({ texture: 'bg_interior', y: -50, offset: -10000 }),
+		this.Poly({ verts: [0,20, 100,11, 159,-101, 92,-159, -83,-171, -124,-135, -51,19, 0,20] }),
+		...this.AntProp({ x: 0, y: -141 }),
+		...this.cordycircle,
+		this.Interrupt({ passage: 'cordyceps-2-inside', x: 0, y: -90, width: 500 }),
+	]);
+
 	this.Area('town-exile', [
 		this.Prop({ texture: 'town_bg', y: 334, offset: -10000 }),
 		this.Poly({ verts: [-439,-187, -639,-135, -705,-15, -614,205, -449,291, -170,324, 50,319, 395,302, 595,205, 673,76, 702,-88, 688,-185, 551,-223] }),
@@ -1458,18 +1483,36 @@ She's hovering over me.
 P: It's far too early for this...
 
 But I get up anyway, dozily letting myself be led to a scrap of leaf on the other side of camp.
->
-P: I enter the makeshift abode to find a handful of sisters standing in a circle.
+<<do
+	this.cordycircle.forEach(i => i.spr.alpha=0);
+	// TODO: real placements
+	this.campcordyguard.setPosition(50,50);
+	this.campcordyguard.roam.target = { x: -315, y: -191 };
+	this.scene.goto({ area: 'camp-cordy2' });
+>>
+[[>close]]
 
-One of of them - Thirty-and-five? - is tied up.
+::cordyceps-2-guard
+"Just in here, come on."
+[[>close]]
+
+::cordyceps-2-inside
+P: I enter the makeshift abode to find a sister - Thiry-and-five? - standing across from me.
 >
-P: "Wait- what's going on here?!"
+P: No, wait-
+>
+P: She's tied up.
+>
+P: "Wait- what's going on here?"
 >
 P: She's secured to a twig, stuck in place with thick strands of silk woven tightly around her arms and torso.
-
-The other four sisters have taken defensive positions around her.
 >
-P: "Why is she being held like this? Explain yourselves!"
+<<do this.cordycircle.forEach(i => this.tween(i.spr, 'alpha', 1, 1000))>>
+P: Then I realize that four other sisters have taken defensive positions around her.
+>
+P: "What are you doing?! Why is she being held like this?"
+
+"Explain yourselves!!"
 >
 "...We were hoping you'd be able to help us figure that out."
 >
@@ -1515,8 +1558,11 @@ P: I nod, and continue more slowly, keeping a distance.
 
 It is difficult to see at first, but then a thin, light strand on her shoulder catches my eye.
 >
+<<do this.scrim(1, 1000)>>
 P: And another. And another.
 >
+// TODO:
+// <<do this.show('cordy-closeup')>>
 P: It creeps out from the joints of her exoskeleton, crawls along her limbs and body.
 
 Ever her face is touched: Translucent white fuzz lining the edges of her mouth and eyes.
@@ -1529,6 +1575,8 @@ P: "It's... it's everywhere. And it's coming from inside her!"
 >
 "Yes, it seems that way."
 >
+<<do this.scrim(0.5, 1000)>>
+<<do this.show('')>>
 P: "...How is she still alive?"
 >
 "It seems impossible, doesn't it?"
@@ -1557,6 +1605,7 @@ P: "No, 'gibberish' is wrong- but it didn't make sense."
 >
 P: "'Pain', 'ache', things like that."
 >
+<<do this.scrim(1, 100)>>
 <<do this.show('superior')>>
 P: At that moment, the door is flung open, and Sister Superior Three enters.
 >
@@ -1692,13 +1741,15 @@ P: She douses the flame.
 >
 <<do this.show('')>>
 P: Still holding the torch, she returns to the sisters in waiting.
-
-I follow, surprised and relieved my words stayed her hand, but this is not yet over.
+>
+<<do this.scrim(0.5, 1000)>>
+P: I follow, surprised and relieved my words stayed her hand, but this is not yet over.
 >
 P: The other sisters look up eagerly at her return.
 
 How could they even begin to guess at what they just narrowly avoided?
 >
+<<do this.scrim(1, 1000)>>
 <<do this.show('superior')>>
 "We march as usual, at first light."
 >
@@ -1728,6 +1779,7 @@ She drops the torch on the ground, and stares at each of them in turn, waiting f
 
 "Please see to Thirty-and-five after we depart."
 >
+<<do this.scrim(0.5, 1000)>>
 <<do this.show('')>>
 P: She turns to leave.
 
@@ -1749,6 +1801,7 @@ P: They look towards the bound Thirty-and-five, still silently scraping her feet
 [[>cordyceps-2-end]]
 
 ::cordyceps-2-end
+<<do this.scrim(1, 1000)>>
 P: I shut the door, and look around for Sister Superior.
 >
 <<do this.cordy2question=true>>
