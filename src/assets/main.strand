@@ -625,6 +625,7 @@ P: But there's ground to cover.
 	// and can be "ended" by going to `march` again
 	if(!this.marchEvents || !this.marchEvents.length) {
 		this.marchEvents = [
+			'camp',
 			'inn',
 			'feeding',
 			'cordyceps',
@@ -1117,6 +1118,204 @@ Mother takes another lick of the partially digested slurry of protein.
 >
 "Never trust a merchant's word, Daughter."
 [[>feeding-questions-2]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+::camp-march
+<<do
+	if (this.scene.areas.camp) {
+		this.scene.areas.camp.forEach(i => {
+			this.destroy(i);
+		});
+		if (this.scene.area === 'camp') {
+			this.scene.goto({ area: 'march' });
+		}
+	}
+	const campBasics = [
+		this.Prop({ texture: 'town_bg', y: 334, offset: -10000 }),
+		this.Poly({ verts: [-439,-187, -639,-135, -705,-15, -614,205, -449,291, -170,324, 50,319, 395,302, 595,205, 673,76, 702,-88, 688,-185, 551,-223, 448,-252, 382,-275, 174,-275, 33,-278, -118,-288, -188,-298, -337,-239] }),
+		this.Prop({ texture: 'fire', x: 91, y: -78 }),
+		this.Block({ type: 'circle', x: 91, y: -78, radius: 10 }),
+	];
+	this.Area('camp', [
+		...campBasics,
+		!this.camplittlesister && this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -203, y: 179 }),
+		!this.campother && this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -203, y: 179 }),
+	].filter(i => i));
+	this.scrim(1, 1000);
+	this.camppromise = new Promise(r => {
+		setTimeout(() => {
+			this.scene.goto({ area: 'camp' });
+			r();
+		}, 1000);
+	});
+>>
+P: <<print this.shuffle([
+	'The march comes to a halt.',
+	'It was a long walk, but we\'re finally stopping for some rest.',
+	'Just when it feels like my legs are going to give out, the march comes to an end.',
+	'Sisters start scraping together what we can for a temporary nest. We\'re stopping.',
+	'Mother calls for the colony to stop. We need to rest.',
+	'We\'ve run out of daylight, and start setting up camp.',
+	'The path will have to wait for now: We break to set up camp.',
+	'Sister Superior shouts, and everyone stops walking. We\'re done for tonight.',
+	'Our pace slows. One by one, we realize we are going no further, and eventually stop altogether to prepare camp.',
+	'The stars twinkle above us. Sisters prepare bedding, and put together what shelter they can.',
+	'We ran out of good leaves, but the scraps will have to do: We\'re making camp.',
+	'I can\'t take another step. Luckily, I don\'t have to: camp preparations are already under way.',
+])[0]>>
+[[...|this.camppromise.then(this.goto.bind(this, 'close'))]]
+
+::little-sister
+<<do
+	this.gameObject.roam.active=false;
+	this.gameObject.bodyCollision.body.force.x=Math.sign(this.scene.player.transform.x-this.gameObject.transform.x)*0.01;
+	this.camplittlesister=true;
+>>
+P: A young one? What is she doing all the way out here?
+>
+P: "Little sister! Are you lost?"
+>
+"Forty-and-eight!"
+>"Forty-and-eight?"
+P: "Is that you?"
+>
+"We're Forty-and-eight!"
+>
+P: She's very young. Her skin is pale, exoskeleton not fully hardened.
+
+She must have pupated just when we set out.
+>
+P: "Well, it's nice to meet you Sister Forty-and-eight, but it's dangerous out here."
+
+"Shouldn't you be in the nursery?"
+>
+"But we have a question!"
+>"Oh?"
+P: "Let's hurry and find your sister nurse so she can answer it then, yes?"
+>
+"But Mother said Sister Nurse Thirty-and-two is gone."
+>"Oh little sister..."
+P: "I'm so sorry."
+>
+P: I kneel down to better see her face. She isn't looking for sympathy though: The eyes that look back at me are filled with anger, not sadness.
+>
+"You too!"
+>
+"Everyone's talking like our sisters are dead. But it's not true!"
+>
+P: "...There was an accident, Forty-and-eight. We lost many sisters."
+>
+"But... how?! Our sisters are strong!!"
+>
+"Sister Thirty-and-two said we are the strongest in our clutch, but she always beats us when playing, except when she LETS us win, which she SAYS she doesn't- but we know better!"
+>
+"How could- how could she be dead?"
+>
+P: "..."
+>
+P: "...Strength is not everything, little sister."
+>
+P: "You are right to be angry. Our sisters are strong, and so are we!"
+>
+P: They should have taught her this in the nursery - but I can't just leave her like this.
+>
+P: "Your sisters are gone, not dead. Not yet."
+>
+P: "They fell."
+>
+"Why don't they just climb back up?"
+>
+P: "Consider sister: if you were on the forest floor, how long do you think it would take to climb back home?"
+>
+P: She pauses to think, her little face twitching.
+>
+"Well... We are fast, but that's very far..."
+>
+"Maybe... Four marches?"
+>
+P: "Four marches! That would be very fast indeed."
+>
+P: "And which tree would you spend those four marches climbing?"
+>
+"The tree we're on, of course! Silly question!"
+>
+P: "Sister Forty-and-eight, it may seem silly, but think carefully about this:"
+
+"How do you know which tree is ours?"
+>
+P: She wiggles her antennae.
+>
+"The one that smells like us, obviously!"
+>
+P: "Four marches is quite a long way for a smell to travel, little sister."
+>
+P: "At that distance, you may as well be guessing."
+
+"And unfortunately we can't afford to sit and wait for them to guess correctly: We will be marching too."
+>
+"We're... we're just leaving them?"
+
+"But what if they come back!?"
+>
+P: Are all the children wondering like this? Have they really been kept in the dark?
+>
+P: "The Queen Mother needs us to keep moving, to build a new nest."
+>
+P: "If our sisters are lucky, they may find our scent, and find the path we took."
+
+"But they would have to be very, very lucky."
+>
+P: She looks down at her feet. Kicks at a piece of dirt, says nothing.
+
+I want to be optimistic for her, but I don't want to lie.
+>
+P: "Our sisters need a home to come back to. A proper, strong home!"
+
+"And we need to build it for them, and for us too."
+>
+P: "That's why we have to keep moving."
+>
+"...Okay."
+>
+P: "Come on now, let's get you back with the other little sisters and sisters-to-be."
+>
+<<do this.scrim(1,1000)>>
+P: I lift her up, and let her ride on my shoulders on the way back to the temporary nursery.
+>
+P: She giggles when I give her a little bounce.
+>
+P: She bats my head playfully when I have to pause to rebalance myself.
+>
+P: She squeezes my hand and wails when I pass her to an unfamiliar sister nurse.
+[[>march]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ::cordyceps-march
