@@ -1176,7 +1176,7 @@ Mother takes another lick of the partially digested slurry of protein.
 	];
 	this.Area('camp', [
 		...campBasics,
-		!this.camplittlesister && this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -203, y: 179 }),
+		!this.camplittlesister2 && this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -203, y: 179 }),
 		!this.donefrog && this.Npc({ passage: '19-camp', x: -103, y: 279 }),
 	].filter(i => i));
 	this.scrim(1, 1000);
@@ -1207,9 +1207,12 @@ P: <<print this.shuffle([
 <<do
 	this.gameObject.roam.active=false;
 	this.gameObject.bodyCollision.body.force.x=Math.sign(this.scene.player.transform.x-this.gameObject.transform.x)*0.01;
-	this.camplittlesister=true;
 >>
+<<if this.camplittlesister>>
+<<do this.goto('little-sister-2')>>
+<<else>>
 P: A young one? What is she doing all the way out here?
+<<endif>>
 >
 P: "Little sister! Are you lost?"
 >
@@ -1226,6 +1229,18 @@ She must have pupated just when we set out.
 P: "Well, it's nice to meet you Sister Forty-and-eight, but it's dangerous out here."
 
 "Shouldn't you be in the nursery?"
+>
+"No!!"
+>
+<<do this.gameObject.roam.active=true;this.camplittlesister=true>>
+P: She turns and walks away.
+[[>close]]
+
+::little-sister-2
+<<do this.camplittlesister2=true;>>
+P: "Little Sister Forty-and-eight, are you sure you should be out here alone?"
+>
+P: "Your other sisters must be getting worried about you!"
 >
 "But we have a question!"
 >"Oh?"
@@ -1300,18 +1315,26 @@ P: Are all the children wondering like this? Have they really been kept in the d
 P: "The Queen Mother needs us to keep moving, to build a new nest."
 >
 P: "If our sisters are lucky, they may find our scent, and find the path we took."
-
-"But they would have to be very, very lucky."
+>
+"Really?"
+>
+P: I want to be optimistic for her, but I don't want to lie.
+>
+P: "They would have to be very, very lucky."
 >
 P: She looks down at her feet. Kicks at a piece of dirt, says nothing.
-
-I want to be optimistic for her, but I don't want to lie.
 >
-P: "Our sisters need a home to come back to. A proper, strong home!"
+P: "If they do, our sisters will need a home to come back to."
 
-"And we need to build it for them, and for us too."
+"A proper, strong home!"
+>
+P: "We need to build it for them."
+
+"And for us too!"
 >
 P: "That's why we have to keep moving."
+>
+"..."
 >
 "...Okay."
 >
