@@ -18,7 +18,7 @@ import { PropParallax } from './PropParallax';
 import { Display } from './Scripts/Display';
 import { Transform } from './Scripts/Transform';
 import { TweenManager } from './Tweens';
-import { chunks, shuffle } from './utils';
+import { chunks, removeFromArray, shuffle } from './utils';
 
 let autolink = 0;
 export class StrandE extends Strand {
@@ -60,7 +60,7 @@ export class StrandE extends Strand {
 		const passages = Object.keys(this.passages)
 			.filter((i) => !i.match(/\d/))
 			.map((i) => `[[${i}]]`);
-		const pages = chunks(passages, 24);
+		const pages = chunks(passages, 23);
 		pages.forEach((i, idx) => {
 			if (pages.length > 1) {
 				i.push(`[[passage select ${(idx + 1) % pages.length}]]`);
@@ -97,6 +97,13 @@ export class StrandE extends Strand {
 
 	music(...args: Parameters<typeof music>) {
 		return music(...args);
+	}
+
+	destroy(gameObject: GameObject) {
+		gameObject.destroy();
+		Object.values(this.scene.areas).forEach((i) => {
+			removeFromArray(i, gameObject);
+		});
 	}
 
 	restart() {

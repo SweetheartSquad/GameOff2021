@@ -55,6 +55,13 @@ export class GameScene {
 		this.container.addChildAt(this.graphics, 0);
 
 		this.player = player = new Player({});
+		player.updateCamPoint = () => {
+			Player.prototype.updateCamPoint.call(player);
+			const p = this.dialogue.progress();
+			player.camPoint.y +=
+				(this.dialogue.height() / 2 / this.camera.display.container.scale.y) *
+				p;
+		};
 		this.container.addChild(player.display.container);
 
 		this.strand = new StrandE({
@@ -255,14 +262,14 @@ export class GameScene {
 
 	update(): void {
 		if (DEBUG) {
-			if (!this.dialogue.isOpen && getInput().menu) {
-				this.strand.goto('debug menu');
-			} else if (
+			if (
 				this.dialogue.isOpen &&
 				this.strand.currentPassage.title === 'debug menu' &&
 				getInput().menu
 			) {
 				this.strand.goto('close');
+			} else if (getInput().menu) {
+				this.strand.goto('debug menu');
 			}
 		}
 
@@ -279,8 +286,6 @@ export class GameScene {
 
 		// adjust camera based on dialogue state
 		const p = this.dialogue.progress();
-		player.camPoint.y +=
-			(this.dialogue.height() / 2 / this.camera.display.container.scale.y) * p;
 		this.camera.display.container.scale.x =
 			this.camera.display.container.scale.y = 1 + p * 0.1;
 

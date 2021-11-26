@@ -8,6 +8,8 @@ textures/hole.png
 textures/shadows.png
 textures/basicAntIdle/basicAntIdle.x5.png
 textures/basicAntRun/basicAntRun.x10.png
+textures/childAntIdle/childAntIdle.x5.png
+textures/childAntRun/childAntRun.x8.png
 textures/white.png
 audio/step.mp3
 audio/voiceDefault.mp3
@@ -24,6 +26,7 @@ textures/rainSplash/rainSplash.x5.png
 textures/pillBugIdle/pillBugIdle.x6.png
 textures/marchScrim.png
 textures/town_bg.png
+textures/bg_interior.png
 textures/frog/frog.x4.png
 textures/frogBranch_bg.png
 textures/frogBranch_fg.png
