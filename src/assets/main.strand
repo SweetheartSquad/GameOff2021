@@ -38,34 +38,6 @@
 <<if !this.started>>
 <<do
 	// setup areas
-	const Hole = (options) => {
-		const flip1 = Math.floor(options.x / 100) % 2 === 0;
-		const flip2 = Math.floor(options.x / 100) % 2 === 0;
-		return [
-			this.Prop({
-				texture: 'hole',
-				x: options.x + 5 * (flip1 ? -1 : 1),
-				y: options.y + 20,
-				offset: -300,
-				flip: flip1,
-			}),
-			this.Block({
-				x: options.x,
-				y: options.y - 60,
-				width: 40,
-			}),
-			this.Goto(
-				{ area: options.to, x: 0, y: 0 },
-				{
-					x: options.x,
-					y: options.y - 30,
-					width: 40,
-					height: 50,
-				}
-			),
-		];
-	}
-
 	const TestSpecialNpc = (options) => {
 		const npc = this.Npc({
 			...options,
@@ -98,6 +70,39 @@
 		];
 	};
 
+	this.TentMedium = (options) => {
+		const block = this.Block({ type: 'circle', x: options.x, y: options.y-110, radius: 80 });
+		block.body.scale(2,1);
+		const result = [
+			this.Prop({ texture: 'mediumTent', x: options.x, y: options.y, offset: -90, flip: options.flip }),
+			block,
+		];
+		const door = { type: 'circle', x: options.x + (options.flip ? 120 : -120), y: options.y-75, radius: 40 };
+		if (options.goto) {
+			result.push(this.Goto(options.goto, door));
+		}
+		if (options.passage) {
+			result.push(this.Interrupt({ passage: options.passage, ...door }));
+		}
+		return result;
+	};
+	this.TentSmall = (options) => {
+		const block = this.Block({ type: 'circle', x: options.x, y: options.y-45, radius: 30 });
+		block.body.scale(2,1);
+		return [
+			this.Prop({ texture: 'smallTent', x: options.x, y: options.y, offset: -30, flip: options.flip }),
+			block,
+		];
+	};
+	this.Wagon = (options) => {
+		const block = this.Block({ type: 'circle', x: options.x, y: options.y-60, radius: 30 });
+		block.body.scale(4,1);
+		return [
+			this.Prop({ texture: 'wagon', x: options.x, y: options.y, offset: -50, flip: options.flip }),
+			block,
+		];
+	};
+
 	const PropParallaxAuto = (options) => {
 		const start = Date.now();
 		const gameObject = this.PropParallax(options);
@@ -113,10 +118,10 @@
 
 	// TODO: more ants in intro
 	this.Area('intro', [
-		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
+		this.PropParallax({ texture: 'bg_parallax', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
 		this.PropParallax({ texture: 'rain', offset: -50000, mult: 0.8, scale: 0.5, alpha: 0.1, freq: 1/200 }),
 		this.PropParallax({ texture: 'rain', offset: 100000, mult: 1.1, alpha: 0.2, freq: 1/200 }),
-		this.Prop({ texture: 'scene1_bg', x: 827, y: 658, offset: -10000 }),
+		this.Prop({ texture: 'bg_intro', x: 827, y: 658, offset: -10000 }),
 		this.Poly({ verts: [-189,158, -207,-42, -143,-236, 215,-221, 462,-265, 569,-261, 638,-234, 706,-253, 1202,-225, 1335,-185, 1496,-50, 2103,-87, 2105,414, 1816,386, 1675,253, 1626,316, 1603,378, 1317,368, 1229,281, 968,190, 492,176, 175,221, -189,158] }),
 		this.Npc({ passage: 'intro-panic-1', x: 207, y: -75 }),
 		this.Npc({ passage: 'intro-panic-2', x: 290, y: 50, roam: 50 }),
@@ -125,8 +130,8 @@
 	]);
 
 	this.Area('march', [
-		PropParallaxAuto({ texture: 'parallaxBG', offset: -200000, scale: 3, blur: true, mult: 1, speed: -8 }),
-		PropParallaxAuto({ texture: 'parallaxBG', x: 500, offset: -100000, scale: 2, blur: true, mult: 1, alpha: 0.1, speed: -20 }),
+		PropParallaxAuto({ texture: 'bg_parallax', offset: -200000, scale: 3, blur: true, mult: 1, speed: -8 }),
+		PropParallaxAuto({ texture: 'bg_parallax', x: 500, offset: -100000, scale: 2, blur: true, mult: 1, alpha: 0.1, speed: -20 }),
 		this.Prop({ texture: 'basicAntRun', x: 620, y: 250+10, scale: 2 }),
 		this.Prop({ texture: 'basicAntRun', x: 410, y: 250+20, scale: 2 }),
 		this.Prop({ texture: 'basicAntRun', x: 180, y: 250+0, scale: 2 }),
@@ -138,7 +143,7 @@
 	]);
 
 	this.Area('inn-outside', [
-		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
+		this.PropParallax({ texture: 'bg_parallax', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
 		this.PropParallax({ texture: 'rain', offset: -50000, mult: 0.8, scale: 0.5, alpha: 0.5, freq: 1/200 }),
 		this.PropParallax({ texture: 'rain', offset: 100000, mult: 1.1, freq: 1/200 }),
 		this.PropParallax({ texture: 'rain', offset: 200000, mult: 1.2, scale: 2, blur: true, freq: 1/300 }),
@@ -163,7 +168,7 @@
 	]);
 
 	this.Area('deserter-path', [
-		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
+		this.PropParallax({ texture: 'bg_parallax', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
 		this.Prop({ texture: 'bg_innOutside', x: 793, y: 492, flip: true, offset: -10000 }),
 		this.Npc({ body: 'basicAnt', x: 1359, y: -16 }),
 		this.Poly({ verts: [-59,-116, -88,135, 832,168, 986,155, 1503,147, 1482,-188, 916,-124, 561,-97, -59,-116] }),
@@ -183,7 +188,7 @@
 		this.Goto({ area: 'camp', x: -1537, y: -12 }, { x: 147, y: -66, height: 500 }),
 	]);
 	this.Area('town', [
-		this.Prop({ texture: 'town_bg', y: 334, offset: -10000 }),
+		this.Prop({ texture: 'bg_town', y: 334, offset: -10000 }),
 		this.Poly({ verts: [-439,-187, -639,-135, -705,-15, -614,205, -449,291, -170,324, 50,319, 395,302, 595,205, 673,76, 702,-88, 688,-185, 551,-223] }),
 		this.Poly({ verts: [448,-252, 382,-275, 174,-275] }),
 		this.Poly({ verts: [33,-278, -118,-288, -188,-298, -337,-239] }),
@@ -200,14 +205,22 @@
 	]);
 
 	this.campcordyguard = this.Npc({ passage: 'cordyceps-2-guard' });
-	// TODO: real bg + placements
 	this.Area('camp-cordy2', [
-		this.Prop({ texture: 'town_bg', y: 334, offset: -10000 }),
-		this.Poly({ verts: [-439,-187, -639,-135, -705,-15, -614,205, -449,291, -170,324, 50,319, 395,302, 595,205, 673,76, 702,-88, 688,-185, 551,-223] }),
-		this.Poly({ verts: [448,-252, 382,-275, 174,-275] }),
-		this.Poly({ verts: [33,-278, -118,-288, -188,-298, -337,-239] }),
-		this.Goto({ area: 'camp-cordy2-inside', x: 0, y: 0 }, { type: 'circle', x: -394, y: -211 }),
+		this.Prop({ texture: 'bg_camp', x: -458, y: 926, offset: -10000 }),
+		this.Poly({ verts: [-2049,-117, -2045,234, -1628,266, -1319,287, -1068,335, -876,317, -651,363, -467,348, -100,414, 191,449, 559,665, 1023,683, 1148,414, 1144,-694, 566,-707, 539,-548, 392,-283, 142,-255, -183,-278, -608,-234, -984,-203, -1127,-212, -1501,-208, -1803,-191, -2049,-117] }),
+		this.Prop({ texture: 'fireplace', x: 91, y: -78, offset: -30 }),
+		this.Block({ type: 'circle', x: 91, y: -78-35, radius: 35 }),
+		this.Interrupt({ passage: 'cordyceps-2-wall', x: -1765, y: 45, height: 1000 }),
+		this.Interrupt({ passage: 'cordyceps-2-wall', x: 915, y: -22, height: 1000 }),
+		this.Interrupt({ passage: 'cordyceps-2-wall', x: 657, y: -365, width: 500 }),
+		this.Interrupt({ passage: 'cordyceps-2-wall', x: 657, y: 524, width: 500 }),
 		this.campcordyguard,
+		...this.TentSmall({ x: 688, y: 249, flip: true }),
+		...this.TentMedium({ goto: { area: 'camp-cordy2-inside' }, x: -237, y: -69}),
+		// extra
+		...this.Wagon({ x: 516, y: -163 }),
+		...this.TentSmall({ x: -903, y: 139 }),
+		...this.TentSmall({ x: -1214, y: -90, flip: true }),
 	]);
 	
 	this.cordycircle = [
@@ -219,13 +232,13 @@
 	this.Area('camp-cordy2-inside', [
 		this.Prop({ texture: 'bg_interior', y: -50, offset: -10000 }),
 		this.Poly({ verts: [0,20, 100,11, 159,-101, 92,-159, -83,-171, -124,-135, -51,19, 0,20] }),
-		...this.AntProp({ x: 0, y: -141 }),
+		this.Prop({ texture: 'cordyAntTied_50p', x: 0, y: -141, alpha: 0.5 }),
 		...this.cordycircle,
 		this.Interrupt({ passage: 'cordyceps-2-inside', x: 0, y: -90, width: 500 }),
 	]);
 
 	this.Area('town-exile', [
-		this.Prop({ texture: 'town_bg', y: 334, offset: -10000 }),
+		this.Prop({ texture: 'bg_town', y: 334, offset: -10000 }),
 		this.Poly({ verts: [-439,-187, -639,-135, -705,-15, -614,205, -449,291, -170,324, 50,319, 395,302, 595,205, 673,76, 702,-88, 688,-185, 551,-223] }),
 		this.Poly({ verts: [448,-252, 382,-275, 174,-275] }),
 		this.Poly({ verts: [33,-278, -118,-288, -188,-298, -337,-239] }),
@@ -243,14 +256,14 @@
 
 	const frogEnd = this.Interrupt({ passage: 'frog-end', x: 1982, y: -915, width: 1000 });
 	frogEnd.body.rotate(Math.PI/4);
-	this.frogBridgeFg = this.Prop({ texture: 'frogBranch_fg', x: 1249, y: -55, offset: -60 });
+	this.frogBridgeFg = this.Prop({ texture: 'fg_frog', x: 1249, y: -55, offset: -60 });
 	this.frog = this.Prop({ texture: 'frog', x: 937, y: -179, offset: -200, freq: 1/600 });
 	this.frog.spr.alpha = 0;
 	const frogBridge = this.Interrupt({ passage: 'frog-bridge', x: 722, y: -238, focus: { x: 150, y: -200 }, width: 360 });
 	frogBridge.body.rotate(0.54);
 	this.Area('frog', [
-		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
-		this.Prop({ texture: 'frogBranch_bg', x: 1041, y: 689, offset: -10000 }),
+		this.PropParallax({ texture: 'bg_parallax', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
+		this.Prop({ texture: 'bg_frog', x: 1041, y: 689, offset: -10000 }),
 		this.frogBridgeFg,
 		this.frog,
 		this.Poly({ verts: [-86,-202, -88,171, 124,152, 205,81, 302,96, 358,133, 565,126, 870,46, 949,-40, 1002,-134, 1038,-249, 838,-113, 819,-160, 908,-163, 1632,-690, 1655,-728, 1679,-700, 1760,-640, 1868,-690, 2178,-889, 1915,-1081, 1850,-1016, 1623,-875, 1481,-828, 1430,-815, 1398,-818, 583,-347, 579,-311, 544,-267, 319,-220, -86,-202] }),
@@ -261,9 +274,9 @@
 
 	this.Area('test', [
 		// bg
-		this.PropParallax({ texture: 'parallaxBG', offset: -1000000, scale: 3, blur: true, mult: 0.6 }),
-		this.PropParallax({ texture: 'parallaxBG', offset: -100000, scale: 0.5, blur: true, mult: 0.2 }),
-		this.Prop({ texture: 'parallaxBG', x: -200, y: 700, offset: -10000 }),
+		this.PropParallax({ texture: 'bg_parallax', offset: -1000000, scale: 3, blur: true, mult: 0.6 }),
+		this.PropParallax({ texture: 'bg_parallax', offset: -100000, scale: 0.5, blur: true, mult: 0.2 }),
+		this.Prop({ texture: 'bg_parallax', x: -200, y: 700, offset: -10000 }),
 
 		this.Text('physics', { x: 423, y: 78 }),
 		this.Block({ x: 200, y: 0, width: 50, height: 100 }),
@@ -293,8 +306,6 @@
 		this.Interrupt({ x: -450, y: 100, type: 'circle',  passage: 'test-npc' }),
 		// helper fn
 		TestSpecialNpc({ x: -367, y: 411, passage: 'test-npc' }),
-		// spread compound
-		...Hole({ x: -200, y: 200, to: 'test-sub' }),
 		// spread procedural
 		...new Array(50).fill(0).map(() => this.Npc({ passage: 'test-npc', x: (Math.random()-0.5)*300, y: (Math.random()-0.5)*300+400 })),
 	]);
@@ -1180,40 +1191,6 @@ Mother takes another lick of the partially digested slurry of protein.
 		}
 	}
 
-	const TentMedium = (options) => {
-		const block = this.Block({ type: 'circle', x: options.x, y: options.y-110, radius: 80 });
-		block.body.scale(2,1);
-		const result = [
-			this.Prop({ texture: 'mediumTent', x: options.x, y: options.y, offset: -90, flip: options.flip }),
-			block,
-		];
-		const door = { type: 'circle', x: options.x + (options.flip ? 120 : -120), y: options.y-75, radius: 40 };
-		if (options.goto) {
-			result.push(this.Goto(options.goto, door));
-		}
-		if (options.passage) {
-			result.push(this.Interrupt({ passage: options.passage, ...door }));
-		}
-		return result;
-	};
-	const TentSmall = (options) => {
-		const block = this.Block({ type: 'circle', x: options.x, y: options.y-45, radius: 30 });
-		block.body.scale(2,1);
-		return [
-			this.Prop({ texture: 'smallTent', x: options.x, y: options.y, offset: -30, flip: options.flip }),
-			block,
-		];
-	};
-	const Wagon = (options) => {
-		const block = this.Block({ type: 'circle', x: options.x, y: options.y-60, radius: 30 });
-		block.body.scale(4,1);
-		return [
-			this.Prop({ texture: 'wagon', x: options.x, y: options.y, offset: -50, flip: options.flip }),
-			block,
-		];
-	};
-
-	// TODO: real camp area setup
 	const campBasics = [
 		this.Prop({ texture: 'bg_camp', x: -458, y: 926, offset: -10000 }),
 		this.Poly({ verts: [-2049,-117, -2045,234, -1628,266, -1319,287, -1068,335, -876,317, -651,363, -467,348, -100,414, 191,449, 559,665, 1023,683, 1148,414, 1144,-694, 566,-707, 539,-548, 392,-283, 142,-255, -183,-278, -608,-234, -984,-203, -1127,-212, -1501,-208, -1803,-191, -2049,-117] }),
@@ -1235,18 +1212,18 @@ Mother takes another lick of the partially digested slurry of protein.
 		{x: -193, y: -113},
 	];
 	const campProps = [
-		Wagon,
-		TentMedium,
-		TentMedium,
-		TentSmall,
-		TentSmall,
-		TentSmall,
+		this.Wagon,
+		this.TentMedium,
+		this.TentMedium,
+		this.TentSmall,
+		this.TentSmall,
+		this.TentSmall,
 	];
 	const campObjects = campBasics.slice();
 	if (false) {
 		// fill all slots with biggest obj to test placement
 		tentSlots.forEach(i => {
-			campObjects.push(...TentMedium({ x: i.x, y: i.y, flip: false }));
+			campObjects.push(...this.TentMedium({ x: i.x, y: i.y, flip: false }));
 		});
 	} else {
 		this.shuffle(tentSlots)
@@ -1263,8 +1240,9 @@ Mother takes another lick of the partially digested slurry of protein.
 
 	this.Area('camp', [
 		...campObjects,
-		!this.camplittlesister2 && this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -203, y: 179 }),
-		!this.donefrog && this.Npc({ passage: '19-camp', x: -103, y: 279 }),
+		// TODO: real camp area setup
+		!this.camplittlesister2 && this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -906, y: 163 }),
+		!this.donefrog && this.Npc({ passage: '19-camp', x: 163, y: -128, roam: 40 }),
 	].filter(i => i));
 
 	this.scrim(1, 1000);
@@ -1292,8 +1270,8 @@ P: <<print this.shuffle([
 [[...|this.camppromise.then(this.goto.bind(this, 'close'))]]
 
 ::camp-wall
-Dark out there. Everyone's already asleep.
-<<do this.scene.player.walkBy(-30, -Math.sign(this.scene.player.transform.y)*100)>>
+P: Dark out there. Everyone's already asleep.
+<<do this.scene.player.walkBy(-Math.sign(this.scene.player.transform.x)*30, -Math.sign(this.scene.player.transform.y)*100)>>
 [[>close]]
 
 ::little-sister
@@ -1453,12 +1431,13 @@ P: She squeezes my hand and wails when I pass her to an unfamiliar sister nurse.
 
 
 ::19-camp
+<<do this.gameObject.roam.active=false>>
 <<if this.talked192>>
 <<do this.goto('19-camp-3')>>
 <<elseif this.talked19>>
 <<do this.goto('19-camp-2')>>
 <<else>>
-P: Sister Ten-and-nine perks up when she sees me.
+P: Sister Ten-and-nine perks up from her spot by the fire when she sees me.
 <<endif>>
 >
 <<do this.talked19=true>>
@@ -1487,10 +1466,12 @@ P: "Our sisters worked hard today..."
 ::"Fine, how are you?"
 "Ah, you know how it is..."
 >
+<<do this.gameObject.roam.active=true>>
 "Always one step behind you, ah ha!"
 [[>close]]
 
 ::19-camp-2
+<<do this.gameObject.roam.active=false>>
 "Is something wrong, Sister Twenty?"
 >
 P: "No, it's just..."
@@ -1499,6 +1480,7 @@ P: "No, it's just..."
 [["It's nothing."]]
 
 ::"It's nothing."
+<<do this.gameObject.roam.active=true>>
 P: She tilts her head slightly in confusion, but waves farewell.
 [[>close]]
 
@@ -1536,12 +1518,14 @@ P: "Hah... Alright. Good night, Sister."
 [[>march]]
 
 ::19-camp-3
+<<do this.gameObject.roam.active=false>>
 "...You look tired, Twenty."
 >
 "Have you been getting enough rest?"
 >
 P: "...No. You?"
 >
+<<do this.gameObject.roam.active=true>>
 P: She just laughs.
 [[>close]]
 
@@ -1700,15 +1684,21 @@ P: It's far too early for this...
 But I get up anyway, dozily letting myself be led to a scrap of leaf on the other side of camp.
 <<do
 	this.cordycircle.forEach(i => i.spr.alpha=0);
-	// TODO: real placements
-	this.campcordyguard.setPosition(50,50);
-	this.campcordyguard.roam.target = { x: -315, y: -191 };
-	this.scene.goto({ area: 'camp-cordy2' });
+	this.campcordyguard.setPosition(594, 284);
+	this.campcordyguard.roam.target = { x: 594, y: 284 };
+	this.scene.goto({ area: 'camp-cordy2', x: 611, y: 317 });
 >>
-[[>close]]
+[[...|this.campcordyguard.roam.target = { x: -226, y: 2 };this.goto('close')]]
 
 ::cordyceps-2-guard
 "Just in here, come on."
+[[>close]]
+
+::cordyceps-2-wall
+P: ...Where am I going?
+
+I should follow my sister.
+<<do this.scene.player.walkBy(-Math.sign(this.scene.player.transform.x)*30, -Math.sign(this.scene.player.transform.y)*100)>>
 [[>close]]
 
 ::cordyceps-2-inside
@@ -1776,8 +1766,7 @@ It is difficult to see at first, but then a thin, light strand on her shoulder c
 <<do this.scrim(1, 1000)>>
 P: And another. And another.
 >
-// TODO:
-// <<do this.show('cordy-closeup')>>
+<<do this.show('cordyAntTied_100p', { scale: 3, y: 150, duration: 3000 })>>
 P: It creeps out from the joints of her exoskeleton, crawls along her limbs and body.
 
 Ever her face is touched: Translucent white fuzz lining the edges of her mouth and eyes.
@@ -1786,12 +1775,12 @@ P: Having seen it, her whole body takes on an unnatural aura that hadn't quite r
 
 It's off-putting. Sickening.
 >
+<<do this.scrim(0.5, 1000)>>
+<<do this.show('')>>
 P: "It's... it's everywhere. And it's coming from inside her!"
 >
 "Yes, it seems that way."
 >
-<<do this.scrim(0.5, 1000)>>
-<<do this.show('')>>
 P: "...How is she still alive?"
 >
 "It seems impossible, doesn't it?"
@@ -2156,7 +2145,7 @@ P: There really was nothing I could've said to stop it.
 >
 P: Rain continues to beat down as I trek across the branch to the inn yet again.
 >
-<<do this.show('innInside_empty', { y: 90 })>>
+<<do this.show('innInside_empty', { y: 110 })>>
 P: The Bunty Nathan's looks much the same as when I first entered. Warm and welcoming. A nice little receptionist's stand.
 
 But there was no doorman to pass, and no one is seated at the desk.
@@ -2326,7 +2315,7 @@ P: The interior of the inn is welcomingly warm, and more importantly dry.
 
 The eager bug stays out in the rain, and laughs at seemingly nothing in particular.
 >
-<<do this.show('innInside', { y: 90 })>>
+<<do this.show('innInside', { y: 110 })>>
 P: Sure enough, inside there's another giant pill millipede sitting at a small stand, complete with a hand-carved sign.
 >
 "Welcome, welcome!"
@@ -2516,7 +2505,7 @@ P: "You want us to... make decorations for you?"
 >
 "I'll need to do the same: contracts don't write themselves, ho ho!"
 >
-<<do this.show('innInside_empty', { y: 90 })>>
+<<do this.show('innInside_empty', { y: 110 })>>
 P: With that, he suddenly spurs into action: The roly poly flops onto the ground and takes off at a surprising pace deeper into the tree.
 >
 <<do this.show('')>>
