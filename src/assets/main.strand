@@ -1292,7 +1292,7 @@ P: <<print this.shuffle([
 [[...|this.camppromise.then(this.goto.bind(this, 'close'))]]
 
 ::camp-wall
-Dark out there. Everyone's already asleep.
+P: Dark out there. Everyone's already asleep.
 <<do this.scene.player.walkBy(-30, -Math.sign(this.scene.player.transform.y)*100)>>
 [[>close]]
 
