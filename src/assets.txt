@@ -4,7 +4,6 @@ textures/blank.png
 textures/border.png
 textures/dialogueBg.png
 textures/ditherGrid.png
-textures/hole.png
 textures/shadows.png
 textures/basicAntIdle/basicAntIdle.x5.png
 textures/basicAntRun/basicAntRun.x10.png
