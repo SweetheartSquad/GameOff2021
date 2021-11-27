@@ -131,7 +131,9 @@ export class GameScene {
 						interrupt.plugin.focus
 					);
 				}
-				this.strand.goto(interrupt.plugin.interrupt.passage);
+				if (interrupt.plugin.interrupt.passage) {
+					this.strand.goto(interrupt.plugin.interrupt.passage);
+				}
 				return;
 			}
 			const goto = interactions.find((i) => i.plugin.goto);

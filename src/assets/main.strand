@@ -171,6 +171,17 @@
 		this.Interrupt({ passage: 'deserter', x: 1300, height: 500 }),
 	]);
 
+	this.Area('camp', [
+		this.Text('the camp was not created'),
+	]);
+	this.Area('camp-outlook', [
+		this.PropParallax({ texture: 'bg_stars', mult: 0.4, offset: -20000 }),
+		this.Prop({ texture: 'bg_camp', scale: 2, angle: -20, flip: true, x: -5000, y: 3419, offset: -10000 }),
+		this.Poly({ verts: [107,-200, -185,-83, -351,-56, -613,58] }),
+		this.Interrupt({ width: 1500, height: 1000, focus: { x: 0, y: -400 } }),
+		this.Goto({ area: 'camp', x: -1537, y: -12 }, { y: 100, width: 2000 }),
+		this.Goto({ area: 'camp', x: -1537, y: -12 }, { x: 147, y: -66, height: 500 }),
+	]);
 	this.Area('town', [
 		this.Prop({ texture: 'town_bg', y: 334, offset: -10000 }),
 		this.Poly({ verts: [-439,-187, -639,-135, -705,-15, -614,205, -449,291, -170,324, 50,319, 395,302, 595,205, 673,76, 702,-88, 688,-185, 551,-223] }),
@@ -761,7 +772,7 @@ P: ...
 P: Before I can lose myself in my thoughts, I am called upon by Sister Superior Three.
 >
 <<do this.fed = (this.fed || 0) + 1>>
-<<do this.scrim(1, 1000);this.show('superior')>>
+<<do this.scrim(1, 1000);this.show('superiorIdle')>>
 "Sister Twenty. You are being placed on feeding duties today."
 [[...|this.show('');this.goto('feeding-'+this.fed)]]
 
@@ -1168,17 +1179,89 @@ Mother takes another lick of the partially digested slurry of protein.
 			this.scene.goto({ area: 'march' });
 		}
 	}
+
+	const TentMedium = (options) => {
+		const block = this.Block({ type: 'circle', x: options.x, y: options.y-110, radius: 80 });
+		block.body.scale(2,1);
+		const result = [
+			this.Prop({ texture: 'mediumTent', x: options.x, y: options.y, offset: -90, flip: options.flip }),
+			block,
+		];
+		const door = { type: 'circle', x: options.x + (options.flip ? 120 : -120), y: options.y-75, radius: 40 };
+		if (options.goto) {
+			result.push(this.Goto(options.goto, door));
+		}
+		if (options.passage) {
+			result.push(this.Interrupt({ passage: options.passage, ...door }));
+		}
+		return result;
+	};
+	const TentSmall = (options) => {
+		const block = this.Block({ type: 'circle', x: options.x, y: options.y-45, radius: 30 });
+		block.body.scale(2,1);
+		return [
+			this.Prop({ texture: 'smallTent', x: options.x, y: options.y, offset: -30, flip: options.flip }),
+			block,
+		];
+	};
+	const Wagon = (options) => {
+		const block = this.Block({ type: 'circle', x: options.x, y: options.y-60, radius: 30 });
+		block.body.scale(4,1);
+		return [
+			this.Prop({ texture: 'wagon', x: options.x, y: options.y, offset: -50, flip: options.flip }),
+			block,
+		];
+	};
+
+	// TODO: real camp area setup
 	const campBasics = [
-		this.Prop({ texture: 'town_bg', y: 334, offset: -10000 }),
-		this.Poly({ verts: [-439,-187, -639,-135, -705,-15, -614,205, -449,291, -170,324, 50,319, 395,302, 595,205, 673,76, 702,-88, 688,-185, 551,-223, 448,-252, 382,-275, 174,-275, 33,-278, -118,-288, -188,-298, -337,-239] }),
-		this.Prop({ texture: 'fire', x: 91, y: -78 }),
-		this.Block({ type: 'circle', x: 91, y: -78, radius: 10 }),
+		this.Prop({ texture: 'bg_camp', x: -458, y: 926, offset: -10000 }),
+		this.Poly({ verts: [-2049,-117, -2045,234, -1628,266, -1319,287, -1068,335, -876,317, -651,363, -467,348, -100,414, 191,449, 559,665, 1023,683, 1148,414, 1144,-694, 566,-707, 539,-548, 392,-283, 142,-255, -183,-278, -608,-234, -984,-203, -1127,-212, -1501,-208, -1803,-191, -2049,-117] }),
+		this.Prop({ texture: 'fireplace', x: 91, y: -78, offset: -30 }),
+		this.Block({ type: 'circle', x: 91, y: -78-35, radius: 35 }),
+		this.Goto({ area: 'camp-outlook' }, { x: -1765, y: 45, height: 1000 }),
+		this.Interrupt({ passage: 'camp-wall', x: 915, y: -22, height: 1000 }),
+		this.Interrupt({ passage: 'camp-wall', x: 657, y: -365, width: 500 }),
+		this.Interrupt({ passage: 'camp-wall', x: 657, y: 524, width: 500 }),
 	];
+	const tentSlots = [
+		{x: -1201, y: 150},
+		{x: -840, y: -83},
+		{x: -598, y: 156},
+		{x: -177, y: 256},
+		{x: 416, y: 324},
+		{x: 627, y: 70},
+		{x: 399, y: -115},
+		{x: -193, y: -113},
+	];
+	const campProps = [
+		Wagon,
+		TentMedium,
+		TentMedium,
+		TentSmall,
+		TentSmall,
+		TentSmall,
+	];
+	const campObjects = campBasics.slice();
+	if (false) {
+		// fill all slots with biggest obj to test placement
+		tentSlots.forEach(i => {
+			campObjects.push(...TentMedium({ x: i.x, y: i.y, flip: false }));
+		});
+	} else {
+		this.shuffle(tentSlots)
+			.slice(0, 3+Math.floor(Math.random()*3))
+			.forEach(i => {
+				campObjects.push(...this.shuffle(campProps)[0]({ x: i.x + (Math.random()-0.5)*20, y: i.y + (Math.random()-0.5)*20, flip: Math.random() > 0.5 }));
+			});
+	}
+	
 	this.Area('camp', [
-		...campBasics,
-		!this.camplittlesister && this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -203, y: 179 }),
+		...campObjects,
+		!this.camplittlesister2 && this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -203, y: 179 }),
 		!this.donefrog && this.Npc({ passage: '19-camp', x: -103, y: 279 }),
 	].filter(i => i));
+
 	this.scrim(1, 1000);
 	this.camppromise = new Promise(r => {
 		setTimeout(() => {
@@ -1203,13 +1286,21 @@ P: <<print this.shuffle([
 ])[0]>>
 [[...|this.camppromise.then(this.goto.bind(this, 'close'))]]
 
+::camp-wall
+Dark out there. Everyone's already asleep.
+<<do this.scene.player.walkBy(-30, -Math.sign(this.scene.player.transform.y)*100)>>
+[[>close]]
+
 ::little-sister
 <<do
 	this.gameObject.roam.active=false;
 	this.gameObject.bodyCollision.body.force.x=Math.sign(this.scene.player.transform.x-this.gameObject.transform.x)*0.01;
-	this.camplittlesister=true;
 >>
+<<if this.camplittlesister>>
+<<do this.goto('little-sister-2')>>
+<<else>>
 P: A young one? What is she doing all the way out here?
+<<endif>>
 >
 P: "Little sister! Are you lost?"
 >
@@ -1226,6 +1317,18 @@ She must have pupated just when we set out.
 P: "Well, it's nice to meet you Sister Forty-and-eight, but it's dangerous out here."
 
 "Shouldn't you be in the nursery?"
+>
+"No!!"
+>
+<<do this.gameObject.roam.active=true;this.camplittlesister=true>>
+P: She turns and walks away.
+[[>close]]
+
+::little-sister-2
+<<do this.camplittlesister2=true;>>
+P: "Little Sister Forty-and-eight, are you sure you should be out here alone?"
+>
+P: "Your other sisters must be getting worried about you!"
 >
 "But we have a question!"
 >"Oh?"
@@ -1300,18 +1403,26 @@ P: Are all the children wondering like this? Have they really been kept in the d
 P: "The Queen Mother needs us to keep moving, to build a new nest."
 >
 P: "If our sisters are lucky, they may find our scent, and find the path we took."
-
-"But they would have to be very, very lucky."
+>
+"Really?"
+>
+P: I want to be optimistic for her, but I don't want to lie.
+>
+P: "They would have to be very, very lucky."
 >
 P: She looks down at her feet. Kicks at a piece of dirt, says nothing.
-
-I want to be optimistic for her, but I don't want to lie.
 >
-P: "Our sisters need a home to come back to. A proper, strong home!"
+P: "If they do, our sisters will need a home to come back to."
 
-"And we need to build it for them, and for us too."
+"A proper, strong home!"
+>
+P: "We need to build it for them."
+
+"And for us too!"
 >
 P: "That's why we have to keep moving."
+>
+"..."
 >
 "...Okay."
 >
@@ -1705,7 +1816,7 @@ P: "No, 'gibberish' is wrong- but it didn't make sense."
 P: "'Pain', 'ache', things like that."
 >
 <<do this.scrim(1, 100)>>
-<<do this.show('superior')>>
+<<do this.show('superiorIdle')>>
 P: At that moment, the door is flung open, and Sister Superior Three enters.
 >
 "What is-"
@@ -1849,7 +1960,7 @@ P: The other sisters look up eagerly at her return.
 How could they even begin to guess at what they just narrowly avoided?
 >
 <<do this.scrim(1, 1000)>>
-<<do this.show('superior')>>
+<<do this.show('superiorIdle')>>
 "We march as usual, at first light."
 >
 P: She glares razors at the quartet.
@@ -1970,7 +2081,7 @@ P: Nest construction efforts seem to slow to a halt.
 >
 P: Some time later, I receive a summons from the Sister Superior.
 >
-<<do this.show('superior')>>
+<<do this.show('superiorIdle')>>
 "We've heard much about these 'alternative arrangements' for our travel nest."
 >
 "Sister Twenty, this is your doing?"
