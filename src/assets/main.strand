@@ -187,6 +187,14 @@
 		this.Goto({ area: 'camp', x: -1537, y: -12 }, { y: 100, width: 2000 }),
 		this.Goto({ area: 'camp', x: -1537, y: -12 }, { x: 147, y: -66, height: 500 }),
 	]);
+	this.Area('camp-outlook-intro', [
+		this.PropParallax({ texture: 'bg_stars', mult: 0.4, offset: -20000 }),
+		this.Prop({ texture: 'bg_camp', scale: 2, angle: -20, flip: true, x: -5000, y: 3419, offset: -10000 }),
+		this.Poly({ verts: [107,-200, -185,-83, -351,-56, -613,58] }),
+		this.Interrupt({ passage: 'camp-outlook-intro', width: 1500, height: 1000, focus: { x: 0, y: -400 } }),
+		this.Goto({ area: 'camp', x: -1537, y: -12 }, { y: 100, width: 2000 }),
+		this.Goto({ area: 'camp', x: -1537, y: -12 }, { x: 147, y: -66, height: 500 }),
+	]);
 	this.outlooknpc = this.Npc({ x: -296, y: -2 });
 	this.outlooknpc.flipped=true;
 	this.Area('camp-outlook-event', [
@@ -1285,8 +1293,9 @@ Mother takes another lick of the partially digested slurry of protein.
 		campObjects.push(this.Npc({ passage: 'camp-npc', x: 777, y: 170, roam: 50 }));
 	}
 
-	this.camped = (this.camped || 0) + 1;
-	if (this.camped > 1 && !this.outlookdone && Math.random() > 0.25) {
+	if (!this.outlook) {
+		campObjects.push(this.Goto({ area: 'camp-outlook-intro' }, { x: -1765, y: 45, height: 1000 }));
+	} else if (!this.outlookdone) {
 		campObjects.push(this.Goto({ area: 'camp-outlook-event' }, { x: -1765, y: 45, height: 1000 }));
 	} else {
 		campObjects.push(this.Goto({ area: 'camp-outlook' }, { x: -1765, y: 45, height: 1000 }));
@@ -1723,9 +1732,19 @@ P: She just laughs.
 
 
 
+::camp-outlook-intro
+<<do this.outlook=1>>
+P: I take a stroll away from camp, into the dark of the night.
+
+The stars are so clear out here.
+[[>close]]
 
 ::camp-outlook
-P: It seems someone had the same idea that I did.
+<<if this.outlook>1>>
+<<do this.goto('camp-outlook-2')>>
+<<else>>
+P: I take a stroll away from camp, and it seems someone had the same idea that I did.
+<<endif>>
 >
 P: Sister Twenty-and-seven is gazing at the stars.
 
@@ -1744,16 +1763,129 @@ P: I head back the way I came.
 
 
 ::Approach her
-<<do this.outlookdone=true>>
+<<do this.outlook=2>>
 <<do this.outlooknpc.flipped=false>>
 <<do this.scene.player.walkBy(-100,0)>>
 "Ahh!!"
 >
 "Sister Twenty, you scared me!"
 >"Sorry..."
-P: "Just wanted to come look at the stars - didn't expect anyone else to be here."
+P: "Just wanted to look at the stars - didn't expect anyone else to be here."
+>
+P: She looks around anxiously, as if I've caught her red-handed.
 
-[[>close]]
+Doing what, I don't know.
+>
+P: So I ask.
+
+"What are you doing out here?"
+>
+"I- We were walking. And we got lost."
+
+"And then you found us."
+>
+"That's it. Alright?"
+>
+P: "Twenty-and-seven..."
+
+"You're not very good at lying, are you?"
+>
+"What!?"
+>
+P: "It's okay! Calm down, please."
+
+[["Should we be concerned?"]]
+[["It's none of my business.">"I won't tell anyone."]]
+[["I won't tell anyone."]]
+
+::"Should we be concerned?"
+<<do ++this.countwe>>
+"No! It was nothing, really!"
+[[>approach-2]]
+
+::"I won't tell anyone."
+<<do ++this.counti>>
+"..."
+>
+"It was nothing, really..."
+[[>approach-2]]
+
+::approach-2
+"We were... making a wish."
+>
+P: "A wish?"
+>
+"On the stars."
+>
+P: She gestures up to the dark blanket of night.
+>
+"Sister Ten-and-nine once told us that on clear nights, your words may travel all the way to the skies above."
+
+"And that if they take pity on you, the stars may even make them true."
+>
+"...I- We know it's silly. But please don't tell the others."
+
+[["We don't have any rules against wishes."]]
+[["I won't if you won't."]]
+
+::"We don't have any rules against wishes."
+<<do ++this.countwe>>
+"Still... We'd rather keep it a secret."
+>"...Alright."
+"Thank you, Sister."
+>
+P: "Can't help but wonder though..."
+>
+P: "What did you wish for?"
+[[>approach3]]
+
+::"I won't if you won't."
+<<do ++this.counti>>
+"Thank you, Sister."
+>
+P: "I do have to ask though..."
+>
+P: "What did you wish for?"
+[[>approach3]]
+
+::approach3
+"...We're not supposed to say."
+>
+"The stars won't take pity on you if there are other sisters to do it for them."
+>
+P: I don't have any counter to that, so I change the subject:
+
+"It's getting quite late. We should head back."
+>
+P: "That is, if you're done here?"
+>
+"Y-yes. Let's get some rest, Sister."
+>
+<<do this.scrim(1, 1000)>>
+P: The two of us walk back to camp in silence, and find our respective places among the other sleeping sisters.
+>
+P: ...
+>
+P: I wonder if the stars heard her...
+[[>march]]
+
+::camp-outlook-2
+P: Sister Twenty-and-seven is on the outskirts of camp again.
+
+This time, she sees me coming.
+>
+"Sister Twenty! It's not what it looks like!"
+>
+<<do this.scene.player.walkBy(-200,-20)>>
+P: "Please, it's alright Sister. We've already agreed to keep your secret, remember?"
+>
+<<do this.outlooknpc.flipped=true>>
+"R-right."
+>
+<<do this.outlookdone=true>>
+TODO: finish event
+[[>march]]
+
 
 
 
