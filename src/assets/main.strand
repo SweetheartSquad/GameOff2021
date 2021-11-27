@@ -3246,7 +3246,7 @@ P: One pleasant day, I am doing waste management with some Ten-and sisters, when
 >
 "Sister Twenty, Sister Twenty! Mother has called for an audience with you."
 
-[["I will come.">family]]
+[["We will come.">family]]
 
 ::family
 P: As we pass through the many passages and rooms of the nest, I feel proud of the work we've done.
@@ -3262,13 +3262,13 @@ P: I turn to Sister Ten-and-seven but she has already scurried away.
 ::family-2
 "Sister Twenty of Many Oecophylla."
 > "Yes, Queen Mother."
-"You have been given an opportunity."
+"We have been given an opportunity."
 >
 "An opportunity to further shape this home we have created."
 >
 "This morning, Sister Superior Three did not wake up. Her work must be continued."
 >Three... is dead?
-"I am designating you Sister Superior Twenty."
+"We are designating you Sister Superior Twenty."
 >
 P: The sadness at Three's passing and the surprise of my new role compete for space in my mind.
 >
@@ -3280,7 +3280,15 @@ P: I have been unsure at many times. But I have continued on for my sisters.
 >
 P: Mother stands silently before me.
 
-[["I humbly accept.">family-3]]
+[["We humbly accept.">family-3]]
+[["I cannot accept.">family-no]]
+
+::family-no
+"We understand the complex emotions involved, but we feel that Sister Twenty is most suitable."
+>
+"There is no other sister who is ready for this role."
+
+[["We accept.">family-3]]
 
 ::family-3
 "We are saddened by Sister Superior Three's passing."
@@ -3289,7 +3297,7 @@ P: Mother stands silently before me.
 >
 "Now, inform the others of your new position. Become acquainted with your new role."
 >
-"At my next feeding we shall talk more."
+"At our next feeding we shall talk more."
 
 [["Yes, Queen Mother.">family-4]]
 
