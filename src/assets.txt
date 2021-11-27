@@ -14,6 +14,8 @@ textures/cordyAntTied_50p/cordyAntTied_50p.x11.png
 textures/cordyAntTied_100p/cordyAntTied_100p.x11.png
 audio/step.mp3
 audio/voiceDefault.mp3
+audio/bgm_normal.mp3
+audio/bgm_march.mp3
 textures/queenIdle/queenIdle.x8.png
 textures/superiorIdle/superiorIdle.x8.png
 textures/bg_intro.png

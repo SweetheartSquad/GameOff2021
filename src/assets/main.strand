@@ -37,6 +37,22 @@
 
 <<if !this.started>>
 <<do
+	this.musicSynced = (m) => {
+		if (!this.howler) {
+			this.howler = this.music(m);
+			return this.howler;
+		}
+		const oldHowl = Howler._howls.find(i => i._endTimers[this.howler]);
+		const time = oldHowl.seek(undefined, this.howler);
+		oldHowl.fade(0.5, oldHowl.volume(undefined, this.howler), 1000, this.howler);
+		this.howler = this.music(m);
+		if (!this.howler) return;
+		const newHowl = Howler._howls.find(i => i._endTimers[this.howler]);
+		newHowl.seek(time, this.howler);
+		newHowl.fade(0, 0.5, 1000, this.howler);
+		return this.howler;
+	};
+
 	// setup areas
 	const TestSpecialNpc = (options) => {
 		const npc = this.Npc({
@@ -362,7 +378,11 @@ this should never render
 
 
 ::The End
-<<do this.voice='None';this.tween(this.scene.border.display.container, 'alpha', 0, 5000)>>
+<<do
+	this.howler = this.musicSynced('');
+	this.voice='None';
+	this.tween(this.scene.border.display.container, 'alpha', 0, 5000);
+>>
 P: We Follow The Fickle Path
 
 Made by Sean, IAN, and Michael of SweetHeart Squad.
@@ -372,6 +392,7 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 
 ::debug menu
 <<do
+	this.howler = this.musicSynced('bgm_normal');
 	this.scene.border.display.container.alpha=1;
 	this.scene.strand.passages['area warp'] = { title: 'area warp', body: Object.keys(this.scene.areas).filter(i => i !== 'root').map(i => '[['+i+'|this.scene.goto({ area: "'+i+'" }); this.goto("close")]]').concat('[[back|this.back()]]').join('\n') };
 >>
@@ -454,6 +475,7 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 
 
 ::Begin
+<<do this.howler = this.musicSynced('bgm_normal'); >>
 <<do this.voice='Default';>>
 <<do this.scene.goto({ area: 'march' })>>
 <<do
@@ -616,6 +638,7 @@ P: But there's ground to cover.
 
 ::march
 <<do
+	this.musicSynced('bgm_march');
 	this.march = (this.march || 0) + 1;
 	if (!this.passages['march-'+this.march]) {
 		this.march = 2;
@@ -788,7 +811,7 @@ P: The canopy rustles overhead.
 ::march-end
 P: ...
 
-[[...|this.goto(this.marchEvent+'-march')]]
+[[...|this.musicSynced('bgm_normal');this.goto(this.marchEvent+'-march')]]
 
 
 
