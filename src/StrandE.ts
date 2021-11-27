@@ -136,7 +136,11 @@ export class StrandE extends Strand {
 
 	Text(
 		str: string,
-		{ x = 0, y = 0, font }: { x: number; y: number; font?: Partial<TextStyle> }
+		{
+			x = 0,
+			y = 0,
+			font,
+		}: { x?: number; y?: number; font?: Partial<TextStyle> } = {}
 	) {
 		const go = new GameObject();
 		const transform = new Transform(go);
