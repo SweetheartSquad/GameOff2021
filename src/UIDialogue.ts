@@ -216,6 +216,10 @@ export class UIDialogue extends GameObject {
 		if (isPlayer || isBig) text = text.substr(3);
 		this.selected = undefined;
 
+		if (isPlayer) this.voice = 'Default';
+		else if (isBig) this.voice = 'Frog';
+		else if (this.voice === 'Default') this.voice = 'Ant';
+
 		this.textText.style.fontStyle = isPlayer ? 'italic' : 'normal';
 		this.textText.style.fontSize = isBig
 			? Number(fontDialogue.fontSize ?? 0) + 10
