@@ -98,6 +98,39 @@
 		];
 	};
 
+	this.TentMedium = (options) => {
+		const block = this.Block({ type: 'circle', x: options.x, y: options.y-110, radius: 80 });
+		block.body.scale(2,1);
+		const result = [
+			this.Prop({ texture: 'mediumTent', x: options.x, y: options.y, offset: -90, flip: options.flip }),
+			block,
+		];
+		const door = { type: 'circle', x: options.x + (options.flip ? 120 : -120), y: options.y-75, radius: 40 };
+		if (options.goto) {
+			result.push(this.Goto(options.goto, door));
+		}
+		if (options.passage) {
+			result.push(this.Interrupt({ passage: options.passage, ...door }));
+		}
+		return result;
+	};
+	this.TentSmall = (options) => {
+		const block = this.Block({ type: 'circle', x: options.x, y: options.y-45, radius: 30 });
+		block.body.scale(2,1);
+		return [
+			this.Prop({ texture: 'smallTent', x: options.x, y: options.y, offset: -30, flip: options.flip }),
+			block,
+		];
+	};
+	this.Wagon = (options) => {
+		const block = this.Block({ type: 'circle', x: options.x, y: options.y-60, radius: 30 });
+		block.body.scale(4,1);
+		return [
+			this.Prop({ texture: 'wagon', x: options.x, y: options.y, offset: -50, flip: options.flip }),
+			block,
+		];
+	};
+
 	const PropParallaxAuto = (options) => {
 		const start = Date.now();
 		const gameObject = this.PropParallax(options);
@@ -1180,39 +1213,6 @@ Mother takes another lick of the partially digested slurry of protein.
 		}
 	}
 
-	const TentMedium = (options) => {
-		const block = this.Block({ type: 'circle', x: options.x, y: options.y-110, radius: 80 });
-		block.body.scale(2,1);
-		const result = [
-			this.Prop({ texture: 'mediumTent', x: options.x, y: options.y, offset: -90, flip: options.flip }),
-			block,
-		];
-		const door = { type: 'circle', x: options.x + (options.flip ? 120 : -120), y: options.y-75, radius: 40 };
-		if (options.goto) {
-			result.push(this.Goto(options.goto, door));
-		}
-		if (options.passage) {
-			result.push(this.Interrupt({ passage: options.passage, ...door }));
-		}
-		return result;
-	};
-	const TentSmall = (options) => {
-		const block = this.Block({ type: 'circle', x: options.x, y: options.y-45, radius: 30 });
-		block.body.scale(2,1);
-		return [
-			this.Prop({ texture: 'smallTent', x: options.x, y: options.y, offset: -30, flip: options.flip }),
-			block,
-		];
-	};
-	const Wagon = (options) => {
-		const block = this.Block({ type: 'circle', x: options.x, y: options.y-60, radius: 30 });
-		block.body.scale(4,1);
-		return [
-			this.Prop({ texture: 'wagon', x: options.x, y: options.y, offset: -50, flip: options.flip }),
-			block,
-		];
-	};
-
 	// TODO: real camp area setup
 	const campBasics = [
 		this.Prop({ texture: 'bg_camp', x: -458, y: 926, offset: -10000 }),
@@ -1235,18 +1235,18 @@ Mother takes another lick of the partially digested slurry of protein.
 		{x: -193, y: -113},
 	];
 	const campProps = [
-		Wagon,
-		TentMedium,
-		TentMedium,
-		TentSmall,
-		TentSmall,
-		TentSmall,
+		this.Wagon,
+		this.TentMedium,
+		this.TentMedium,
+		this.TentSmall,
+		this.TentSmall,
+		this.TentSmall,
 	];
 	const campObjects = campBasics.slice();
 	if (false) {
 		// fill all slots with biggest obj to test placement
 		tentSlots.forEach(i => {
-			campObjects.push(...TentMedium({ x: i.x, y: i.y, flip: false }));
+			campObjects.push(...this.TentMedium({ x: i.x, y: i.y, flip: false }));
 		});
 	} else {
 		this.shuffle(tentSlots)
