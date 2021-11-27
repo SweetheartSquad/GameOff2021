@@ -1763,11 +1763,11 @@ The stars are so clear out here.
 [[>close]]
 
 ::camp-outlook
-<<if this.outlook>1>>
-<<do this.goto('camp-outlook-2')>>
-<<else>>
+<<do this.goto('camp-outlook-'+this.outlook)>>
+
+
+::camp-outlook-1
 P: I take a stroll away from camp, and it seems someone had the same idea that I did.
-<<endif>>
 >
 P: Sister Twenty-and-seven is gazing at the stars.
 
@@ -1893,11 +1893,12 @@ P: I wonder if the stars heard her...
 [[>march]]
 
 ::camp-outlook-2
+<<do this.outlook=3>>
 P: Sister Twenty-and-seven is on the outskirts of camp again.
 
 This time, she sees me coming.
 >
-"Sister Twenty! It's not what it looks like!"
+"I-It's not what it looks like!"
 >
 <<do this.scene.player.walkBy(-200,-20)>>
 P: "Please, it's alright Sister. We've already agreed to keep your secret, remember?"
@@ -1905,8 +1906,91 @@ P: "Please, it's alright Sister. We've already agreed to keep your secret, remem
 <<do this.outlooknpc.flipped=true>>
 "R-right."
 >
+P: "Are you wishing on the stars again?"
+>
+"..."
+>
+P: "You don't have to say."
+>
+"..."
+>
+"...Sister Twenty, do you ever wonder what it would be like to be Mother?"
+
+[["We don't."]]
+[["I have."]]
+[["What do you mean?"]]
+
+::"We don't."
+<<do ++this.countwe>>
+P: "It's difficult enough to do our jobs without needing to make sure that everyone else is doing theirs as well."
+>
+"That's not what I- not like that."
+[[>"What do you mean?"]]
+
+::"I have."
+<<do ++this.counti>>
+P: "Leadership seems... difficult, to say the least."
+>
+P: "But I think things would be very different if I was in charge."
+>
+"That's not what I- not like that."
+[[>"What do you mean?"]]
+
+
+::"What do you mean?"
+"Mother has children."
+>
+"It seems like it would be... nice. To raise a child."
+>
+P: "...But you know that Mother does not raise the children."
+>
+P: "If that's what you mean, why not take a shift in the nursery with the sisters who do?"
+>
+P: Her antennae cringe inwards.
+>
+"It's different somehow, when it is a sister, not a daughter."
+>
+"Your own daughter."
+>
+P: "..."
+>
+P: I don't know what to say to that.
+>
+P: It's impossible, after all.
+
+She knows that as well as I do.
+>
+P: "...This is what you were wishing for?"
+>
+P: She tilts her head up to the stars, but doesn't respond.
+>
+P: ...
+>
+P: I glance back towards the flickering light of the campfire in the distance.
+>
+P: "It's getting late, Sister. I should head back."
+>
+"Wait-"
+>
+"...Would you stay here with us?"
+>
+P: She folds her arms together nervously.
+>
+"Just for a little bit."
+
+"We don't-"
+>
+"I don't want to be alone."
+>
+P: "...Of course, Sister."
+>
+<<do this.scrim(1, 2000)>>
+P: The two of us take a seat on the branch overlooking the stars.
+>
+P: We talk a little more, about nothing in particular.
+>
+P: We stay there until sunrise.
 <<do this.outlookdone=true>>
-TODO: finish event
 [[>march]]
 
 
