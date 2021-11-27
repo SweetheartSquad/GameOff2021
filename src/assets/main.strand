@@ -2688,6 +2688,7 @@ P: "In this rain, and with that slope? Climbing out there is a death sentence."
 
 
 ::outside-inn
+voicePillbug
 "Ho there!"
 <<if this.metbunty>>
 [[>bunty]]
@@ -2706,16 +2707,19 @@ P: "In this rain, and with that slope? Climbing out there is a death sentence."
 >>
 P: A roly poly?
 >
+voicePillbug
 "Quite the weather we're having, eh little miss?"
 >
 P: Is he joking?
 >
 P: "Um, yes. Suppose you could say that."
 >
+voicePillbug
 "Ho ho! I love the rain! The exhilarations of nature!!"
 >
 P: A large droplet splashes against my back, giving me a shiver.
 >
+voicePillbug
 "...But isn't it a touch too wet for you?"
 >
 P: "..."
@@ -2724,18 +2728,22 @@ P: "YES!!!"
 >
 P: "Uh, that is- yes, yes it is. We're looking for shelter, in fact."
 >
+voicePillbug
 "Well then, you're in luck!!"
 >
 P: "Oh? Could do with a bit more luck right about now..."
 >
+voicePillbug
 "It just so happens that right over yonder lies the finest inn this side of the forest!"
 >
 P: He gestures with half a dozen legs towards a large hole in the trunk behind him.
 >
+voicePillbug
 "Yes ma'am, The Bunty Nathan's will take good care of you and yours for but a bargain!"
 >
 P: Oh no.
 >
+voicePillbug
 "Warm beds, cool baths (for the wet-inclined), even a breakfast buffet*!"
 
 "All for but a modest fee: You won't find a better deal on this tree, little miss!"
@@ -2777,6 +2785,7 @@ P: Oh no.
 >
 P: "...Twenty of Many Oecophylla."
 >
+voicePillbug
 "Of many? Well, I do hope you'll tell your friends us about us too!"
 
 [["I'll just head on in, then."]]
@@ -2800,15 +2809,18 @@ The large roly poly doesn't let me finish, and starts pushing me inside.
 "Ho ho, wonderful!"
 [[>bunty-enter]]
 ::bunty-enter
+voicePillbug
 "Do be sure to tell Nathan that Bunty sent you!"
 >
 P: The interior of the inn is welcomingly warm, and more importantly dry.
 
 The eager bug stays out in the rain, and laughs at seemingly nothing in particular.
 >
+voicePillbug
 <<do this.show('innInside', { y: 110 })>>
 P: Sure enough, inside there's another giant pill millipede sitting at a small stand, complete with a hand-carved sign.
 >
+voicePillbug
 "Welcome, welcome!"
 
 "How can I help you this evening?"
@@ -2826,6 +2838,7 @@ P: Sure enough, inside there's another giant pill millipede sitting at a small s
 >
 P: I'm starting to see the family resemblence, but just smile and nod.
 >
+voicePillbug
 "I suppose he sent you my way for a reason, though!"
 
 "Tell me: how can I help?"
@@ -2852,6 +2865,7 @@ P: "Yes, our Mother, our sisters as well. We need somewhere to stay."
 
 
 ::nathan2
+voicePillbug
 "Ah, a family vacation!"
 >"No, it's-"
 "That's lovely. Family is SO important, and it can be so hard to make time for them, no matter how hard we try."
@@ -2922,6 +2936,7 @@ P: "Our sisters have no need for money. We support ourselves on the path, and su
 
 "It is a crude instrument, and it serves no purpose for us."
 >
+voicePillbug
 "...No purpose!?"
 >
 "But you need money!! To pay for things! For food, for protection, for property..."
@@ -2930,6 +2945,7 @@ P: "Our sisters have no need for money. We support ourselves on the path, and su
 >
 P: "..."
 >
+voicePillbug
 "...You're serious, aren't you?"
 
 "No money! None!"
@@ -2951,12 +2967,14 @@ P: He trails off, stopping to think. His legs twitch one-by-one, a wave starting
 >
 P: For all their talk of money, there's always something else these types want. I don't know what it is, but he'll figure that out for me.
 >
+voicePillbug
 "...You're a weaver, yes?"
 >
 P: "What? No."
 
 "Only the sister nurses are permitted."
 >
+voicePillbug
 "Mmm, but there are weavers with you, then?"
 >"Yes, of course."
 "Ho ho! Then I think I may have a deal that will benefit us both!"
@@ -2971,6 +2989,7 @@ P: "What? No."
 >
 P: "You want us to... make decorations for you?"
 >
+voicePillbug
 "Not just decorations: Ambiance!"
 >
 "A whole new market segment, in fact! Executive suites, for the bug on the go!"
@@ -3010,6 +3029,7 @@ P: I allow myself the luxury of a few more moments of shelter, and make my way b
 ::bunty
 P: "Hello again, Bunty."
 >
+voicePillbug
 "Little miss<<if this.buntyname>> Twenty<<endif>>!"
 
 "Checking in?"
