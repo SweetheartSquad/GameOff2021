@@ -3228,8 +3228,11 @@ P: There is scarcely time to think of anything but the work ahead.
 >
 P: A home for the Many, built by all.
 
-<<if !this.counti>this.countwe>>[[>ending-start-exile]]<<endif>>
-<<if !this.countwe>=this.counti>>[[>ending-start-family]]<<endif>>
+<<if this.counti > this.countwe>>
+[[>ending-start-exile]]
+<<else>>
+[[>ending-start-family]]
+<<endif>>
 
 
 
