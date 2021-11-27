@@ -2139,7 +2139,7 @@ P: There really was nothing I could've said to stop it.
 >
 P: Rain continues to beat down as I trek across the branch to the inn yet again.
 >
-<<do this.show('innInside_empty', { y: 90 })>>
+<<do this.show('innInside_empty', { y: 110 })>>
 P: The Bunty Nathan's looks much the same as when I first entered. Warm and welcoming. A nice little receptionist's stand.
 
 But there was no doorman to pass, and no one is seated at the desk.
@@ -2309,7 +2309,7 @@ P: The interior of the inn is welcomingly warm, and more importantly dry.
 
 The eager bug stays out in the rain, and laughs at seemingly nothing in particular.
 >
-<<do this.show('innInside', { y: 90 })>>
+<<do this.show('innInside', { y: 110 })>>
 P: Sure enough, inside there's another giant pill millipede sitting at a small stand, complete with a hand-carved sign.
 >
 "Welcome, welcome!"
@@ -2499,7 +2499,7 @@ P: "You want us to... make decorations for you?"
 >
 "I'll need to do the same: contracts don't write themselves, ho ho!"
 >
-<<do this.show('innInside_empty', { y: 90 })>>
+<<do this.show('innInside_empty', { y: 110 })>>
 P: With that, he suddenly spurs into action: The roly poly flops onto the ground and takes off at a surprising pace deeper into the tree.
 >
 <<do this.show('')>>
