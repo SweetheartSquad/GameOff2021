@@ -367,6 +367,7 @@
 P: We Follow The Fickle Path
 
 [[Begin]]
+[[Begin (skip intro)]]
 [[Credits]]
 [[CWs]]
 <<if this.debug>>[[debug menu]]<<endif>>
@@ -401,12 +402,6 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 	this.scene.border.display.container.alpha=1;
 	this.scene.strand.passages['area warp'] = { title: 'area warp', body: Object.keys(this.scene.areas).filter(i => i !== 'root').map(i => '[['+i+'|this.scene.goto({ area: "'+i+'" }); this.goto("close")]]').concat('[[back|this.back()]]').join('\n') };
 >>
-
-[[begin (skip intro)|
-	this.scene.border.display.container.alpha=1;
-	this.scene.goto({ area: 'intro' });
-	this.goto('close');
-]]
 [[passage select>passage select]]
 [[area warp]]
 [[toggle debugPhysics|window.debugPhysics=!window.debugPhysics]]
@@ -479,11 +474,22 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 [[back>start]]
 
 
-::Begin
-<<do this.howler = this.musicSynced('bgm_normal'); >>
-<<do this.voice='Default';>>
-<<do this.scene.goto({ area: 'march' })>>
+::Begin (skip intro)
 <<do
+	this.howler = this.musicSynced('bgm_normal');
+	this.voice='Default';;
+	this.scene.goto({ area: 'march' });
+	this.counti = 0;
+	this.countwe = 0;
+	this.tween(this.scene.border.display.container, 'alpha', 1, 5000);
+	this.goto('march');
+>>
+
+::Begin
+<<do
+	this.howler = this.musicSynced('bgm_normal');
+	this.voice='Default';
+	this.scene.goto({ area: 'march' });
 	this.counti = 0;
 	this.countwe = 0;
 >>
