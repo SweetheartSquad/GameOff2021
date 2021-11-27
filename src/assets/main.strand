@@ -1241,6 +1241,8 @@ Mother takes another lick of the partially digested slurry of protein.
 
 	if (!this.camplittlesister2 && Math.random()>0.5) {
 		campObjects.push(this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -906, y: 163 }));
+	} else if (Math.random()>0.5) {
+		campObjects.push(this.Npc({ passage: 'camp-npc', x: -906, y: 163, roam: 50 }));
 	}
 
 	if (!this.donefrog && Math.random()>0.5) {
@@ -1256,6 +1258,21 @@ Mother takes another lick of the partially digested slurry of protein.
 			...this.AntProp({ x: 126, y: 336, flip: true }),
 			...this.AntProp({ x: 179, y: 313, flip: true }),
 		);
+	} else {
+		if (Math.random()>0.5) campObjects.push(this.Npc({ passage: 'camp-npc', x: -38, y: 304, roam: 50 }));
+		if (Math.random()>0.5) campObjects.push(this.Npc({ passage: 'camp-npc', x: 179, y: 313, roam: 50 }));
+	}
+	if (Math.random()>0.5) {
+		campObjects.push(this.Npc({ passage: 'camp-npc', x: -509, y: -163, roam: 50 }));
+	}
+	if (Math.random()>0.5) {
+		campObjects.push(this.Npc({ passage: 'camp-npc', x: -403, y: -130, roam: 50 }));
+	}
+	if (Math.random()>0.5) {
+		campObjects.push(this.Npc({ passage: 'camp-npc', x: -1145, y: -159, roam: 50 }));
+	}
+	if (Math.random()>0.5) {
+		campObjects.push(this.Npc({ passage: 'camp-npc', x: 777, y: 170, roam: 50 }));
 	}
 
 	this.Area('camp', campObjects);
@@ -1302,6 +1319,37 @@ P: Tomorrow will be a new day.
 ::camp-wall
 P: Dark out there. Everyone's already asleep.
 <<do this.scene.player.walkBy(-Math.sign(this.scene.player.transform.x)*30, -Math.sign(this.scene.player.transform.y)*100)>>
+[[>close]]
+
+
+::camp-npc
+<<do this.gameObject.line = this.gameObject.line || this.shuffle([
+	'"It\'s been a long day: You should get some rest, Sister."',
+	'P: She nods but seems to be busy with something and moves on.',
+	'"Sister Twenty, is it? We hope you are well."',
+	'"Sorry Sister, but we are on watch: We can\'t talk right now."',
+	'P: The sister on watch duty waves, and gets back to their post.',
+	'P: She seems lost in thought. She doesn\'t acknowledge me.',
+	'"How are you sister? Good? Good..."',
+	'"We will be going to bed soon, do not worry."',
+	'"Our whole body aches... Looking forward to a nice lie-down."',
+	'"Are you hungry, Sister? No? Suit yourself..."',
+	'"How much farther do you think we must walk? We hope it is not too much..."',
+	'"The stars are quite pretty tonight."',
+	'"Please Sister, get some rest. We will take shifts."',
+	'"Ho there Sister Twenty! Best not be causing trouble!"',
+	'"Sister Superior put us on watch tonight. Rest easy, Sister."',
+	'"Hey Twenty."',
+	'"Sister Twenty... Nevermind."',
+	'P: They give me a curious glance, but say nothing.',
+	'P: She smiles and gives me a light pat on the back.',
+	'P: She stares at the canopy below. I leave her be.',
+	'P: She holds out one hand. I take it, and we hold them there briefly before parting.',
+	'P: They ignore me.',
+	'P: They seem busy.',
+	'P: They seem busy.',
+])[0]>>
+<<print this.gameObject.line>>
 [[>close]]
 
 ::little-sister
