@@ -43,6 +43,10 @@
 			return this.howler;
 		}
 		const oldHowl = Howler._howls.find(i => i._endTimers[this.howler]);
+		if (!oldHowl) {
+			this.howler = this.music(m);
+			return this.howler;
+		}
 		const time = oldHowl.seek(undefined, this.howler);
 		oldHowl.fade(0.5, oldHowl.volume(undefined, this.howler), 1000, this.howler);
 		this.howler = this.music(m);
