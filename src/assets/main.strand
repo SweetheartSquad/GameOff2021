@@ -1239,12 +1239,26 @@ Mother takes another lick of the partially digested slurry of protein.
 		campObjects.push(this.Text('reload camp', { x: 50, y: -310 }));
 	}
 
-	this.Area('camp', [
-		...campObjects,
-		// TODO: real camp area setup
-		!this.camplittlesister2 && this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -906, y: 163 }),
-		!this.donefrog && this.Npc({ passage: '19-camp', x: 163, y: -128, roam: 40 }),
-	].filter(i => i));
+	if (!this.camplittlesister2 && Math.random()>0.5) {
+		campObjects.push(this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -906, y: 163 }));
+	}
+
+	if (!this.donefrog && Math.random()>0.5) {
+		campObjects.push(this.Npc({ passage: '19-camp', x: 163, y: -128, roam: 40 }));
+	}
+
+	if (Math.random()>0.5) {
+		campObjects.push(
+			this.Npc({ body: 'superior', passage: 'superior-camp', x: 72, y: 231, scale: 0.16, bodyCollision: { isStatic: true } }),
+			...this.AntProp({ x: -38, y: 304 }),
+			...this.AntProp({ x: 9, y: 333 }),
+			...this.AntProp({ x: 67, y: 347 }),
+			...this.AntProp({ x: 126, y: 336, flip: true }),
+			...this.AntProp({ x: 179, y: 313, flip: true }),
+		);
+	}
+
+	this.Area('camp', campObjects);
 
 	this.scrim(1, 1000);
 	this.camppromise = new Promise(r => {
@@ -1443,7 +1457,102 @@ P: She squeezes my hand and wails when I pass her to an unfamiliar sister nurse.
 
 
 
+::superior-camp
+<<if this.historylesson>>
+<<do this.goto('superior-camp-2')>>
+<<else>>
+P: "Sister Superior Three?"
+<<endif>>
+>
+P: She looks up at me with something between disdain and exhaustion.
+>
+"What is it, Sister Twenty?"
 
+"You are interrupting a history lesson."
+
+<<if !this.historylessonreject>>[["I wanted to speak with you."]]<<endif>>
+[["May we listen?"]]
+[["Nevermind.">close]]
+
+::"I wanted to speak with you."
+<<do ++this.counti>>
+<<do this.historylessonreject=true>>
+"Then you will have to wait."
+[[>close]]
+
+::"May we listen?"
+<<do ++this.countwe>>
+<<do this.historylesson=true>>
+"...You surprise me, Twenty."
+
+"But of course: Take a seat with the other children."
+>
+P: I look around, seeing that the youngest among us is a Thirty-and.
+
+"'Children'? You may be the eldest, but we are all adults here, Sister! Do you-"
+>
+"Sister Twenty. We are happy to have you, but please: try to keep your interruptions to a minimum."
+>
+<<do this.scene.player.walkTo(209+30, 286).then(() => this.scene.player.walkBy(-30, 0))>>
+P: I open my mouth to retort, but decide not to push it, and find an empty spot in her audience.
+>
+<<do this.scrim(1,1000)>>
+<<do this.show('superiorIdle')>>
+"As we were saying... We are all our Mother's children."
+>
+"But to be one of many children is very different than to be one of few."
+>
+"To be one of few is something that, of course, only a few of us have experienced."
+
+"Fewer still remain who know what it is like to have been both."
+>
+P: ...Is this a history lesson or an ego trip?
+>
+"Mother had so few children, initially. She raised us all on her own."
+
+"She gave up her own body - even her gift of flight - all for our sake."
+>
+"She fed us with the nectar of her sacrifice."
+
+"In return we cared for her, and cared for all of you."
+>
+<<do this.show('')>>
+P: One of the younger sisters in attendance speaks up:
+>
+"You were a sister nurse, Three?"
+>
+<<do this.show('superiorIdle')>>
+"Naturally! We all had to be, back then."
+>
+"We were all but sisters: We had to do everything to ensure that our sisters-to-be would grow, with only Mother's guidance, and not her direct care."
+>
+"And perhaps we did our job too well: You all grew to be so tall!"
+>
+P: There's a light wave of chuckles from the younger sisters.
+>
+"But yes, it was only after the first Ten-ands had pupated that we took on more specific roles. We adapted to our growing needs, and did the work we were most suited for."
+>
+"Some of you may even remember our late Sister Superior Two, who was with us as recently as the Twenty-ands."
+
+"She would have been proud to see you now."
+>
+"The nursery was our predilection before then, and we have been glad to see it grow under the guidance of others when our duty as Superior took precedence."
+>
+"One day, perhaps one of you will undertake the same duty, and tell this same story to your own younger sisters."
+>
+"..."
+>
+"...But speaking of duty, we all must prepare for the road ahead, and we cannot do so without a proper night's rest."
+
+"Off to bed now. We may continue again another day."
+>
+<<do this.show('')>>
+P: She stretches, and the crowd begins to disperse.
+[[>Go to bed]]
+
+::superior-camp-2
+P: Sister Superior Three waves me away impatiently, busy with the younger ants.
+[[>close]]
 
 
 ::19-camp
