@@ -178,7 +178,7 @@
 		this.PropParallax({ texture: 'bg_stars', mult: 0.4, offset: -20000 }),
 		this.Prop({ texture: 'bg_camp', scale: 2, angle: -20, flip: true, x: -5000, y: 3419, offset: -10000 }),
 		this.Poly({ verts: [107,-200, -185,-83, -351,-56, -613,58] }),
-		this.Interrupt({ width: 1000, height: 1000, focus: { x: 0, y: -400 } }),
+		this.Interrupt({ width: 1500, height: 1000, focus: { x: 0, y: -400 } }),
 		this.Goto({ area: 'camp', x: -1537, y: -12 }, { y: 100, width: 2000 }),
 		this.Goto({ area: 'camp', x: -1537, y: -12 }, { x: 147, y: -66, height: 500 }),
 	]);
