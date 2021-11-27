@@ -172,7 +172,7 @@
 	]);
 
 	this.Area('camp', [
-		this.Text('the camp was not created'),
+		this.Interrupt({ passage: 'camp-march' }),
 	]);
 	this.Area('camp-outlook', [
 		this.PropParallax({ texture: 'bg_stars', mult: 0.4, offset: -20000 }),
@@ -1255,7 +1255,12 @@ Mother takes another lick of the partially digested slurry of protein.
 				campObjects.push(...this.shuffle(campProps)[0]({ x: i.x + (Math.random()-0.5)*20, y: i.y + (Math.random()-0.5)*20, flip: Math.random() > 0.5 }));
 			});
 	}
-	
+
+	if (this.debug) {
+		campObjects.push(this.Interrupt({ passage: 'camp-march', x: 101, y: -280 }));
+		campObjects.push(this.Text('reload camp', { x: 50, y: -310 }));
+	}
+
 	this.Area('camp', [
 		...campObjects,
 		!this.camplittlesister2 && this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -203, y: 179 }),
