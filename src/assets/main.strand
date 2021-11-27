@@ -1241,7 +1241,7 @@ Mother takes another lick of the partially digested slurry of protein.
 	this.Area('camp', [
 		...campObjects,
 		// TODO: real camp area setup
-		!this.camplittlesister2 && this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -203, y: 179 }),
+		!this.camplittlesister2 && this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -906, y: 163 }),
 		!this.donefrog && this.Npc({ passage: '19-camp', x: 163, y: -128, roam: 40 }),
 	].filter(i => i));
 
