@@ -19,6 +19,7 @@ export class Prop extends GameObject {
 		x = 0,
 		y = 0,
 		alpha = 1,
+		angle = 0,
 		scale = 1,
 		animate = true,
 		flip,
@@ -30,6 +31,7 @@ export class Prop extends GameObject {
 		x?: number;
 		y?: number;
 		alpha?: number;
+		angle?: number;
 		scale?: number;
 		blur?: boolean;
 		flip?: boolean;
@@ -65,6 +67,7 @@ export class Prop extends GameObject {
 		}
 
 		this.display.container.addChild(this.spr);
+		this.display.container.angle = angle;
 		this.transform.x = x;
 		this.transform.y = y;
 
