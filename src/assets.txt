@@ -30,6 +30,8 @@ textures/bg_stars.jpg
 textures/bg_camp.png
 textures/bg_interior.png
 textures/mediumTent.png
+textures/smallTent.png
+textures/wagon.png
 textures/fireplace/fireplace.x3.png
 textures/frog/frog.x4.png
 textures/frogBranch_bg.png
