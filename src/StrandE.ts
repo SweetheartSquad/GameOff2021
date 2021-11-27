@@ -54,6 +54,12 @@ export class StrandE extends Strand {
 								link || '...'
 							  }|this.goto('auto-${++autolink}')]]\n\n::auto-${autolink}\n`
 				)
+				// voice sugar
+				.replace(
+					/^voice(\w+)$/gm,
+					// @ts-ignore
+					(_: never, voice: string) => `<<do this.voice='${voice}'>>`
+				)
 		);
 
 		// create passage select for debugging purposes
