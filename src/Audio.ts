@@ -56,7 +56,7 @@ export function music(
 		playing.volume === volume &&
 		playing.rate === rate
 	)
-		return undefined;
+		return playing.id;
 	if (playing) {
 		playing.howl.fade(playing.volume, 0, fade, playing.id);
 		delay(fade).then(() => {
