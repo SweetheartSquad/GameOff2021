@@ -1431,12 +1431,13 @@ P: She squeezes my hand and wails when I pass her to an unfamiliar sister nurse.
 
 
 ::19-camp
+<<do this.gameObject.roam.active=false>>
 <<if this.talked192>>
 <<do this.goto('19-camp-3')>>
 <<elseif this.talked19>>
 <<do this.goto('19-camp-2')>>
 <<else>>
-P: Sister Ten-and-nine perks up when she sees me.
+P: Sister Ten-and-nine perks up from her spot by the fire when she sees me.
 <<endif>>
 >
 <<do this.talked19=true>>
@@ -1465,10 +1466,12 @@ P: "Our sisters worked hard today..."
 ::"Fine, how are you?"
 "Ah, you know how it is..."
 >
+<<do this.gameObject.roam.active=true>>
 "Always one step behind you, ah ha!"
 [[>close]]
 
 ::19-camp-2
+<<do this.gameObject.roam.active=false>>
 "Is something wrong, Sister Twenty?"
 >
 P: "No, it's just..."
@@ -1477,6 +1480,7 @@ P: "No, it's just..."
 [["It's nothing."]]
 
 ::"It's nothing."
+<<do this.gameObject.roam.active=true>>
 P: She tilts her head slightly in confusion, but waves farewell.
 [[>close]]
 
@@ -1514,12 +1518,14 @@ P: "Hah... Alright. Good night, Sister."
 [[>march]]
 
 ::19-camp-3
+<<do this.gameObject.roam.active=false>>
 "...You look tired, Twenty."
 >
 "Have you been getting enough rest?"
 >
 P: "...No. You?"
 >
+<<do this.gameObject.roam.active=true>>
 P: She just laughs.
 [[>close]]
 
