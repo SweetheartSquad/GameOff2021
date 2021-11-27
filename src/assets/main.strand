@@ -203,6 +203,11 @@
 		this.Goto({ area: 'camp', x: -1537, y: -12 }, { y: 100, width: 2000 }),
 		this.Goto({ area: 'camp', x: -1537, y: -12 }, { x: 147, y: -66, height: 500 }),
 	]);
+	this.Area('camp-outlook-cordy', [
+		this.PropParallax({ texture: 'bg_stars', mult: 0.4, offset: -20000 }),
+		this.Prop({ texture: 'bg_camp', scale: 2, angle: -20, flip: true, x: -5000, y: 3419, offset: -10000 }),
+		this.Interrupt({ width: 1500, height: 1000, focus: { x: -100, y: -300 } }),
+	]);
 	this.Area('camp-outlook-intro', [
 		this.PropParallax({ texture: 'bg_stars', mult: 0.4, offset: -20000 }),
 		this.Prop({ texture: 'bg_camp', scale: 2, angle: -20, flip: true, x: -5000, y: 3419, offset: -10000 }),
@@ -2026,12 +2031,15 @@ P: ...
 >
 P: Figures that when we finally have the opportunity to relax a little, I'm left feeling restless.
 >
+<<do this.scene.player.flipped=true>>
+<<do this.scene.goto({ area: 'camp-outlook-cordy', x: 15, y: -110 })>>
 P: After tossing and turning without relief, I give up.
 
 I find the sister on night watch, and volunteer to take her shift.
 >
 P: She's more than happy to trade places.
 >
+<<do this.scrim(0.5, 2000)>>
 P: ...
 >
 P: It's a quiet night. A couple moths circle overhead for a bit, but move on without ever landing. The temporary nest rustles as resting sisters shuffle and care to the young.
@@ -2042,6 +2050,8 @@ P: Turning around, I see another Sister walking this way.
 
 "Sister Thirty-and-three, right? You couldn't sleep either?"
 >
+<<do this.scrim(1, 100)>>
+<<do this.show('basicAntRun', { scale: 3, y: -250, alpha: 0.2, flip: true, duration: 2000 })>>
 P: She doesn't answer, just continues walking slowly forward.
 >
 P: "Sister Thirty-and-three? Are you alright?"
@@ -2083,8 +2093,9 @@ P: She keeps walking.
 "pain"    "aching"    "vertigo"
          "pain"        "vertigo"
 >
-P: She walks right up to the edge of the leaf.
+P: She walks right up to the edge.
 > "Sister, no!!"
+<<do this.show('')>>
 P: She takes another step, and she's gone.
 >
 P: What... what just happened?!
