@@ -718,20 +718,32 @@ P: But there's ground to cover.
 	// march events will go to `${name}-march`,
 	// and can be "ended" by going to `march` again
 	if(!this.marchEvents || !this.marchEvents.length) {
-		this.marchEvents = [
-			'camp',
+		let pool = [
+			...new Array(4).fill('feeding'),
+			...new Array(5).fill('camp'),
+			'cordyceps',
 			'inn',
-			'feeding',
-			'cordyceps',
 			'frog',
-			'feeding',
 			'deserter',
-			'feeding',
-			'cordyceps',
-			'feeding',
 		];
-		// TODO: decide if we want to randomize
-		// this.marchEvents = this.shuffle(this.marchEvents);
+		const events = [];
+		while(events.length < 8 && pool.length) {
+			pool = this.shuffle(pool);
+			if (pool[pool.length-1] === events[events.length-1]) {
+				continue;
+			}
+			events.push(pool.pop());
+		}
+		// guarantee both cordyceps events
+		if (events.includes('cordyceps')) {
+			const idx = events.indexOf('cordyceps');
+			if (idx > events.length/2) {
+				events[1] = 'cordyceps';
+			} else {
+				events[events.length-2] = 'cordyceps';
+			}
+		}
+		this.marchEvents = events;
 		this.marchEvents.push('ending');
 	}
 	this.marchEvent = this.marchEvents.shift();
