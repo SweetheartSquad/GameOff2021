@@ -26,8 +26,11 @@ textures/rainSplash/rainSplash.x5.png
 textures/pillBugIdle/pillBugIdle.x6.png
 textures/marchScrim.png
 textures/town_bg.png
+textures/bg_stars.jpg
+textures/bg_camp.png
 textures/bg_interior.png
 textures/mediumTent.png
+textures/fireplace/fireplace.x3.png
 textures/frog/frog.x4.png
 textures/frogBranch_bg.png
 textures/frogBranch_fg.png

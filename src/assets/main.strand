@@ -171,6 +171,17 @@
 		this.Interrupt({ passage: 'deserter', x: 1300, height: 500 }),
 	]);
 
+	this.Area('camp', [
+		this.Text('the camp was not created'),
+	]);
+	this.Area('camp-outlook', [
+		this.PropParallax({ texture: 'bg_stars', mult: 0.4, offset: -20000 }),
+		this.Prop({ texture: 'bg_camp', scale: 2, angle: -20, flip: true, x: -5000, y: 3419, offset: -10000 }),
+		this.Poly({ verts: [107,-200, -185,-83, -351,-56, -613,58] }),
+		this.Interrupt({ width: 1000, height: 1000, focus: { x: 0, y: -400 } }),
+		this.Goto({ area: 'camp', x: -1537, y: -12 }, { y: 100, width: 2000 }),
+		this.Goto({ area: 'camp', x: -1537, y: -12 }, { x: 147, y: -66, height: 500 }),
+	]);
 	this.Area('town', [
 		this.Prop({ texture: 'town_bg', y: 334, offset: -10000 }),
 		this.Poly({ verts: [-439,-187, -639,-135, -705,-15, -614,205, -449,291, -170,324, 50,319, 395,302, 595,205, 673,76, 702,-88, 688,-185, 551,-223] }),
@@ -1169,7 +1180,7 @@ Mother takes another lick of the partially digested slurry of protein.
 		}
 	}
 
-	const Tent = (options) => {
+	const TentMedium = (options) => {
 		const block = this.Block({ type: 'circle', x: options.x, y: options.y-110, radius: 80 });
 		block.body.scale(2,1);
 		const result = [
@@ -1188,15 +1199,19 @@ Mother takes another lick of the partially digested slurry of protein.
 
 	// TODO: real camp area setup
 	const campBasics = [
-		this.Prop({ texture: 'town_bg', y: 334, offset: -10000 }),
-		this.Poly({ verts: [-439,-187, -639,-135, -705,-15, -614,205, -449,291, -170,324, 50,319, 395,302, 595,205, 673,76, 702,-88, 688,-185, 551,-223, 448,-252, 382,-275, 174,-275, 33,-278, -118,-288, -188,-298, -337,-239] }),
-		this.Prop({ texture: 'fire', x: 91, y: -78 }),
-		this.Block({ type: 'circle', x: 91, y: -78, radius: 10 }),
+		this.Prop({ texture: 'bg_camp', x: -458, y: 926, offset: -10000 }),
+		this.Poly({ verts: [-2049,-117, -2045,234, -1628,266, -1319,287, -1068,335, -876,317, -651,363, -467,348, -100,414, 191,449, 559,665, 1023,683, 1148,414, 1144,-694, 566,-707, 539,-548, 392,-283, 142,-255, -183,-278, -608,-234, -984,-203, -1127,-212, -1501,-208, -1803,-191, -2049,-117] }),
+		this.Prop({ texture: 'fireplace', x: 91, y: -78, offset: -30 }),
+		this.Block({ type: 'circle', x: 91, y: -78-30, radius: 40 }),
+		this.Goto({ area: 'camp-outlook' }, { x: -1765, y: 45, height: 1000 }),
+		this.Interrupt({ passage: 'camp-wall', x: 915, y: -22, height: 1000 }),
+		this.Interrupt({ passage: 'camp-wall', x: 657, y: -365, width: 500 }),
+		this.Interrupt({ passage: 'camp-wall', x: 657, y: 524, width: 500 }),
 	];
 	const tents = [
-		...Tent({ x: 100, y: -200, passage: 'test-npc' }),
-		...Tent({ x: 400, y: -110, goto: { area: 'camp' } }),
-		...Tent({ x: -400, y: -90, goto: { area: 'camp' }, flip: true }),
+		...TentMedium({ x: 100, y: 200, passage: 'test-npc' }),
+		...TentMedium({ x: 400, y: 110, goto: { area: 'camp' } }),
+		...TentMedium({ x: -400, y: 90, goto: { area: 'camp' }, flip: true }),
 	];
 	this.Area('camp', [
 		...campBasics,
@@ -1228,6 +1243,11 @@ P: <<print this.shuffle([
 	'I can\'t take another step. Luckily, I don\'t have to: camp preparations are already under way.',
 ])[0]>>
 [[...|this.camppromise.then(this.goto.bind(this, 'close'))]]
+
+::camp-wall
+Dark out there. Everyone's already asleep.
+<<do this.scene.player.walkBy(-30, -Math.sign(this.scene.player.transform.y)*100)>>
+[[>close]]
 
 ::little-sister
 <<do
