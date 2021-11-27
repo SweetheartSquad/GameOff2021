@@ -28,7 +28,7 @@ textures/marchScrim.png
 textures/town_bg.png
 textures/bg_stars.jpg
 textures/bg_camp.png
-textures/bg_interior.png
+textures/bg_interior.jpg
 textures/mediumTent.png
 textures/smallTent.png
 textures/wagon.png
