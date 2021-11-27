@@ -1191,7 +1191,6 @@ Mother takes another lick of the partially digested slurry of protein.
 		}
 	}
 
-	// TODO: real camp area setup
 	const campBasics = [
 		this.Prop({ texture: 'bg_camp', x: -458, y: 926, offset: -10000 }),
 		this.Poly({ verts: [-2049,-117, -2045,234, -1628,266, -1319,287, -1068,335, -876,317, -651,363, -467,348, -100,414, 191,449, 559,665, 1023,683, 1148,414, 1144,-694, 566,-707, 539,-548, 392,-283, 142,-255, -183,-278, -608,-234, -984,-203, -1127,-212, -1501,-208, -1803,-191, -2049,-117] }),
@@ -1241,6 +1240,7 @@ Mother takes another lick of the partially digested slurry of protein.
 
 	this.Area('camp', [
 		...campObjects,
+		// TODO: real camp area setup
 		!this.camplittlesister2 && this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -203, y: 179 }),
 		!this.donefrog && this.Npc({ passage: '19-camp', x: -103, y: 279 }),
 	].filter(i => i));
