@@ -54,6 +54,8 @@ export class Toggler extends Script {
 			scale = 1,
 			animate = true,
 			freq = 1 / 400,
+			alpha = 1,
+			flip = false,
 		}: {
 			duration?: number;
 			x?: number;
@@ -61,6 +63,8 @@ export class Toggler extends Script {
 			scale?: number;
 			animate?: boolean;
 			freq?: number;
+			alpha?: number;
+			flip?: boolean;
 		} = {}
 	) {
 		if (tex !== this.active.animation) {
@@ -72,13 +76,14 @@ export class Toggler extends Script {
 			this.tweens.forEach((i) => TweenManager.finish(i));
 			this.tweens.length = 0;
 			this.tweens.push(
-				TweenManager.tween(this.active.spr, 'alpha', 1, duration),
+				TweenManager.tween(this.active.spr, 'alpha', alpha, duration),
 				TweenManager.tween(this.inactive.spr, 'alpha', 0, duration)
 			);
 		}
 		this.active.spr.position.x = x;
 		this.active.spr.position.y = y;
 		this.active.spr.scale.x = this.active.spr.scale.y = scale;
+		if (flip) this.active.spr.scale.x *= -1;
 		this.active.active = animate;
 		this.active.freq = freq;
 	}

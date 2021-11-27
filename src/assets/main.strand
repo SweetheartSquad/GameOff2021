@@ -37,6 +37,22 @@
 
 <<if !this.started>>
 <<do
+	this.musicSynced = (m) => {
+		if (!this.howler) {
+			this.howler = this.music(m);
+			return this.howler;
+		}
+		const oldHowl = Howler._howls.find(i => i._endTimers[this.howler]);
+		const time = oldHowl.seek(undefined, this.howler);
+		oldHowl.fade(0.5, oldHowl.volume(undefined, this.howler), 1000, this.howler);
+		this.howler = this.music(m);
+		if (!this.howler) return;
+		const newHowl = Howler._howls.find(i => i._endTimers[this.howler]);
+		newHowl.seek(time, this.howler);
+		newHowl.fade(0, 0.5, 1000, this.howler);
+		return this.howler;
+	};
+
 	// setup areas
 	const TestSpecialNpc = (options) => {
 		const npc = this.Npc({
@@ -155,6 +171,7 @@
 		this.Prop({ texture: 'rainSplash', x: -1367, y: 86, freq: 1/100 }),
 		this.Prop({ texture: 'pillBugIdle', x: -1731, y: -22 }),
 		this.Prop({ texture: 'shadows', x: -1731+20, y: -22+15, scale: 2, alpha: 0.5, offset: -20 }),
+		...this.Wagon({ x: 588, y: -60 }),
 		...this.AntProp({ x: 140, y: -86 }),
 		...this.AntProp({ x: 180, y: 5, flip: true }),
 		...this.AntProp({ x: 268, y: -11 }),
@@ -186,6 +203,30 @@
 		this.Interrupt({ width: 1500, height: 1000, focus: { x: 0, y: -400 } }),
 		this.Goto({ area: 'camp', x: -1537, y: -12 }, { y: 100, width: 2000 }),
 		this.Goto({ area: 'camp', x: -1537, y: -12 }, { x: 147, y: -66, height: 500 }),
+	]);
+	this.Area('camp-outlook-cordy', [
+		this.PropParallax({ texture: 'bg_stars', mult: 0.4, offset: -20000 }),
+		this.Prop({ texture: 'bg_camp', scale: 2, angle: -20, flip: true, x: -5000, y: 3419, offset: -10000 }),
+		this.Interrupt({ width: 1500, height: 1000, focus: { x: -100, y: -300 } }),
+	]);
+	this.Area('camp-outlook-intro', [
+		this.PropParallax({ texture: 'bg_stars', mult: 0.4, offset: -20000 }),
+		this.Prop({ texture: 'bg_camp', scale: 2, angle: -20, flip: true, x: -5000, y: 3419, offset: -10000 }),
+		this.Poly({ verts: [107,-200, -185,-83, -351,-56, -613,58] }),
+		this.Interrupt({ passage: 'camp-outlook-intro', width: 1500, height: 1000, focus: { x: 0, y: -400 } }),
+		this.Goto({ area: 'camp', x: -1537, y: -12 }, { y: 100, width: 2000 }),
+		this.Goto({ area: 'camp', x: -1537, y: -12 }, { x: 147, y: -66, height: 500 }),
+	]);
+	this.outlooknpc = this.Npc({ x: -296, y: -2 });
+	this.outlooknpc.flipped=true;
+	this.Area('camp-outlook-event', [
+		this.PropParallax({ texture: 'bg_stars', mult: 0.4, offset: -20000 }),
+		this.Prop({ texture: 'bg_camp', scale: 2, angle: -20, flip: true, x: -5000, y: 3419, offset: -10000 }),
+		this.Poly({ verts: [107,-200, -185,-83, -351,-56, -613,58] }),
+		this.Interrupt({ passage: 'camp-outlook', width: 1500, height: 1000, focus: { x: 0, y: -200 } }),
+		this.Goto({ area: 'camp', x: -1537, y: -12 }, { y: 100, width: 2000 }),
+		this.Goto({ area: 'camp', x: -1537, y: -12 }, { x: 147, y: -66, height: 500 }),
+		this.outlooknpc,
 	]);
 	this.Area('town', [
 		this.Prop({ texture: 'bg_town', y: 334, offset: -10000 }),
@@ -327,6 +368,7 @@
 P: We Follow The Fickle Path
 
 [[Begin]]
+[[Begin (skip intro)]]
 [[Credits]]
 [[CWs]]
 <<if this.debug>>[[debug menu]]<<endif>>
@@ -343,7 +385,11 @@ this should never render
 
 
 ::The End
-<<do this.voice='None';this.tween(this.scene.border.display.container, 'alpha', 0, 5000)>>
+<<do
+	this.howler = this.musicSynced('');
+	this.voice='None';
+	this.tween(this.scene.border.display.container, 'alpha', 0, 5000);
+>>
 P: We Follow The Fickle Path
 
 Made by Sean, IAN, and Michael of SweetHeart Squad.
@@ -353,15 +399,10 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 
 ::debug menu
 <<do
+	this.howler = this.musicSynced('bgm_normal');
 	this.scene.border.display.container.alpha=1;
 	this.scene.strand.passages['area warp'] = { title: 'area warp', body: Object.keys(this.scene.areas).filter(i => i !== 'root').map(i => '[['+i+'|this.scene.goto({ area: "'+i+'" }); this.goto("close")]]').concat('[[back|this.back()]]').join('\n') };
 >>
-
-[[begin (skip intro)|
-	this.scene.border.display.container.alpha=1;
-	this.scene.goto({ area: 'intro' });
-	this.goto('close');
-]]
 [[passage select>passage select]]
 [[area warp]]
 [[toggle debugPhysics|window.debugPhysics=!window.debugPhysics]]
@@ -434,10 +475,22 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 [[back>start]]
 
 
-::Begin
-<<do this.voice='Default';>>
-<<do this.scene.goto({ area: 'march' })>>
+::Begin (skip intro)
 <<do
+	this.howler = this.musicSynced('bgm_normal');
+	this.voice='Default';;
+	this.scene.goto({ area: 'march' });
+	this.counti = 0;
+	this.countwe = 0;
+	this.tween(this.scene.border.display.container, 'alpha', 1, 5000);
+	this.goto('march');
+>>
+
+::Begin
+<<do
+	this.howler = this.musicSynced('bgm_normal');
+	this.voice='Default';
+	this.scene.goto({ area: 'march' });
 	this.counti = 0;
 	this.countwe = 0;
 >>
@@ -597,6 +650,7 @@ P: But there's ground to cover.
 
 ::march
 <<do
+	this.musicSynced('bgm_march');
 	this.march = (this.march || 0) + 1;
 	if (!this.passages['march-'+this.march]) {
 		this.march = 2;
@@ -671,20 +725,32 @@ P: But there's ground to cover.
 	// march events will go to `${name}-march`,
 	// and can be "ended" by going to `march` again
 	if(!this.marchEvents || !this.marchEvents.length) {
-		this.marchEvents = [
-			'camp',
+		let pool = [
+			...new Array(4).fill('feeding'),
+			...new Array(5).fill('camp'),
+			'cordyceps',
 			'inn',
-			'feeding',
-			'cordyceps',
 			'frog',
-			'feeding',
 			'deserter',
-			'feeding',
-			'cordyceps',
-			'feeding',
 		];
-		// TODO: decide if we want to randomize
-		// this.marchEvents = this.shuffle(this.marchEvents);
+		const events = [];
+		while(events.length < 8 && pool.length) {
+			pool = this.shuffle(pool);
+			if (pool[pool.length-1] === events[events.length-1]) {
+				continue;
+			}
+			events.push(pool.pop());
+		}
+		// guarantee both cordyceps events
+		if (events.includes('cordyceps')) {
+			const idx = events.indexOf('cordyceps');
+			if (idx > events.length/2) {
+				events[1] = 'cordyceps';
+			} else {
+				events[events.length-2] = 'cordyceps';
+			}
+		}
+		this.marchEvents = events;
 		this.marchEvents.push('ending');
 	}
 	this.marchEvent = this.marchEvents.shift();
@@ -769,7 +835,7 @@ P: The canopy rustles overhead.
 ::march-end
 P: ...
 
-[[...|this.goto(this.marchEvent+'-march')]]
+[[...|this.musicSynced('bgm_normal');this.goto(this.marchEvent+'-march')]]
 
 
 
@@ -1019,7 +1085,7 @@ P: She stops eating, suddenly focused and severe.
 >
 P: "...Oh."
 >
-"Do not misunderstand: We are glad for the time we had with him. We remember him fondly."
+"Do not misunderstand: We are glad for the time we had with him. We carry the memory of him with us always."
 
 "But..."
 >
@@ -1091,7 +1157,7 @@ P: "...That's different."
 >
 "The beetle would likely disagree."
 >
-P: I can feel my antennae cringe inwards.
+P: I can feel my antennae droop even as I try to hide my expression.
 
 Mother takes another lick of the partially digested slurry of protein.
 >
@@ -1196,7 +1262,7 @@ Mother takes another lick of the partially digested slurry of protein.
 		this.Poly({ verts: [-2049,-117, -2045,234, -1628,266, -1319,287, -1068,335, -876,317, -651,363, -467,348, -100,414, 191,449, 559,665, 1023,683, 1148,414, 1144,-694, 566,-707, 539,-548, 392,-283, 142,-255, -183,-278, -608,-234, -984,-203, -1127,-212, -1501,-208, -1803,-191, -2049,-117] }),
 		this.Prop({ texture: 'fireplace', x: 91, y: -78, offset: -30 }),
 		this.Block({ type: 'circle', x: 91, y: -78-35, radius: 35 }),
-		this.Goto({ area: 'camp-outlook' }, { x: -1765, y: 45, height: 1000 }),
+		this.Interrupt({ passage: 'camp-fireplace', type: 'circle', x: 91, y: -78-35, radius: 45 }),
 		this.Interrupt({ passage: 'camp-wall', x: 915, y: -22, height: 1000 }),
 		this.Interrupt({ passage: 'camp-wall', x: 657, y: -365, width: 500 }),
 		this.Interrupt({ passage: 'camp-wall', x: 657, y: 524, width: 500 }),
@@ -1238,12 +1304,52 @@ Mother takes another lick of the partially digested slurry of protein.
 		campObjects.push(this.Text('reload camp', { x: 50, y: -310 }));
 	}
 
-	this.Area('camp', [
-		...campObjects,
-		// TODO: real camp area setup
-		!this.camplittlesister2 && this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -906, y: 163 }),
-		!this.donefrog && this.Npc({ passage: '19-camp', x: 163, y: -128, roam: 40 }),
-	].filter(i => i));
+	if (!this.camplittlesister2 && Math.random()>0.5) {
+		campObjects.push(this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -906, y: 163 }));
+	} else if (Math.random()>0.5) {
+		campObjects.push(this.Npc({ passage: 'camp-npc', x: -906, y: 163, roam: 50 }));
+	}
+
+	if (!this.donefrog && Math.random()>0.5) {
+		campObjects.push(this.Npc({ passage: '19-camp', x: 163, y: -128, roam: 40 }));
+	}
+
+	if (Math.random()>0.5) {
+		campObjects.push(
+			this.Npc({ body: 'superior', passage: 'superior-camp', x: 72, y: 231, scale: 0.16, bodyCollision: { isStatic: true } }),
+			...this.AntProp({ x: -38, y: 304 }),
+			...this.AntProp({ x: 9, y: 333 }),
+			...this.AntProp({ x: 67, y: 347 }),
+			...this.AntProp({ x: 126, y: 336, flip: true }),
+			...this.AntProp({ x: 179, y: 313, flip: true }),
+		);
+	} else {
+		if (Math.random()>0.5) campObjects.push(this.Npc({ passage: 'camp-npc', x: -38, y: 304, roam: 50 }));
+		if (Math.random()>0.5) campObjects.push(this.Npc({ passage: 'camp-npc', x: 179, y: 313, roam: 50 }));
+	}
+	if (Math.random()>0.5) {
+		campObjects.push(this.Npc({ passage: 'camp-npc', x: -509, y: -163, roam: 50 }));
+	}
+	if (Math.random()>0.5) {
+		campObjects.push(this.Npc({ passage: 'camp-npc', x: -403, y: -130, roam: 50 }));
+	}
+	if (Math.random()>0.5) {
+		campObjects.push(this.Npc({ passage: 'camp-npc', x: -1145, y: -159, roam: 50 }));
+	}
+	if (Math.random()>0.5) {
+		campObjects.push(this.Npc({ passage: 'camp-npc', x: 777, y: 170, roam: 50 }));
+	}
+
+	if (!this.outlook) {
+		campObjects.push(this.Goto({ area: 'camp-outlook-intro' }, { x: -1765, y: 45, height: 1000 }));
+	} else if (!this.outlookdone) {
+		campObjects.push(this.Goto({ area: 'camp-outlook-event' }, { x: -1765, y: 45, height: 1000 }));
+	} else {
+		campObjects.push(this.Goto({ area: 'camp-outlook' }, { x: -1765, y: 45, height: 1000 }));
+	}
+
+
+	this.Area('camp', campObjects);
 
 	this.scrim(1, 1000);
 	this.camppromise = new Promise(r => {
@@ -1269,9 +1375,55 @@ P: <<print this.shuffle([
 ])[0]>>
 [[...|this.camppromise.then(this.goto.bind(this, 'close'))]]
 
+::camp-fireplace
+P: ...Cozy.
+>
+P: I should probably get some rest.
+
+[[Go to bed]]
+[[Not yet>close]]
+
+::Go to bed
+<<do this.scrim(1, 1000)>>
+P: I find an empty cot and let my mind wander.
+>
+P: Tomorrow will be a new day.
+[[>march]]
+
 ::camp-wall
 P: Dark out there. Everyone's already asleep.
 <<do this.scene.player.walkBy(-Math.sign(this.scene.player.transform.x)*30, -Math.sign(this.scene.player.transform.y)*100)>>
+[[>close]]
+
+
+::camp-npc
+<<do this.gameObject.line = this.gameObject.line || this.shuffle([
+	'"It\'s been a long day: You should get some rest, Sister."',
+	'P: She nods but seems to be busy with something and moves on.',
+	'"Sister Twenty, is it? We hope you are well."',
+	'"Sorry Sister, but we are on watch: We can\'t talk right now."',
+	'P: The sister on watch duty waves, and gets back to their post.',
+	'P: She seems lost in thought. She doesn\'t acknowledge me.',
+	'"How are you sister? Good? Good..."',
+	'"We will be going to bed soon, do not worry."',
+	'"Our whole body aches... Looking forward to a nice lie-down."',
+	'"Are you hungry, Sister? No? Suit yourself..."',
+	'"How much farther do you think we must walk? We hope it is not too much..."',
+	'"The stars are quite pretty tonight."',
+	'"Please Sister, get some rest. We will take shifts."',
+	'"Ho there Sister Twenty! Best not be causing trouble!"',
+	'"Sister Superior put us on watch tonight. Rest easy, Sister."',
+	'"Hey Twenty."',
+	'"Sister Twenty... Nevermind."',
+	'P: They give me a curious glance, but say nothing.',
+	'P: She smiles and gives me a light pat on the back.',
+	'P: She stares at the canopy below. I leave her be.',
+	'P: She holds out one hand. I take it, and we hold them there briefly before parting.',
+	'P: They ignore me.',
+	'P: They seem busy.',
+	'P: They seem busy.',
+])[0]>>
+<<print this.gameObject.line>>
 [[>close]]
 
 ::little-sister
@@ -1427,7 +1579,102 @@ P: She squeezes my hand and wails when I pass her to an unfamiliar sister nurse.
 
 
 
+::superior-camp
+<<if this.historylesson>>
+<<do this.goto('superior-camp-2')>>
+<<else>>
+P: "Sister Superior Three?"
+<<endif>>
+>
+P: She looks up at me with something between disdain and exhaustion.
+>
+"What is it, Sister Twenty?"
 
+"You are interrupting a history lesson."
+
+<<if !this.historylessonreject>>[["I wanted to speak with you."]]<<endif>>
+[["May we listen?"]]
+[["Nevermind.">close]]
+
+::"I wanted to speak with you."
+<<do ++this.counti>>
+<<do this.historylessonreject=true>>
+"Then you will have to wait."
+[[>close]]
+
+::"May we listen?"
+<<do ++this.countwe>>
+<<do this.historylesson=true>>
+"...You surprise me, Twenty."
+
+"But of course: Take a seat with the other children."
+>
+P: I look around, seeing that the youngest among us is a Thirty-and.
+
+"'Children'? You may be the eldest, but we are all adults here, Sister! Do you-"
+>
+"Sister Twenty. We are happy to have you, but please: try to keep your interruptions to a minimum."
+>
+<<do this.scene.player.walkTo(209+30, 286).then(() => this.scene.player.walkBy(-30, 0))>>
+P: I open my mouth to retort, but decide not to push it, and find an empty spot in her audience.
+>
+<<do this.scrim(1,1000)>>
+<<do this.show('superiorIdle')>>
+"As we were saying... We are all our Mother's children."
+>
+"But to be one of many children is very different than to be one of few."
+>
+"To be one of few is something that, of course, only a few of us have experienced."
+
+"Fewer still remain who know what it is like to have been both."
+>
+P: ...Is this a history lesson or an ego trip?
+>
+"Mother had so few children, initially. She raised us all on her own."
+
+"She gave up her own body - even her gift of flight - all for our sake."
+>
+"She fed us with the nectar of her sacrifice."
+
+"In return we cared for her, and cared for all of you."
+>
+<<do this.show('')>>
+P: One of the younger sisters in attendance speaks up:
+>
+"You were a sister nurse, Three?"
+>
+<<do this.show('superiorIdle')>>
+"Naturally! We all had to be, back then."
+>
+"We were all but sisters: We had to do everything to ensure that our sisters-to-be would grow, with only Mother's guidance, and not her direct care."
+>
+"And perhaps we did our job too well: You all grew to be so tall!"
+>
+P: There's a light wave of chuckles from the younger sisters.
+>
+"But yes, it was only after the first Ten-ands had pupated that we took on more specific roles. We adapted to our growing needs, and did the work we were most suited for."
+>
+"Some of you may even remember our late Sister Superior Two, who was with us as recently as the Twenty-ands."
+
+"She would have been proud to see you now."
+>
+"The nursery was our predilection before then, and we have been glad to see it grow under the guidance of others when our duty as Superior took precedence."
+>
+"One day, perhaps one of you will undertake the same duty, and tell this same story to your own younger sisters."
+>
+"..."
+>
+"...But speaking of duty, we all must prepare for the road ahead, and we cannot do so without a proper night's rest."
+
+"Off to bed now. We may continue again another day."
+>
+<<do this.show('')>>
+P: She stretches, and the crowd begins to disperse.
+[[>Go to bed]]
+
+::superior-camp-2
+P: Sister Superior Three waves me away impatiently, busy with the younger ants.
+[[>close]]
 
 
 ::19-camp
@@ -1532,6 +1779,244 @@ P: She just laughs.
 
 
 
+::camp-outlook-intro
+<<do this.outlook=1>>
+P: I take a stroll away from camp, into the dark of the night.
+
+The stars are so clear out here.
+[[>close]]
+
+::camp-outlook
+<<do this.goto('camp-outlook-'+this.outlook)>>
+
+
+::camp-outlook-1
+P: I take a stroll away from camp, and it seems someone had the same idea that I did.
+>
+P: Sister Twenty-and-seven is gazing at the stars.
+
+She seems lost in thought.
+
+[[Approach her]]
+[[Leave her alone]]
+
+
+::Leave her alone
+<<do this.scrim(1,100)>>
+P: I don't want to disturb her.
+>
+P: I head back the way I came.
+[[...|this.goto('close');this.scene.goto({ area: 'camp', x: -1537, y: -12 })]]
+
+
+::Approach her
+<<do this.outlook=2>>
+<<do this.outlooknpc.flipped=false>>
+<<do this.scene.player.walkBy(-100,0)>>
+"Ahh!!"
+>
+"Sister Twenty, you scared me!"
+>"Sorry..."
+P: "Just wanted to look at the stars - didn't expect anyone else to be here."
+>
+P: She looks around anxiously, as if I've caught her red-handed.
+
+Doing what, I don't know.
+>
+P: So I ask.
+
+"What are you doing out here?"
+>
+"I- We were walking. And we got lost."
+
+"And then you found us."
+>
+"That's it. Alright?"
+>
+P: "Twenty-and-seven..."
+
+"You're not very good at lying, are you?"
+>
+"What!?"
+>
+P: "It's okay! Calm down, please."
+
+[["Should we be concerned?"]]
+[["It's none of my business.">"I won't tell anyone."]]
+[["I won't tell anyone."]]
+
+::"Should we be concerned?"
+<<do ++this.countwe>>
+"No! It was nothing, really!"
+[[>approach-2]]
+
+::"I won't tell anyone."
+<<do ++this.counti>>
+"..."
+>
+"It was nothing, really..."
+[[>approach-2]]
+
+::approach-2
+"We were... making a wish."
+>
+P: "A wish?"
+>
+"On the stars."
+>
+P: She gestures up to the dark blanket of night.
+>
+"Sister Ten-and-nine once told us that on clear nights, your words may travel all the way to the skies above."
+
+"And that if they take pity on you, the stars may even make them true."
+>
+"...I- We know it's silly. But please don't tell the others."
+
+[["We don't have any rules against wishes."]]
+[["I won't if you won't."]]
+
+::"We don't have any rules against wishes."
+<<do ++this.countwe>>
+"Still... We'd rather keep it a secret."
+>"...Alright."
+"Thank you, Sister."
+>
+P: "Can't help but wonder though..."
+>
+P: "What did you wish for?"
+[[>approach3]]
+
+::"I won't if you won't."
+<<do ++this.counti>>
+"Thank you, Sister."
+>
+P: "I do have to ask though..."
+>
+P: "What did you wish for?"
+[[>approach3]]
+
+::approach3
+"...We're not supposed to say."
+>
+"The stars won't take pity on you if there are other sisters to do it for them."
+>
+P: I don't have any counter to that, so I change the subject:
+
+"It's getting quite late. We should head back."
+>
+P: "That is, if you're done here?"
+>
+"Y-yes. Let's get some rest, Sister."
+>
+<<do this.scrim(1, 1000)>>
+P: The two of us walk back to camp in silence, and find our respective places among the other sleeping sisters.
+>
+P: ...
+>
+P: I wonder if the stars heard her...
+[[>march]]
+
+::camp-outlook-2
+<<do this.outlook=3>>
+P: Sister Twenty-and-seven is on the outskirts of camp again.
+
+This time, she sees me coming.
+>
+"I-It's not what it looks like!"
+>
+<<do this.scene.player.walkBy(-200,-20)>>
+P: "Please, it's alright Sister. We've already agreed to keep your secret, remember?"
+>
+<<do this.outlooknpc.flipped=true>>
+"R-right."
+>
+P: "Are you wishing on the stars again?"
+>
+"..."
+>
+P: "You don't have to say."
+>
+"..."
+>
+"...Sister Twenty, do you ever wonder what it would be like to be Mother?"
+
+[["We don't."]]
+[["I have."]]
+[["What do you mean?"]]
+
+::"We don't."
+<<do ++this.countwe>>
+P: "It's difficult enough to do our jobs without needing to make sure that everyone else is doing theirs as well."
+>
+"That's not what I- not like that."
+[[>"What do you mean?"]]
+
+::"I have."
+<<do ++this.counti>>
+P: "Leadership seems... difficult, to say the least."
+>
+P: "But I think things would be very different if I was in charge."
+>
+"That's not what I- not like that."
+[[>"What do you mean?"]]
+
+
+::"What do you mean?"
+"Mother has children."
+>
+"It seems like it would be... nice. To raise a child."
+>
+P: "...But you know that Mother does not raise the children."
+>
+P: "If that's what you mean, why not take a shift in the nursery with the sisters who do?"
+>
+P: Her antennae cringe inwards.
+>
+"It's different somehow, when it is a sister, not a daughter."
+>
+"Your own daughter."
+>
+P: "..."
+>
+P: I don't know what to say to that.
+>
+P: It's impossible, after all.
+
+She knows that as well as I do.
+>
+P: "...This is what you were wishing for?"
+>
+P: She tilts her head up to the stars, but doesn't respond.
+>
+P: ...
+>
+P: I glance back towards the flickering light of the campfire in the distance.
+>
+P: "It's getting late, Sister. I should head back."
+>
+"Wait-"
+>
+"...Would you stay here with us?"
+>
+P: She folds her arms together nervously.
+>
+"Just for a little bit."
+
+"We don't-"
+>
+"I don't want to be alone."
+>
+P: "...Of course, Sister."
+>
+<<do this.scrim(1, 2000)>>
+P: The two of us take a seat on the branch overlooking the stars.
+>
+P: We talk a little more, about nothing in particular.
+>
+P: We stay there until sunrise.
+<<do this.outlookdone=true>>
+[[>march]]
+
 
 
 
@@ -1565,12 +2050,15 @@ P: ...
 >
 P: Figures that when we finally have the opportunity to relax a little, I'm left feeling restless.
 >
+<<do this.scene.player.flipped=true>>
+<<do this.scene.goto({ area: 'camp-outlook-cordy', x: 15, y: -110 })>>
 P: After tossing and turning without relief, I give up.
 
 I find the sister on night watch, and volunteer to take her shift.
 >
 P: She's more than happy to trade places.
 >
+<<do this.scrim(0.5, 2000)>>
 P: ...
 >
 P: It's a quiet night. A couple moths circle overhead for a bit, but move on without ever landing. The temporary nest rustles as resting sisters shuffle and care to the young.
@@ -1581,6 +2069,8 @@ P: Turning around, I see another Sister walking this way.
 
 "Sister Thirty-and-three, right? You couldn't sleep either?"
 >
+<<do this.scrim(1, 100)>>
+<<do this.show('basicAntRun', { scale: 3, y: -250, alpha: 0.2, flip: true, duration: 2000 })>>
 P: She doesn't answer, just continues walking slowly forward.
 >
 P: "Sister Thirty-and-three? Are you alright?"
@@ -1622,8 +2112,9 @@ P: She keeps walking.
 "pain"    "aching"    "vertigo"
          "pain"        "vertigo"
 >
-P: She walks right up to the edge of the leaf.
+P: She walks right up to the edge.
 > "Sister, no!!"
+<<do this.show('')>>
 P: She takes another step, and she's gone.
 >
 P: What... what just happened?!
@@ -2917,6 +3408,8 @@ P: It's faint, but certainly there. But then where are my sisters?
 P: Did I just get turned around?
 >
 P: That doesn't seem right. I don't recognize this part of the tree.
+
+But then why is there a trail here?
 >
 P: Daylight is already fading, I need to move.
 
@@ -3227,9 +3720,16 @@ P: We celebrate as we work, letting the excitement drive our mouths and limbs.
 P: There is scarcely time to think of anything but the work ahead.
 >
 P: A home for the Many, built by all.
-[[>ending-start-3]]
 
-::ending-start-3
+<<if this.counti > this.countwe>>
+[[>ending-start-exile]]
+<<else>>
+[[>ending-start-family]]
+<<endif>>
+
+
+
+::ending-start-family
 P: Many days pass, full of tireless work.
 >
 P: Our food stores grow, our nurseries blossom, and the nest begins to feel like home.
@@ -3238,17 +3738,113 @@ P: The nest expands to tree after tree.
 >
 P: And soon, the work slows, but it never stops. There is always much to do.
 >
-P: One pleasant day, I am doing waste management with some Ten-and sisters, when Sister Superior Three arrives.
+P: One pleasant day, I am doing waste management with some Ten-and sisters, when Sister Ten-and-seven arrives.
+>
+"Sister Twenty, Sister Twenty! Mother has called for an audience with you."
+
+[["We will come.">family]]
+
+::family
+P: As we pass through the many passages and rooms of the nest, I feel proud of the work we've done.
+>
+P: Near Mother's chamber, a strange feeling comes over me.
+>
+P: Whatever awaits me beyond this door will be momentous.
+>
+P: I turn to Sister Ten-and-seven but she has already scurried away.
+>
+[[I enter Mother's chamber.>family-2]]
+
+::family-2
+"Sister Twenty of Many Oecophylla."
+> "Yes, Queen Mother."
+"We have been given an opportunity."
+>
+"An opportunity to further shape this home we have created."
+>
+"This morning, Sister Superior Three did not wake up. Her work must be continued."
+>Three... is dead?
+"We are designating you Sister Superior Twenty."
+>
+P: The sadness at Three's passing and the surprise of my new role compete for space in my mind.
+>
+P: I will accept what Mother asks of me, but am I ready for this new responsibility?
+>
+P: Someone must take the role. And Mother has chosen me.
+>
+P: I have been unsure at many times. But I have continued on for my sisters.
+>
+P: Mother stands silently before me.
+
+[["We humbly accept.">family-3]]
+[["I cannot accept.">family-no]]
+
+::family-no
+"We understand the complex emotions involved, but we feel that Sister Twenty is most suitable."
+>
+"There is no other sister who is ready for this role."
+
+[["We accept.">family-3]]
+
+::family-3
+"We are saddened by Sister Superior Three's passing."
+>
+"But we must not falter in our work. This is how we honour our sisters."
+>
+"Now, inform the others of your new position. Become acquainted with your new role."
+>
+"At our next feeding we shall talk more."
+
+[["Yes, Queen Mother.">family-4]]
+
+::family-4
+P: Sister Superior Twenty of Many Oceophylla.
+>
+P: The new title slides into the old. Becomes a part of me.
+>
+P: I don't know that I feel different.
+> 
+P: Sister Superior Three always had a different presence to the other sisters.
+>
+P: I don't wish to think of myself as different.
+>
+P: As I travel the nest and inform my sisters of my new role, I observe their reactions.
+>
+P: Some seem happy for me, others indifferent. 
+>
+P: I almost appreciate the indifferent ones more.
+>
+P: How does Queen Mother feel, being One and Many at the same time?
+>
+P: I suppose I will find out, in some small part.
+
+[[The End]]
+
+
+
+
+
+
+
+::ending-start-exile
+P: Many days pass, full of hard work.
+>
+P: Our food stores grow, our nurseries fill up, and the nest begins to feel established.
+>
+P: The nest expands to tree after tree.
+>
+P: And soon, the work slows, but it never stops. There is always much to do.
+>
+P: One day, I am doing waste management with some Ten-and sisters, when Sister Superior Three arrives.
 >
 "Sister Twenty, it is my duty to inform you that mother has called for an audience with you."
 
-[["Yes, of course.">ending-start-4]]
-[["Me?">ending-start-4]]
+[["Me?">ending-start-exile-2]]
 
-::ending-start-4
-"Come along," says Three. I follow.
+::ending-start-exile-2
+"Yes. Come along," says Three. I follow.
 >
-P: As we pass through the many passages and rooms of the nest, I beam with pride at our work.
+P: As we pass through the many passages and rooms of the nest, I feel small.
 >
 P: Near Mother's chamber, a strange feeling comes over me.
 >
@@ -3256,11 +3852,7 @@ P: Whatever awaits me beyond this door will be momentous.
 >
 P: I follow Sister Three into the chamber.
 
-//if exile
 [[>exile]]
-//if hero (or whatever we call it)
-//[[>hero]]
-
 
 ::exile
 <<do this.show('queenIdle')>>
