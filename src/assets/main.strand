@@ -38,34 +38,6 @@
 <<if !this.started>>
 <<do
 	// setup areas
-	const Hole = (options) => {
-		const flip1 = Math.floor(options.x / 100) % 2 === 0;
-		const flip2 = Math.floor(options.x / 100) % 2 === 0;
-		return [
-			this.Prop({
-				texture: 'hole',
-				x: options.x + 5 * (flip1 ? -1 : 1),
-				y: options.y + 20,
-				offset: -300,
-				flip: flip1,
-			}),
-			this.Block({
-				x: options.x,
-				y: options.y - 60,
-				width: 40,
-			}),
-			this.Goto(
-				{ area: options.to, x: 0, y: 0 },
-				{
-					x: options.x,
-					y: options.y - 30,
-					width: 40,
-					height: 50,
-				}
-			),
-		];
-	}
-
 	const TestSpecialNpc = (options) => {
 		const npc = this.Npc({
 			...options,
@@ -334,8 +306,6 @@
 		this.Interrupt({ x: -450, y: 100, type: 'circle',  passage: 'test-npc' }),
 		// helper fn
 		TestSpecialNpc({ x: -367, y: 411, passage: 'test-npc' }),
-		// spread compound
-		...Hole({ x: -200, y: 200, to: 'test-sub' }),
 		// spread procedural
 		...new Array(50).fill(0).map(() => this.Npc({ passage: 'test-npc', x: (Math.random()-0.5)*300, y: (Math.random()-0.5)*300+400 })),
 	]);
