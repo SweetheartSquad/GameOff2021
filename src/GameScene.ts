@@ -74,7 +74,6 @@ export class GameScene {
 						player.followers.forEach((i) => {
 							i.roam.active = true;
 						});
-						this.strand.voice = 'Default';
 						return Promise.resolve();
 					}
 					player.canMove = false;
@@ -82,7 +81,10 @@ export class GameScene {
 						i.roam.active = false;
 					});
 					const program = this.strand.execute(passage.program);
-					this.dialogue.voice = this.strand.voice;
+					if (this.strand.voice) {
+						this.dialogue.voice = this.strand.voice;
+						delete this.strand.voice;
+					}
 					const text: string[] = [];
 					const actions: (typeof program[number] & {
 						name: 'action';

@@ -361,7 +361,6 @@
 
 	// start
 	this.started=true;
-	this.voice='None';
 
 	setTimeout(() => {
 		this.scrim(1, 0);
@@ -391,7 +390,6 @@ this should never render
 ::The End
 <<do
 	this.howler = this.musicSynced('');
-	this.voice='None';
 	this.tween(this.scene.border.display.container, 'alpha', 0, 5000);
 >>
 P: We Follow The Fickle Path
@@ -482,7 +480,6 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 ::Begin (skip intro)
 <<do
 	this.howler = this.musicSynced('bgm_normal');
-	this.voice='Default';;
 	this.scene.goto({ area: 'march' });
 	this.counti = 0;
 	this.countwe = 0;
@@ -493,7 +490,6 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 ::Begin
 <<do
 	this.howler = this.musicSynced('bgm_normal');
-	this.voice='Default';
 	this.scene.goto({ area: 'march' });
 	this.counti = 0;
 	this.countwe = 0;
