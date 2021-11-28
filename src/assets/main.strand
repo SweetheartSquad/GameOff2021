@@ -299,6 +299,26 @@
 		this.Block({ type: 'circle', x: 304, y: -107, radius: 10 }),
 	]);
 
+	this.Area('town-family', [
+		this.Prop({ texture: 'bg_town', y: 334, offset: -10000 }),
+		this.Poly({ verts: [-439,-187, -639,-135, -705,-15, -614,205, -449,291, -170,324, 50,319, 395,302, 595,205, 673,76, 702,-88, 688,-185, 551,-223] }),
+		this.Poly({ verts: [448,-252, 382,-275, 174,-275] }),
+		this.Poly({ verts: [33,-278, -118,-288, -188,-298, -337,-239] }),
+		this.Interrupt({ passage: 'family-5', type: 'circle', x: -394, y: -211 }),
+		this.Interrupt({ passage: 'family-5', type: 'circle', x: 104, y: -294, focus: { x: 0, y: -400 } }),
+		this.Interrupt({ passage: 'family-5', type: 'circle', x: 501, y: -253 }),
+		this.Interrupt({ passage: 'family-5-wall', x: -30, y: 278, width: 1000 }),
+		this.Prop({ texture: 'innTable1', x: -399, y: -57 }),
+		this.Prop({ texture: 'shadows', x: -399, y: -57+15, offset: -20, scale: 2, alpha: 0.5 }),
+		this.Block({ type: 'circle', x: -399, y: -57, radius: 10 }),
+		this.Prop({ texture: 'innTable2', x: 304, y: -107 }),
+		this.Prop({ texture: 'shadows', x: 304, y: -107+15, offset: -20, scale: 2, alpha: 0.5 }),
+		this.Block({ type: 'circle', x: 304, y: -107, radius: 10 }),
+		this.Npc({ passage: 'family-role-1', x: -405, y: -57 }),
+		this.Npc({ passage: 'family-role-2', x: 290, y: 50, roam: 100 }),
+		this.Npc({ passage: 'family-role-3', x: 410, y: 150, roam: 100 }),
+	]);
+
 	const frogEnd = this.Interrupt({ passage: 'frog-end', x: 1982, y: -915, width: 1000 });
 	frogEnd.body.rotate(Math.PI/4);
 	this.frogBridgeFg = this.Prop({ texture: 'fg_frog', x: 1249, y: -55, offset: -60 });
@@ -3763,6 +3783,7 @@ P: Then many more.
 
 
 ::ending-start-family
+<<do this.scrim(1, 1000)>>
 P: Our food stores grow, our nurseries blossom, and the nest begins to feel like home.
 >
 P: The nest expands to tree after tree.
@@ -3839,17 +3860,76 @@ P: I don't know that I feel different.
 > 
 P: Sister Superior Three always had a different presence to the other sisters.
 >
-P: I don't wish to think of myself as different.
+P: Sometimes I suspected that she enjoyed her elevated status a little too much.
 >
-P: As I travel the nest and inform my sisters of my new role, I observe their reactions.
+P: I don't wish to think of myself as different than my sisters.
+>
+P: Oh well. However I feel about it, it is done.
+>
+<<do this.scene.goto({ area: 'town-family', x: -369, y: -156 })>>
+P: Time to go and tell my sisters.
+[[>close]]
+
+
+::family-role-1
+P: I tell my sister the news.
+>
+"Sister Superior Twenty, thank you for telling us."
+>
+"Be well."
+[[>close]]
+
+::family-role-2
+P: I tell my sister the news.
+>
+"Sister Superior Twenty! What an honour."
+>
+"We hope you will guide us well."
+[[>close]]
+
+::family-role-3
+P: I tell my sister the news.
+>
+"Sister Twenty-- I mean, Sister Superior Twenty."
+>
+"We're proud of you for taking this role."
+>
+"Let us talk again soon."
+[[>close]]
+
+
+::family-5-wall
+P: I should tell my sisters about my new role.
+[[...|this.scene.player.walkBy(0,50);this.goto('close')]]
+
+
+::family-5
+P: The news is heavy, but if my sisters are sad, I do not see it in their eyes.
+>
+<<do this.scrim(1, 1000)>>
+P: I continue on through the nest.
+>
+P: As I inform my sisters of my new role, I observe their reactions.
 >
 P: Some seem happy for me, others indifferent. 
 >
-P: I almost appreciate the indifferent ones more.
+P: I appreciate the indifferent ones more.
 >
-P: How does Queen Mother feel, being One and Many at the same time?
+P: How does Mother feel, being One and Many at the same time?
 >
-P: I suppose I will find out, in some small part.
+P: Whether she requests it, we all treat her differently.
+>
+P: How could we not?
+>
+P: I am not the same as Mother, but I am closer to her now than ever.
+>
+P: Will my sisters treat me differently?
+>
+P: Will I be different?
+>
+P: ...
+>
+P: I suppose we'll just have to see.
 
 [[The End]]
 
@@ -4132,7 +4212,7 @@ P: ...Hm? My name?
 
 [[I'm still trying to come up with a new one.]]
 [[I decided I didn't need it.]]
-[[They never really took anything.]]
+[[They never really took it from me.]]
 
 ::I'm still trying to come up with a new one.
 P: Had a few since those days, but nothing that quite stuck.
@@ -4167,7 +4247,7 @@ I don't doubt my decision.
 <<print new Array(40).fill('\u200B').join('')>>
 [[The End]]
 
-::They never really took anything.
+::They never really took it from me.
 P: Sister Twenty of Many Oecophylla, at your service. Twenny if you're in a hurry.
 >
 P: What are they going to do, hunt me down? Arrest me for disobedience and kick me out again?
