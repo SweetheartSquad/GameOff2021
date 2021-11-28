@@ -14,6 +14,7 @@ audio/voicePillbug.mp3
 audio/voiceAnt.mp3
 audio/voiceDefault.mp3
 audio/voiceFrog.mp3
+audio/voiceQueen.mp3
 
 textures/basicAntIdle/basicAntIdle.x5.png
 textures/basicAntRun/basicAntRun.x10.png

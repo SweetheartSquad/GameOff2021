@@ -653,6 +653,7 @@ The rain itself quiets as if it senses our anticipation.
 P: Queen Mother One and Many Oecophylla is going to speak.
 >
 <<do this.show('queenIdle')>>
+voiceQueen
 "..."
 >
 "Daughters. Sisters."
@@ -690,6 +691,7 @@ P: Queen Mother One and Many Oecophylla is going to speak.
 >Our family...
 P: The sister to my left reaches out, clasps hands in mine.
 >In ours.
+voiceQueen
 "A sister is One, and one may be lost."
 
 "A sister of Many, will always have sisters."
@@ -1039,10 +1041,12 @@ P: "..."
 >
 P: "...Sorry. This is the first time-"
 >
+voiceQueen
 "We are aware. We do not forget our own daughters, our own sisters."
 >
 P: Her voice is calm, and firm. The same as it always is.
 >
+voiceQueen
 "Despite Daughter Three's insistence on formalities, there is no need for special treatment. We all must eat, so we all share food."
 >
 P: I nod, and regurgitate some of the contents of my stomach.
@@ -1057,6 +1061,7 @@ P: Why would she be? She will still be seated here whether she finishes now or l
 >
 P: I stand in anxious silence as she eats.
 >
+voiceQueen
 "..."
 >
 "Daughter Twenty."
@@ -1106,6 +1111,7 @@ P: She continues to eat, and I consider what to say.
 
 But before I've said anything, she speaks.
 >
+voiceQueen
 "Please, Daughter."
 >
 "The path has been long and hard on us all."
@@ -1157,6 +1163,7 @@ P: "Sister Superior spoke as if she knew..."
 >
 P: "She called her a devil."
 >
+voiceQueen
 "You doubt her?"
 
 [["Yes.">devil]]
@@ -1167,6 +1174,7 @@ P: "She is convinced this is the second case."
 
 <<if !this.cordy1question>>"We spoke of the first, yet we did nothing then. Why?"<<else>>"If they were related, why was nothing done after the first?"<<endif>>
 >
+voiceQueen
 "You would have us take a more direct approach?"
 
 "Should we burn any who have associated with devilry, as Daughter Three has suggested?"
@@ -1209,6 +1217,7 @@ P: "She is convinced this is the second case."
 <<do this.cordy1question=false>>
 P: "It... it doesn't make any sense. Why would she do that?"
 >
+voiceQueen
 "Daughter, must we speak of such sorrowful things while we eat?"
 >
 "...But sorrow will not be lifted by silence. We will answer."
@@ -1224,16 +1233,19 @@ P: "It... it doesn't make any sense. Why would she do that?"
 
 ::"What was Father like?"
 <<do this.fatherquestion=false>>
+voiceQueen
 "Your father?"
 >
 P: She stops eating, suddenly focused and severe.
 >
+voiceQueen
 "Trust us when we say that is best you did not know him."
 
 "Not that you even could..."
 >
 P: "...Oh."
 >
+voiceQueen
 "Do not misunderstand: We are glad for the time we had with him. We carry the memory of him with us always."
 
 "But..."
@@ -1254,6 +1266,7 @@ P: It's something that I've wondered about for awhile: Mother calls herself 'One
 
 Everyone has a mother, right?
 >
+voiceQueen
 "...We do not speak of her."
 >
 "Do you understand?"
@@ -1286,30 +1299,35 @@ P: "That monster, that terrible beast..."
 
 "Why let such cruelty go unpunished?"
 >
+voiceQueen
 "'Cruelty'? Do you believe what he did was cruel?"
 >
 P: "Of course! He murdered our sister!"
 
 "What could be more cruel?!"
 >
+voiceQueen
 "Sister Twenty, what did you prepare for dinner tonight?"
 >"What?"
 P: The non-sequitur throws me off.
 
 "It-uh, um? It's leftovers? From the beetle we caught two days ago. But what does-"
 >
+voiceQueen
 "Was it cruel, when we tore that beetle's legs from its body?"
 
 "Or when we sprayed its innards with acid?"
 >
 P: "...That's different."
 >
+voiceQueen
 "The beetle would likely disagree."
 >
 P: I can feel my antennae droop even as I try to hide my expression.
 
 Mother takes another lick of the partially digested slurry of protein.
 >
+voiceQueen
 "The frog let us pass."
 >
 "We mourn the sister who paid dearly for that passage, and we detest the beast for having chosen such a price."
@@ -1319,6 +1337,7 @@ Mother takes another lick of the partially digested slurry of protein.
 
 ::"Who was the sister that ran away?"
 <<do this.deserterquestion=false>>
+voiceQueen
 "Who was she?"
 >
 "A coward."
@@ -1332,6 +1351,7 @@ Mother takes another lick of the partially digested slurry of protein.
 
 ::"What happened to the roly polies?"
 <<do this.innquestion=false>>
+voiceQueen
 "The keepers of the inn?"
 >
 "They were dealt with."
@@ -1366,6 +1386,7 @@ Mother takes another lick of the partially digested slurry of protein.
 ::"Why didn't we stay longer at the inn?"
 <<do this.innquestion=false>>
 <<do ++this.countwe>>
+voiceQueen
 "Daughter, the inn was a fortunate detour, but it is not part of our path."
 >
 "We must keep moving, and build the home that is meant for us."
@@ -3964,6 +3985,7 @@ P: I turn to thank the courier, but she has already scurried away.
 >
 >I enter Mother's chamber.
 <<do this.show('queenIdle')>>
+voiceQueen
 "..."
 >
 P: No one is present but Mother herself.
@@ -3972,6 +3994,7 @@ P: "Sister Twenty of Many Oecophylla."
 
 "Reporting for duty to Queen Mother One and Many Oecophylla."
 >
+voiceQueen
 "Sister Twenty of Many Oecophylla..."
 > "Yes, Queen Mother?"
 "We have been given an opportunity."
@@ -3982,6 +4005,7 @@ P: "Sister Twenty of Many Oecophylla."
 >Three... is dead?
 P: Thoughts race at the news, but Mother continues:
 >
+voiceQueen
 "Her work, our work, must be continued."
 >
 "We have made a decision."
@@ -3999,6 +4023,7 @@ P: Mother rests silently before me.
 [["This must be a mistake."]]
 
 ::"This must be a mistake."
+voiceQueen
 "We feel your doubt."
 >
 "But we must not let it cloud the truth."
@@ -4011,6 +4036,7 @@ P: Mother rests silently before me.
 [["But there are elder sisters still with us."]]
 
 ::"We must consider this offer."
+voiceQueen
 "It is not an offer, Daughter Twenty."
 
 "The name is already yours."
@@ -4023,6 +4049,7 @@ As if it were as self-evident as the colour of the sky.
 [["But there are elder sisters still with us."]]
 
 ::"But there are elder sisters still with us."
+voiceQueen
 "But they do not understand the weight of this responsibility."
 >
 "And whether you know it or not, we know that you do."
@@ -4031,6 +4058,7 @@ As if it were as self-evident as the colour of the sky.
 [["...">"We understand."]]
 
 ::"We understand."
+voiceQueen
 "We are saddened by Daughter Three's passing."
 
 "But Sister Superior is not gone."
@@ -4039,6 +4067,7 @@ As if it were as self-evident as the colour of the sky.
 >
 P: There's a finality to her words that echoes in the chamber.
 >
+voiceQueen
 "Now, inform the others. Become acquainted with your new role."
 >
 "We shall speak more after feeding."
@@ -4232,10 +4261,11 @@ P: Whatever awaits me beyond this door will be momentous.
 P: She opens the door, and leads me inside.
 >
 "Queen Mother, please allow us to introduce-"
-
-"No."
 >
 <<do this.show('queenIdle')>>
+voiceQueen
+"No."
+>
 P: Mother cuts her off. Sister Superior Three doesn't seem to know how to react.
 >
 "...Queen Mother?"
@@ -4244,10 +4274,12 @@ P: It's strange seeing Three squirm under pressure. I didn't think she knew how.
 >
 P: Mother addresses me directly.
 >
+voiceQueen
 "Introduce yourself."
 >Answer
 P: "Sister Twenty of Many Oecophylla."
 >
+voiceQueen
 "No."
 >
 P: And now it's my turn to squirm. I've had plenty of experience, but it doesn't make it easier.
@@ -4256,6 +4288,7 @@ P: "...No?"
 >
 P: Her mandibles click impatiently.
 >
+voiceQueen
 "You have spoken a name. Is it yours?"
 >
 "A name carries with it a weight, child."
@@ -4275,6 +4308,7 @@ P: Her mandibles click impatiently.
 ::exile-2
 P: I want to answer, but cannot. Mother is mad at me, and she continues.
 >
+voiceQueen
 "Tell us: What is your name?"
 >My name...
 P: It's a simple answer, but the pressure is unbearable.
@@ -4286,6 +4320,7 @@ I want to crumple to the ground, but Mother is asking me a question.
 [["Oecophylla"]]
 
 ::exile-names
+voiceQueen
 "Tell us your name!"
 
 <<if !this.exilename1>>[["Sister Twenty"]]<<endif>>
@@ -4295,10 +4330,12 @@ I want to crumple to the ground, but Mother is asking me a question.
 
 ::"Sister Twenty"
 <<do this.exilename1=true>>
+voiceQueen
 "Hah! We asked your name, child, not your position."
 >
 P: Mother is... laughing at me.
 >
+voiceQueen
 "Surely by now you understand that the latter is flexible, to say the least."
 >
 "And we will not be saying the least."
@@ -4307,6 +4344,7 @@ P: Mother is... laughing at me.
 
 ::"of Many"
 <<do this.exilename2=true>>
+voiceQueen
 "Oh? Is that so?"
 >
 "Who is this Many you speak of?"
@@ -4323,12 +4361,14 @@ P: Mother is... laughing at me.
 
 ::"Oecophylla"
 <<do this.exilename3=true>>
+voiceQueen
 "..."
 >
 "You DARE!"
 >
 P: Mother is shouting at me.
 >
+voiceQueen
 "Oecophylla!"
 >
 "It is our name! Our sisters' name. Our mother's name."
@@ -4353,22 +4393,26 @@ P: What do I have left?
 ::"Daughter."
 P: She sighs.
 >
+voiceQueen
 "Would that you still were..."
 [[>exile2]]
 
 ::"I have no name."
 P: She sighs.
 >
+voiceQueen
 "We are relieved. You do understand."
 [[>exile2]]
 
 ::"I don't know."
 P: She sighs.
 >
+voiceQueen
 "We do you a favour, child, whether you know it or not."
 [[>exile2]]
 
 ::exile2
+voiceQueen
 "The weight of a name is heavy. It is one we carry together, or not at all."
 >
 "It is our self, and our path. Our purpose, and our spirit."
@@ -4379,6 +4423,7 @@ P: She sighs.
 >
 P: I feel as heavy as ever.
 >
+voiceQueen
 "You have been unburdened: Stand up."
 >
 P: ...And I suppose I did crumple to the floor at some point.
@@ -4389,6 +4434,7 @@ The Queen Mother motions, and she retracts her offer.
 >Stand
 P: I don't need her help anyway. I can stand on my own legs.
 >
+voiceQueen
 "Our daughters will allow you safe passage, of course."
 >
 "A courtesy that will not be extended should you return."
@@ -4430,6 +4476,7 @@ P: She doesn't respond.
 [[>exile4]]
 
 ::"I won't forget this."
+voiceQueen
 "Then take the memory to the grave."
 [[>exile4]]
 
