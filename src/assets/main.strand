@@ -4493,18 +4493,21 @@ P: Instead, I stand there in silence, and they shove me out the door.
 [[>close]]
 
 ::exile-refuse-1
-// TODO: area-specific refusals
+P: The Queen Mother's retinue block the entrance.
+>
 P: I'm not welcome here.
 [[...|this.scene.player.walkBy(0,50);this.goto('close')]]
 
 ::exile-refuse-2
-// TODO: area-specific refusals
+P: My former sisters stare pitifully at me from the constructions above.
+>
 P: I'm not welcome here.
 [[...|this.scene.player.walkBy(0,50);this.goto('close')]]
 
 ::exile-refuse-3
-// TODO: area-specific refusals
-P: I'm not welcome here.
+P: There's nothing for me here.
+>
+P: I'm not welcome.
 [[...|this.scene.player.walkBy(0,50);this.goto('close')]]
 
 
