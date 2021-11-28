@@ -1,8 +1,8 @@
 <?xml version="1.0" standalone="no" ?>
 <!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
-<project xmlns="http://audacity.sourceforge.net/xml/" projname="rawFoleyFile_data" version="1.3.0" audacityversion="2.1.3" sel0="7.9180045351" sel1="7.9180045351" vpos="0" h="11.5054875283" zoom="86.1328125000" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="rawFoleyFile_data" version="1.3.0" audacityversion="2.1.3" sel0="60.3254421769" sel1="60.3254421769" vpos="0" h="105.7320634921" zoom="86.1328125000" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
 	<tags/>
-	<wavetrack name="Audio Track" channel="2" linked="0" mute="0" solo="1" height="405" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
+	<wavetrack name="Audio Track" channel="2" linked="0" mute="0" solo="1" height="405" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
 		<waveclip offset="0.00000000">
 			<sequence maxsamples="262144" sampleformat="262159" numsamples="5111040">
 				<waveblock start="0">
@@ -81,7 +81,7 @@
 		<waveclip offset="23.87011338">
 			<sequence maxsamples="262144" sampleformat="262159" numsamples="47104">
 				<waveblock start="0">
-					<simpleblockfile filename="e00009e9.au" len="47104" min="-0.005539" max="0.005213" rms="0.000663"/>
+					<simpleblockfile filename="e0000bcf.au" len="47104" min="-1.210402" max="1.191295" rms="0.15256"/>
 				</waveblock>
 			</sequence>
 			<envelope numpoints="0"/>
