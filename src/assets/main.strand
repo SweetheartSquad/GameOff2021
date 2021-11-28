@@ -417,7 +417,7 @@ P: We Follow The Fickle Path
 [[Begin]]
 [[Begin (skip intro)]]
 [[Credits]]
-[[CWs]]
+[[Content warnings]]
 <<if this.debug>>[[debug menu]]<<endif>>
 
 ::Credits
@@ -522,10 +522,10 @@ P: I can monologue too.
 
 [[leave>close]]
 
-::CWs
-- bugs
-- death
-- todo: more content warnings
+::Content warnings
+P: This is a story about bugs.
+
+It deals with themes of identity and autonomy, death and disaster, and family and faith.
 
 [[Back|this.back()]]
 
