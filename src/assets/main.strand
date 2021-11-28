@@ -331,9 +331,9 @@
 		this.Poly({ verts: [-439,-187, -639,-135, -705,-15, -614,205, -449,291, -170,324, 50,319, 395,302, 595,205, 673,76, 702,-88, 688,-185, 551,-223] }),
 		this.Poly({ verts: [448,-252, 382,-275, 174,-275] }),
 		this.Poly({ verts: [33,-278, -118,-288, -188,-298, -337,-239] }),
-		this.Interrupt({ passage: 'family-5-wall', type: 'circle', x: -394, y: -211 }),
-		this.Interrupt({ passage: 'family-5', type: 'circle', x: 104, y: -294, focus: { x: 0, y: -400 } }),
-		this.Interrupt({ passage: 'family-5', type: 'circle', x: 501, y: -253 }),
+		this.Interrupt({ passage: 'family-wall', type: 'circle', x: -394, y: -211 }),
+		this.Interrupt({ passage: 'family-exit', type: 'circle', x: 104, y: -294, focus: { x: 0, y: -400 } }),
+		this.Interrupt({ passage: 'family-exit', type: 'circle', x: 501, y: -253 }),
 		this.Prop({ texture: 'innTable1', x: -399, y: -57 }),
 		this.Prop({ texture: 'shadows', x: -399, y: -57+15, offset: -20, scale: 2, alpha: 0.5 }),
 		this.Block({ type: 'circle', x: -399, y: -57, radius: 10 }),
@@ -3842,47 +3842,88 @@ P: ...
 
 ::ending-march
 <<do this.scrim(1, 1000)>>
-P: We stop for the night, as we always do. Sister Superior Three assigns a group of us to build a shelter.
+P: We stop for the night, as we always do.
 >
-P: Together we scrape what bits of fresh leaf we can find into a makeshift shelter.
+P: Temporary shelter is built. Food is distributed.
+
+Sisters are tired.
 >
-P: We find a little more than usual. It makes the building easier, but we still must be careful to make good use of the scraps.
+<<do this.show('fireplace')>>
+P: Sister Superior Three assigns tasks. Watch shifts are debated and decided.
+
+The campfire is lit.
 >
-P: As we work, Sister Superior Three gathers some sisters into a scouting party.
+P: In the morning, we scrape together what remains of our fresh leaves, preparing for the next day's journey.
 >
-P: They will travel ahead, searching for a place to start our nest.
+P: We have more than usual. It makes the march a little tougher to carry the extra weight, but the next night's camp is built much easier as a result.
 >
-P: If they find the fresh leaves we need, then our journey could be coming to an end.
+P: I take a late shift. Sister Superior Three gathers the scouts, and sends them out early.
 >
-P: But each day, the parties return with news of dead, crumbled plants.
+<<do this.show('')>>
+P: They haven't returned by the time I collapse into a cot.
 >
+<<if this.counti > this.countwe>>
 P: My hopes are not high tonight.
+<<else>>
+P: Our hopes are high tonight.
+<<endif>>
 >
-P: When the shelter is finished, the party sets out, and we retire for the night.
->
-...
+P: ...
 >
 "Sisters! Wake up! Wake up!!"
 >
-P: I awake to shouting. Some sisters have already left the shelter. I stumble after them, half-asleep.
+P: I awake to shouting.
 >
-P: As the sun hits my face, so too does a scent. A happy scent, a fresh scent, a scent of something new.
+P: A commotion has taken hold of the whole camp. Sisters run to and fro, yelling and pulling each other from the makeshift shelter.
 >
-P: The scouting party found something.
+P: <<if this.counti>this.countwe>>I<<else>>We<<endif>> stumble out, half-asleep.
+
+The sun hits my face, and so too does an overwhelming scent.
 >
-P: We gather ourselves and begin to follow the chemical trail. We chatter excitedly as we bound along.
+P: It's... fresh. Exciting.
 >
-P: By the time I arrive, a chain of sisters have already begun folding the first leaves. I join a second chain.
+<<do this.show('basicAntRun', { scale: 3, y: -250, alpha: 0.5, flip: true, duration: 2000, freq: 1/100 })>>
+P: Sisters are running off to one direction.
+
+The scouts have found something.
 >
-P: Others grab the larvae and begin to weave their silk between the leaves.
+P: We follow the trail left by our sisters. The scent gets stronger and stronger.
+
+Sisters chatter excitedly along the path.
 >
-P: We celebrate as we work, letting the excitement drive our mouths and limbs. 
+P: By the time we arrive, a chain has already assembled:
+
+Sisters have begun folding the first leaves.
+>
+<<do this.show('')>>
+<<if this.counti > this.countwe>>
+P: I join a second chain, straining to carry my sisters.
+<<else>>
+P: We form a second chain, holding strong with our sisters.
+<<endif>>
+>
+P: The weaving begins. Sister nurses carefully tend to our sisters-to-be, delicately stringing their silk between the leaves.
+>
+P: We tentatively release our grip, and it holds.
+
+The first wall of our new nest.
+>
+P: My sisters celebrate as we work, letting the excitement drive their mouths and limbs.
 >
 P: There is scarcely time to think of anything but the work ahead.
->
+<<if this.counti > this.countwe>>
+[[>ending-start-exile]]
+<<else>>
+[[>ending-start-family]]
+<<endif>>
+
+
+
+
+::ending-start-family
 P: A home for the Many, built by all.
 >
-...
+P: ...
 >
 P: And so we work.
 >
@@ -3893,137 +3934,179 @@ P: One day passes.
 P: Then another.
 >
 P: Then many more.
-
-<<if this.counti > this.countwe>>
-[[>ending-start-exile]]
-<<else>>
-[[>ending-start-family]]
-<<endif>>
-
-
-
-::ending-start-family
-<<do this.scrim(1, 1000)>>
+>
 P: Our food stores grow, our nurseries blossom, and the nest begins to feel like home.
 >
-P: The nest expands to tree after tree.
+P: The work slows, but it never stops. There is always much to do.
 >
-P: And soon, the work slows, but it never stops. There is always much to do.
->
-P: One pleasant day, I am doing waste management with some Ten-and sisters, when Sister Ten-and-seven arrives.
->
-"Sister Twenty, Sister Twenty! Mother has called for an audience with you."
+P: Plans for a second nest are discussed.
 
-[["We will come.">family]]
+I volunteer to help scout the path.
+>
+P: The day I am set to make the first trip, a Forty-and sister pays me a visit.
 
-::family
-P: As we pass through the many passages and rooms of the nest, I feel proud of the work we've done.
+A courier, from Mother's new retinue.
 >
-P: Near Mother's chamber, a strange feeling comes over me.
+"Sister Twenty, Sister Twenty!"
+>"Yes?"
+"Mother has called for an audience with you."
 >
-P: Whatever awaits me beyond this door will be momentous.
+P: I have spoken with Mother as part of the recent nest planning, but personal audiences are rare in our new home.
+>"We will come."
+P: As we pass through the many passages and rooms of the nest, I feel proud of the work I've done to help build it. The work we've all done.
 >
-P: I turn to Sister Ten-and-seven but she has already scurried away.
+P: Near Mother's chamber, a strange feeling hangs in the air.
 >
-[[I enter Mother's chamber.>family-2]]
-
-::family-2
+P: Whatever awaits beyond this door will be momentous.
+>
+P: I turn to thank the courier, but she has already scurried away.
+>
+>I enter Mother's chamber.
 <<do this.show('queenIdle')>>
-"Sister Twenty of Many Oecophylla."
-> "Yes, Queen Mother."
+"..."
+>
+P: No one is present but Mother herself.
+>Introduce ourselves
+P: "Sister Twenty of Many Oecophylla."
+
+"Reporting for duty to Queen Mother One and Many Oecophylla."
+>
+"Sister Twenty of Many Oecophylla..."
+> "Yes, Queen Mother?"
 "We have been given an opportunity."
 >
 "An opportunity to further shape this home we have created."
 >
-"This morning, Sister Superior Three did not wake up. Her work must be continued."
+"This morning, Daughter Three did not wake up."
 >Three... is dead?
-"We are designating you Sister Superior Twenty."
+P: Thoughts race at the news, but Mother continues:
 >
-P: The sadness at Three's passing and the surprise of my new role compete for space in my mind.
+"Her work, our work, must be continued."
 >
-P: I will accept what Mother asks of me, but am I ready for this new responsibility?
+"We have made a decision."
+
+"Our daughters, our sisters, they will call you Sister Superior Twenty."
+>
+P: The shock of Three's passing and of the new role compete for space in my mind.
+>
+P: Why me? Why now?
+>
+P: Mother rests silently before me.
+
+[["We understand."]]
+[["We must consider this offer."]]
+[["This must be a mistake."]]
+
+::"This must be a mistake."
+"We feel your doubt."
+>
+"But we must not let it cloud the truth."
+
+"We have seen you overcome it so many times already."
+>
+"There is no better sister for this role."
+
+[["We understand."]]
+[["But there are elder sisters still with us."]]
+
+::"We must consider this offer."
+"It is not an offer, Daughter Twenty."
+
+"The name is already yours."
+>
+P: She says it plainly.
+
+As if it were as self-evident as the colour of the sky.
+
+[["We understand."]]
+[["But there are elder sisters still with us."]]
+
+::"But there are elder sisters still with us."
+"But they do not understand the weight of this responsibility."
+>
+"And whether you know it or not, we know that you do."
+
+[["We understand."]]
+[["...">"We understand."]]
+
+::"We understand."
+"We are saddened by Daughter Three's passing."
+
+"But Sister Superior is not gone."
+>
+"Remember, a sister of Many, will always have sisters."
+>
+P: There's a finality to her words that echoes in the chamber.
+>
+"Now, inform the others. Become acquainted with your new role."
+>
+"We shall speak more after feeding."
+
+>"Yes, Queen Mother."
+<<do this.show('')>>
+>
+P: I leave her chambers, returning to the nest's common area.
+>
+P: I must accept what Mother asks of me, but am I ready for this new responsibility?
 >
 P: Someone must take the role. And Mother has chosen me.
 >
-P: I have been unsure at many times. But I have continued on for my sisters.
->
-P: Mother stands silently before me.
+P: I have been unsure at many times.
 
-[["We humbly accept.">family-3]]
-[["I cannot accept.">family-no]]
-
-::family-no
-"We understand the complex emotions involved, but we feel that Sister Twenty is most suitable."
+But I have also continued on for my sisters.
 >
-"There is no other sister who is ready for this role."
-
-[["We accept.">family-3]]
-
-::family-3
-"We are saddened by Sister Superior Three's passing."
+P: Is this any different?
 >
-"But we must not falter in our work. This is how we honour our sisters."
->
-"Now, inform the others of your new position. Become acquainted with your new role."
->
-"At our next feeding we shall talk more."
-
-[["Yes, Queen Mother.">family-4]]
-
-::family-4
-<<do this.show('')>>
-P: Sister Superior Twenty of Many Oceophylla.
->
-P: The new title slides into the old. Becomes a part of me.
->
-P: I don't know that I feel different.
->
-P: Sister Superior Three always had a different presence to the other sisters.
->
-P: Sometimes I suspected that she enjoyed her elevated status a little too much.
->
-P: I don't wish to think of myself as different than my sisters.
->
-P: Oh well. However I feel about it, it is done.
+P: I know that I don't feel different, at least.
 >
 <<do this.scene.goto({ area: 'town-family', x: -369, y: -156 })>>
-P: Time to go and tell my sisters.
+P: And however I feel, it is done.
+
+Time to go and tell my sisters.
 [[>close]]
 
 
 ::family-role-1
+<<do this.gameObject.roam.active=false>>
 P: I tell my sister the news.
 >
 "Sister Superior Twenty, thank you for telling us."
 >
+"We're proud of you for taking this role."
+>
+<<do this.gameObject.roam.active=true>>
 "Be well."
 [[>close]]
 
 ::family-role-2
+<<do this.gameObject.roam.active=false>>
 P: I tell my sister the news.
 >
 "Sister Superior Twenty! What an honour."
 >
+<<do this.gameObject.roam.active=true>>
 "We hope you will guide us well."
 [[>close]]
 
 ::family-role-3
+<<do this.gameObject.roam.active=false>>
 P: I tell my sister the news.
 >
-"Sister Twenty-- I mean, Sister Superior Twenty."
+"We are sorry to hear about Three..."
 >
-"We're proud of you for taking this role."
+"Thank you for letting us know, Sister Twe- Sorry, Sister Superior Twenty."
 >
+<<do this.gameObject.roam.active=true>>
 "Let us talk again soon."
 [[>close]]
 
 
-::family-5-wall
+::family-wall
 P: I should tell my sisters about my new role.
 [[...|this.scene.player.walkBy(0,50);this.goto('close')]]
 
 
-::family-5
+::family-exit
 P: The news is heavy, but if my sisters are sad, I do not see it in their eyes.
 >
 <<do this.scrim(1, 1000)>>
@@ -4031,66 +4114,127 @@ P: I continue on through the nest.
 >
 P: As I inform my sisters of my new role, I observe their reactions.
 >
-P: Some seem happy for me, others indifferent. 
+P: Some seem happy for me, others indifferent.
 >
 P: I appreciate the indifferent ones more.
 >
-P: How does Mother feel, being One and Many at the same time?
+P: ...Sister Superior Twenty of Many Oceophylla.
 >
-P: Whether she requests it, we all treat her differently.
->
-P: How could we not?
->
-P: I am not the same as Mother, but I am closer to her now than ever.
->
-P: Will my sisters treat me differently?
->
-P: Will I be different?
+P: The new title slides into the old. Becomes a part of me. A part of us.
 >
 P: ...
 >
-P: I suppose we'll just have to see.
+P: Sister Superior Three always had a different presence to the other sisters.
+>
+P: Sometimes we suspected that she enjoyed her elevated status a little too much.
 
+The closeness to Mother, the responsibility, the privilege.
+>
+P: ...Hm? Are we any different?
+
+[["We don't think so."]]
+[["In a sense."]]
+[["We all are."]]
+
+::"We don't think so."
+P: Even now, we don't wish to think of ourselves as separate from our sisters.
+>
+P: Whether you wish to say 'Superior' or not, we are still your sister, still Twenty.
+>
+P: And there will come a time when we are gone, and another sister will take the name.
+>
+P: Will they be different for having taken it? Perhaps.
+
+But they too, will still be your sister.
+>
+P: We hope that we live up to the name, of course.
+<<print new Array(20).fill('\u200B').join('')>>
+But it is a name we all share, in the end.
+<<print new Array(20).fill('\u200B').join('')>>
+We hope that you will live up to it too, Sister.
+<<print new Array(40).fill('\u200B').join('')>>
+[[The End]]
+
+::"In a sense."
+P: Consider the Queen Mother:
+>
+P: Whether she requests it or not - and she often requests the opposite! - we all treat her differently.
+>
+P: How could we not? We are different!
+[[>"We all are."]]
+
+::"We all are."
+To say otherwise would be to lie to ourselves.
+>
+P: It is better to understand these differences, sisters, in order to better understand how we are the same.
+>
+P: It is natural to doubt it.
+<<print new Array(20).fill('\u200B').join('')>>
+We may be different, but we all have our doubts.
+<<print new Array(20).fill('\u200B').join('')>>
+We hope that you will overcome yours, Sister.
+<<print new Array(40).fill('\u200B').join('')>>
 [[The End]]
 
 
 
 
-
-
-
 ::ending-start-exile
+P: All I can think about is how nice it will be to finally rest.
+>
+P: ...
+>
+P: The work is long.
+>
+P: A day passes.
+>
+P: Then another.
+>
+P: Then many more.
+>
 P: Our food stores grow, our nurseries fill up, and the nest begins to feel established.
 >
-P: The nest expands to tree after tree.
+P: Plans for a second nest - another dangerous trip along the path - are discussed.
 >
-P: And soon, the work slows, but it never stops. There is always much to do.
->
-P: One day, I am doing waste management with some Ten-and sisters, when Sister Superior Three arrives.
->
-"Sister Twenty, it is my duty to inform you that mother has called for an audience with you."
+P: The work slows at times, but it never stops. There is always much to do.
 
-[["Me?">ending-start-exile-2]]
+The other sisters seem happy. Content.
+>
+P: I have been assigned waste management. Again.
+>
+P: Just as my duties are coming to a close, I am interrupted by a Forty-and sister calling my name.
 
-::ending-start-exile-2
-"Yes. Come along," says Three. I follow.
+A courier, from Mother's new retinue.
 >
-P: As we pass through the many passages and rooms of the nest, I feel small.
+"Sister Twenty!"
+>"Yes?"
+P: I brush the rot from my arms, and let her catch her breath.
 >
-P: Near Mother's chamber, a strange feeling comes over me.
+"It is our duty to inform you that Mother has called for an audience."
+>"With me?"
+"Yes. Come along."
+>
+P: We pass through many passages and rooms of the always-constructing nest.
+>
+P: Near Mother's chamber, I can't help but notice how small it makes me feel.
+>
+<<do this.show('superiorIdle')>>
+P: Sister Three waits at the entrance.
+>
+P: She whispers something to the Forty-and courier, and waves her off.
+>
+"Are you ready, Sister Twenty?"
 >
 P: Whatever awaits me beyond this door will be momentous.
+
+>"I'm ready."
+P: She opens the door, and leads me inside.
 >
-P: I follow Sister Three into the chamber.
-
-[[>exile]]
-
-::exile
-<<do this.show('queenIdle')>>
 "Queen Mother, please allow us to introduce-"
 
 "No."
 >
+<<do this.show('queenIdle')>>
 P: Mother cuts her off. Sister Superior Three doesn't seem to know how to react.
 >
 "...Queen Mother?"
