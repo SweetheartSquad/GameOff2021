@@ -143,9 +143,9 @@
 		this.PropParallax({ texture: 'rain', offset: 100000, mult: 1.1, alpha: 0.2, freq: 1/200 }),
 		this.Prop({ texture: 'bg_intro', x: 827, y: 658, offset: -10000 }),
 		this.Poly({ verts: [-189,158, -207,-42, -143,-236, 215,-221, 462,-265, 569,-261, 638,-234, 706,-253, 1202,-225, 1335,-185, 1496,-50, 2103,-87, 2105,414, 1816,386, 1675,253, 1626,316, 1603,378, 1317,368, 1229,281, 968,190, 492,176, 175,221, -189,158] }),
-		this.Npc({ passage: 'intro-panic-1', x: 207, y: -75 }),
-		this.Npc({ passage: 'intro-panic-2', x: 290, y: 50, roam: 50 }),
-		this.Npc({ passage: 'intro-panic-3', x: 410, y: 150, roam: 200 }),
+		this.Npc({ passage: 'intro-panic', x: 207, y: -75 }),
+		this.Npc({ passage: 'intro-panic', x: 290, y: 50, roam: 80 }),
+		this.Npc({ passage: 'intro-panic', x: 410, y: 120, roam: 50 }),
 		this.Interrupt({ passage: 'intro-end', x: 1411, y: 183, height: 500 }),
 		this.Interrupt({ passage: 'intro-wall', x: -164, y: -35, height: 500 }),
 	]);
@@ -563,16 +563,13 @@ P: It starts to rain.
 P: Can't trust what's left to be stable, I need to get back.
 [[>close]]
 
-::intro-panic-1
-"Half the retinue was in front of us... all gone..."
-[[>close]]
-
-::intro-panic-2
-"Mother... where is the Queen Mother!?"
-[[>close]]
-
-::intro-panic-3
-"We need to find shelter. We can't stay out like this."
+::intro-panic
+<<do this.gameObject.line = this.gameObject.line || this.shuffle([
+	'"Half the retinue was in front of us... all gone..."',
+	'"Mother... where is the Queen Mother!?"',
+	'"We need to find shelter. We can\'t stay out like this."',
+])[0]>>
+<<print this.gameObject.line>>
 [[>close]]
 
 ::intro-end
