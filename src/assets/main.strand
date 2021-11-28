@@ -3065,14 +3065,17 @@ P: The last proper headcount was before we set out, and numbered over a hundred.
 [["A few dozen.">"About fifty."]]
 
 ::"Many."
+voicePillbug
 "...Could you be more specific?"
 >
 P: "Unfortunately not."
 >
+voicePillbug
 "Hmm... well."
 [[>nathan3]]
 
 ::"About fifty."
+voicePillbug
 "Ho ho! Why, I can't remember the last time I saw a family so big!"
 [[>nathan3]]
 
