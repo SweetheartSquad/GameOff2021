@@ -828,8 +828,6 @@ P: The canopy rustles overhead.
 [["Is this my fault?"|++this.counti;this.goto('march-end')]]
 [["Where is the path?">march-end]]
 
-// TODO: more march-x
-
 ::march-end
 P: ...
 
@@ -4155,7 +4153,6 @@ I don't doubt my decision.
 [[The End]]
 
 ::They never really took anything.
-// TODO: maybe you get to pick if you like the nickname earlier
 P: Sister Twenty of Many Oecophylla, at your service. Twenny if you're in a hurry.
 >
 P: What are they going to do, hunt me down? Arrest me for disobedience and kick me out again?
