@@ -421,7 +421,7 @@ P: We Follow The Fickle Path
 <<if this.debug>>[[debug menu]]<<endif>>
 
 ::Credits
-Made by Sean, Michael, and IAN of SweetHeart Squad.
+P: Made by Sean, Michael, and IAN of SweetHeart Squad.
 
 [[More games|window.open('https://sweetheartsquad.itch.io', '_blank')]]
 [[Back|this.back()]]
