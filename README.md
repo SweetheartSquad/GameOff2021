@@ -16,7 +16,7 @@ Hot-reload is available for [`./src/assets/main.strand`](./src/assets/main.stran
 
 1. Bump the package version (`npm version patch/minor/major`)
 2. Push changes
-3. Go to [release action](https://github.com/SweetheartSquad/GameOff2021/actions/workflows/release.ymlhttps://github.com/SweetheartSquad/GameOff2021/actions/workflows/release.yml)
+3. Go to [release action](https://github.com/SweetheartSquad/GameOff2021/actions/workflows/release.yml)
 4. Select "Run workflow", and confirm on `main` branch
 
 The workflow will automatically create a build and upload it to itch.io.
