@@ -43,6 +43,10 @@
 			return this.howler;
 		}
 		const oldHowl = Howler._howls.find(i => i._endTimers[this.howler]);
+		if (!oldHowl) {
+			this.howler = this.music(m);
+			return this.howler;
+		}
 		const time = oldHowl.seek(undefined, this.howler);
 		oldHowl.fade(0.5, oldHowl.volume(undefined, this.howler), 1000, this.howler);
 		this.howler = this.music(m);
@@ -357,12 +361,11 @@
 
 	// start
 	this.started=true;
-	this.voice='None';
-
-	setTimeout(() => {
-		this.scrim(1, 0);
+	this.scene.goto({ area: 'march' });
+	requestAnimationFrame(() => {
+		this.scrim(0.5, 3000);
 		this.tween(this.scene.dialogue.sprBg, 'alpha', 1, 5000, 0);
-	}, 1);
+	});
 >>
 <<endif>>
 P: We Follow The Fickle Path
@@ -387,7 +390,6 @@ this should never render
 ::The End
 <<do
 	this.howler = this.musicSynced('');
-	this.voice='None';
 	this.tween(this.scene.border.display.container, 'alpha', 0, 5000);
 >>
 P: We Follow The Fickle Path
@@ -478,8 +480,6 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 ::Begin (skip intro)
 <<do
 	this.howler = this.musicSynced('bgm_normal');
-	this.voice='Default';;
-	this.scene.goto({ area: 'march' });
 	this.counti = 0;
 	this.countwe = 0;
 	this.tween(this.scene.border.display.container, 'alpha', 1, 5000);
@@ -489,8 +489,6 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 ::Begin
 <<do
 	this.howler = this.musicSynced('bgm_normal');
-	this.voice='Default';
-	this.scene.goto({ area: 'march' });
 	this.counti = 0;
 	this.countwe = 0;
 >>
@@ -829,8 +827,6 @@ P: The canopy rustles overhead.
 [["Will we ever find what we're looking for?"|++this.countwe;this.goto('march-end')]]
 [["Is this my fault?"|++this.counti;this.goto('march-end')]]
 [["Where is the path?">march-end]]
-
-// TODO: more march-x
 
 ::march-end
 P: ...
@@ -4172,7 +4168,6 @@ I don't doubt my decision.
 [[The End]]
 
 ::They never really took anything.
-// TODO: maybe you get to pick if you like the nickname earlier
 P: Sister Twenty of Many Oecophylla, at your service. Twenny if you're in a hurry.
 >
 P: What are they going to do, hunt me down? Arrest me for disobedience and kick me out again?
