@@ -1423,7 +1423,6 @@ P: Dark out there. Everyone's already asleep.
 	'P: She holds out one hand. I take it, and we hold them there briefly before parting.',
 	'P: They ignore me.',
 	'P: They seem busy.',
-	'P: They seem busy.',
 ])[0]>>
 <<print this.gameObject.line>>
 [[>close]]
