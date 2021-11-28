@@ -135,8 +135,6 @@
 		return gameObject;
 	};
 
-
-	// TODO: more ants in intro
 	this.Area('intro', [
 		this.PropParallax({ texture: 'bg_parallax', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
 		this.PropParallax({ texture: 'rain', offset: -50000, mult: 0.8, scale: 0.5, alpha: 0.1, freq: 1/200 }),
