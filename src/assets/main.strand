@@ -4156,6 +4156,7 @@ P: ...
 >
 P: Sister Superior Three always had a different presence to the other sisters.
 >
+<<do this.scene.goto({ area: 'town', x: 0, y: 10000 });this.show('bg_stars', { duration: 30000 })>>
 P: Sometimes we suspected that she enjoyed her elevated status a little too much.
 
 The closeness to Mother, the responsibility, the privilege.
@@ -4519,6 +4520,7 @@ P: ...
 <<do this.scrim(1, 1000)>>
 P: It's still difficult to accept just how much changed that day.
 >
+<<do this.scene.goto({ area: 'town', x: 0, y: 10000 });this.show('bg_stars', { duration: 30000 })>>
 P: You'll forgive me if I gloss over the finer details of life in exile.
 >
 P: Not nearly as romantic as it sounds.
