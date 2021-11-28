@@ -3702,6 +3702,7 @@ P: ...
 
 
 ::ending-march
+<<do this.scrim(1, 1000)>>
 P: We stop for the night, as we always do. Sister Superior Three assigns a group of us to build a shelter.
 >
 P: Together we scrape what bits of fresh leaf we can find into a makeshift shelter.
@@ -3710,17 +3711,21 @@ P: We find a little more than usual. It makes the building easier, but we still 
 >
 P: As we work, Sister Superior Three gathers some sisters into a scouting party.
 >
-P: They will travel ahead at various degree, combing for a place to start our nest.
+P: They will travel ahead, searching for a place to start our nest.
 >
 P: If they find the fresh leaves we need, then our journey could be coming to an end.
 >
-P: But day after day, the parties come back with news of dead, crumbled plants.
+P: But each day, the parties return with news of dead, crumbled plants.
+>
+P: My hopes are not high tonight.
 >
 P: When the shelter is finished, the party sets out, and we retire for the night.
 [[>ending-start-2]]
 
 
 ::ending-start-2
+...
+>
 "Sisters! Wake up! Wake up!!"
 >
 P: I awake to shouting. Some sisters have already left the shelter. I stumble after them, half-asleep.
@@ -3740,6 +3745,18 @@ P: We celebrate as we work, letting the excitement drive our mouths and limbs.
 P: There is scarcely time to think of anything but the work ahead.
 >
 P: A home for the Many, built by all.
+>
+...
+>
+P: And so we work.
+>
+P: And work.
+>
+P: One day passes.
+>
+P: Then another.
+>
+P: Then many more.
 
 <<if this.counti > this.countwe>>
 [[>ending-start-exile]]
@@ -3750,8 +3767,6 @@ P: A home for the Many, built by all.
 
 
 ::ending-start-family
-P: Many days pass, full of tireless work.
->
 P: Our food stores grow, our nurseries blossom, and the nest begins to feel like home.
 >
 P: The nest expands to tree after tree.
@@ -3776,6 +3791,7 @@ P: I turn to Sister Ten-and-seven but she has already scurried away.
 [[I enter Mother's chamber.>family-2]]
 
 ::family-2
+<<do this.show('queenIdle')>>
 "Sister Twenty of Many Oecophylla."
 > "Yes, Queen Mother."
 "We have been given an opportunity."
@@ -3818,6 +3834,7 @@ P: Mother stands silently before me.
 [["Yes, Queen Mother.">family-4]]
 
 ::family-4
+<<do this.show('')>>
 P: Sister Superior Twenty of Many Oceophylla.
 >
 P: The new title slides into the old. Becomes a part of me.
@@ -3847,8 +3864,6 @@ P: I suppose I will find out, in some small part.
 
 
 ::ending-start-exile
-P: Many days pass, full of hard work.
->
 P: Our food stores grow, our nurseries fill up, and the nest begins to feel established.
 >
 P: The nest expands to tree after tree.
