@@ -515,6 +515,15 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 [[close]]
 [[back|this.back()]]
 
+::test-npc
+"Hello I am an NPC."
+>
+P: "And now I am the player."
+>
+P: I can monologue too.
+
+[[leave>close]]
+
 ::CWs
 - bugs
 - death
@@ -3186,14 +3195,6 @@ voicePillbug
 
 
 
-::test-npc
-"Hello I am an NPC."
->
-P: "And now I am the player."
->
-P: I can monologue too.
-
-[[leave>close]]
 
 
 ::frog-march
