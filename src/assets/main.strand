@@ -304,7 +304,7 @@
 	this.Area('camp-cordy2-inside', [
 		this.Prop({ texture: 'bg_interior', y: -50, offset: -10000 }),
 		this.Poly({ verts: [0,20, 100,11, 159,-101, 92,-159, -83,-171, -124,-135, -51,19, 0,20] }),
-		this.Prop({ texture: 'cordyAntTied_50p', x: 0, y: -141, alpha: 0.5 }),
+		this.Prop({ texture: 'cordyAntTied_100p', x: 0, y: -141, alpha: 0.5, scale: 0.5 }),
 		...this.cordycircle,
 		this.Interrupt({ passage: 'cordyceps-2-inside', x: 0, y: -90, width: 500 }),
 	]);
