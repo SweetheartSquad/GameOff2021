@@ -304,7 +304,7 @@
 	this.Area('camp-cordy2-inside', [
 		this.Prop({ texture: 'bg_interior', y: -50, offset: -10000 }),
 		this.Poly({ verts: [0,20, 100,11, 159,-101, 92,-159, -83,-171, -124,-135, -51,19, 0,20] }),
-		this.Prop({ texture: 'cordyAntTied_100p', x: 0, y: -141, alpha: 0.5, scale: 0.5 }),
+		this.Prop({ texture: 'cordyAntTied', x: 0, y: -141, alpha: 0.5, scale: 0.5 }),
 		...this.cordycircle,
 		this.Interrupt({ passage: 'cordyceps-2-inside', x: 0, y: -90, width: 500 }),
 	]);
@@ -2396,7 +2396,7 @@ It is difficult to see at first, but then a thin, light strand on her shoulder c
 <<do this.scrim(1, 1000)>>
 P: And another. And another.
 >
-<<do this.show('cordyAntTied_100p', { scale: 3, y: 150, duration: 3000 })>>
+<<do this.show('cordyAntTied', { scale: 3, y: 150, duration: 3000 })>>
 P: It creeps out from the joints of her exoskeleton, crawls along her limbs and body.
 
 Ever her face is touched: Translucent white fuzz lining the edges of her mouth and eyes.

@@ -19,7 +19,7 @@ textures/basicAntIdle/basicAntIdle.x5.png
 textures/basicAntRun/basicAntRun.x10.png
 textures/childAntIdle/childAntIdle.x5.png
 textures/childAntRun/childAntRun.x8.png
-textures/cordyAntTied_100p/cordyAntTied_100p.x11.png
+textures/cordyAntTied/cordyAntTied.x11.png
 textures/fireplace/fireplace.x3.png
 textures/frog/frog.x4.png
 textures/innInside_empty.png
