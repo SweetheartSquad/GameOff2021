@@ -147,6 +147,7 @@
 		this.Npc({ passage: 'intro-panic-2', x: 290, y: 50, roam: 50 }),
 		this.Npc({ passage: 'intro-panic-3', x: 410, y: 150, roam: 200 }),
 		this.Interrupt({ passage: 'intro-end', x: 1411, y: 183, height: 500 }),
+		this.Interrupt({ passage: 'intro-wall', x: -164, y: -35, height: 500 }),
 	]);
 
 	this.Area('march', [
@@ -555,6 +556,11 @@ P: My head aches. The canopy comes back into focus.
 P: It starts to rain.
 <<do this.scene.goto({ area: 'intro' });>>
 
+[[>close]]
+
+::intro-wall
+<<do this.scene.player.walkBy(50,0)>>
+P: Can't trust what's left to be stable, I need to get back.
 [[>close]]
 
 ::intro-panic-1
