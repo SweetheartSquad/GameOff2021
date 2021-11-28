@@ -1490,7 +1490,7 @@ voiceQueen
 	}
 
 	if (!this.donefrog && Math.random()>0.5) {
-		campObjects.push(this.Npc({ passage: '19-camp', x: 163, y: -128, roam: 40 }));
+		campObjects.push(this.Npc({ passage: '19-camp', x: 173, y: -132, roam: 40 }));
 	}
 
 	if (Math.random()>0.5) {
