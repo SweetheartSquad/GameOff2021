@@ -593,7 +593,21 @@ P: Can't trust what's left to be stable, I need to get back.
 <<do this.gameObject.line = this.gameObject.line || this.shuffle([
 	'"Half the retinue was in front of us... all gone..."',
 	'"Mother... where is the Queen Mother!?"',
+	'"Sisters... our sisters..."',
+	'"No... this cannot be happening."',
+	'"They fell. We can\'t help them now..."',
+	'"We were too late..."',
+	'"No!!"',
+	'"Please, leave us alone..."',
+	'"Mother will know what to do. Mother always knows what to do."',
 	'"We need to find shelter. We can\'t stay out like this."',
+	'"This can\'t be happening. This can\'t be happening."',
+	'"Sister! We\'re glad you\'re safe, please help the others!"',
+	'"Sister..."',
+	'P: She\'s panicked, and doesn\'t listen to me.',
+	'P: She\'s busy helping the others.',
+	'P: I shouldn\'t distract her.',
+	'P: I want to tell her it will be okay, but it won\'t be.',
 ])[0]>>
 <<print this.gameObject.line>>
 [[>close]]
