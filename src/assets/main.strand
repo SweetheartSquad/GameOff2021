@@ -143,11 +143,38 @@
 		this.PropParallax({ texture: 'rain', offset: 100000, mult: 1.1, alpha: 0.2, freq: 1/200 }),
 		this.Prop({ texture: 'bg_intro', x: 827, y: 658, offset: -10000 }),
 		this.Poly({ verts: [-189,158, -207,-42, -143,-236, 215,-221, 462,-265, 569,-261, 638,-234, 706,-253, 1202,-225, 1335,-185, 1496,-50, 2103,-87, 2105,414, 1816,386, 1675,253, 1626,316, 1603,378, 1317,368, 1229,281, 968,190, 492,176, 175,221, -189,158] }),
-		this.Npc({ passage: 'intro-panic-1', x: 207, y: -75 }),
-		this.Npc({ passage: 'intro-panic-2', x: 290, y: 50, roam: 50 }),
-		this.Npc({ passage: 'intro-panic-3', x: 410, y: 150, roam: 200 }),
+		this.Npc({ passage: 'intro-panic', x: 207, y: -75 }),
+		this.Npc({ passage: 'intro-panic', x: 290, y: 50, roam: 80 }),
+		this.Npc({ passage: 'intro-panic', x: 410, y: 120, roam: 50 }),
+		this.Npc({ passage: 'intro-panic', x: 641, y: -92, roam: 20 }),
+		this.Npc({ passage: 'intro-panic', x: 811, y: -26, roam: 50 }),
+		this.Npc({ passage: 'intro-panic', x: 855, y: 76, roam: 50 }),
+		this.Npc({ passage: 'intro-panic', x: 961, y: 5, roam: 100 }),
+		this.Npc({ passage: 'intro-panic', x: 1216, y: -51, roam: 50 }),
+		this.Npc({ passage: 'intro-panic', x: 1297, y: 76, roam: 50 }),
+		this.Npc({ passage: 'intro-panic', x: 1191, y: 159, roam: 50 }),
+		this.Npc({ passage: 'intro-panic', x: 1338, y: 136, roam: 20 }),
+		this.Npc({ passage: 'intro-panic', x: 1297, y: 76, roam: 50 }),
+		this.Npc({ passage: 'intro-panic', x: 1535, y: 226, roam: 50 }),
+		this.Npc({ passage: 'intro-panic', x: 1676, y: 126, roam: 100 }),
+		this.Npc({ passage: 'intro-panic', x: 1890, y: 197, roam: 20 }),
+		...this.AntProp({ x: 1830, y: 259 }),
+		...this.AntProp({ x: 1966, y: 292 }),
+		...this.AntProp({ x: 2010, y: -20 }),
+		...this.AntProp({ x: 1532, y: 71 }),
+		...this.AntProp({ x: 1485, y: 156 }),
+		...this.AntProp({ x: 1502, y: 305 }),
+		...this.Wagon({ x: 1807, y: 102, flip: true }),
+		...this.Wagon({ x: 723, y: 86, flip: true }),
 		this.Interrupt({ passage: 'intro-end', x: 1411, y: 183, height: 500 }),
+		this.Interrupt({ passage: 'intro-wall', x: -164, y: -35, height: 500 }),
 	]);
+	this.scene.areas.intro.forEach(i => {
+		if (i.roam) {
+			i.roam.freq.value = 2000;
+			i.roam.freq.range = 2000;
+		}
+	});
 
 	this.Area('march', [
 		PropParallaxAuto({ texture: 'bg_parallax', offset: -200000, scale: 3, blur: true, mult: 1, speed: -8 }),
@@ -577,16 +604,32 @@ P: It starts to rain.
 
 [[>close]]
 
-::intro-panic-1
-"Half the retinue was in front of us... all gone..."
+::intro-wall
+<<do this.scene.player.walkBy(50,0)>>
+P: Can't trust what's left to be stable, I need to get back.
 [[>close]]
 
-::intro-panic-2
-"Mother... where is the Queen Mother!?"
-[[>close]]
-
-::intro-panic-3
-"We need to find shelter. We can't stay out like this."
+::intro-panic
+<<do this.gameObject.line = this.gameObject.line || this.shuffle([
+	'"Half the retinue was in front of us... all gone..."',
+	'"Mother... where is the Queen Mother!?"',
+	'"Sisters... our sisters..."',
+	'"No... this cannot be happening."',
+	'"They fell. We can\'t help them now..."',
+	'"We were too late..."',
+	'"No!!"',
+	'"Please, leave us alone..."',
+	'"Mother will know what to do. Mother always knows what to do."',
+	'"We need to find shelter. We can\'t stay out like this."',
+	'"This can\'t be happening. This can\'t be happening."',
+	'"Sister! We\'re glad you\'re safe, please help the others!"',
+	'"Sister..."',
+	'P: She\'s panicked, and doesn\'t listen to me.',
+	'P: She\'s busy helping the others.',
+	'P: I shouldn\'t distract her.',
+	'P: I want to tell her it will be okay, but it won\'t be.',
+])[0]>>
+<<print this.gameObject.line>>
 [[>close]]
 
 ::intro-end
@@ -1436,7 +1479,6 @@ P: Dark out there. Everyone's already asleep.
 	'P: She stares at the canopy below. I leave her be.',
 	'P: She holds out one hand. I take it, and we hold them there briefly before parting.',
 	'P: They ignore me.',
-	'P: They seem busy.',
 	'P: They seem busy.',
 ])[0]>>
 <<print this.gameObject.line>>
