@@ -169,6 +169,12 @@
 		this.Interrupt({ passage: 'intro-end', x: 1411, y: 183, height: 500 }),
 		this.Interrupt({ passage: 'intro-wall', x: -164, y: -35, height: 500 }),
 	]);
+	this.scene.areas.intro.forEach(i => {
+		if (i.roam) {
+			i.roam.freq.value = 2000;
+			i.roam.freq.range = 2000;
+		}
+	});
 
 	this.Area('march', [
 		PropParallaxAuto({ texture: 'bg_parallax', offset: -200000, scale: 3, blur: true, mult: 1, speed: -8 }),
