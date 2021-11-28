@@ -641,7 +641,16 @@ P: Can't trust what's left to be stable, I need to get back.
 [[>close]]
 
 ::intro-end
-"Wait, I think I see her..."
+<<do this.destroy(this.gameObject)>>
+P: It's a nightmare.
+
+Sisters call out, trying to make sense of it all:
+>
+"How many fell?"
+       "We must turn back!"
+    "Where is Mother?!"
+
+"Wait, there's her retinue..."
 [[Mother!>mother-speech]]
 
 ::mother-speech
