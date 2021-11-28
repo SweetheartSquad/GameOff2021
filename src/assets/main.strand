@@ -171,8 +171,8 @@
 	]);
 	this.scene.areas.intro.forEach(i => {
 		if (i.roam) {
-			i.roam.freq.value = 2000;
-			i.roam.freq.range = 2000;
+			i.roam.freq.value = 3000;
+			i.roam.freq.range = 1000;
 		}
 	});
 
