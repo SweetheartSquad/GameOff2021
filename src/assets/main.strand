@@ -187,6 +187,7 @@
 		this.PropParallax({ texture: 'marchScrim', offset: 100000  }),
 	]);
 
+	this.outsideant = this.Npc({ body: 'basicAnt', passage: 'outside-inn-ant', x: -745, y: 152 });
 	this.Area('inn-outside', [
 		this.PropParallax({ texture: 'bg_parallax', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
 		this.PropParallax({ texture: 'rain', offset: -50000, mult: 0.8, scale: 0.5, alpha: 0.5, freq: 1/200 }),
@@ -207,7 +208,7 @@
 		...this.AntProp({ x: 477, y: -24 }),
 		...this.AntProp({ x: 576, y: 28, flip: true }),
 		...this.AntProp({ x: 322, y: -61, flip: true }),
-		this.Npc({ body: 'basicAnt', passage: 'outside-inn-ant', x: -745, y: 152 }),
+		this.outsideant,
 		this.Poly({ verts: [168,130, 167,-135, -89,-107, -484,-104, -794,-120, -1360,-199, -1622,-214, -1623,174, -1026,146, -878,173, -781,158, -681,215, -367,200, -98,204, 168,130] }),
 		this.Interrupt({ passage: 'outside-inn', x: -1625, y: -18, height: 500 }),
 		this.Interrupt({ passage: 'outside-inn-ants', x: 160, y: 10, height: 500 }),
@@ -1314,7 +1315,7 @@ P: "Of course! He murdered our sister!"
 "What could be more cruel?!"
 >
 voiceQueen
-"Sister Twenty, what did you prepare for dinner tonight?"
+"Daughter Twenty, what did you prepare for dinner tonight?"
 >"What?"
 P: The non-sequitur throws me off.
 
@@ -2876,9 +2877,9 @@ voicePillbug
 <<do
 	this.metbunty=true;
 	// remove npc ant on branch
-	const a = this.scene.areas['inn-outside'].find(i => i.body);
-	if (a) {
-		this.destroy(a);
+	if (this.outsideant) {
+		this.destroy(this.outsideant);
+		this.outsideant = undefined;
 	}
 >>
 P: A roly poly?
@@ -3065,14 +3066,17 @@ P: The last proper headcount was before we set out, and numbered over a hundred.
 [["A few dozen.">"About fifty."]]
 
 ::"Many."
+voicePillbug
 "...Could you be more specific?"
 >
 P: "Unfortunately not."
 >
+voicePillbug
 "Hmm... well."
 [[>nathan3]]
 
 ::"About fifty."
+voicePillbug
 "Ho ho! Why, I can't remember the last time I saw a family so big!"
 [[>nathan3]]
 
@@ -3861,6 +3865,8 @@ P: She says nothing more, and slowly shrinks into the distance.
 P: I've said what I could, and decide to head back.
 >
 P: ...
+>
+P: Going back the way I came, I'm relieved to come across a fork in the scent trail: A strong path - clearly the original - and a much weaker offshoot that led me astray.
 [[>go-back-2]]
 
 
@@ -4254,7 +4260,7 @@ P: I brush the rot from my arms, and let her catch her breath.
 >"With me?"
 "Yes. Come along."
 >
-P: We pass through many passages and rooms of the always-constructing nest.
+P: We pass through many passages and rooms of the always-expanding nest.
 >
 P: Near Mother's chamber, I can't help but notice how small it makes me feel.
 >
