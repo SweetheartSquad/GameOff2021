@@ -1,4 +1,5 @@
 /* eslint-disable class-methods-use-this */
+import browserLang from 'browser-lang';
 import ease from 'eases';
 import { Text, TextStyle } from 'pixi.js';
 import Strand from 'strand-core';
@@ -32,6 +33,8 @@ export class StrandE extends Strand {
 	public voice?: string;
 
 	ease = ease;
+
+	language?: string;
 
 	setSource(src: string) {
 		autolink = 0;
@@ -87,15 +90,27 @@ export class StrandE extends Strand {
 		};
 		const languages = Object.keys(resources)
 			.filter((i) => i.startsWith('main-'))
-			.map((i) => {
-				const l = i.split('-').slice(1).join('-');
-				return `[[${
-					languageLabels[l] || l
-				}|this.language='${l}';this.setSource(game.app.loader.resources['${i}'].data);this.back();]]`;
-			});
+			.map((i) => i.split('-').slice(1).join('-'));
+
+		this.language = languages.includes(this.language || '')
+			? this.language
+			: browserLang({
+				languages,
+				fallback: 'en',
+			  });
+		document.documentElement.lang = this.language || 'en';
+
 		this.passages['language select'] = {
 			title: 'language select',
-			body: languages.concat('[[back|this.back()]]').join('\n'),
+			body: languages
+				.map(
+					(i) =>
+						`[[${
+							languageLabels[i] || i
+						}|this.language='${i}';this.setSource(game.app.loader.resources['main-${i}'].data);this.back();]]`
+				)
+				.concat('[[back|this.back()]]')
+				.join('\n'),
 		};
 	}
 
