@@ -65,7 +65,7 @@ export class GameScene {
 		this.container.addChild(player.display.container);
 
 		this.strand = new StrandE({
-			source: resources.main.data,
+			source: resources['main-en'].data,
 			renderer: {
 				displayPassage: (passage) => {
 					if (passage.title === 'close') {

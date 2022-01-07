@@ -6,6 +6,7 @@ import { Area } from './Area';
 import { music, sfx } from './Audio';
 import { Block } from './Block';
 import { fontIngame } from './font';
+import { resources } from './Game';
 import { GameObject } from './GameObject';
 import { GameScene } from './GameScene';
 import { Goto } from './Goto';
@@ -78,6 +79,24 @@ export class StrandE extends Strand {
 			};
 		});
 		this.passages['passage select'] = this.passages['passage select 0'];
+
+		// create language select for debugging purposes
+		const languageLabels: Partial<{ [key: string]: string }> = {
+			en: 'English',
+			'es-419': 'Español',
+		};
+		const languages = Object.keys(resources)
+			.filter((i) => i.startsWith('main-'))
+			.map((i) => {
+				const l = i.split('-').slice(1).join('-');
+				return `[[${
+					languageLabels[l] || l
+				}|this.language='${l}';this.setSource(game.app.loader.resources['${i}'].data);this.back();]]`;
+			});
+		this.passages['language select'] = {
+			title: 'language select',
+			body: languages.concat('[[back|this.back()]]').join('\n'),
+		};
 	}
 
 	show(...args: Parameters<typeof this.scene['dialogue']['show']>) {

@@ -417,6 +417,7 @@ P: We Follow The Fickle Path
 
 [[Begin]]
 [[Begin (skip intro)]]
+[[Language>language select]]
 [[Credits]]
 [[Content warnings]]
 <<if this.debug>>[[debug menu]]<<endif>>
@@ -450,6 +451,7 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 	this.scene.border.display.container.alpha=1;
 	this.scene.strand.passages['area warp'] = { title: 'area warp', body: Object.keys(this.scene.areas).filter(i => i !== 'root').map(i => '[['+i+'|this.scene.goto({ area: "'+i+'" }); this.goto("close")]]').concat('[[back|this.back()]]').join('\n') };
 >>
+[[language select]]
 [[passage select>passage select]]
 [[area warp]]
 [[toggle debugPhysics|window.debugPhysics=!window.debugPhysics]]
@@ -513,6 +515,10 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 ]]
 [[close]]
 [[back|this.back()]]
+
+::language select
+[[en|this.setSource(game.app.loader.resources['main-en'].data);this.back();]]
+[[es-419|this.setSource(game.app.loader.resources['main-es-419'].data);this.back();]]
 
 ::test-npc
 "Hello I am an NPC."

@@ -1,0 +1,4612 @@
+::start
+// some info for if you want to mod it:
+//
+// basic syntax examples:
+// 	::passage title
+// 	[[basic link]]
+// 	[[link with different label>passage title]]
+// 	[[link with different action|this.something=true;this.goto('passage title');]]
+// 	<<if this.something>><<elseif this.somethingElse>><<endif>>
+// 	<<do this.something=true;>>
+// 	<<print this.something>>
+// 	>passage break
+//
+// js examples:
+// 	this.goto('passage')
+// 	this.show('texture', { duration, x, y, scale, animate, freq })
+// 	this.scrim(amount, duration)
+// 	this.tween(object, 'property', to, duration, from, ease)
+// 	this.gameObject - npc/interrupt that triggered the dialog
+// 	this.scene      - game scene
+// 	this.voice      - audio to play as letters tick in
+// 	this.ease       - easing functions
+//
+// game object stuff:
+// 	this.Area(name, [objects])
+// 	this.Npc({ passage, x, y )
+// 	this.Goto({ area, x, y }, { x, y, width, height })
+// 	this.Prop({ texture, x, y, alpha, scale, flip, blur, animate, offset })
+// 	this.PropParallax({ texture, alpha, scale, flip, blur, mult, animate, offset }),
+// 	this.Block({ x, y, width, height, type, radius })
+// 	this.Poly({ x, y, width, verts })
+// 	this.Interrupt({ passage, x, y, width, height })
+//
+// palette stuff:
+// this.scene.screenFilter.palette([255,255,255],[0,0,0]);
+// this.scene.screenFilter.randomizePalette();
+
+<<if !this.started>>
+<<do
+	this.musicSynced = (m) => {
+		if (!this.howler) {
+			this.howler = this.music(m);
+			return this.howler;
+		}
+		const oldHowl = Howler._howls.find(i => i._endTimers[this.howler]);
+		if (!oldHowl) {
+			this.howler = this.music(m);
+			return this.howler;
+		}
+		const time = oldHowl.seek(undefined, this.howler);
+		oldHowl.fade(0.5, oldHowl.volume(undefined, this.howler), 1000, this.howler);
+		this.howler = this.music(m);
+		if (!this.howler) return;
+		const newHowl = Howler._howls.find(i => i._endTimers[this.howler]);
+		newHowl.seek(time, this.howler);
+		newHowl.fade(0, 0.5, 1000, this.howler);
+		return this.howler;
+	};
+
+	// setup areas
+	const TestSpecialNpc = (options) => {
+		const npc = this.Npc({
+			...options,
+			bodyCollision: { isStatic: true },
+			bodySensor: { plugin: { label: 'I Am Special' }, radius: 80 },
+			focus: { x: options.x + 100, y: options.y },
+		});
+		return npc;
+	}
+
+	const Queen = (options) => {
+		const npc = this.Npc({
+			...options,
+			bodyCollision: { isStatic: true },
+			bodySensor: { plugin: { label: 'Mother' }, radius: 100 },
+			focus: { x: 0, y: -200 },
+		});
+		npc.bodySensor.scale(5,1.2);
+		npc.bodyCollision.scale(25,6);
+		npc.bodyCollision.move(0,-50);
+		npc.display.container.visible = false;
+		const prop = this.Prop({ ...options, texture: 'queenIdle', scale: (options.scale || 1) * 0.8 });
+		return [npc, prop];
+	}
+
+	this.AntProp = (options) => {
+		return [
+			this.Prop({ texture: 'basicAntIdle', freq: 1/200, ...options, scale: 0.52 * (options.scale || 1) }),
+			this.Prop({ texture: 'shadows', offset: (options.offset || 0)-5, ...options, scale: 0.7 * (options.scale || 1) }),
+		];
+	};
+
+	this.TentMedium = (options) => {
+		const block = this.Block({ type: 'circle', x: options.x, y: options.y-110, radius: 80 });
+		block.body.scale(2,1);
+		const result = [
+			this.Prop({ texture: 'mediumTent', x: options.x, y: options.y, offset: -90, flip: options.flip }),
+			block,
+		];
+		const door = { type: 'circle', x: options.x + (options.flip ? 120 : -120), y: options.y-75, radius: 40 };
+		if (options.goto) {
+			result.push(this.Goto(options.goto, door));
+		}
+		if (options.passage) {
+			result.push(this.Interrupt({ passage: options.passage, ...door }));
+		}
+		return result;
+	};
+	this.TentSmall = (options) => {
+		const block = this.Block({ type: 'circle', x: options.x, y: options.y-45, radius: 30 });
+		block.body.scale(2,1);
+		return [
+			this.Prop({ texture: 'smallTent', x: options.x, y: options.y, offset: -30, flip: options.flip }),
+			block,
+		];
+	};
+	this.Wagon = (options) => {
+		const block = this.Block({ type: 'circle', x: options.x, y: options.y-60, radius: 30 });
+		block.body.scale(4,1);
+		return [
+			this.Prop({ texture: 'wagon', x: options.x, y: options.y, offset: -50, flip: options.flip }),
+			block,
+		];
+	};
+
+	const PropParallaxAuto = (options) => {
+		const start = Date.now();
+		const gameObject = this.PropParallax(options);
+		gameObject.scripts.push({
+			gameObject,
+			update() {
+				gameObject.spr.tilePosition.x = (Date.now()-start)/1000 * options.speed;
+			},
+		});
+		return gameObject;
+	};
+
+	this.Area('intro', [
+		this.PropParallax({ texture: 'bg_parallax', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
+		this.PropParallax({ texture: 'rain', offset: -50000, mult: 0.8, scale: 0.5, alpha: 0.1, freq: 1/200 }),
+		this.PropParallax({ texture: 'rain', offset: 100000, mult: 1.1, alpha: 0.2, freq: 1/200 }),
+		this.Prop({ texture: 'bg_intro', x: 827, y: 658, offset: -10000 }),
+		this.Poly({ verts: [-189,158, -207,-42, -143,-236, 215,-221, 462,-265, 569,-261, 638,-234, 706,-253, 1202,-225, 1335,-185, 1496,-50, 2103,-87, 2105,414, 1816,386, 1675,253, 1626,316, 1603,378, 1317,368, 1229,281, 968,190, 492,176, 175,221, -189,158] }),
+		this.Npc({ passage: 'intro-panic', x: 207, y: -75 }),
+		this.Npc({ passage: 'intro-panic', x: 290, y: 50, roam: 80 }),
+		this.Npc({ passage: 'intro-panic', x: 410, y: 120, roam: 50 }),
+		this.Npc({ passage: 'intro-panic', x: 641, y: -92, roam: 20 }),
+		this.Npc({ passage: 'intro-panic', x: 811, y: -26, roam: 50 }),
+		this.Npc({ passage: 'intro-panic', x: 855, y: 76, roam: 50 }),
+		this.Npc({ passage: 'intro-panic', x: 961, y: 5, roam: 100 }),
+		this.Npc({ passage: 'intro-panic', x: 1216, y: -51, roam: 50 }),
+		this.Npc({ passage: 'intro-panic', x: 1297, y: 76, roam: 50 }),
+		this.Npc({ passage: 'intro-panic', x: 1191, y: 159, roam: 50 }),
+		this.Npc({ passage: 'intro-panic', x: 1338, y: 136, roam: 20 }),
+		this.Npc({ passage: 'intro-panic', x: 1297, y: 76, roam: 50 }),
+		this.Npc({ passage: 'intro-panic', x: 1535, y: 226, roam: 50 }),
+		this.Npc({ passage: 'intro-panic', x: 1676, y: 126, roam: 100 }),
+		this.Npc({ passage: 'intro-panic', x: 1890, y: 197, roam: 20 }),
+		...this.AntProp({ x: 1830, y: 259 }),
+		...this.AntProp({ x: 1966, y: 292 }),
+		...this.AntProp({ x: 2010, y: -20 }),
+		...this.AntProp({ x: 1532, y: 71 }),
+		...this.AntProp({ x: 1485, y: 156 }),
+		...this.AntProp({ x: 1502, y: 305 }),
+		...this.Wagon({ x: 1807, y: 102, flip: true }),
+		...this.Wagon({ x: 723, y: 86, flip: true }),
+		this.Interrupt({ passage: 'intro-end', x: 1411, y: 183, height: 500 }),
+		this.Interrupt({ passage: 'intro-wall', x: -164, y: -35, height: 500 }),
+	]);
+	this.scene.areas.intro.forEach(i => {
+		if (i.roam) {
+			i.roam.freq.value = 3000;
+			i.roam.freq.range = 1000;
+		}
+	});
+
+	this.Area('march', [
+		PropParallaxAuto({ texture: 'bg_parallax', offset: -200000, scale: 3, blur: true, mult: 1, speed: -8 }),
+		PropParallaxAuto({ texture: 'bg_parallax', x: 500, offset: -100000, scale: 2, blur: true, mult: 1, alpha: 0.1, speed: -20 }),
+		this.Prop({ texture: 'basicAntRun', x: 620, y: 250+10, scale: 2 }),
+		this.Prop({ texture: 'basicAntRun', x: 410, y: 250+20, scale: 2 }),
+		this.Prop({ texture: 'basicAntRun', x: 180, y: 250+0, scale: 2 }),
+		this.Prop({ texture: 'basicAntRun', x: -10, y: 250+5, scale: 2 }),
+		this.Prop({ texture: 'basicAntRun', x: -210, y: 250+0, scale: 2 }),
+		this.Prop({ texture: 'basicAntRun', x: -400, y: 250+30, scale: 2 }),
+		this.Prop({ texture: 'basicAntRun', x: -620, y: 250+10, scale: 2 }),
+		this.PropParallax({ texture: 'marchScrim', offset: 100000  }),
+	]);
+
+	this.outsideant = this.Npc({ body: 'basicAnt', passage: 'outside-inn-ant', x: -745, y: 152 });
+	this.Area('inn-outside', [
+		this.PropParallax({ texture: 'bg_parallax', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
+		this.PropParallax({ texture: 'rain', offset: -50000, mult: 0.8, scale: 0.5, alpha: 0.5, freq: 1/200 }),
+		this.PropParallax({ texture: 'rain', offset: 100000, mult: 1.1, freq: 1/200 }),
+		this.PropParallax({ texture: 'rain', offset: 200000, mult: 1.2, scale: 2, blur: true, freq: 1/300 }),
+		this.PropParallax({ texture: 'black', offset: 50000, mult: 0, alpha: 0.2 }),
+		this.Prop({ texture: 'bg_innOutside', x: -727, y: 488, offset: -10000 }),
+		this.Prop({ texture: 'InnOutside_flicker', x: -2157, y: 50 }),
+		this.Prop({ texture: 'rainSplash', x: -392, y: 129, freq: 1/100 }),
+		this.Prop({ texture: 'rainSplash', x: -914, y: -23, freq: 1/100 }),
+		this.Prop({ texture: 'rainSplash', x: -1367, y: 86, freq: 1/100 }),
+		this.Prop({ texture: 'pillBugIdle', x: -1731, y: -22 }),
+		this.Prop({ texture: 'shadows', x: -1731+20, y: -22+15, scale: 2, alpha: 0.5, offset: -20 }),
+		...this.Wagon({ x: 588, y: -60 }),
+		...this.AntProp({ x: 140, y: -86 }),
+		...this.AntProp({ x: 180, y: 5, flip: true }),
+		...this.AntProp({ x: 268, y: -11 }),
+		...this.AntProp({ x: 477, y: -24 }),
+		...this.AntProp({ x: 576, y: 28, flip: true }),
+		...this.AntProp({ x: 322, y: -61, flip: true }),
+		this.outsideant,
+		this.Poly({ verts: [168,130, 167,-135, -89,-107, -484,-104, -794,-120, -1360,-199, -1622,-214, -1623,174, -1026,146, -878,173, -781,158, -681,215, -367,200, -98,204, 168,130] }),
+		this.Interrupt({ passage: 'outside-inn', x: -1625, y: -18, height: 500 }),
+		this.Interrupt({ passage: 'outside-inn-ants', x: 160, y: 10, height: 500 }),
+	]);
+
+	this.Area('deserter-path', [
+		this.PropParallax({ texture: 'bg_parallax', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
+		this.Prop({ texture: 'bg_innOutside', x: 793, y: 492, flip: true, offset: -10000 }),
+		this.Npc({ body: 'basicAnt', x: 1359, y: -16 }),
+		this.Poly({ verts: [-59,-116, -88,135, 832,168, 986,155, 1503,147, 1482,-188, 916,-124, 561,-97, -59,-116] }),
+		this.Interrupt({ passage: 'deserter-wall', x: -63, height: 500 }),
+		this.Interrupt({ passage: 'deserter', x: 1300, height: 500 }),
+	]);
+
+	this.Area('camp', [
+		this.Interrupt({ passage: 'camp-march' }),
+	]);
+	this.Area('camp-outlook', [
+		this.PropParallax({ texture: 'bg_stars', mult: 0.4, offset: -20000 }),
+		this.Prop({ texture: 'bg_camp', scale: 2, angle: -20, flip: true, x: -5000, y: 3419, offset: -10000 }),
+		this.Poly({ verts: [107,-200, -185,-83, -351,-56, -613,58] }),
+		this.Interrupt({ width: 1500, height: 1000, focus: { x: 0, y: -400 } }),
+		this.Goto({ area: 'camp', x: -1537, y: -12 }, { y: 100, width: 2000 }),
+		this.Goto({ area: 'camp', x: -1537, y: -12 }, { x: 147, y: -66, height: 500 }),
+	]);
+	this.Area('camp-outlook-cordy', [
+		this.PropParallax({ texture: 'bg_stars', mult: 0.4, offset: -20000 }),
+		this.Prop({ texture: 'bg_camp', scale: 2, angle: -20, flip: true, x: -5000, y: 3419, offset: -10000 }),
+		this.Interrupt({ width: 1500, height: 1000, focus: { x: -100, y: -300 } }),
+	]);
+	this.Area('camp-outlook-intro', [
+		this.PropParallax({ texture: 'bg_stars', mult: 0.4, offset: -20000 }),
+		this.Prop({ texture: 'bg_camp', scale: 2, angle: -20, flip: true, x: -5000, y: 3419, offset: -10000 }),
+		this.Poly({ verts: [107,-200, -185,-83, -351,-56, -613,58] }),
+		this.Interrupt({ passage: 'camp-outlook-intro', width: 1500, height: 1000, focus: { x: 0, y: -400 } }),
+		this.Goto({ area: 'camp', x: -1537, y: -12 }, { y: 100, width: 2000 }),
+		this.Goto({ area: 'camp', x: -1537, y: -12 }, { x: 147, y: -66, height: 500 }),
+	]);
+	this.outlooknpc = this.Npc({ x: -296, y: -2 });
+	this.outlooknpc.flipped=true;
+	this.Area('camp-outlook-event', [
+		this.PropParallax({ texture: 'bg_stars', mult: 0.4, offset: -20000 }),
+		this.Prop({ texture: 'bg_camp', scale: 2, angle: -20, flip: true, x: -5000, y: 3419, offset: -10000 }),
+		this.Poly({ verts: [107,-200, -185,-83, -351,-56, -613,58] }),
+		this.Interrupt({ passage: 'camp-outlook', width: 1500, height: 1000, focus: { x: 0, y: -200 } }),
+		this.Goto({ area: 'camp', x: -1537, y: -12 }, { y: 100, width: 2000 }),
+		this.Goto({ area: 'camp', x: -1537, y: -12 }, { x: 147, y: -66, height: 500 }),
+		this.outlooknpc,
+	]);
+	this.Area('town', [
+		this.Prop({ texture: 'bg_town', y: 334, offset: -10000 }),
+		this.Poly({ verts: [-439,-187, -639,-135, -705,-15, -614,205, -449,291, -170,324, 50,319, 395,302, 595,205, 673,76, 702,-88, 688,-185, 551,-223] }),
+		this.Poly({ verts: [448,-252, 382,-275, 174,-275] }),
+		this.Poly({ verts: [33,-278, -118,-288, -188,-298, -337,-239] }),
+		this.Goto({ area: 'town', x: 0, y: 0 }, { type: 'circle', x: -394, y: -211 }),
+		this.Goto({ area: 'town', x: 0, y: 0 }, { type: 'circle', x: 104, y: -294 }),
+		this.Goto({ area: 'town', x: 0, y: 0 }, { type: 'circle', x: 501, y: -253 }),
+		this.Prop({ texture: 'innTable1', x: -399, y: -57 }),
+		this.Prop({ texture: 'shadows', x: -399, y: -57+15, offset: -20, scale: 2, alpha: 0.5 }),
+		this.Block({ type: 'circle', x: -399, y: -57, radius: 10 }),
+		this.Prop({ texture: 'innTable2', x: 304, y: -107 }),
+		this.Prop({ texture: 'shadows', x: 304, y: -107+15, offset: -20, scale: 2, alpha: 0.5 }),
+		this.Block({ type: 'circle', x: 304, y: -107, radius: 10 }),
+		this.Npc({ passage: 'test-npc', x: 335, y: -134 }),
+	]);
+
+	this.campcordyguard = this.Npc({ passage: 'cordyceps-2-guard' });
+	this.Area('camp-cordy2', [
+		this.Prop({ texture: 'bg_camp', x: -458, y: 926, offset: -10000 }),
+		this.Poly({ verts: [-2049,-117, -2045,234, -1628,266, -1319,287, -1068,335, -876,317, -651,363, -467,348, -100,414, 191,449, 559,665, 1023,683, 1148,414, 1144,-694, 566,-707, 539,-548, 392,-283, 142,-255, -183,-278, -608,-234, -984,-203, -1127,-212, -1501,-208, -1803,-191, -2049,-117] }),
+		this.Prop({ texture: 'fireplace', x: 91, y: -78, offset: -30 }),
+		this.Block({ type: 'circle', x: 91, y: -78-35, radius: 35 }),
+		this.Interrupt({ passage: 'cordyceps-2-wall', x: -1765, y: 45, height: 1000 }),
+		this.Interrupt({ passage: 'cordyceps-2-wall', x: 915, y: -22, height: 1000 }),
+		this.Interrupt({ passage: 'cordyceps-2-wall', x: 657, y: -365, width: 500 }),
+		this.Interrupt({ passage: 'cordyceps-2-wall', x: 657, y: 524, width: 500 }),
+		this.campcordyguard,
+		...this.TentSmall({ x: 688, y: 249, flip: true }),
+		...this.TentMedium({ goto: { area: 'camp-cordy2-inside' }, x: -237, y: -69}),
+		// extra
+		...this.Wagon({ x: 516, y: -163 }),
+		...this.TentSmall({ x: -903, y: 139 }),
+		...this.TentSmall({ x: -1214, y: -90, flip: true }),
+	]);
+	
+	this.cordycircle = [
+		...this.AntProp({ x: -101, y: -78 }),
+		...this.AntProp({ x: -73, y: -130 }),
+		...this.AntProp({ x: 125, y: -91, flip: true }),
+		...this.AntProp({ x: 97, y: -126, flip: true }),
+	];
+	this.Area('camp-cordy2-inside', [
+		this.Prop({ texture: 'bg_interior', y: -50, offset: -10000 }),
+		this.Poly({ verts: [0,20, 100,11, 159,-101, 92,-159, -83,-171, -124,-135, -51,19, 0,20] }),
+		this.Prop({ texture: 'cordyAntTied', x: 0, y: -141, alpha: 0.5, scale: 0.5 }),
+		...this.cordycircle,
+		this.Interrupt({ passage: 'cordyceps-2-inside', x: 0, y: -90, width: 500 }),
+	]);
+
+	this.Area('town-exile', [
+		this.Prop({ texture: 'bg_town', y: 334, offset: -10000 }),
+		this.Poly({ verts: [-439,-187, -639,-135, -705,-15, -614,205, -449,291, -170,324, 50,319, 395,302, 595,205, 673,76, 702,-88, 688,-185, 551,-223] }),
+		this.Poly({ verts: [448,-252, 382,-275, 174,-275] }),
+		this.Poly({ verts: [33,-278, -118,-288, -188,-298, -337,-239] }),
+		this.Interrupt({ passage: 'exile-refuse-1', type: 'circle', x: -394, y: -211 }),
+		this.Interrupt({ passage: 'exile-refuse-2', type: 'circle', x: 104, y: -294, focus: { x: 0, y: -400 } }),
+		this.Interrupt({ passage: 'exile-refuse-3', type: 'circle', x: 501, y: -253 }),
+		this.Interrupt({ passage: 'exile-exit', x: -30, y: 278, width: 1000 }),
+		this.Prop({ texture: 'innTable1', x: -399, y: -57 }),
+		this.Prop({ texture: 'shadows', x: -399, y: -57+15, offset: -20, scale: 2, alpha: 0.5 }),
+		this.Block({ type: 'circle', x: -399, y: -57, radius: 10 }),
+		this.Prop({ texture: 'innTable2', x: 304, y: -107 }),
+		this.Prop({ texture: 'shadows', x: 304, y: -107+15, offset: -20, scale: 2, alpha: 0.5 }),
+		this.Block({ type: 'circle', x: 304, y: -107, radius: 10 }),
+	]);
+
+	this.Area('town-family', [
+		this.Prop({ texture: 'bg_town', y: 334, offset: -10000 }),
+		this.Poly({ verts: [-439,-187, -639,-135, -705,-15, -614,205, -449,291, -170,324, 50,319, 395,302, 595,205, 673,76, 702,-88, 688,-185, 551,-223] }),
+		this.Poly({ verts: [448,-252, 382,-275, 174,-275] }),
+		this.Poly({ verts: [33,-278, -118,-288, -188,-298, -337,-239] }),
+		this.Interrupt({ passage: 'family-wall', type: 'circle', x: -394, y: -211 }),
+		this.Interrupt({ passage: 'family-exit', type: 'circle', x: 104, y: -294, focus: { x: 0, y: -400 } }),
+		this.Interrupt({ passage: 'family-exit', type: 'circle', x: 501, y: -253 }),
+		this.Prop({ texture: 'innTable1', x: -399, y: -57 }),
+		this.Prop({ texture: 'shadows', x: -399, y: -57+15, offset: -20, scale: 2, alpha: 0.5 }),
+		this.Block({ type: 'circle', x: -399, y: -57, radius: 10 }),
+		this.Prop({ texture: 'innTable2', x: 304, y: -107 }),
+		this.Prop({ texture: 'shadows', x: 304, y: -107+15, offset: -20, scale: 2, alpha: 0.5 }),
+		this.Block({ type: 'circle', x: 304, y: -107, radius: 10 }),
+		this.Npc({ passage: 'family-role-1', x: -405, y: -57 }),
+		this.Npc({ passage: 'family-role-2', x: 290, y: 50, roam: 100 }),
+		this.Npc({ passage: 'family-role-3', x: 410, y: 150, roam: 100 }),
+	]);
+
+	const frogEnd = this.Interrupt({ passage: 'frog-end', x: 1982, y: -915, width: 1000 });
+	frogEnd.body.rotate(Math.PI/4);
+	this.frogBridgeFg = this.Prop({ texture: 'fg_frog', x: 1249, y: -55, offset: -60 });
+	this.frog = this.Prop({ texture: 'frog', x: 937, y: -179, offset: -200, freq: 1/600 });
+	this.frog.spr.alpha = 0;
+	const frogBridge = this.Interrupt({ passage: 'frog-bridge', x: 722, y: -238, focus: { x: 150, y: -200 }, width: 360 });
+	frogBridge.body.rotate(0.54);
+	this.Area('frog', [
+		this.PropParallax({ texture: 'bg_parallax', offset: -100000, scale: 3, blur: true, mult: 0.6 }),
+		this.Prop({ texture: 'bg_frog', x: 1041, y: 689, offset: -10000 }),
+		this.frogBridgeFg,
+		this.frog,
+		this.Poly({ verts: [-86,-202, -88,171, 124,152, 205,81, 302,96, 358,133, 565,126, 870,46, 949,-40, 1002,-134, 1038,-249, 838,-113, 819,-160, 908,-163, 1632,-690, 1655,-728, 1679,-700, 1760,-640, 1868,-690, 2178,-889, 1915,-1081, 1850,-1016, 1623,-875, 1481,-828, 1430,-815, 1398,-818, 583,-347, 579,-311, 544,-267, 319,-220, -86,-202] }),
+		frogEnd,
+		this.Interrupt({ passage: 'frog-wall', x: -84, y: 174, height: 1000 }),
+		frogBridge,
+	]);
+
+	this.Area('test', [
+		// bg
+		this.PropParallax({ texture: 'bg_parallax', offset: -1000000, scale: 3, blur: true, mult: 0.6 }),
+		this.PropParallax({ texture: 'bg_parallax', offset: -100000, scale: 0.5, blur: true, mult: 0.2 }),
+		this.Prop({ texture: 'bg_parallax', x: -200, y: 700, offset: -10000 }),
+
+		this.Text('physics', { x: 423, y: 78 }),
+		this.Block({ x: 200, y: 0, width: 50, height: 100 }),
+		this.Block({ type: 'circle', x: 300, y: 0, radius: 50 }),
+		this.Poly({ verts: [400,0, 600,-50, 580,200, 425,150] }),
+
+		this.Text('static prop', { x: 74, y: -163 }),
+		this.Prop({ texture: 'error', x: 100, y: -158 }),
+
+		this.Text('animated props', { x: 296, y: -163 }),
+		this.Prop({ texture: 'basicAntIdle', x: 284, y: -128 }),
+		this.Prop({ texture: 'basicAntIdle', x: 290, y: -118 }),
+		this.Prop({ texture: 'basicAntRun', x: 300, y: -138 }),
+		...Queen({ x: 905, y: 469, passage: 'test-npc' }),
+
+		this.Text('npcs', { x: 340, y: 434 }),
+		this.Npc({ x: 302, y: 407 }),
+		this.Npc({ passage: 'test-npc', x: 342, y: 407 }),
+		this.Npc({ body: 'childAnt', passage: 'test-npc', x: 442, y: 407, roam: 100, scale: 0.6 }),
+
+		this.Text('gotos', { x: -289, y: -61 }),
+		this.Goto({ area: 'test-sub' }, { x: -289, y: 0 }),
+		this.Goto({ area: 'test-sub', y: -100 }, { x: -289, y: 100, type: 'circle' }),
+
+		this.Text('interrupts', { x: -450, y: -61 }),
+		this.Interrupt({ x: -450, y: 0, passage: 'test-npc' }),
+		this.Interrupt({ x: -450, y: 100, type: 'circle',  passage: 'test-npc' }),
+		// helper fn
+		TestSpecialNpc({ x: -367, y: 411, passage: 'test-npc' }),
+		// spread procedural
+		...new Array(50).fill(0).map(() => this.Npc({ passage: 'test-npc', x: (Math.random()-0.5)*300, y: (Math.random()-0.5)*300+400 })),
+	]);
+	this.Area('test-sub', [
+		this.Npc({ passage: 'test-npc', x: 0, y: 50 }),
+		this.Goto({ area: 'test' }, { x: 0, y: 100, width: 300 }),
+	]);
+
+	// start
+	this.started=true;
+	this.scene.goto({ area: 'march' });
+	requestAnimationFrame(() => {
+		this.scrim(0.5, 3000);
+		this.tween(this.scene.dialogue.sprBg, 'alpha', 1, 5000, 0);
+	});
+>>
+<<endif>>
+P: We Follow The Fickle Path
+
+[[Begin]]
+[[Begin (skip intro)]]
+[[Language>language select]]
+[[Credits]]
+[[Content warnings]]
+<<if this.debug>>[[debug menu]]<<endif>>
+
+::Credits
+P: Made by Sean, Michael, and IAN of SweetHeart Squad.
+
+[[More games|window.open('https://sweetheartsquad.itch.io', '_blank')]]
+[[Back|this.back()]]
+
+::close
+this should never render
+
+
+
+::The End
+<<do
+	this.howler = this.musicSynced('');
+	this.tween(this.scene.border.display.container, 'alpha', 0, 5000);
+>>
+P: We Follow The Fickle Path
+
+Made by Sean, IAN, and Michael of SweetHeart Squad.
+
+[[Restart|this.restart()]]
+[[More games|window.open('https://sweetheartsquad.itch.io', '_blank')]]
+
+::debug menu
+<<do
+	this.howler = this.musicSynced('bgm_normal');
+	this.scene.border.display.container.alpha=1;
+	this.scene.strand.passages['area warp'] = { title: 'area warp', body: Object.keys(this.scene.areas).filter(i => i !== 'root').map(i => '[['+i+'|this.scene.goto({ area: "'+i+'" }); this.goto("close")]]').concat('[[back|this.back()]]').join('\n') };
+>>
+[[language select]]
+[[passage select>passage select]]
+[[area warp]]
+[[toggle debugPhysics|window.debugPhysics=!window.debugPhysics]]
+[[draw walls|
+	const canvas = window.game.app.renderer.context.gl.canvas;
+	const verts = [];
+	let poly;
+	const onClick = (event) => {
+		const rect = event.currentTarget.getBoundingClientRect();
+		let x = event.clientX - rect.left;
+		let y = event.clientY - rect.top;
+		const p = this.scene.camera.display.container.toLocal({ x, y });
+		x = Math.round(p.x);
+		y = Math.round(p.y);
+		verts.push([x,y]);
+		if (poly) {
+			this.destroy(poly);
+		}
+		poly = this.Poly({ verts: verts.flat() });
+	};
+	const onContextMenu = (event) => {
+		event.preventDefault();
+		canvas.removeEventListener('click', onClick);
+		canvas.removeEventListener('contextmenu', onContextMenu);
+		canvas.parentElement.style.cursor = 'inherit';
+		if (poly) {
+			console.log(`this.Poly({ verts: [${verts.map(i => i.join(',')).join(', ')}] }),`);
+			this.scene.drop(poly);
+		}
+	};
+	requestAnimationFrame(() => {
+		canvas.addEventListener('click', onClick);
+		canvas.addEventListener('contextmenu', onContextMenu);
+	});
+	canvas.parentElement.style.cursor = 'crosshair';
+	this.goto('close');
+]]
+[[teleport|
+	const canvas = window.game.app.renderer.context.gl.canvas;
+	const verts = [];
+	let poly;
+	const onClick = (event) => {
+		const rect = event.currentTarget.getBoundingClientRect();
+		let x = event.clientX - rect.left;
+		let y = event.clientY - rect.top;
+		const p = this.scene.camera.display.container.toLocal({ x, y });
+		this.scene.player.setPosition(p.x, p.y);
+	};
+	const onContextMenu = (event) => {
+		event.preventDefault();
+		canvas.removeEventListener('click', onClick);
+		canvas.removeEventListener('contextmenu', onContextMenu);
+		canvas.parentElement.style.cursor = 'inherit';
+	};
+	requestAnimationFrame(() => {
+		canvas.addEventListener('click', onClick);
+		canvas.addEventListener('contextmenu', onContextMenu);
+	});
+	canvas.parentElement.style.cursor = 'crosshair';
+	this.goto('close');
+]]
+[[close]]
+[[back|this.back()]]
+
+::language select
+[[en|this.setSource(game.app.loader.resources['main-en'].data);this.back();]]
+[[es-419|this.setSource(game.app.loader.resources['main-es-419'].data);this.back();]]
+
+::test-npc
+"Hello I am an NPC."
+>
+P: "And now I am the player."
+>
+P: I can monologue too.
+
+[[leave>close]]
+
+::Content warnings
+P: This is a story about bugs.
+
+It deals with themes of identity and autonomy, death and disaster, and family and faith.
+
+[[Back|this.back()]]
+
+
+::Begin (skip intro)
+<<do
+	this.howler = this.musicSynced('bgm_normal');
+	this.counti = 0;
+	this.countwe = 0;
+	this.tween(this.scene.border.display.container, 'alpha', 1, 5000);
+	this.goto('march');
+>>
+
+::Begin
+<<do
+	this.howler = this.musicSynced('bgm_normal');
+	this.counti = 0;
+	this.countwe = 0;
+>>
+P: Doubt comes to you so easily when you're bored.
+>
+<<do this.tween(this.scene.border.display.container, 'alpha', 1, 5000);>>
+P: Your mind wanders. You think about things. You ask yourself questions, and come up with answers that are yours and yours alone.
+>
+<<do this.scrim(0.5, 10000)>>
+P: Sometimes I feel like this dubious boredom is itself just another expression of our shared existence and purpose.
+>
+P: We all march along the limb of the same tree, we all get caught up in our heads with the same thoughts, we all wonder if the others do the same.
+>
+P: Most of the time I think that I am being specifically punished with this burden, and that my sisters would not understand were I to share it aloud.
+>
+P: I doubt myself.
+>
+P: So I am briefly glad to be interrupted by someone shouting my name.
+>
+"Sister Twenty, look out!"
+[[Freeze]]
+[[Duck]]
+[[Dodge]]
+
+::Freeze
+<<do this.scrim(1, 100)>>
+P: I freeze in place. A moment later, my vision is flooded by a great branch collapsing down mere inches in front of me.
+[[Oh no.>begin2]]
+
+::Duck
+<<do this.scrim(1, 100)>>
+P: I fall to the ground instinctively. As soon as I do, I hear the crash of a great branch collapsing down mere inches in front of me, and cling on for dear life.
+[[Oh no.>begin2]]
+
+::Dodge
+<<do this.scrim(1, 100)>>
+P: I leap backwards on instinct, barreling into the one who called out, Sister Ten-and-nine. The two of us tumble down just as I hear the crash of a great branch collapsing into the path ahead.
+[[Oh no.>begin2]]
+
+::begin2
+P: All at once there is a panic. Sisters are screaming, reaching out, running. The fallen limb weighs heavy on the branch we walk. It dips, and I struggle to keep my balance.
+>
+P: It creaks and groans, and unleashes a horrible crack as something gives.
+>
+P: The world rushes away. I'm falling. This is it.
+
+[[We're going to die.|++this.countwe;this.goto('begin3')]]
+[[I'm sorry Mother.|++this.counti;this.goto('begin3')]]
+[[I don't want to die.|++this.counti;this.goto('begin3')]]
+
+::begin3
+P: But I'm wrong.
+>
+P: I realize I'm being flung upwards. The branch snapped in front of me, and the leftover stump is recoiling. I need to hold on. I need to hold on.
+>I need to hold on!
+P: I grip as tightly as I can. I bite into the bark: Anything to stay put.
+>
+P: There's a jolt, a painful whiplash that wrenches every joint in my body.
+>
+P: But I hold.
+>
+P: My head aches. The canopy comes back into focus.
+>
+P: It starts to rain.
+<<do this.scene.goto({ area: 'intro' });>>
+
+[[>close]]
+
+::intro-wall
+<<do this.scene.player.walkBy(50,0)>>
+P: Can't trust what's left to be stable, I need to get back.
+[[>close]]
+
+::intro-panic
+<<do this.gameObject.line = this.gameObject.line || this.shuffle([
+	'"Half the retinue was in front of us... all gone..."',
+	'"Mother... where is the Queen Mother!?"',
+	'"Sisters... our sisters..."',
+	'"No... this cannot be happening."',
+	'"They fell. We can\'t help them now..."',
+	'"We were too late..."',
+	'"No!!"',
+	'"Please, leave us alone..."',
+	'"Mother will know what to do. Mother always knows what to do."',
+	'"We need to find shelter. We can\'t stay out like this."',
+	'"This can\'t be happening. This can\'t be happening."',
+	'"Sister! We\'re glad you\'re safe, please help the others!"',
+	'"Sister..."',
+	'P: She\'s panicked, and doesn\'t listen to me.',
+	'P: She\'s busy helping the others.',
+	'P: I shouldn\'t distract her.',
+	'P: I want to tell her it will be okay, but it won\'t be.',
+])[0]>>
+<<print this.gameObject.line>>
+[[>close]]
+
+::intro-end
+<<do this.destroy(this.gameObject)>>
+P: It's a nightmare.
+
+Sisters call out, trying to make sense of it all:
+>
+"How many fell?"
+       "We must turn back!"
+    "Where is Mother?!"
+
+"Wait, there's her retinue..."
+[[Mother!>mother-speech]]
+
+::mother-speech
+<<do this.scrim(1, 100)>>
+P: We all stop. There is no need for anyone to shush another in her presence.
+
+The rain itself quiets as if it senses our anticipation.
+>
+P: Queen Mother One and Many Oecophylla is going to speak.
+>
+<<do this.show('queenIdle')>>
+voiceQueen
+"..."
+>
+"Daughters. Sisters."
+>Mother!
+"We see fear in our faces."
+[[We are scared!|++this.countwe;this.goto('mother-speech2')]]
+[[I don't want to die!|++this.counti;this.goto('mother-speech2')]]
+::mother-speech2
+"We smell grief in the air."
+[[We are crying!|++this.countwe;this.goto('mother-speech3')]]
+[[I cannot continue!|++this.counti;this.goto('mother-speech3')]]
+::mother-speech3
+"Do not worry."
+[[We should not worry.|++this.countwe;this.goto('mother-speech4')]]
+[[How could I not?|++this.counti;this.goto('mother-speech4')]]
+::mother-speech4
+"Do not weep for the sisters we've lost."
+[[We should not weep.|++this.countwe;this.goto('mother-speech5')]]
+[[My cries go unanswered.|++this.counti;this.goto('mother-speech5')]]
+::mother-speech5
+"Our daughters, our sisters, are not gone."
+
+"Yes, our numbers are lessened, but look around."
+
+[[We see.|++this.countwe;this.goto('mother-speech6')]]
+[[I see.|++this.counti;this.goto('mother-speech6')]]
+::mother-speech6
+"Listen."
+>
+"We are surrounded by our family."
+
+"Our strength."
+
+"Our gift and our blessing to ourselves and each other."
+>Our family...
+P: The sister to my left reaches out, clasps hands in mine.
+>In ours.
+voiceQueen
+"A sister is One, and one may be lost."
+
+"A sister of Many, will always have sisters."
+>Our sisters...
+"Our sisters of Many survive."
+>
+"So too will each One."
+>
+"..."
+>
+<<do this.show('')>>
+P: Mother... Her words trace themselves through our sisters and our self.
+[[We have faith.|++this.countwe;this.goto('mother-speech7')]]
+[[I really do.|++this.counti;this.goto('mother-speech7')]]
+
+::mother-speech7
+P: The feeling passes in waves. Our sisters cheer, and we join with them. I can't help but notice how much quieter the crowd is than when it set out.
+
+Our hopes are brightened. My worry sets itself deep in my stomach.
+>
+P: But there's ground to cover.
+[[So we march.>march]]
+
+
+
+
+
+::march
+<<do
+	this.musicSynced('bgm_march');
+	this.march = (this.march || 0) + 1;
+	if (!this.passages['march-'+this.march]) {
+		this.march = 2;
+	}
+	if (!this.marchqs1 || !this.marchqs1.length < 3) {
+		this.marchqs1 = this.shuffle([
+			'"Mother is safe. That is what matters."',
+			'"Our sisters are strong."',
+			'"We are strong. We are strong."',
+			'"How long has it been since we set out?"',
+			'"Our legs ache..."',
+			'"Where will we sleep tonight?"',
+			'"Has anyone seen Sister Thirty-and-four?"',
+			'"We saw them fall..."',
+			'"Has Sister Superior said anything?"',
+			'"There is no time to waste."',
+			'"We must. We simply must."',
+			'"Luck will not help us."',
+			'"We must help ourselves."',
+			'"Our Mother will guide us."',
+			'"We will follow the path."',
+			'"Left, right..."',
+			'"Stay safe."',
+			'"All gone..."',
+			'"Look at the trees..."',
+			'"We have no reason to fear."',
+			'"How do the little ones fare?"',
+			'"How many have fallen?"',
+			'"How many still stand?"',
+			'"We will not stop."',
+			'"The path is long."',
+			'"The path is hard."',
+			'"The path is ours."',
+		]);
+	}
+	if (!this.marchqs2 || !this.marchqs2.length < 3) {
+		this.marchqs2 = this.shuffle([
+			'"Haven\'t we been here before?"',
+			'"Where are we?"',
+			'"Are we still on the path?"',
+			'"Is Mother alright?"',
+			'"When can we rest?"',
+			'"We\'re tired..."',
+			'"We\'re hungry..."',
+			'"We\'re sore..."',
+			'"We\'re thirsty..."',
+			'"This is too much... too much..."',
+			'"What are we going to do?"',
+			'"Leave us alone."',
+			'"We need to."',
+			'"Where is the path taking us?"',
+			'"Should we stop?"',
+			'"We cannot stop."',
+			'"We must go on."',
+			'"So many sisters..."',
+			'"We are still sisters."',
+			'"We are still Many."',
+			'"Have we gone too far?"',
+			'"Must we go further?"',
+			'"Mother..."',
+			'"Sister..."',
+			'"Will we see them again?"',
+			'"Hold our hands, Sister."',
+			'"Do not fear, Sister."',
+			'"Sister, walk with me."',
+			'"The path is too long."',
+			'"The path is too hard."',
+			'"Is this truly the path?"',
+		]);
+	}
+	if (!this.marchqs3 || !this.marchqs3.length < 3) {
+		this.marchqs3 = this.shuffle([
+			'"We must be on the path."',
+			'"Do you smell that?"',
+			'"This must be the path."',
+			'"The path will not let us down."',
+			'"We will follow the path."',
+			'"It smells nice..."',
+			'"Our path is clear."',
+			'"There is no time to lose."',
+			'"We must hurry."',
+			'"Is our journey ending?"',
+			'"We will see this through."',
+			'"The trees... The leaves..."',
+			'"Our home..."',
+			'"Is this it?"',
+			'"Can it be true?"',
+			'"We must believe."',
+			'"We cannot lose faith."',
+			'"We will."',
+		]);
+	}
+	// sets up progression
+	// march events will go to `${name}-march`,
+	// and can be "ended" by going to `march` again
+	if(!this.marchEvents || !this.marchEvents.length) {
+		let pool = [
+			...new Array(4).fill('feeding'),
+			...new Array(5).fill('camp'),
+			'cordyceps',
+			'inn',
+			'frog',
+			'deserter',
+		];
+		const events = [];
+		while(events.length < 8 && pool.length) {
+			pool = this.shuffle(pool);
+			if (pool[pool.length-1] === events[events.length-1]) {
+				continue;
+			}
+			events.push(pool.pop());
+		}
+		// guarantee both cordyceps events
+		if (events.includes('cordyceps')) {
+			const idx = events.indexOf('cordyceps');
+			if (idx > events.length/2) {
+				events[1] = 'cordyceps';
+			} else {
+				events[events.length-2] = 'cordyceps';
+			}
+		}
+		this.marchEvents = events;
+		this.marchEvents.push('ending');
+	}
+	this.marchEvent = this.marchEvents.shift();
+	this.scrim(1, 1000);
+	setTimeout(() => {
+		this.scene.goto({ area: 'march' });
+		setTimeout(() => {
+			this.scrim(0.5, 10000);
+			this.goto('march-'+this.march);
+		}, 100);
+	}, 1000);
+>>
+
+::march-1
+P: ...
+>
+P: No one questions it.
+>
+P: The tension is palpable, but we follow the path.
+[[>march-end]]
+
+::march-2
+P: ...
+>
+P: The mood is strange as we walk today.
+>
+P: Sisters buzz in idle chatter, they speak their minds without expecting answers.
+>
+<<print this.marchqs1.pop()>>
+>
+<<print this.marchqs1.pop()>>
+>
+<<print this.marchqs1.pop()>>
+[["We just need to keep going."|++this.countwe;this.goto('march-end')]]
+[["I will make it through this."|++this.counti;this.goto('march-end')]]
+[["This is hopeless.">march-end]]
+
+::march-3
+P: ...
+>
+P: We keep a steady pace, feet moving, minds bustling.
+>
+<<print this.marchqs1.pop()>>
+>
+<<print this.marchqs1.pop()>>
+>
+<<print this.marchqs1.pop()>>
+[["We will make it."|++this.countwe;this.goto('march-end')]]
+[["I know I can do it."|++this.counti;this.goto('march-end')]]
+[["This is a waste of time.">march-end]]
+
+::march-4
+P: ...
+>
+P: Our stomachs growl, but our legs keep moving.
+>
+<<print this.marchqs2.pop()>>
+>
+<<print this.marchqs2.pop()>>
+>
+<<print this.marchqs2.pop()>>
+[["Is this really what we should be doing?"|++this.countwe;this.goto('march-end')]]
+[["Can't I do more to help?"|++this.counti;this.goto('march-end')]]
+[["Why did this happen?">march-end]]
+
+::march-5
+P: ...
+>
+P: The canopy rustles overhead.
+>
+<<print this.marchqs2.pop()>>
+>
+<<print this.marchqs2.pop()>>
+>
+<<print this.marchqs2.pop()>>
+[["Will we ever find what we're looking for?"|++this.countwe;this.goto('march-end')]]
+[["Is this my fault?"|++this.counti;this.goto('march-end')]]
+[["Where is the path?">march-end]]
+
+::march-6
+P: ...
+>
+P: The scouts find a few fresh leaves, and we take what we can.
+>
+P: It's not enough for a nest, but it is hopefully a good sign.
+>
+<<print this.marchqs1.pop()>>
+>
+<<print this.marchqs1.pop()>>
+>
+<<print this.marchqs1.pop()>>
+[["Can we go on like this?"|++this.countwe;this.goto('march-end')]]
+[["What if I'm wrong?"|++this.counti;this.goto('march-end')]]
+[["It doesn't matter, none of it.">march-end]]
+
+::march-7
+P: ...
+>
+P: The air is humid. The bark is light underfoot.
+>
+<<print this.marchqs1.pop()>>
+>
+<<print this.marchqs1.pop()>>
+>
+<<print this.marchqs1.pop()>>
+[["Why haven't we stopped?"|++this.countwe;this.goto('march-end')]]
+[["Should I bother?"|++this.counti;this.goto('march-end')]]
+[["No one will listen.">march-end]]
+
+::march-8
+P: ...
+>
+P: There are new scents in the air.
+>
+P: Strong, and redolent.
+>
+<<print this.marchqs3.pop()>>
+>
+<<print this.marchqs3.pop()>>
+>
+<<print this.marchqs3.pop()>>
+[["Our path must be coming to an end."|++this.countwe;this.goto('march-end')]]
+[["I can't believe it."|++this.counti;this.goto('march-end')]]
+[["This must be it.">march-end]]
+
+::march-9
+P: ...
+>
+P: The sun shines through the leaves above, speckling the path in greens and golds.
+>
+<<print this.marchqs3.pop()>>
+>
+<<print this.marchqs3.pop()>>
+>
+<<print this.marchqs3.pop()>>
+[["We have faith."|++this.countwe;this.goto('march-end')]]
+[["I will continue."|++this.counti;this.goto('march-end')]]
+[["It can't be much further.">march-end]]
+
+::march-end
+P: ...
+
+[[...|this.musicSynced('bgm_normal');this.goto(this.marchEvent+'-march')]]
+
+
+
+
+
+
+
+
+
+::feeding-march
+P: Before I can lose myself in my thoughts, I am called upon by Sister Superior Three.
+>
+<<do this.fed = (this.fed || 0) + 1>>
+<<do this.scrim(1, 1000);this.show('superiorIdle')>>
+"Sister Twenty. You are being placed on feeding duties today."
+[[...|this.show('');this.goto('feeding-'+this.fed)]]
+
+::feeding-1
+P: She leads me through the marching order, easily cutting in and out between other sisters.
+>
+P: ...I've never fed Mother before.
+>
+P: We all share food of course, but it is a responsibility and privilege reserved for those in her retinue.
+>
+P: Our retinue, I remind myself.
+>
+P: I follow along meekly, until I am standing before the Queen Mother's palanquin.
+>
+<<do this.show('queenIdle')>>
+P: I do not know what to say.
+
+[["Hello Mother.">"Hungry?"]]
+[["Hungry?"]]
+[["...">feeding-1-2]]
+
+::"Hungry?"
+P: I receive a swat to the back of the head from Three.
+>
+"Shh!"
+[[>feeding-1-2]]
+
+::feeding-1-2
+P: Sister Superior clears her throat, and addresses Mother:
+>
+"Queen Mother, please allow us to introduce Sister Twenty of Many Oecophylla."
+>
+"Sister Twenty, please begin your duty to Queen Mother One and Many Oecophylla."
+>
+P: She steps back, and I am left face to face with Mother.
+>
+P: "..."
+>
+P: "...Sorry. This is the first time-"
+>
+voiceQueen
+"We are aware. We do not forget our own daughters, our own sisters."
+>
+P: Her voice is calm, and firm. The same as it always is.
+>
+voiceQueen
+"Despite Daughter Three's insistence on formalities, there is no need for special treatment. We all must eat, so we all share food."
+>
+P: I nod, and regurgitate some of the contents of my stomach.
+>
+P: She asks for no special treatment, but I can't help but give up a larger portion than I usually would to another sister.
+
+If she notices, she does not comment.
+>
+P: Mother partakes of her meal in small sips and licks, seemingly in no hurry.
+>
+P: Why would she be? She will still be seated here whether she finishes now or later.
+>
+P: I stand in anxious silence as she eats.
+>
+voiceQueen
+"..."
+>
+"Daughter Twenty."
+>"Yes?"
+"We do not wish to be uncomfortable."
+
+"Speak with us, if we would have anything to say."
+>
+P: I shouldn't be shocked that she could see through my nerves so clearly, but it catches me off-guard regardless.
+[[>feeding-questions]]
+
+::feeding-2
+P: Again?
+>
+P: I suppose there are fewer of us, so it shouldn't be surprising.
+>
+<<do this.show('queenIdle')>>
+P: The ceremony of it keeps me on edge, but it is not long before Mother is contently feasting on a conserved lunch of mine from earlier that day.
+[[>feeding-questions]]
+
+
+::feeding-3
+<<do this.show('queenIdle')>>
+P: I am used to the routine by now, but I have new reason to be anxious.
+>
+P: Mother needs to be fed, but my own stomach is painfully empty.
+>
+P: I regurgitate what little reserves I have, but it is a meager helping at best.
+>
+P: My worries go unaddressed. Mother does not comment on the size of her meal, and eats as if nothing is out of the ordinary.
+>
+P: Perhaps she is so well-fed that it makes no difference to her?
+>
+P: Perhaps she knows how hungry our sisters are, and sees no reason to remind us.
+[[>feeding-questions]]
+
+
+::feeding-4
+P: I find myself almost looking forward to the occasion.
+>
+P: If only for the opportunity to speak with Mother, to hear her thoughts and words directly.
+>
+<<do this.show('queenIdle')>>
+P: I prepare her meal as usual.
+>
+P: She continues to eat, and I consider what to say.
+
+But before I've said anything, she speaks.
+>
+voiceQueen
+"Please, Daughter."
+>
+"The path has been long and hard on us all."
+>
+"We need our rest."
+
+"No questions today."
+>
+P: I nod, and continue the rest of the feeding in silence.
+>
+<<do this.show('')>>
+P: ...
+[[>march]]
+
+
+::feeding-questions
+P: She continues to eat, and I consider what to say.
+
+// TODO: more questions
+<<do this.qc=0>>
+// only first 6 questions will be shown
+// question template:
+// <<if this.qc<6 && othercondition>><<do ++this.qc>>[[a]]<<endif>>
+<<if this.qc<6 && this.cordy2question>><<do ++this.qc>>[["What happened to Thirty-and-five?"]]
+<<elseif this.qc<6 && this.cordy1question>><<do ++this.qc>>[["What happened to Sister Thirty-and-three?"]]<<endif>>
+<<if this.qc<6 && this.frogquestion>><<do ++this.qc>>[["Why did we let the frog go?"]]<<endif>>
+<<if this.qc<6 && this.innquestion>><<do ++this.qc>>[["What happened to the roly polies?"]]<<endif>>
+<<if this.qc<6 && this.innquestion>><<do ++this.qc>>[["Why didn't we stay longer at the inn?"]]<<endif>>
+<<if this.qc<6 && this.deserterquestion>><<do ++this.qc>>[["Who was the sister that ran away?"]]<<endif>>
+<<if this.qc<6 && this.motherquestion!==false>><<do ++this.qc>>[["What was your mother like?"]]<<endif>>
+<<if this.qc<6 && this.fatherquestion!==false>><<do ++this.qc>>[["What was Father like?"]]<<endif>>
+<<if this.qc<6>>[["...">feeding-questions-none]]<<endif>>
+
+::feeding-questions-none
+P: I can't think of anything. Nothing I'd care to ask her, at least.
+>
+P: I can tell Mother is disappointed, but she goes back to eating without pressing the issue.
+[[>feeding-questions-2]]
+
+::feeding-questions-2
+<<do this.show('')>>
+P: She finishes her meal, and I return to my place in the marching order.
+
+[[>march]]
+
+::"What happened to Thirty-and-five?"
+<<do this.cordy2question=false;this.cordy1question=false>>
+P: "Sister Superior spoke as if she knew..."
+>
+P: "She called her a devil."
+>
+voiceQueen
+"You doubt her?"
+
+[["Yes.">devil]]
+[["No.">devil]]
+
+::devil
+P: "She is convinced this is the second case."
+
+<<if !this.cordy1question>>"We spoke of the first, yet we did nothing then. Why?"<<else>>"If they were related, why was nothing done after the first?"<<endif>>
+>
+voiceQueen
+"You would have us take a more direct approach?"
+
+"Should we burn any who have associated with devilry, as Daughter Three has suggested?"
+>"No!"
+"Do not worry, we would never."
+
+"Daughter Three means well, but her methods are influenced more by fear than by efficacy."
+>
+"There are no simple solutions to those who would tempt us off the path."
+
+[["Then what is there to do?"]]
+[["Are we safe?"]]
+[["Have I been tainted?"]]
+
+::"Then what is there to do?"
+"We must care for each other, Daughter Twenty."
+>
+"And we must walk."
+[[>feeding-questions-2]]
+
+::"Are we safe?"
+<<do ++this.countwe>>
+"No less than before."
+>
+"Moreso, even, for the devils we know have been routed."
+>
+"We must simply hope they are the last of those we don't."
+[[>feeding-questions-2]]
+
+::"Have I been tainted?"
+<<do ++this.counti>>
+"Of course."
+>"What?!"
+"We all are, Daughter Twenty."
+>
+"Such is the nature of devils."
+[[>feeding-questions-2]]
+
+::"What happened to Sister Thirty-and-three?"
+<<do this.cordy1question=false>>
+P: "It... it doesn't make any sense. Why would she do that?"
+>
+voiceQueen
+"Daughter, must we speak of such sorrowful things while we eat?"
+>
+"...But sorrow will not be lifted by silence. We will answer."
+>
+"Our daughter, our sister, Thirty-and-three was no longer herself."
+
+"She was lost to us before the fall."
+>"What do you mean?"
+"We mean, Daughter Twenty, that you should remember your sister."
+
+"And not the creature you saw that night."
+[[>feeding-questions-2]]
+
+::"What was Father like?"
+<<do this.fatherquestion=false>>
+voiceQueen
+"Your father?"
+>
+P: She stops eating, suddenly focused and severe.
+>
+voiceQueen
+"Trust us when we say that is best you did not know him."
+
+"Not that you even could..."
+>
+P: "...Oh."
+>
+voiceQueen
+"Do not misunderstand: We are glad for the time we had with him. We carry the memory of him with us always."
+
+"But..."
+>
+"Your father was not like us."
+
+"Could not be like us."
+>
+"Perhaps when we have followed the path to its end, when we have built a nest - a home - you will have a brother or two."
+>
+"Then you will see what we mean."
+
+[[>feeding-questions-2]]
+
+::"What was your mother like?"
+<<do this.motherquestion=false>>
+P: It's something that I've wondered about for awhile: Mother calls herself 'One and Many', but she can't be the first.
+
+Everyone has a mother, right?
+>
+voiceQueen
+"...We do not speak of her."
+>
+"Do you understand?"
+
+[["What?">"Why not?"]]
+[["Why not?"]]
+[["Yes, Mother."]]
+
+::"Why not?"
+"Daughter Twenty, why do you ask this of us? Who wishes to know?"
+
+"Have you been in contact with the False Queen?"
+>"I-"
+"No, it would be impossible. You simply do not know what you ask..."
+>
+"Mother holds no power here. We walk our own path."
+
+"Do you understand?"
+
+[["Yes, Mother."]]
+
+::"Yes, Mother."
+"...Good. Then that is that."
+[[>feeding-questions-2]]
+
+
+::"Why did we let the frog go?"
+<<do this.frogquestion=false>>
+P: "That monster, that terrible beast..."
+
+"Why let such cruelty go unpunished?"
+>
+voiceQueen
+"'Cruelty'? Do you believe what he did was cruel?"
+>
+P: "Of course! He murdered our sister!"
+
+"What could be more cruel?!"
+>
+voiceQueen
+"Daughter Twenty, what did you prepare for dinner tonight?"
+>"What?"
+P: The non-sequitur throws me off.
+
+"It-uh, um? It's leftovers? From the beetle we caught two days ago. But what does-"
+>
+voiceQueen
+"Was it cruel, when we tore that beetle's legs from its body?"
+
+"Or when we sprayed its innards with acid?"
+>
+P: "...That's different."
+>
+voiceQueen
+"The beetle would likely disagree."
+>
+P: I can feel my antennae droop even as I try to hide my expression.
+
+Mother takes another lick of the partially digested slurry of protein.
+>
+voiceQueen
+"The frog let us pass."
+>
+"We mourn the sister who paid dearly for that passage, and we detest the beast for having chosen such a price."
+>
+"But we cannot fault him for his choice."
+[[>feeding-questions-2]]
+
+::"Who was the sister that ran away?"
+<<do this.deserterquestion=false>>
+voiceQueen
+"Who was she?"
+>
+"A coward."
+
+"A traitor, and a heretic."
+>
+"We need not spoil our appetite with discussion of such things."
+
+"Please, speak no more."
+[[>feeding-questions-2]]
+
+::"What happened to the roly polies?"
+<<do this.innquestion=false>>
+voiceQueen
+"The keepers of the inn?"
+>
+"They were dealt with."
+>"So they're..."
+"If you ask whether they still live, we do not know or care."
+>
+"They did not co-operate, and were evicted from the premises."
+
+"That is the start and end of the matter."
+>
+"Why is this of any concern?"
+
+[["They were willing to help us."]]
+[["I didn't want to hurt them."]]
+
+::"They were willing to help us."
+<<do ++this.countwe>>
+"They were willing to extort us."
+>
+"Make no mistake Daughter: We cannot trust those who would hold us for sale."
+[[>feeding-questions-2]]
+
+::"I didn't want to hurt them."
+<<do ++this.counti>>
+"They chose a path of mercantilism and deceit."
+>
+"Our path, however, is not one that knows expense."
+>
+"Any suffering that night was of their own making."
+[[>feeding-questions-2]]
+
+::"Why didn't we stay longer at the inn?"
+<<do this.innquestion=false>>
+<<do ++this.countwe>>
+voiceQueen
+"Daughter, the inn was a fortunate detour, but it is not part of our path."
+>
+"We must keep moving, and build the home that is meant for us."
+>
+"Besides, we could not stay even if our fates aligned."
+
+"The tree upon which they staked their claim was already dead and rotting."
+>"What?"
+"Why do you think we had such difficulty finding suitable leaves for a nest that night?"
+>
+"And did you not notice we were the only 'customers'?"
+>
+"Never trust a merchant's word, Daughter."
+[[>feeding-questions-2]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+::camp-march
+<<do
+	if (this.scene.areas.camp) {
+		this.scene.areas.camp.forEach(i => {
+			this.destroy(i);
+		});
+		if (this.scene.area === 'camp') {
+			this.scene.goto({ area: 'march' });
+		}
+	}
+
+	const campBasics = [
+		this.Prop({ texture: 'bg_camp', x: -458, y: 926, offset: -10000 }),
+		this.Poly({ verts: [-2049,-117, -2045,234, -1628,266, -1319,287, -1068,335, -876,317, -651,363, -467,348, -100,414, 191,449, 559,665, 1023,683, 1148,414, 1144,-694, 566,-707, 539,-548, 392,-283, 142,-255, -183,-278, -608,-234, -984,-203, -1127,-212, -1501,-208, -1803,-191, -2049,-117] }),
+		this.Prop({ texture: 'fireplace', x: 91, y: -78, offset: -30 }),
+		this.Block({ type: 'circle', x: 91, y: -78-35, radius: 35 }),
+		this.Interrupt({ passage: 'camp-fireplace', type: 'circle', x: 91, y: -78-35, radius: 45 }),
+		this.Interrupt({ passage: 'camp-wall', x: 915, y: -22, height: 1000 }),
+		this.Interrupt({ passage: 'camp-wall', x: 657, y: -365, width: 500 }),
+		this.Interrupt({ passage: 'camp-wall', x: 657, y: 524, width: 500 }),
+	];
+	const tentSlots = [
+		{x: -1201, y: 150},
+		{x: -840, y: -83},
+		{x: -598, y: 156},
+		{x: -177, y: 256},
+		{x: 416, y: 324},
+		{x: 627, y: 70},
+		{x: 399, y: -115},
+		{x: -193, y: -113},
+	];
+	const campProps = [
+		this.Wagon,
+		this.TentMedium,
+		this.TentMedium,
+		this.TentSmall,
+		this.TentSmall,
+		this.TentSmall,
+	];
+	const campObjects = campBasics.slice();
+	if (false) {
+		// fill all slots with biggest obj to test placement
+		tentSlots.forEach(i => {
+			campObjects.push(...this.TentMedium({ x: i.x, y: i.y, flip: false }));
+		});
+	} else {
+		this.shuffle(tentSlots)
+			.slice(0, 3+Math.floor(Math.random()*3))
+			.forEach(i => {
+				campObjects.push(...this.shuffle(campProps)[0]({ x: i.x + (Math.random()-0.5)*20, y: i.y + (Math.random()-0.5)*20, flip: Math.random() > 0.5 }));
+			});
+	}
+
+	if (this.debug) {
+		campObjects.push(this.Interrupt({ passage: 'camp-march', x: 101, y: -280 }));
+		campObjects.push(this.Text('reload camp', { x: 50, y: -310 }));
+	}
+
+	if (!this.camplittlesister2 && Math.random()>0.5) {
+		campObjects.push(this.Npc({ body: 'childAnt', scale: 0.6, roam: 100, passage: 'little-sister', x: -906, y: 163 }));
+	} else if (Math.random()>0.5) {
+		campObjects.push(this.Npc({ passage: 'camp-npc', x: -906, y: 163, roam: 50 }));
+	}
+
+	if (!this.donefrog && Math.random()>0.5) {
+		campObjects.push(this.Npc({ passage: '19-camp', x: 173, y: -132, roam: 40 }));
+	}
+
+	if (Math.random()>0.5) {
+		campObjects.push(
+			this.Npc({ body: 'superior', passage: 'superior-camp', x: 72, y: 231, scale: 0.16, bodyCollision: { isStatic: true } }),
+			...this.AntProp({ x: -38, y: 304 }),
+			...this.AntProp({ x: 9, y: 333 }),
+			...this.AntProp({ x: 67, y: 347 }),
+			...this.AntProp({ x: 126, y: 336, flip: true }),
+			...this.AntProp({ x: 179, y: 313, flip: true }),
+		);
+	} else {
+		if (Math.random()>0.5) campObjects.push(this.Npc({ passage: 'camp-npc', x: -38, y: 304, roam: 50 }));
+		if (Math.random()>0.5) campObjects.push(this.Npc({ passage: 'camp-npc', x: 179, y: 313, roam: 50 }));
+	}
+	if (Math.random()>0.5) {
+		campObjects.push(this.Npc({ passage: 'camp-npc', x: -509, y: -163, roam: 50 }));
+	}
+	if (Math.random()>0.5) {
+		campObjects.push(this.Npc({ passage: 'camp-npc', x: -403, y: -130, roam: 50 }));
+	}
+	if (Math.random()>0.5) {
+		campObjects.push(this.Npc({ passage: 'camp-npc', x: -1145, y: -159, roam: 50 }));
+	}
+	if (Math.random()>0.5) {
+		campObjects.push(this.Npc({ passage: 'camp-npc', x: 777, y: 170, roam: 50 }));
+	}
+
+	if (!this.outlook) {
+		campObjects.push(this.Goto({ area: 'camp-outlook-intro' }, { x: -1765, y: 45, height: 1000 }));
+	} else if (!this.outlookdone) {
+		campObjects.push(this.Goto({ area: 'camp-outlook-event' }, { x: -1765, y: 45, height: 1000 }));
+	} else {
+		campObjects.push(this.Goto({ area: 'camp-outlook' }, { x: -1765, y: 45, height: 1000 }));
+	}
+
+
+	this.Area('camp', campObjects);
+
+	this.scrim(1, 1000);
+	this.camppromise = new Promise(r => {
+		setTimeout(() => {
+			this.scene.goto({ area: 'camp' });
+			r();
+		}, 1000);
+	});
+>>
+P: <<print this.shuffle([
+	'The march comes to a halt.',
+	'It was a long walk, but we\'re finally stopping for some rest.',
+	'Just when it feels like my legs are going to give out, the march comes to an end.',
+	'Sisters start scraping together what we can for a temporary nest. We\'re stopping.',
+	'Mother calls for the colony to stop. We need to rest.',
+	'We\'ve run out of daylight, and start setting up camp.',
+	'The path will have to wait for now: We break to set up camp.',
+	'Sister Superior shouts, and everyone stops walking. We\'re done for tonight.',
+	'Our pace slows. One by one, we realize we are going no further, and eventually stop altogether to prepare camp.',
+	'The stars twinkle above us. Sisters prepare bedding, and put together what shelter they can.',
+	'We ran out of good leaves, but the scraps will have to do: We\'re making camp.',
+	'I can\'t take another step. Luckily, I don\'t have to: camp preparations are already under way.',
+])[0]>>
+[[...|this.camppromise.then(this.goto.bind(this, 'close'))]]
+
+::camp-fireplace
+P: ...Cozy.
+>
+P: I should probably get some rest.
+
+[[Go to bed]]
+[[Not yet>close]]
+
+::Go to bed
+<<do this.scrim(1, 1000)>>
+P: I find an empty cot and let my mind wander.
+>
+P: Tomorrow will be a new day.
+[[>march]]
+
+::camp-wall
+P: Dark out there. Everyone's already asleep.
+<<do this.scene.player.walkBy(-Math.sign(this.scene.player.transform.x)*30, -Math.sign(this.scene.player.transform.y)*100)>>
+[[>close]]
+
+
+::camp-npc
+<<do this.gameObject.line = this.gameObject.line || this.shuffle([
+	'"It\'s been a long day: You should get some rest, Sister."',
+	'P: She nods but seems to be busy with something and moves on.',
+	'"Sister Twenty, is it? We hope you are well."',
+	'"Sorry Sister, but we are on watch: We can\'t talk right now."',
+	'P: The sister on watch duty waves, and gets back to their post.',
+	'P: She seems lost in thought. She doesn\'t acknowledge me.',
+	'"How are you sister? Good? Good..."',
+	'"We will be going to bed soon, do not worry."',
+	'"Our whole body aches... Looking forward to a nice lie-down."',
+	'"Are you hungry, Sister? No? Suit yourself..."',
+	'"How much farther do you think we must walk? We hope it is not too much..."',
+	'"The stars are quite pretty tonight."',
+	'"Please Sister, get some rest. We will take shifts."',
+	'"Ho there Sister Twenty! Best not be causing trouble!"',
+	'"Sister Superior put us on watch tonight. Rest easy, Sister."',
+	'"Hey Twenty."',
+	'"Sister Twenty... Nevermind."',
+	'P: They give me a curious glance, but say nothing.',
+	'P: She smiles and gives me a light pat on the back.',
+	'P: She stares at the canopy below. I leave her be.',
+	'P: She holds out one hand. I take it, and we hold them there briefly before parting.',
+	'P: They ignore me.',
+	'P: They seem busy.',
+])[0]>>
+<<print this.gameObject.line>>
+[[>close]]
+
+::little-sister
+<<do
+	this.gameObject.roam.active=false;
+	this.gameObject.bodyCollision.body.force.x=Math.sign(this.scene.player.transform.x-this.gameObject.transform.x)*0.01;
+>>
+<<if this.camplittlesister>>
+<<do this.goto('little-sister-2')>>
+<<else>>
+P: A young one? What is she doing all the way out here?
+<<endif>>
+>
+P: "Little sister! Are you lost?"
+>
+"Forty-and-eight!"
+>"Forty-and-eight?"
+P: "Is that you?"
+>
+"We're Forty-and-eight!"
+>
+P: She's very young. Her skin is pale, exoskeleton not fully hardened.
+
+She must have pupated just when we set out.
+>
+P: "Well, it's nice to meet you Sister Forty-and-eight, but it's dangerous out here."
+
+"Shouldn't you be in the nursery?"
+>
+"No!!"
+>
+<<do this.gameObject.roam.active=true;this.camplittlesister=true>>
+P: She turns and walks away.
+[[>close]]
+
+::little-sister-2
+<<do this.camplittlesister2=true;>>
+P: "Little Sister Forty-and-eight, are you sure you should be out here alone?"
+>
+P: "Your other sisters must be getting worried about you!"
+>
+"But we have a question!"
+>"Oh?"
+P: "Let's hurry and find your sister nurse so she can answer it then, yes?"
+>
+"But Mother said Sister Nurse Thirty-and-two is gone."
+>"Oh little sister..."
+P: "I'm so sorry."
+>
+P: I kneel down to better see her face. She isn't looking for sympathy though: The eyes that look back at me are filled with anger, not sadness.
+>
+"You too!"
+>
+"Everyone's talking like our sisters are dead. But it's not true!"
+>
+P: "...There was an accident, Forty-and-eight. We lost many sisters."
+>
+"But... how?! Our sisters are strong!!"
+>
+"Sister Thirty-and-two said we are the strongest in our clutch, but she always beats us when playing, except when she LETS us win, which she SAYS she doesn't- but we know better!"
+>
+"How could- how could she be dead?"
+>
+P: "..."
+>
+P: "...Strength is not everything, little sister."
+>
+P: "You are right to be angry. Our sisters are strong, and so are we!"
+>
+P: They should have taught her this in the nursery - but I can't just leave her like this.
+>
+P: "Your sisters are gone, not dead. Not yet."
+>
+P: "They fell."
+>
+"Why don't they just climb back up?"
+>
+P: "Consider sister: if you were on the forest floor, how long do you think it would take to climb back home?"
+>
+P: She pauses to think, her little face twitching.
+>
+"Well... We are fast, but that's very far..."
+>
+"Maybe... Four marches?"
+>
+P: "Four marches! That would be very fast indeed."
+>
+P: "And which tree would you spend those four marches climbing?"
+>
+"The tree we're on, of course! Silly question!"
+>
+P: "Sister Forty-and-eight, it may seem silly, but think carefully about this:"
+
+"How do you know which tree is ours?"
+>
+P: She wiggles her antennae.
+>
+"The one that smells like us, obviously!"
+>
+P: "Four marches is quite a long way for a smell to travel, little sister."
+>
+P: "At that distance, you may as well be guessing."
+
+"And unfortunately we can't afford to sit and wait for them to guess correctly: We will be marching too."
+>
+"We're... we're just leaving them?"
+
+"But what if they come back!?"
+>
+P: Are all the children wondering like this? Have they really been kept in the dark?
+>
+P: "The Queen Mother needs us to keep moving, to build a new nest."
+>
+P: "If our sisters are lucky, they may find our scent, and find the path we took."
+>
+"Really?"
+>
+P: I want to be optimistic for her, but I don't want to lie.
+>
+P: "They would have to be very, very lucky."
+>
+P: She looks down at her feet. Kicks at a piece of dirt, says nothing.
+>
+P: "If they do, our sisters will need a home to come back to."
+
+"A proper, strong home!"
+>
+P: "We need to build it for them."
+
+"And for us too!"
+>
+P: "That's why we have to keep moving."
+>
+"..."
+>
+"...Okay."
+>
+P: "Come on now, let's get you back with the other little sisters and sisters-to-be."
+>
+<<do this.scrim(1,1000)>>
+P: I lift her up, and let her ride on my shoulders on the way back to the temporary nursery.
+>
+P: She giggles when I give her a little bounce.
+>
+P: She bats my head playfully when I have to pause to rebalance myself.
+>
+P: She squeezes my hand and wails when I pass her to an unfamiliar sister nurse.
+[[>march]]
+
+
+
+
+
+
+
+::superior-camp
+<<if this.historylesson>>
+<<do this.goto('superior-camp-2')>>
+<<else>>
+P: "Sister Superior Three?"
+<<endif>>
+>
+P: She looks up at me with something between disdain and exhaustion.
+>
+"What is it, Sister Twenty?"
+
+"You are interrupting a history lesson."
+
+<<if !this.historylessonreject>>[["I wanted to speak with you."]]<<endif>>
+[["May we listen?"]]
+[["Nevermind.">close]]
+
+::"I wanted to speak with you."
+<<do ++this.counti>>
+<<do this.historylessonreject=true>>
+"Then you will have to wait."
+[[>close]]
+
+::"May we listen?"
+<<do ++this.countwe>>
+<<do this.historylesson=true>>
+"...You surprise me, Twenty."
+
+"But of course: Take a seat with the other children."
+>
+P: I look around, seeing that the youngest among us is a Thirty-and.
+
+"'Children'? You may be the eldest, but we are all adults here, Sister! Do you-"
+>
+"Sister Twenty. We are happy to have you, but please: try to keep your interruptions to a minimum."
+>
+<<do this.scene.player.walkTo(209+30, 286).then(() => this.scene.player.walkBy(-30, 0))>>
+P: I open my mouth to retort, but decide not to push it, and find an empty spot in her audience.
+>
+<<do this.scrim(1,1000)>>
+<<do this.show('superiorIdle')>>
+"As we were saying... We are all our Mother's children."
+>
+"But to be one of many children is very different than to be one of few."
+>
+"To be one of few is something that, of course, only a few of us have experienced."
+
+"Fewer still remain who know what it is like to have been both."
+>
+P: ...Is this a history lesson or an ego trip?
+>
+"Mother had so few children, initially. She raised us all on her own."
+
+"She gave up her own body - even her gift of flight - all for our sake."
+>
+"She fed us with the nectar of her sacrifice."
+
+"In return we cared for her, and cared for all of you."
+>
+<<do this.show('')>>
+P: One of the younger sisters in attendance speaks up:
+>
+"You were a sister nurse, Three?"
+>
+<<do this.show('superiorIdle')>>
+"Naturally! We all had to be, back then."
+>
+"We were all but sisters: We had to do everything to ensure that our sisters-to-be would grow, with only Mother's guidance, and not her direct care."
+>
+"And perhaps we did our job too well: You all grew to be so tall!"
+>
+P: There's a light wave of chuckles from the younger sisters.
+>
+"But yes, it was only after the first Ten-ands had pupated that we took on more specific roles. We adapted to our growing needs, and did the work we were most suited for."
+>
+"Some of you may even remember our late Sister Superior Two, who was with us as recently as the Twenty-ands."
+
+"She would have been proud to see you now."
+>
+"The nursery was our predilection before then, and we have been glad to see it grow under the guidance of others when our duty as Superior took precedence."
+>
+"One day, perhaps one of you will undertake the same duty, and tell this same story to your own younger sisters."
+>
+"..."
+>
+"...But speaking of duty, we all must prepare for the road ahead, and we cannot do so without a proper night's rest."
+
+"Off to bed now. We may continue again another day."
+>
+<<do this.show('')>>
+P: She stretches, and the crowd begins to disperse.
+[[>Go to bed]]
+
+::superior-camp-2
+P: Sister Superior Three waves me away impatiently, busy with the younger ants.
+[[>close]]
+
+
+::19-camp
+<<do this.gameObject.roam.active=false>>
+<<if this.talked192>>
+<<do this.goto('19-camp-3')>>
+<<elseif this.talked19>>
+<<do this.goto('19-camp-2')>>
+<<else>>
+P: Sister Ten-and-nine perks up from her spot by the fire when she sees me.
+<<endif>>
+>
+<<do this.talked19=true>>
+"Sister Twenty! How are you?"
+
+[["I've been better."]]
+[["We could all use some rest."]]
+[["Fine, how are you?"]]
+
+::"I've been better."
+<<do ++this.counti>>
+P: "My legs are tired, my back hurts, and I want to sleep."
+
+"How are you, Ten-and-nine?"
+[[>"Fine, how are you?"]]
+
+
+::"We could all use some rest."
+<<do ++this.countwe>>
+P: "Our sisters worked hard today..."
+
+"How are you, Ten-and-nine?"
+[[>"Fine, how are you?"]]
+
+
+::"Fine, how are you?"
+"Ah, you know how it is..."
+>
+<<do this.gameObject.roam.active=true>>
+"Always one step behind you, ah ha!"
+[[>close]]
+
+::19-camp-2
+<<do this.gameObject.roam.active=false>>
+"Is something wrong, Sister Twenty?"
+>
+P: "No, it's just..."
+
+[["I wanted to thank you."]]
+[["It's nothing."]]
+
+::"It's nothing."
+<<do this.gameObject.roam.active=true>>
+P: She tilts her head slightly in confusion, but waves farewell.
+[[>close]]
+
+::"I wanted to thank you."
+<<do ++this.counti>>
+"Thank us? What for?"
+>
+P: "Back when- when the branch fell. You called out to warn me, and..."
+
+"Well I don't think I would have made it if you hadn't."
+>
+P: "So... thank you."
+>
+P: She seems surprised.
+>
+"We did what any of us would do!"
+
+"There's no need for thanks."
+>
+P: "Need or not, I wanted to."
+>
+"...You're welcome, then!"
+>
+"Now..."
+>
+P: She pats me on the head.
+>
+"Go get some rest. You look exhausted."
+>
+P: "Hah... Alright. Good night, Sister."
+>
+<<do this.scrim(1, 1000)>>
+<<do this.talked192=true>>
+"Good night, Twenty."
+[[>march]]
+
+::19-camp-3
+<<do this.gameObject.roam.active=false>>
+"...You look tired, Twenty."
+>
+"Have you been getting enough rest?"
+>
+P: "...No. You?"
+>
+<<do this.gameObject.roam.active=true>>
+P: She just laughs.
+[[>close]]
+
+
+
+
+::camp-outlook-intro
+<<do this.outlook=1>>
+P: I take a stroll away from camp, into the dark of the night.
+
+The stars are so clear out here.
+[[>close]]
+
+::camp-outlook
+<<do this.goto('camp-outlook-'+this.outlook)>>
+
+
+::camp-outlook-1
+P: I take a stroll away from camp, and it seems someone had the same idea that I did.
+>
+P: Sister Twenty-and-seven is gazing at the stars.
+
+She seems lost in thought.
+
+[[Approach her]]
+[[Leave her alone]]
+
+
+::Leave her alone
+<<do this.scrim(1,100)>>
+P: I don't want to disturb her.
+>
+P: I head back the way I came.
+[[...|this.goto('close');this.scene.goto({ area: 'camp', x: -1537, y: -12 })]]
+
+
+::Approach her
+<<do this.outlook=2>>
+<<do this.outlooknpc.flipped=false>>
+<<do this.scene.player.walkBy(-100,0)>>
+"Ahh!!"
+>
+"Sister Twenty, you scared me!"
+>"Sorry..."
+P: "Just wanted to look at the stars - didn't expect anyone else to be here."
+>
+P: She looks around anxiously, as if I've caught her red-handed.
+
+Doing what, I don't know.
+>
+P: So I ask.
+
+"What are you doing out here?"
+>
+"I- We were walking. And we got lost."
+
+"And then you found us."
+>
+"That's it. Alright?"
+>
+P: "Twenty-and-seven..."
+
+"You're not very good at lying, are you?"
+>
+"What!?"
+>
+P: "It's okay! Calm down, please."
+
+[["Should we be concerned?"]]
+[["It's none of my business.">"I won't tell anyone."]]
+[["I won't tell anyone."]]
+
+::"Should we be concerned?"
+<<do ++this.countwe>>
+"No! It was nothing, really!"
+[[>approach-2]]
+
+::"I won't tell anyone."
+<<do ++this.counti>>
+"..."
+>
+"It was nothing, really..."
+[[>approach-2]]
+
+::approach-2
+"We were... making a wish."
+>
+P: "A wish?"
+>
+"On the stars."
+>
+P: She gestures up to the dark blanket of night.
+>
+"Sister Ten-and-nine once told us that on clear nights, your words may travel all the way to the skies above."
+
+"And that if they take pity on you, the stars may even make them true."
+>
+"...I- We know it's silly. But please don't tell the others."
+
+[["We don't have any rules against wishes."]]
+[["I won't if you won't."]]
+
+::"We don't have any rules against wishes."
+<<do ++this.countwe>>
+"Still... We'd rather keep it a secret."
+>"...Alright."
+"Thank you, Sister."
+>
+P: "Can't help but wonder though..."
+>
+P: "What did you wish for?"
+[[>approach3]]
+
+::"I won't if you won't."
+<<do ++this.counti>>
+"Thank you, Sister."
+>
+P: "I do have to ask though..."
+>
+P: "What did you wish for?"
+[[>approach3]]
+
+::approach3
+"...We're not supposed to say."
+>
+"The stars won't take pity on you if there are other sisters to do it for them."
+>
+P: I don't have any counter to that, so I change the subject:
+
+"It's getting quite late. We should head back."
+>
+P: "That is, if you're done here?"
+>
+"Y-yes. Let's get some rest, Sister."
+>
+<<do this.scrim(1, 1000)>>
+P: The two of us walk back to camp in silence, and find our respective places among the other sleeping sisters.
+>
+P: ...
+>
+P: I wonder if the stars heard her...
+[[>march]]
+
+::camp-outlook-2
+<<do this.outlook=3>>
+P: Sister Twenty-and-seven is on the outskirts of camp again.
+
+This time, she sees me coming.
+>
+"I-It's not what it looks like!"
+>
+<<do this.scene.player.walkBy(-200,-20)>>
+P: "Please, it's alright Sister. We've already agreed to keep your secret, remember?"
+>
+<<do this.outlooknpc.flipped=true>>
+"R-right."
+>
+P: "Are you wishing on the stars again?"
+>
+"..."
+>
+P: "You don't have to say."
+>
+"..."
+>
+"...Sister Twenty, do you ever wonder what it would be like to be Mother?"
+
+[["We don't."]]
+[["I have."]]
+[["What do you mean?"]]
+
+::"We don't."
+<<do ++this.countwe>>
+P: "It's difficult enough to do our jobs without needing to make sure that everyone else is doing theirs as well."
+>
+"That's not what I- not like that."
+[[>"What do you mean?"]]
+
+::"I have."
+<<do ++this.counti>>
+P: "Leadership seems... difficult, to say the least."
+>
+P: "But I think things would be very different if I was in charge."
+>
+"That's not what I- not like that."
+[[>"What do you mean?"]]
+
+
+::"What do you mean?"
+"Mother has children."
+>
+"It seems like it would be... nice. To raise a child."
+>
+P: "...But you know that Mother does not raise the children."
+>
+P: "If that's what you mean, why not take a shift in the nursery with the sisters who do?"
+>
+P: Her antennae cringe inwards.
+>
+"It's different somehow, when it is a sister, not a daughter."
+>
+"Your own daughter."
+>
+P: "..."
+>
+P: I don't know what to say to that.
+>
+P: It's impossible, after all.
+
+She knows that as well as I do.
+>
+P: "...This is what you were wishing for?"
+>
+P: She tilts her head up to the stars, but doesn't respond.
+>
+P: ...
+>
+P: I glance back towards the flickering light of the campfire in the distance.
+>
+P: "It's getting late, Sister. I should head back."
+>
+"Wait-"
+>
+"...Would you stay here with us?"
+>
+P: She folds her arms together nervously.
+>
+"Just for a little bit."
+
+"We don't-"
+>
+"I don't want to be alone."
+>
+P: "...Of course, Sister."
+>
+<<do this.scrim(1, 2000)>>
+P: The two of us take a seat on the branch overlooking the stars.
+>
+P: We talk a little more, about nothing in particular.
+>
+P: We stay there until sunrise.
+<<do this.outlookdone=true>>
+[[>march]]
+
+
+
+
+
+
+
+
+
+
+
+::cordyceps-march
+<<if !this.cordyceps>>
+<<do this.cordyceps=true;this.goto('cordyceps-1')>>
+<<else>>
+<<do this.cordyceps=false;this.goto('cordyceps-2')>>
+<<endif>>
+
+::cordyceps-1
+P: The march itself is - for once - uneventful.
+>
+P: The weather is clear. There are no delays or interruptions.
+
+We make much needed progress.
+>
+<<do this.scrim(1, 1000)>>
+P: We even manage to find a decently stable collection of leaves to stake camp.
+>
+P: Nothing long-term, but more than good enough for a single night.
+>
+P: ...
+>
+P: Figures that when we finally have the opportunity to relax a little, I'm left feeling restless.
+>
+<<do this.scene.player.flipped=true>>
+<<do this.scene.goto({ area: 'camp-outlook-cordy', x: 15, y: -110 })>>
+P: After tossing and turning without relief, I give up.
+
+I find the sister on night watch, and volunteer to take her shift.
+>
+P: She's more than happy to trade places.
+>
+<<do this.scrim(0.5, 2000)>>
+P: ...
+>
+P: It's a quiet night. A couple moths circle overhead for a bit, but move on without ever landing. The temporary nest rustles as resting sisters shuffle and care to the young.
+>
+P: I hear footsteps from behind me.
+>
+P: Turning around, I see another Sister walking this way.
+
+"Sister Thirty-and-three, right? You couldn't sleep either?"
+>
+<<do this.scrim(1, 100)>>
+<<do this.show('basicAntRun', { scale: 3, y: -250, alpha: 0.2, flip: true, duration: 2000 })>>
+P: She doesn't answer, just continues walking slowly forward.
+>
+P: "Sister Thirty-and-three? Are you alright?"
+>
+"the"
+>
+P: She's mumbling, almost too quietly to even hear.
+>
+"the"
+  "the"
+>"Sister?"
+"pain"
+>"Pain? Sister are you hurt?"
+"Painful Painful"
+
+"vertigo"
+>
+P: Her words don't seem to be directed at me: she ignores my questions and continues along at a lilting pace.
+>
+"vertigo"
+  "aching"    "pain"
+    "aching"    "pain"
+>
+P: She takes a step forward, then another, and another.
+[[Block her path]]
+[[Let her walk]]
+
+::Block her path
+P: "This isn't funny, Sister. You need to stop, we can't- hey! Stop! Put me down!"
+>
+P: Sister Thirty-and-three lifts me with ease, and tosses me aside.
+>
+P: It doesn't seem like she's trying to hurt me - it's almost absent-minded - but still I yelp in fear of falling off the branch and scramble back.
+[[>Let her walk]]
+
+::Let her walk
+P: She keeps walking.
+>
+"pain"    "aching"    "vertigo"
+         "pain"        "vertigo"
+>
+P: She walks right up to the edge.
+> "Sister, no!!"
+<<do this.show('')>>
+P: She takes another step, and she's gone.
+>
+P: What... what just happened?!
+>
+P: I should get help. I should tell someone.
+
+I should do SOMETHING.
+>
+P: But it's too late. It's a straight drop to the forest floor here.
+
+If we didn't leave the path for half our sisters, we certainly won't do it for one.
+>
+P: I could wake the others, but what would be the point?
+>
+P: All it would do is interrupt their rest for a problem that can't be fixed.
+
+Better they find out in the morning.
+>
+P: ...
+>
+<<do this.cordy1question=true>>
+P: I resign myself to the rest of the watch, and prepare a report for tomorrow.
+
+[[>march]]
+
+::cordyceps-2
+P: The march is long, but something about the rhythm clicks with my feet today.
+>
+P: Left, right, left, right.
+>
+P: Step, step, step, step.
+>
+P: Tap, tap, tap, tap.
+>
+<<do this.scrim(1, 1000)>>
+P: Before I know it, we're making camp for the night.
+>
+P: ...
+>
+P: The rhythm continues in dreams.
+>
+P: Left, right, left, right.
+>
+P: Step, step, step, step.
+>
+P: Tap, tap! TAP!! TAP!!!
+>
+P: I bolt awake, realizing that someone is tapping next to my head.
+>"Ahh!"
+P: A sister, Thirty-and...-something? Ughhhh I'm so tired...
+
+She's hovering over me.
+>
+"Sorry to wake you Sister Twenty, but please come quickly, we need your help!"
+>
+P: It's far too early for this...
+
+But I get up anyway, dozily letting myself be led to a scrap of leaf on the other side of camp.
+<<do
+	this.cordycircle.forEach(i => i.spr.alpha=0);
+	this.campcordyguard.setPosition(594, 284);
+	this.campcordyguard.roam.target = { x: 594, y: 284 };
+	this.scene.goto({ area: 'camp-cordy2', x: 611, y: 317 });
+>>
+[[...|this.campcordyguard.roam.target = { x: -226, y: 2 };this.goto('close')]]
+
+::cordyceps-2-guard
+"Just in here, come on."
+[[>close]]
+
+::cordyceps-2-wall
+P: ...Where am I going?
+
+I should follow my sister.
+<<do this.scene.player.walkBy(-Math.sign(this.scene.player.transform.x)*30, -Math.sign(this.scene.player.transform.y)*100)>>
+[[>close]]
+
+::cordyceps-2-inside
+P: I enter the makeshift abode to find a sister - Thiry-and-five? - standing across from me.
+>
+P: No, wait-
+>
+P: She's tied up.
+>
+P: "Wait- what's going on here?"
+>
+P: She's secured to a twig, stuck in place with thick strands of silk woven tightly around her arms and torso.
+>
+<<do this.cordycircle.forEach(i => this.tween(i.spr, 'alpha', 1, 1000))>>
+P: Then I realize that four other sisters have taken defensive positions around her.
+>
+P: "What are you doing?! Why is she being held like this?"
+
+"Explain yourselves!!"
+>
+"...We were hoping you'd be able to help us figure that out."
+>
+P: The tied up sister is facing me. Her legs kick and scratch at the ground, but she says nothing, and doesn't appear to be making any progress in loosening her bonds.
+>
+"You were the witness to Sister Thirty-and-three's fall, correct?"
+>
+P: Her 'fall'.
+
+"...Yes. What does that have to do with this?"
+>
+"Sister Thirty-and-five, the two of them were close."
+
+"We caught her about to have a similar accident tonight."
+>
+P: 'Accident'.
+>
+"It took all four of us to apprehend her."
+
+"We've sent for Sister Superior as well, but wanted you to confirm our suspicion."
+>
+P: I take a closer look at the subdued sister: her legs continue to struggle, but I realize that her movement isn't frantic or agitated.
+
+She isn't trying to escape: her motions are rhythmic, as if she is walking in place.
+>
+"Sister Twenty, when you saw her that night... Was there anything strange about her?"
+>
+P: "Yes, of course! What sort of a question is that?!"
+>
+"...Aside from the fall. How did she look?"
+
+"Was she... fuzzy?"
+>"...Fuzzy?"
+P: She gestures at Thirty-and-five.
+>
+P: I move to lean in for a closer look, antennae flicking curiously.
+
+As I do, another sister holds out an arm to block me.
+>
+"Careful! We do not know if she is dangerous..."
+>
+P: I nod, and continue more slowly, keeping a distance.
+
+It is difficult to see at first, but then a thin, light strand on her shoulder catches my eye.
+>
+<<do this.scrim(1, 1000)>>
+P: And another. And another.
+>
+<<do this.show('cordyAntTied', { scale: 3, y: 150, duration: 3000 })>>
+P: It creeps out from the joints of her exoskeleton, crawls along her limbs and body.
+
+Ever her face is touched: Translucent white fuzz lining the edges of her mouth and eyes.
+>
+P: Having seen it, her whole body takes on an unnatural aura that hadn't quite registered before.
+
+It's off-putting. Sickening.
+>
+<<do this.scrim(0.5, 1000)>>
+<<do this.show('')>>
+P: "It's... it's everywhere. And it's coming from inside her!"
+>
+"Yes, it seems that way."
+>
+P: "...How is she still alive?"
+>
+"It seems impossible, doesn't it?"
+>
+"...But the real question is whether it is the same as the previous case."
+>
+P: I think back, trying to recall specific details.
+>
+P: "It's difficult to say. It was the middle of the night, and it all happened so fast."
+
+"These protrusions: they are not familiar."
+>
+P: "Her behaviour, however..."
+
+"Sister Thirty-and-three walked like this too."
+>
+P: "Has she said anything?"
+>
+"No, nothing at all since the sister nurse here tied her up."
+>
+P: "Hmm. Thirty-and-three spoke gibberish before she- before the fall."
+>
+P: "No, 'gibberish' is wrong- but it didn't make sense."
+
+"Just single words, over and over."
+>
+P: "'Pain', 'ache', things like that."
+>
+<<do this.scrim(1, 100)>>
+<<do this.show('superiorIdle')>>
+P: At that moment, the door is flung open, and Sister Superior Three enters.
+>
+"What is-"
+>
+P: She stops, suddenly enraptured by the sight of the incapacitated Thirty-and-five.
+>
+"...Back! BACK!!"
+>"Sister Superior?"
+"Get back, all of you! Do not go near her!!"
+>
+P: The other sisters and I exchange uncertain glances, but do as she says, taking a few tentative steps away.
+>
+"What are you all standing around for!?"
+
+"We must dispose of her at once!"
+>"D-dispose?"
+P: "But she is our sister! We must help her!"
+>
+"Do you not see!? She is POSSESSED!!"
+>
+"Our sister is lost, and if we do not act quickly, all of us will follow her into the abyss!"
+>
+"Oh this explains so much... Of course we have strayed from the path."
+
+"All along, we have had a devil in our midst!"
+
+[["Stop!"]]
+[["...">cordyceps-2-silent]]
+
+
+::cordyceps-2-silent
+"...Well!? Stop balking and-"
+
+"Wait, how long has she been here?"
+>
+"Who found her? Who touched her?!"
+[[>cordyceps-2-hands]]
+
+::"Stop!"
+P: "Sister Superior, surely you are over-reacting?"
+
+"She is well-secured, and we can think this through-"
+>
+"Ignorant fools! We are in danger, just to breathe the same air with this foul being..."
+
+"Who found her? Who touched her?!"
+[[>cordyceps-2-hands]]
+
+::cordyceps-2-hands
+P: Slowly, the whole group except the Superior and I raise their hands.
+>
+"Oh no."
+>
+P: She shakes her head, eyes darting across faces, and then settling on me.
+>
+"Twenty, come, quickly now."
+>
+P: She takes me by the hand, and drags me to the shelter's entrance.
+>
+"Our sisters... Our poor sisters."
+>
+"We are sorry. You must stay here."
+>
+P: She shuts the door, leading me outside.
+>
+P: I can hardly think straight. I wish I was still asleep.
+
+Sister Superior Three lights a torch on the embers of the campfire.
+>
+P: "What are you doing?"
+>
+"We must cleanse them all before it gets worse!"
+>
+P: "We-What!?!"
+>
+P: She can't be serious.
+
+Even if Thirty-and-five is beyond saving, there are four more sisters in there!
+>
+"We must act fast."
+
+"They have been in contact with a devil!"
+
+[["So have I!"]]
+[["So have you!"]]
+[["So what!?"]]
+
+::"So have you!"
+<<do ++this.countwe>>
+P: "We both stood in that room!"
+
+"Our hands have touched, and these hands have been in the presence of not only Thirty-and-five, but Thirty-and-three as well."
+>
+P: "Do you intend to burn the two of us next!?"
+[[>cordyceps-2-burn]]
+
+::"So have I!"
+<<do ++this.counti>>
+P: "I inspected Sister Thirty-and-five, even spoke with Thirty-and-three before she fell."
+>
+P: "Do you intend to burn me as well!?"
+[[>cordyceps-2-burn]]
+
+::"So what!?"
+P: "They are our sisters!"
+>
+P: "What is this devil, that would have you kill at a moment's notice?!"
+>
+P: "How many would it take for you to hesitate? Ten? Twenty??"
+
+"The whole colony!?"
+[[>cordyceps-2-burn]]
+
+::cordyceps-2-burn
+"..."
+>
+P: The blazing rod dances and flickers as she considers it.
+
+She's seriously considering it!
+>
+"How long were you in that room?"
+>
+P: "Not much longer than you."
+>
+"And you've shown no signs since the first incident?"
+
+"No strange urges, no thoughts or words that were not our own?"
+>"No, nothing."
+P: She sighs.
+>
+P: She douses the flame.
+>
+<<do this.show('')>>
+P: Still holding the torch, she returns to the sisters in waiting.
+>
+<<do this.scrim(0.5, 1000)>>
+P: I follow, surprised and relieved my words stayed her hand, but this is not yet over.
+>
+P: The other sisters look up eagerly at her return.
+
+How could they even begin to guess at what they just narrowly avoided?
+>
+<<do this.scrim(1, 1000)>>
+<<do this.show('superiorIdle')>>
+"We march as usual, at first light."
+>
+P: She glares razors at the quartet.
+>
+"The four of you will not."
+>
+P: They start to protest, but she cuts them off, and continues.
+>
+"You will stay here, and you will count steps in our absence."
+
+"You will count until we have stopped marching, and again until we have begun. Only then will you begin to walk yourselves."
+>
+"Is this clear? Remain on the path, keep your pace."
+
+"But also keep your distance."
+>
+"Each of you has been tainted, but perhaps not doomed."
+
+"If any one is to stray from the path, your sisters will see to you."
+>
+P: She drops the torch on the ground, and stares at each of them in turn, waiting for a solemn nod of understanding and obedience.
+>
+"...Good."
+>
+"Farewell sisters. We hope you will be able to join us."
+
+"Please see to Thirty-and-five after we depart."
+>
+<<do this.scrim(0.5, 1000)>>
+<<do this.show('')>>
+P: She turns to leave.
+
+I hang back for a moment, not wanting to part on such a dour note.
+
+[["It will be okay."]]
+[["I will be thinking of you."]]
+[["We will meet again."|++this.countwe;this.goto('"It will be okay."')]]
+
+::"It will be okay."
+P: They look towards the bound Thirty-and-five, still silently scraping her feet along the floor.
+>
+"We hope you are right, Sister."
+[[>cordyceps-2-end]]
+
+::"I will be thinking of you."
+<<do ++this.counti>>
+"...Thank you, Sister."
+[[>cordyceps-2-end]]
+
+::cordyceps-2-end
+<<do this.scrim(1, 1000)>>
+P: I shut the door, and look around for Sister Superior.
+>
+<<do this.cordy2question=true>>
+P: The sun is beginning to shine.
+
+[[>march]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+::inn-march
+P: The rain is picking up again.
+>
+P: I don't think it's just a shower.
+
+We're going to need to take shelter to make it through this one.
+>
+<<do this.scrim(1, 1000)>>
+P: Thankfully I'm not the only one who thinks so. Mother calls the march to a halt.
+>
+P: We prepare to make camp. Or, we try to, but it's immediately clear we do not have the time or resources to handle heavy rainfall.
+>
+P: A proper travel nest takes the combined effort of dozens of sisters. We need to have already scouted structurally sound leaves, we need bodies to hold them down, and we need silk-producing larvae to stitch them in place.
+>
+P: We had all of these when we set out. The sister nurses will still see to the larvae, but it does little good when we're so far off the scouted path and have lost more sisters than Mother cares to admit.
+>
+P: We've made it this far, but we've just been roughing it. Our luck is running out.
+<<do this.scene.goto({ area: 'inn-outside' })>>
+
+[[>close]]
+
+
+::outside-inn-ants
+"Sister Twenty! How goes the scouting operation?"
+<<if this.metbunty>>
+[["How do we feel about roly polies?">outside-inn-ants-proposal]]
+<<endif>>
+[["Nothing yet.">outside-inn-ants2]]
+
+
+::outside-inn-ants2
+"Hm. Better get back to it then - our construction plans are coming along, but we're counting on you to support them."
+[["...Of course."|this.scene.player.walkBy(-30, 0);this.goto('close')]]
+
+
+::outside-inn-ants-proposal
+<<do this.scrim(1, 1000)>>
+P: The reaction is mixed, to say the least.
+
+Nonetheless, a formal report is delivered, and passed along.
+>
+P: Nest construction efforts seem to slow to a halt.
+>
+P: Some time later, I receive a summons from the Sister Superior.
+>
+<<do this.show('superiorIdle')>>
+"We've heard much about these 'alternative arrangements' for our travel nest."
+>
+"Sister Twenty, this is your doing?"
+>
+P: Sister Superior Three of Many is a full head shorter than me, but still manages to make me feel as if I am being looked down on with every word.
+>"Yes. We've found a solution."
+"A solution."
+>
+"Correct us if we're wrong Sister, but it sounded like this 'solution' required the use of currency. Foreign currency, at that."
+>"No, you misunderstand."
+P: "It's already been worked out! We don't need to pay: They just want a fair trade."
+>
+"Oh? And what exactly would you have us trade?"
+>
+P: "The innkeeper is aware of the sister nurses' weaving. They are willing to exchange room and board for woven commodities, provided by our sisters."
+>
+"..."
+>
+"You want us to sell our bodies, to sell the gifts provided by our sisters-to-be, and you call this a 'fair trade'?"
+>
+"And all this for the grudging hospitality a measly pair of shill-bugs, of all people?!"
+>"But..."
+P: "What else are we to do?"
+
+"It's unglamorous work, but it is but work."
+>
+P: "Are we so proud that we would rather die than labour for a night's survival?"
+>
+"It is you who misunderstands, Sister."
+
+"We are not discussing our options for survival."
+>"What do you mean?"
+"Mother has already been informed of your report. This inn sounds more than suitable, and we are prepared to spend the night there while the storm passes."
+>
+P: "...Then what's the problem? If Mother has decided, we should discuss the final terms with Nathan and get out of this weather!"
+>
+"Sister Twenty, whether the roly polies wish to house us or not is irrelevant."
+>"What?"
+"From your report, there are only two of them. Perhaps a third, but likely unable to fight."
+>"Fight!?"
+"We do not intend to provoke violence, of course."
+
+"But if these greedy fools value their lives less than money, we will be glad to take them."
+
+[["You can't do this!"|++this.counti;this.goto('outside-inn-ants-proposal2')]]
+[["We see your point..."|++this.countwe;this.goto('outside-inn-ants-proposal2')]]
+
+::outside-inn-ants-proposal2
+"Mother thanks you for your diligence, Sister."
+>
+"But please, for our sake: remember that you are part of the Queen Mother's retinue."
+>
+"Even when acting alone, you are an extension of Mother, and of our sisters."
+>
+"You do not act alone. We act together."
+>"...Yes, Sister Superior."
+P: She seems satisfied to leave it at that.
+>
+"Now, go- return to our sisters."
+
+"We believe the advance regiment will have succeeded in staking their ground by now, and they will be needing your support."
+>
+P: Of course they had already started.
+>
+<<do this.show('')>>
+P: There really was nothing I could've said to stop it.
+>
+P: Rain continues to beat down as I trek across the branch to the inn yet again.
+>
+<<do this.show('innInside_empty', { y: 110 })>>
+P: The Bunty Nathan's looks much the same as when I first entered. Warm and welcoming. A nice little receptionist's stand.
+
+But there was no doorman to pass, and no one is seated at the desk.
+>
+P: There's plenty of other activity - sisters mill about the entrance, working out where to sleep, what to eat, when to leave.
+>
+<<do this.show('')>>
+P: I need the rest, so I focus on the former, and soon find myself leading a group to the first of the vacant tenant rooms.
+>
+P: Inside, it's a bit cramped, but neatly arranged.
+
+There's a little table, a dresser off to one side, and two sturdy-looking bedframes.
+>
+P: It's nice. Cozy.
+>
+P: We're sleeping four sisters to a bed, so I lay down on one edge, leaving space for the others when they do the same.
+>
+P: The surface is hard and flat.
+>
+P: It really could use a pillow.
+>
+P: I try to fall asleep.
+<<do this.innquestion=true>>
+[[>march]]
+
+
+
+
+::outside-inn-ant
+<<if this.metoutsideinnant>>
+"Staying out here is a death sentence..."
+[[>close]]
+<<else>>
+<<do this.metoutsideinnant=true>>
+"There's a good leaf on this one. We should get it."
+
+[["It's too dangerous."]]
+[["Maybe later.">close]]
+<<endif>>
+
+::"It's too dangerous."
+P: "In this rain, and with that slope? Climbing out there is a death sentence."
+>
+"Staying out here is a death sentence..."
+[[>close]]
+
+
+
+
+
+::outside-inn
+voicePillbug
+"Ho there!"
+<<if this.metbunty>>
+[[>bunty]]
+<<else>>
+[[>outside-inn2]]
+<<endif>>
+
+::outside-inn2
+<<do
+	this.metbunty=true;
+	// remove npc ant on branch
+	if (this.outsideant) {
+		this.destroy(this.outsideant);
+		this.outsideant = undefined;
+	}
+>>
+P: A roly poly?
+>
+voicePillbug
+"Quite the weather we're having, eh little miss?"
+>
+P: Is he joking?
+>
+P: "Um, yes. Suppose you could say that."
+>
+voicePillbug
+"Ho ho! I love the rain! The exhilarations of nature!!"
+>
+P: A large droplet splashes against my back, giving me a shiver.
+>
+voicePillbug
+"...But isn't it a touch too wet for you?"
+>
+P: "..."
+>
+P: "YES!!!"
+>
+P: "Uh, that is- yes, yes it is. We're looking for shelter, in fact."
+>
+voicePillbug
+"Well then, you're in luck!!"
+>
+P: "Oh? Could do with a bit more luck right about now..."
+>
+voicePillbug
+"It just so happens that right over yonder lies the finest inn this side of the forest!"
+>
+P: He gestures with half a dozen legs towards a large hole in the trunk behind him.
+>
+voicePillbug
+"Yes ma'am, The Bunty Nathan's will take good care of you and yours for but a bargain!"
+>
+P: Oh no.
+>
+voicePillbug
+"Warm beds, cool baths (for the wet-inclined), even a breakfast buffet*!"
+
+"All for but a modest fee: You won't find a better deal on this tree, little miss!"
+
+"*Please note the buffet is strictly vegetarian. Breakfast hours are from-"
+
+[["ok I get it"|++this.counti;this.goto('outside-inn3')]]
+[["please stop">outside-inn3]]
+
+::outside-inn3
+"Ho ho but there's more! If you check in at The Bunty Nathan's tonight and TONIGHT ONLY, we're offering a specialty discount!"
+
+"TWO nights for the price of ONE: That's right, you can stay one whole night free!"
+
+[["What if I just want one night?"]]
+[["And what is the price?"]]
+
+::"What if I just want one night?"
+<<do ++this.counti>>
+"Well I'm afraid that will cost you ONE night for the price of one."
+
+"A little less special, but still an unbeatable steal!"
+[["And what is the price?"]]
+
+::"And what is the price?"
+"Never manage the numbers myself, ho ho!"
+
+"Just head on in, and Nathan at the desk will fill you in on all the details."
+>
+"I'm Bunty, by the by."
+
+[["Nice to meet you Bunty."]]
+[["I'll just head on in, then."]]
+[["We'll have to talk it over."]]
+
+::"Nice to meet you Bunty."
+<<do this.buntyname=true>>
+"The pleasure's all mine, miss...?"
+>
+P: "...Twenty of Many Oecophylla."
+>
+voicePillbug
+"Of many? Well, I do hope you'll tell your friends us about us too!"
+
+[["I'll just head on in, then."]]
+[["We'll have to talk it over."]]
+
+
+::"We'll have to talk it over."
+<<do ++this.countwe>>
+"Of course! Just head on in and talk it over with Nathan!"
+>
+<<do this.scrim(1, 1000)>>
+P: "No, we-"
+
+The large roly poly doesn't let me finish, and starts pushing me inside.
+[[>bunty-enter]]
+
+
+::"I'll just head on in, then."
+<<do ++this.counti>>
+<<do this.scrim(1, 1000)>>
+"Ho ho, wonderful!"
+[[>bunty-enter]]
+::bunty-enter
+voicePillbug
+"Do be sure to tell Nathan that Bunty sent you!"
+>
+P: The interior of the inn is welcomingly warm, and more importantly dry.
+
+The eager bug stays out in the rain, and laughs at seemingly nothing in particular.
+>
+voicePillbug
+<<do this.show('innInside', { y: 110 })>>
+P: Sure enough, inside there's another giant pill millipede sitting at a small stand, complete with a hand-carved sign.
+>
+voicePillbug
+"Welcome, welcome!"
+
+"How can I help you this evening?"
+
+[["Bunty sent me."]]
+[["I'm looking for shelter."]]
+[["We need your help."]]
+
+::"Bunty sent me."
+"Ah, I hope he didn't give you too much trouble!"
+>
+"Pay no mind to my brother... He means well, but he can be a bit much."
+>
+"Sometimes takes my whole will to not roll up mid-conversation when he gets going, ho ho!"
+>
+P: I'm starting to see the family resemblence, but just smile and nod.
+>
+voicePillbug
+"I suppose he sent you my way for a reason, though!"
+
+"Tell me: how can I help?"
+
+[["I'm looking for shelter."]]
+[["We need your help."]]
+
+::"I'm looking for shelter."
+<<do ++this.counti>>
+"Well you've come to the right place!"
+>
+"Would this be a suite for one?"
+>
+P: "No, not just for me: For my sisters and Mother as well."
+[[>nathan2]]
+
+
+::"We need your help."
+<<do ++this.countwe>>
+"'We'?"
+>
+P: "Yes, our Mother, our sisters as well. We need somewhere to stay."
+[[>nathan2]]
+
+
+::nathan2
+voicePillbug
+"Ah, a family vacation!"
+>"No, it's-"
+"That's lovely. Family is SO important, and it can be so hard to make time for them, no matter how hard we try."
+>"That's not-"
+"That's why our family went into business together! Not a day goes by that I'm not thankful to live and work among mine."
+>"Okay, but-"
+"Though it does make Bunty's job harder: Can't be shouting day in and day out if Granny Grey is sleeping upstairs!"
+>"Who-?"
+"Luckily big brother's happy to do his part from outside - much easier on our ears, ho ho!"
+>"Please-"
+"But you're here about a room for YOUR family! So, just how many in your party, then?"
+>
+P: He finally stops to let me speak, and I realize that I don't even know the answer to his question.
+>
+P: How many did we lose when the branch broke? How many have we lost since then?
+>
+P: The last proper headcount was before we set out, and numbered over a hundred. We can't be more than half at this point.
+
+[["Many."]]
+[["About fifty."]]
+[["A few dozen.">"About fifty."]]
+
+::"Many."
+voicePillbug
+"...Could you be more specific?"
+>
+P: "Unfortunately not."
+>
+voicePillbug
+"Hmm... well."
+[[>nathan3]]
+
+::"About fifty."
+voicePillbug
+"Ho ho! Why, I can't remember the last time I saw a family so big!"
+[[>nathan3]]
+
+::nathan3
+"Luckily your bodies are quite small, so I'm sure we'll be able to make room."
+
+"And how long will you be staying?"
+>"Just for the night."
+"Are you sure? Perhaps Bunty didn't mention, but we actually have a special deal tonight: stay two nights for the price of one!"
+>"We just need one."
+"Alright, suit yourself!"
+
+"And how will you be paying?"
+>
+P: "..."
+>
+P: I knew this was coming.
+
+The big bug looks at me expectantly.
+
+[["I can't pay."]]
+[["We don't have any money."]]
+
+
+::"I can't pay."
+<<do ++this.counti>>
+P: He seems confused at the statement, so I continue.
+[[>nathan4]]
+
+::"We don't have any money."
+<<do ++this.countwe>>
+P: He seems confused at the statement, so I continue.
+[[>nathan4]]
+
+::nathan4
+P: "Our sisters have no need for money. We support ourselves on the path, and support each other at home."
+
+"It is a crude instrument, and it serves no purpose for us."
+>
+voicePillbug
+"...No purpose!?"
+>
+"But you need money!! To pay for things! For food, for protection, for property..."
+>
+"For booking a night's stay at The Bunty Nathan's!!"
+>
+P: "..."
+>
+voicePillbug
+"...You're serious, aren't you?"
+
+"No money! None!"
+>"Yes."
+"I'm afraid you're out of luck, then. This inn accepts paying tenants only."
+>"But-"
+"Our prices are a steal, but this is still a business. If I let you stay for nothing in return, you'd truly be a thief!"
+>"Isn't there some other way we could pay?"
+"How would you pay without money!?"
+
+[["Is there nothing else you need?"|++this.counti;this.goto('nathan5')]]
+[["An exchange?">nathan5]]
+[["We can work."|++this.countwe;this.goto('nathan5')]]
+
+::nathan5
+"No, I don't think that- well, actually. Perhaps..."
+>
+P: He trails off, stopping to think. His legs twitch one-by-one, a wave starting from the top and flicking down his limbs, as if he's tapping things off in his head.
+>
+P: For all their talk of money, there's always something else these types want. I don't know what it is, but he'll figure that out for me.
+>
+voicePillbug
+"...You're a weaver, yes?"
+>
+P: "What? No."
+
+"Only the sister nurses are permitted."
+>
+voicePillbug
+"Mmm, but there are weavers with you, then?"
+>"Yes, of course."
+"Ho ho! Then I think I may have a deal that will benefit us both!"
+>
+"We offer very fine accommodations at The Bunty Nathan's. Very cozy!"
+
+"But I will admit that the furnishings in our rooms may be a tad... underwhelming."
+>
+"There's only so much you can do with reclaimed wood!"
+
+"But if we had some silk covers, or curtains, maybe even a pillow or two..."
+>
+P: "You want us to... make decorations for you?"
+>
+voicePillbug
+"Not just decorations: Ambiance!"
+>
+"A whole new market segment, in fact! Executive suites, for the bug on the go!"
+
+"Ho ho, Bunty is going to love this..."
+>"Um..."
+"And we'd even be advertising your work to our future customers!"
+
+"Think of all the free exposure!"
+>"Exposure?"
+"Yes, I think this could benefit business for both of us!"
+
+"I'm convinced: One night's stay, for one night's weaver work!"
+
+"What do you say?"
+
+[["I'll have to ask the others."|++this.counti;this.goto('nathan6')]]
+[["We'll consider it."|++this.countwe;this.goto('nathan6')]]
+[["I'm not sure about this."|++this.counti;this.goto('nathan6')]]
+
+::nathan6
+"Of course, of course, discuss terms with your family before making any decisions."
+>
+"I'll need to do the same: contracts don't write themselves, ho ho!"
+>
+<<do this.show('innInside_empty', { y: 110 })>>
+P: With that, he suddenly spurs into action: The roly poly flops onto the ground and takes off at a surprising pace deeper into the tree.
+>
+<<do this.show('')>>
+P: I'm left alone in the lobby. It's still raining outside.
+>
+P: It's not exactly what I had in mind, but this does seem to solve our problem.
+>
+P: I allow myself the luxury of a few more moments of shelter, and make my way back out.
+[[...|this.scene.player.walkBy(30,0);this.goto('close')]]
+
+::bunty
+P: "Hello again, Bunty."
+>
+voicePillbug
+"Little miss<<if this.buntyname>> Twenty<<endif>>!"
+
+"Checking in?"
+
+>"Not yet."
+<<do this.scene.player.walkBy(30,0)>>
+"Well, I'll be here if you need me!"
+[[>close]]
+
+
+
+
+
+
+
+
+
+
+
+::frog-march
+<<do this.scrim(1, 1000)>>
+P: It's my turn to scout ahead.
+>
+P: The branches have been getting more treacherous lately.
+>
+P: Many of them are cracked and unstable. It's crucial that we plot a course through those that are not, or we risk another disaster.
+>
+P: Everyone has been on edge since then, but caution can only take us so far: we have to take some risks.
+>
+<<do this.scene.goto({ area: 'frog' })>>
+P: We have to keep moving, stay on the path.
+>
+P: The tree we currently walk cannot be trusted. I spend my time searching for a crossing to one of its neighbours.
+>
+P: It's a long search, without much success. In addition to the dry, aging branches, the canopy here is thin.
+
+Trees stand too far apart, branches waving but not touching.
+>
+P: Just when I'm ready to give up: I find it.
+[[>close]]
+
+
+::frog-wall
+<<if this.donefrog>>
+<<do this.goto('frog-wall-3')>>
+<<elseif this.metfrog>>
+<<do this.goto('frog-wall-2')>>
+<<else>>
+<<do this.goto('frog-wall-1')>>
+<<endif>>
+
+::frog-wall-1
+P: I can't go back without checking this out first.
+<<do this.scene.player.walkBy(30, 0)>>
+[[>close]]
+
+::frog-wall-2
+P: 'Buddy system'.
+>
+<<do this.scrim(1, 1000)>>
+P: There's really only one solution, so I follow the pheremone trail back to the main group and report what I've learned.
+>
+P: ...
+>
+"And this frog on the bridge - it's going to let us pass? It's safe?"
+
+[["Maybe...">frog-wall-2-2]]
+[["I don't think so."|++this.counti;this.goto('frog-wall-2-2')]]
+[["We don't have any other choice."|++this.countwe;this.goto('frog-wall-2-2')]]
+
+::frog-wall-2-2
+P: "There was no aggression in his words, but..."
+>
+<<do
+
+	this.scene.areas[this.scene.area].push(
+		...this.AntProp({ x: -208, y: -73 }),
+		...this.AntProp({ x: -317, y: 48 }),
+		...this.AntProp({ x: -483, y: -2 }),
+		...this.AntProp({ x: -431, y: 49, flip: true }),
+	);
+	this.frogfollower = this.Npc({ passage: 'frog-follower', x: this.scene.player.transform.x+50, y: this.scene.player.transform.y+50 });
+	this.scene.areas[this.scene.area].push(this.frogfollower);
+	this.scene.goto({ area: 'frog' });
+	
+	this.scene.player.follow(this.frogfollower);
+	this.donefrog=true;
+>>
+<<if this.frogeat>>
+P: "He did outright say he might eat us."
+<<else>>
+P: "His talk of safety did not seem particularly sincere."
+<<endif>>
+>
+"...There were no other routes?"
+>"No."
+"Then we must trust this beast, whether he deserves it or not."
+>
+"Take Sister Ten-and-nine with you: we will follow closely behind, and join on the other side, should our path be uninterrupted."
+
+<<do this.scene.player.walkBy(30, 0)>>
+[[>close]]
+
+
+::frog-wall-3
+P: We didn't walk all the way out here just to turn back now.
+<<do this.scene.player.walkBy(30, 0)>>
+[[>close]]
+
+::frog-follower
+P: Sister Ten-and-nine is quiet.
+>"How do you feel about this?"
+"...We feel anxious, but eager to get it over with."
+>
+"The rest of our sisters are counting on us, Twenty. Let's not let them down."
+[[>close]]
+
+::frog-bridge
+<<if this.donefrog>>
+<<do this.goto('frog-bridge-3')>>
+<<elseif this.metfrog>>
+<<do this.goto('frog-bridge-2')>>
+<<else>>
+<<do this.metfrog=true;this.goto('frog-bridge-1')>>
+<<endif>>
+
+::frog-bridge-1
+P: Someone has bridged this gap!
+>
+P: It's a good sign: surely this means we're getting closer to safe territory.
+
+Maybe even-
+>
+B: "HALT!"
+>
+P: I freeze in my steps at the sound of the booming voice.
+>
+B: "WHO GOES THERE?"
+>
+P: The questions race: Who? Where?? Run???
+>
+<<do
+	this.scrim(1, 50);
+	setTimeout(() => this.scrim(0.5, 500), 50);
+	this.tween(this.frogBridgeFg.spr, 'alpha', 0.25, 500);
+	this.tween(this.frog.spr, 'alpha', 1, 500);
+	this.scene.camera.display.container.pivot.y += 50;
+>>
+P: The first two are immediately answered by the crash of a giant frog landing on the branch in front me.
+>
+P: I should run. The bridge shudders and creaks under its weight as it takes a step towards me.
+
+I should definitely run.
+>
+B: "WELL? TALKING TO YOU, LITTLE ONE."
+>
+P: I look up at what may as well be a solid wall of slime and bulk. The wall slowly blinks one glistening, bronzed eye, then the other.
+>
+P: "Wa-h-"
+>
+P: What. Stop talking, run.
+>
+B: "ASKED WHO Y'ARE. SPEAK."
+>
+P: He's SO BIG.
+>
+
+[["Oecophylla.">frog2-we]]
+[["Twenty.">frog2-i]]
+[["We're just passing through.">frog2-we]]
+
+::frog2-we
+<<do ++this.countwe>>
+P: "W-we're Oecophylla. We're just-"
+[[>frog2]]
+
+::frog2-i
+<<do ++this.counti>>
+P: "I-I'm Sister Twenty. I'm here to-"
+[[>frog2]]
+
+::frog2
+P: The great beast lowers its head before I finish speaking.
+>
+P: Its mouth opens. It's going to eat me and I'm still not running why am I STILL NOT RUNNING.
+>
+<<do this.scrim(1, 100)>>
+P: I can't look.
+>
+P: ...
+>
+B: "...WHAT? SPEAK UP."
+>
+<<do this.scrim(0.5, 2000)>>
+P: It rotates its head, angling an ear drum towards me.
+>Speak up
+P: "S-sister Twenty of Many Oecophylla!!"
+>
+P: The beast suddenly lets out a low rumbling warble. It reverberates my whole body, almost knocking me over.
+>
+B: "HA HA! MANY NAMES FOR SUCH A SMALL CREATURE!"
+>
+P: It's... laughing?
+>
+B: "TELL ME, LITTLE TWENNY..."
+>
+B: "WHY D'YOU TRESPASS ON MY DOMAIN?"
+>
+P: "Trespass? You mean on this bridge?"
+>
+B: "MY DOMAIN. YOU WISH TO CROSS?"
+>
+P: "Y-yes. You built this?"
+>
+B: "BUILD? HA!"
+
+"NO, YOU LITTLE ONES, ALWAYS BUILDING..."
+>
+B: "EASIER TO TAKE."
+>
+P: 'Take from who?', I want to ask.
+
+Better not.
+>
+B: "CAN'T LET YOU CROSS THOUGH."
+>"Why not?"
+B: "BUDDY SYSTEM ONLY."
+>"What?"
+B: "NO CROSSING ALONE."
+>
+B: "COME BACK WITH A BUDDY."
+[[...|this.scene.player.walkBy(-30,30);this.goto('close')]]
+
+
+::frog-bridge-2
+P: I approach the hulking beast once again.
+>
+B: "STILL ALONE?"
+>"Yes."
+B: "THEN Y'DON'T CROSS."
+
+
+<<if !this.frogregret>>[["Am I going to regret this?"]]<<endif>>
+<<if !this.frogeat>>[["You're not going to eat us?"]]<<endif>>
+[["Back later, then."]]
+
+::"Am I going to regret this?"
+<<do this.frogregret=true>>
+<<do ++this.counti>>
+B: "REGRET?"
+>
+B: "DIDN'T REALIZE LITTLE ONES COULD DO THAT."
+>
+<<do this.scene.player.walkBy(-30,30)>>
+P: Ugh- okay, walking away now...
+[[>close]]
+
+
+::"You're not going to eat us?"
+<<do this.frogeat=true>>
+<<do ++this.countwe>>
+B: "EAT YOU?"
+>
+B: "HM. NOT HUNGRY."
+>
+B: "BUT I MIGHT."
+>
+P: WHAT.
+>
+B: "...WHY D'YOU ASK?"
+>
+P: "W-well we'd prefer if you did not!"
+>
+B: "MM, S'POSE YOU WOULD..."
+>
+B: "BETTER FIND A BUDDY QUICKLY, THEN."
+[[>"Back later, then."]]
+
+::"Back later, then."
+<<do this.scene.player.walkBy(-30,30)>>
+B: "SAFETY IN NUMBERS, LITTLE TWENNY."
+[[>close]]
+
+
+::frog-bridge-3
+B: "LITTLE TWENNY! YOU BROUGHT A BUDDY."
+>"Yes."
+P: "Now may we cross?"
+>
+B: "MM. JUST ONE MORE THING."
+>
+<<do this.scrim(1,100)>>
+P: His tongue flicks out with a dull smack.
+
+It smashes into Sister Ten-and-nine, pinning her to the floor.
+>
+<<do this.scene.player.stopFollow(this.frogfollower);this.destroy(this.frogfollower)>>
+"H-help..."
+>"Sister!!"
+<<do this.scrim(0.5,1000)>>
+P: There's a sickening sqeulch as the tongue snaps back, disappearing her into the beast's maw.
+>"No!!!"
+B: "BLEURGH!"
+>"You... ATE her!!"
+B: "MM. S'POSE I WAS HUNGRY."
+>"What!?"
+B: "YOU TASTE BAD THOUGH, LITTLE ONE."
+
+"CROSS IF YOU WANT, M'DONE HERE."
+>
+P: In a single massive leap, the horrible beast disappears into the canopy above.
+<<do
+	this.scrim(1, 50);
+	setTimeout(() => this.scrim(0.5, 500), 50);
+	this.tween(this.frogBridgeFg.spr, 'alpha', 1, 100);
+	this.tween(this.frog.spr, 'alpha', 0, 100);
+	this.scene.camera.display.container.pivot.y += 50;
+>>
+>
+P: She's gone. She was walking behind me, and now she's just... gone.
+>
+P: ...
+>
+P: I better cross before it decides to come back.
+[[...|this.destroy(this.gameObject);this.goto('close')]]
+
+::frog-end
+<<do this.frogquestion=true>>
+P: He seems to have truly lost interest...
+>
+P: <<if this.frogregret>>I knew this was a bad idea. I knew it!<<else>>I can't believe we just walked right into it.<<endif>>
+
+<<if this.frogeat>>He literally said he would eat us!!<<else>>Of course he just wanted to eat us!!<<endif>>
+>
+P: Stupid. I'm so stupid.
+>
+<<do this.scrim(1,1000)>>
+P: The others cross safely, at least.
+>
+P: There are some trite words thanking Ten-and-nine for her sacrifice... I can't even bear to listen to it all.
+>
+P: When the marching order resumes, I take my place, and someone else takes the place behind me. Ten-and-nine's place.
+>
+P: They don't really care that she's gone. They just keep walking.
+[[>march]]
+
+
+
+::deserter-march
+<<do this.scene.areas.march.filter(i => i.animator && i.transform.x !== -10).forEach(i => this.tween(i.spr, 'alpha', 0, 30000))>>
+P: I'm not sure why, but my thoughts keep drifting to Sister Nurse Five.
+
+My old sister nurse.
+>
+P: There are so many more recent losses.
+
+Why do I keep going back to one from when I was a child?
+>
+P: It keeps reeling around in my head.
+>
+P: Her whole generation is nearly gone now, Mother's first brood.
+>
+P: I remember Sister Five, but can't help but feel I never knew her. Not really.
+
+Sister Superior Three is the only one left who did.
+>
+P: And Mother, of course...
+>
+P: Perhaps that's enough. For Mother to remember us.
+>
+P: Wait...
+>
+P: Where did everyone go?
+>
+P: My thoughts of remembrance paused, I suddenly realize that I'm walking completely alone.
+>
+<<do this.scrim(1, 1000)>>
+P: The trail- did I wander off the scent trail while I was daydreaming?
+>
+P: I spin around, antennae flicking furiously.
+
+I'm so stupid. How could I- no. No, it's okay.
+
+I'm still on the trail.
+>
+P: It's faint, but certainly there. But then where are my sisters?
+>
+P: Did I just get turned around?
+>
+P: That doesn't seem right. I don't recognize this part of the tree.
+
+But then why is there a trail here?
+>
+P: Daylight is already fading, I need to move.
+
+[[Keep following the scent trail]]
+[[Go back the way I came]]
+
+::Keep following the scent trail
+<<do this.scene.goto({ area: 'deserter-path' })>>
+P: There wouldn't be a trail here if someone hadn't been this way.
+>
+P: I have to follow it.
+>
+P: So I pick up the pace, and I do.
+>
+P: ...
+>
+P: Eventually, the scent gets stronger.
+>
+P: They must be nearby.
+[[>close]]
+
+::Go back the way I came
+P: This is too risky. I need to find familiar ground and regroup.
+>
+P: ...
+>
+P: The scent is getting stronger here... I'm definitely getting closer to the rest of the group.
+>
+P: ...
+>
+P: There!
+>
+P: The trail: it's forked. A strong path - clearly the original - and a much weaker offshoot that led me astray.
+>
+P: I look back towards my absent-minded detour. I know that someone else lay that trail: Someone who's still out there.
+
+[[Cover the faint branch]]
+[[Leave the fork alone]]
+
+::Cover the faint branch
+<<do ++this.countwe>>
+P: I take a few minutes to carefully repair the fork in the scent trail, making sure the faint branch is no longer connected.
+>
+P: This is dangerous. Who knows how far I could have gone without noticing I'd been separated?
+>
+P: More sisters may still be trying to find and follow our trail, and could make the same mistake.
+>
+P: Whoever did this, I'm sorry Sister. You'll have to find your own way back.
+[[>go-back-2]]
+
+
+::Leave the fork alone
+<<do ++this.counti>>
+P: I have to admit, it's a bit dangerous. More sisters may still be trying to find and follow our trail, and could make the same mistake I did.
+>
+P: But I can't bring myself to break the fork.
+>
+P: Whoever did this is even more lost than I had been. This is their only lifeline, and I can't sever that.
+>
+P: I'm sorry I can't do more for you Sister, but I hope you find your way back too.
+
+[[>go-back-2]]
+
+::go-back-2
+<<do this.scene.areas.march.filter(i => i.animator).forEach(i => this.tween(i.spr, 'alpha', 1, 10000))>>
+P: I hurry along the original route.
+>
+P: ...
+>
+P: It takes almost till nightfall, but I hear the marching of my sisters ahead.
+>
+P: A voice calls out from the group:
+>
+"Sister Twenty of Many! Is that you?"
+>"Yes! Sister Superior, it's me!!"
+"Well pick up the pace!! No dawdling in the Queen Mother's retinue!"
+
+[["...Yes, Sister Superior.">march]]
+
+
+
+::deserter-wall
+<<do this.scene.player.walkBy(30,0)>>
+P: I came out all this way, I can't head back now.
+[[>close]]
+
+
+::deserter
+<<do
+	const marchers = this.scene.areas.march.filter(i => i.animator);
+	marchers.forEach(i => i.spr.alpha = 0);
+	marchers[3].spr.alpha = 1;
+	marchers[2].spr.alpha = 1;
+	this.scene.player.walkTo(1302, -13);
+>>
+P: "Sister!"
+>
+<<do this.scrim(1, 1000)>>
+P: I'm relieved to find them, but... I don't recognize her. She's clearly older than I am - probably a Ten-and, but I don't know who.
+>
+<<do this.scene.goto({ area: 'march' })>>
+P: She responds, but keeps walking, forcing me to match her pace.
+>
+<<do this.scrim(0.5, 5000)>>
+"Ugh. I should've figured that someone would notice I was missing..."
+>
+P: Ah, hah... I probably shouldn't correct her.
+>
+"Followed me all the way out here, huh?"
+>
+P: "Yes."
+
+[["I was worried about you."]]
+[["We need to get back."]]
+
+::"We need to get back."
+<<do ++this.countwe>>
+"Oh 'we' do, do 'we'?"
+>
+P: "Yes! If we hurry, we'll probably make it back by nightfall, but the others have not stopped in our absence."
+>
+P: "At least, as far as we know."
+>
+"They let you walk all the way out here, but they aren't waiting for you?"
+>
+P: "Well..."
+[[>worried2]]
+
+::"I was worried about you."
+<<do ++this.counti>>
+"You were?"
+[[>worried2]]
+
+::worried2
+"...Actually, sorry who are you exactly?"
+>
+P: Oh good, at least it's not just me.
+>
+P: "Sister Twenty. And you are...?"
+>
+"I'm not."
+>
+P: "...Pardon?"
+>
+"I'm not your sister, Twenty. Not anymore."
+>
+P: "Are- are you feeling well?"
+
+"We've walked quite a long way, do you need to rest?"
+>
+"I'm fine. You can stop if you want, don't mind me."
+>
+P: "But Sister, you-"
+>
+<<do
+	this.deserterwho = 0;
+	this.deserterwhere = 0;
+	this.deserterwhy = 0;
+>>
+"Stop."
+
+"I said I'm not your sister."
+
+[["But... who were you?">deserter-who]]
+[["But... where are you going?">deserter-where]]
+[["But... why aren't you stopping?">deserter-why]]
+
+::deserter-qs
+She keeps walking.
+
+<<if !this.deserterwho>>[["Who were you?">deserter-who]]<<endif>>
+<<if !this.deserterwhere>>[["Where are you going?">deserter-where]]<<endif>>
+<<if !this.deserterwhy>>[["Why aren't you stopping?">deserter-why]]<<endif>>
+<<if this.deserterwho + this.deserterwhere + this.deserterwhy >= 2>>[["You aren't coming back?">deserter-end]]<<endif>>
+
+::deserter-who
+<<do this.deserterwho=1>>
+"Does it matter? I was, and now I'm not."
+>
+"I'm sure someone who knew will notice eventually."
+
+"You can ask them when you go back, if you care."
+<<do this.deserterquestion=true>>
+[[>deserter-qs]]
+
+::deserter-where
+<<do this.deserterwhere=1>>
+"Away."
+[[>deserter-qs]]
+
+::deserter-why
+<<do this.deserterwhy=1>>
+"Because following your Mother would just get me killed."
+>
+"Because for once in my life I have decided to do something, and I am not going to let the doubts of others prevent me from doing it."
+>
+"Because I am tired."
+[[>deserter-qs]]
+
+
+
+::deserter-end
+"No, I am not."
+
+[["Then I will come with you."]]
+[["And what if we make you?"]]
+[["...Then go.">deserter-end2]]
+
+::"Then I will come with you."
+<<do ++this.counti>>
+"No, you will not."
+>
+P: "W-what?"
+>
+"I have made a decision."
+>
+"<<if this.deserterwhy>>I have already told you why: <<endif>>Do not burden me with your doubts."
+
+"Do not allow yourself to be burdened by mine."
+[[>deserter-end2]]
+
+::"And what if we make you?"
+<<do ++this.countwe>>
+P: For the first time, her sullen mood cracks, and she laughs.
+>
+"Did you forget that I have no need to follow the path?"
+>
+"I'd sooner send us both to the forest floor than allow you to carry me anywhere."
+[[>deserter-end2]]
+
+::deserter-end2
+P: I can tell her patience - what little of it there was - has thinned.
+[["Farewell."]]
+[["I hope to see you again someday."]]
+[["You will always be a sister to us."]]
+
+::"Farewell."
+"Farewell, Twenty."
+[[>deserter-end3]]
+
+::"I hope to see you again someday."
+<<do ++this.counti>>
+"For my sake, I hope that you do not."
+[[>deserter-end3]]
+
+::"You will always be a sister to us."
+<<do ++this.countwe>>
+"...Do you think that a kindness?"
+>
+"To be forever branded by circumstance of birth?"
+>
+"You pity me with your words of kinship. I do not want them."
+[[>deserter-end3]]
+
+::deserter-end3
+<<do this.scrim(1, 1000)>>
+P: I stop walking, and she continues.
+>
+P: She says nothing more, and slowly shrinks into the distance.
+>
+P: I've said what I could, and decide to head back.
+>
+P: ...
+>
+P: Going back the way I came, I'm relieved to come across a fork in the scent trail: A strong path - clearly the original - and a much weaker offshoot that led me astray.
+[[>go-back-2]]
+
+
+
+
+
+
+
+::ending-march
+<<do this.scrim(1, 1000)>>
+P: We stop for the night, as we always do.
+>
+P: Temporary shelter is built. Food is distributed.
+
+Sisters are tired.
+>
+<<do this.show('fireplace')>>
+P: Sister Superior Three assigns tasks. Watch shifts are debated and decided.
+
+The campfire is lit.
+>
+P: In the morning, we scrape together what remains of our fresh leaves, preparing for the next day's journey.
+>
+P: We have more than usual. It makes the march a little tougher to carry the extra weight, but the next night's camp is built much easier as a result.
+>
+P: I take a late shift. Sister Superior Three gathers the scouts, and sends them out early.
+>
+<<do this.show('')>>
+P: They haven't returned by the time I collapse into a cot.
+>
+<<if this.counti > this.countwe>>
+P: My hopes are not high tonight.
+<<else>>
+P: Our hopes are high tonight.
+<<endif>>
+>
+P: ...
+>
+"Sisters! Wake up! Wake up!!"
+>
+P: I awake to shouting.
+>
+P: A commotion has taken hold of the whole camp. Sisters run to and fro, yelling and pulling each other from the makeshift shelter.
+>
+P: <<if this.counti>this.countwe>>I<<else>>We<<endif>> stumble out, half-asleep.
+
+The sun hits my face, and so too does an overwhelming scent.
+>
+P: It's... fresh. Exciting.
+>
+<<do this.show('basicAntRun', { scale: 3, y: -250, alpha: 0.5, flip: true, duration: 2000, freq: 1/100 })>>
+P: Sisters are running off to one direction.
+
+The scouts have found something.
+>
+P: We follow the trail left by our sisters. The scent gets stronger and stronger.
+
+Sisters chatter excitedly along the path.
+>
+P: By the time we arrive, a chain has already assembled:
+
+Sisters have begun folding the first leaves.
+>
+<<do this.show('')>>
+<<if this.counti > this.countwe>>
+P: I join a second chain, straining to carry my sisters.
+<<else>>
+P: We form a second chain, holding strong with our sisters.
+<<endif>>
+>
+P: The weaving begins. Sister nurses carefully tend to our sisters-to-be, delicately stringing their silk between the leaves.
+>
+P: We tentatively release our grip, and it holds.
+
+The first wall of our new nest.
+>
+P: My sisters celebrate as we work, letting the excitement drive their mouths and limbs.
+>
+P: There is scarcely time to think of anything but the work ahead.
+<<if this.counti > this.countwe>>
+[[>ending-start-exile]]
+<<else>>
+[[>ending-start-family]]
+<<endif>>
+
+
+
+
+::ending-start-family
+P: A home for the Many, built by all.
+>
+P: ...
+>
+P: And so we work.
+>
+P: And work.
+>
+P: One day passes.
+>
+P: Then another.
+>
+P: Then many more.
+>
+P: Our food stores grow, our nurseries blossom, and the nest begins to feel like home.
+>
+P: The work slows, but it never stops. There is always much to do.
+>
+P: Plans for a second nest are discussed.
+
+I volunteer to help scout the path.
+>
+P: The day I am set to make the first trip, a Forty-and sister pays me a visit.
+
+A courier, from Mother's new retinue.
+>
+"Sister Twenty, Sister Twenty!"
+>"Yes?"
+"Mother has called for an audience with you."
+>
+P: I have spoken with Mother as part of the recent nest planning, but personal audiences are rare in our new home.
+>"We will come."
+P: As we pass through the many passages and rooms of the nest, I feel proud of the work I've done to help build it. The work we've all done.
+>
+P: Near Mother's chamber, a strange feeling hangs in the air.
+>
+P: Whatever awaits beyond this door will be momentous.
+>
+P: I turn to thank the courier, but she has already scurried away.
+>
+>I enter Mother's chamber.
+<<do this.show('queenIdle')>>
+voiceQueen
+"..."
+>
+P: No one is present but Mother herself.
+>Introduce ourselves
+P: "Sister Twenty of Many Oecophylla."
+
+"Reporting for duty to Queen Mother One and Many Oecophylla."
+>
+voiceQueen
+"Sister Twenty of Many Oecophylla..."
+> "Yes, Queen Mother?"
+"We have been given an opportunity."
+>
+"An opportunity to further shape this home we have created."
+>
+"This morning, Daughter Three did not wake up."
+>Three... is dead?
+P: Thoughts race at the news, but Mother continues:
+>
+voiceQueen
+"Her work, our work, must be continued."
+>
+"We have made a decision."
+
+"Our daughters, our sisters, they will call you Sister Superior Twenty."
+>
+P: The shock of Three's passing and of the new role compete for space in my mind.
+>
+P: Why me? Why now?
+>
+P: Mother rests silently before me.
+
+[["We understand."]]
+[["We must consider this offer."]]
+[["This must be a mistake."]]
+
+::"This must be a mistake."
+voiceQueen
+"We feel your doubt."
+>
+"But we must not let it cloud the truth."
+
+"We have seen you overcome it so many times already."
+>
+"There is no better sister for this role."
+
+[["We understand."]]
+[["But there are elder sisters still with us."]]
+
+::"We must consider this offer."
+voiceQueen
+"It is not an offer, Daughter Twenty."
+
+"The name is already yours."
+>
+P: She says it plainly.
+
+As if it were as self-evident as the colour of the sky.
+
+[["We understand."]]
+[["But there are elder sisters still with us."]]
+
+::"But there are elder sisters still with us."
+voiceQueen
+"But they do not understand the weight of this responsibility."
+>
+"And whether you know it or not, we know that you do."
+
+[["We understand."]]
+[["...">"We understand."]]
+
+::"We understand."
+voiceQueen
+"We are saddened by Daughter Three's passing."
+
+"But Sister Superior is not gone."
+>
+"Remember, a sister of Many, will always have sisters."
+>
+P: There's a finality to her words that echoes in the chamber.
+>
+voiceQueen
+"Now, inform the others. Become acquainted with your new role."
+>
+"We shall speak more after feeding."
+
+>"Yes, Queen Mother."
+<<do this.show('')>>
+>
+P: I leave her chambers, returning to the nest's common area.
+>
+P: I must accept what Mother asks of me, but am I ready for this new responsibility?
+>
+P: Someone must take the role. And Mother has chosen me.
+>
+P: I have been unsure at many times.
+
+But I have also continued on for my sisters.
+>
+P: Is this any different?
+>
+P: I know that I don't feel different, at least.
+>
+<<do this.scene.goto({ area: 'town-family', x: -369, y: -156 })>>
+P: And however I feel, it is done.
+
+Time to go and tell my sisters.
+[[>close]]
+
+
+::family-role-1
+<<do this.gameObject.roam.active=false>>
+P: I tell my sister the news.
+>
+"Sister Superior Twenty, thank you for telling us."
+>
+"We're proud of you for taking this role."
+>
+<<do this.gameObject.roam.active=true>>
+"Be well."
+[[>close]]
+
+::family-role-2
+<<do this.gameObject.roam.active=false>>
+P: I tell my sister the news.
+>
+"Sister Superior Twenty! What an honour."
+>
+<<do this.gameObject.roam.active=true>>
+"We hope you will guide us well."
+[[>close]]
+
+::family-role-3
+<<do this.gameObject.roam.active=false>>
+P: I tell my sister the news.
+>
+"We are sorry to hear about Three..."
+>
+"Thank you for letting us know, Sister Twe- Sorry, Sister Superior Twenty."
+>
+<<do this.gameObject.roam.active=true>>
+"Let us talk again soon."
+[[>close]]
+
+
+::family-wall
+P: I should tell my sisters about my new role.
+[[...|this.scene.player.walkBy(0,50);this.goto('close')]]
+
+
+::family-exit
+P: The news is heavy, but if my sisters are sad, I do not see it in their eyes.
+>
+<<do this.scrim(1, 1000)>>
+P: I continue on through the nest.
+>
+P: As I inform my sisters of my new role, I observe their reactions.
+>
+P: Some seem happy for me, others indifferent.
+>
+P: I appreciate the indifferent ones more.
+>
+P: ...Sister Superior Twenty of Many Oceophylla.
+>
+P: The new title slides into the old. Becomes a part of me. A part of us.
+>
+P: ...
+>
+P: Sister Superior Three always had a different presence to the other sisters.
+>
+<<do this.scene.goto({ area: 'town', x: 0, y: 10000 });this.show('bg_stars', { duration: 30000 })>>
+P: Sometimes we suspected that she enjoyed her elevated status a little too much.
+
+The closeness to Mother, the responsibility, the privilege.
+>
+P: We're sure you would have agreed, had you known her.
+>
+P: ...Hm? Are we any different?
+
+[["We don't think so."]]
+[["In a sense."]]
+[["We all are."]]
+
+::"We don't think so."
+P: Even now, we don't wish to think of ourselves as separate from our sisters.
+>
+P: Whether you wish to say 'Superior' or not, we are still your sister, still Twenty.
+>
+P: And there will come a time when we are gone, and another sister will take the name.
+>
+P: Will they be different for having taken it? Perhaps.
+
+But they too, will still be your sister.
+>
+P: We hope that we live up to the name, of course.
+<<print new Array(20).fill('\u200B').join('')>>
+But it is a name we all share, in the end.
+<<print new Array(20).fill('\u200B').join('')>>
+We hope that you will live up to it too, Sister.
+<<print new Array(40).fill('\u200B').join('')>>
+[[The End]]
+
+::"In a sense."
+P: Consider the Queen Mother:
+>
+P: Whether she requests it or not - and she often requests the opposite! - we all treat her differently.
+>
+P: How could we not? We are different!
+[[>"We all are."]]
+
+::"We all are."
+P: To say otherwise would be to lie to ourselves.
+>
+P: It is better to understand these differences, sisters, in order to better understand how we are the same.
+>
+P: It is natural to doubt it.
+<<print new Array(20).fill('\u200B').join('')>>
+We may be different, but we all have our doubts.
+<<print new Array(20).fill('\u200B').join('')>>
+We hope that you will overcome yours, Sister.
+<<print new Array(40).fill('\u200B').join('')>>
+[[The End]]
+
+
+
+
+::ending-start-exile
+P: All I can think about is how nice it will be to finally rest.
+>
+P: ...
+>
+P: The work is long.
+>
+P: A day passes.
+>
+P: Then another.
+>
+P: Then many more.
+>
+P: Our food stores grow, our nurseries fill up, and the nest begins to feel established.
+>
+P: Plans for a second nest - another dangerous trip along the path - are discussed.
+>
+P: The work slows at times, but it never stops. There is always much to do.
+
+The other sisters seem happy. Content.
+>
+P: I have been assigned waste management. Again.
+>
+P: Just as my duties are coming to a close, I am interrupted by a Forty-and sister calling my name.
+
+A courier, from Mother's new retinue.
+>
+"Sister Twenty!"
+>"Yes?"
+P: I brush the rot from my arms, and let her catch her breath.
+>
+"It is our duty to inform you that Mother has called for an audience."
+>"With me?"
+"Yes. Come along."
+>
+P: We pass through many passages and rooms of the always-expanding nest.
+>
+P: Near Mother's chamber, I can't help but notice how small it makes me feel.
+>
+<<do this.show('superiorIdle')>>
+P: Sister Three waits at the entrance.
+>
+P: She whispers something to the Forty-and courier, and waves her off.
+>
+"Are you ready, Sister Twenty?"
+>
+P: Whatever awaits me beyond this door will be momentous.
+
+>"I'm ready."
+P: She opens the door, and leads me inside.
+>
+"Queen Mother, please allow us to introduce-"
+>
+<<do this.show('queenIdle')>>
+voiceQueen
+"No."
+>
+P: Mother cuts her off. Sister Superior Three doesn't seem to know how to react.
+>
+"...Queen Mother?"
+>
+P: It's strange seeing Three squirm under pressure. I didn't think she knew how.
+>
+P: Mother addresses me directly.
+>
+voiceQueen
+"Introduce yourself."
+>Answer
+P: "Sister Twenty of Many Oecophylla."
+>
+voiceQueen
+"No."
+>
+P: And now it's my turn to squirm. I've had plenty of experience, but it doesn't make it easier.
+>
+P: "...No?"
+>
+P: Her mandibles click impatiently.
+>
+voiceQueen
+"You have spoken a name. Is it yours?"
+>
+"A name carries with it a weight, child."
+>
+"A responsibility."
+
+"An understanding."
+>
+"Do you understand the one which spills so freely from your wanton mouth?"
+
+"Do you bear it?"
+
+[["Yes, of course.">exile-2]]
+[["No, how could I?">exile-2]]
+[["Mother, what is this?">exile-2]]
+
+::exile-2
+P: I want to answer, but cannot. Mother is mad at me, and she continues.
+>
+voiceQueen
+"Tell us: What is your name?"
+>My name...
+P: It's a simple answer, but the pressure is unbearable.
+
+I want to crumple to the ground, but Mother is asking me a question.
+
+[["Sister Twenty"]]
+[["of Many"]]
+[["Oecophylla"]]
+
+::exile-names
+voiceQueen
+"Tell us your name!"
+
+<<if !this.exilename1>>[["Sister Twenty"]]<<endif>>
+<<if !this.exilename2>>[["of Many"]]<<endif>>
+<<if !this.exilename3>>[["Oecophylla"]]<<endif>>
+<<if this.exilename1&&this.exilename2&&this.exilename3>>[[>exile-noname]]<<endif>>
+
+::"Sister Twenty"
+<<do this.exilename1=true>>
+voiceQueen
+"Hah! We asked your name, child, not your position."
+>
+P: Mother is... laughing at me.
+>
+voiceQueen
+"Surely by now you understand that the latter is flexible, to say the least."
+>
+"And we will not be saying the least."
+
+[[>exile-names]]
+
+::"of Many"
+<<do this.exilename2=true>>
+voiceQueen
+"Oh? Is that so?"
+>
+"Who is this Many you speak of?"
+>
+"Could it be our daughters, our sisters?"
+
+"We should think not."
+>
+"Any foolish enough to consider you among their number will soon find that number to be lacking, and oh so very... finite."
+>
+"You'd do well to remember how little the difference is between One and None."
+
+[[>exile-names]]
+
+::"Oecophylla"
+<<do this.exilename3=true>>
+voiceQueen
+"..."
+>
+"You DARE!"
+>
+P: Mother is shouting at me.
+>
+voiceQueen
+"Oecophylla!"
+>
+"It is our name! Our sisters' name. Our mother's name."
+
+"Do you understand?"
+>
+"Not mine. Certainly not yours. It is OUR name!"
+>
+P: Burning light flashes off her eyes.
+
+[[>exile-names]]
+
+::exile-noname
+P: What does she want me to say?
+>
+P: What do I have left?
+
+[["Daughter."]]
+[["I have no name."]]
+[["I don't know."]]
+
+::"Daughter."
+P: She sighs.
+>
+voiceQueen
+"Would that you still were..."
+[[>exile2]]
+
+::"I have no name."
+P: She sighs.
+>
+voiceQueen
+"We are relieved. You do understand."
+[[>exile2]]
+
+::"I don't know."
+P: She sighs.
+>
+voiceQueen
+"We do you a favour, child, whether you know it or not."
+[[>exile2]]
+
+::exile2
+voiceQueen
+"The weight of a name is heavy. It is one we carry together, or not at all."
+>
+"It is our self, and our path. Our purpose, and our spirit."
+>
+"Yet for all we have given you, these are things which you do not share."
+>
+"So we have lifted this weight from your shoulders."
+>
+P: I feel as heavy as ever.
+>
+voiceQueen
+"You have been unburdened: Stand up."
+>
+P: ...And I suppose I did crumple to the floor at some point.
+>
+P: Sister Superior Three offers a hand.
+
+The Queen Mother motions, and she retracts her offer.
+>Stand
+P: I don't need her help anyway. I can stand on my own legs.
+>
+voiceQueen
+"Our daughters will allow you safe passage, of course."
+>
+"A courtesy that will not be extended should you return."
+
+[["You're kicking me out?"]]
+[["Passage to where?"]]
+[["I understand."]]
+
+
+::"Passage to where?"
+"Where you choose to go is of no concern to us."
+>
+"All that matters is that you go."
+[[>exile3]]
+
+::"You're kicking me out?"
+"Let us make ourselves perfectly clear, nameless one:"
+>
+"Our age has made us sentimental, and we are allowing you to leave before you should come to any harm."
+[[>exile3]]
+
+::"I understand."
+"Good."
+[[>exile3]]
+
+::exile3
+"Daughter Three, show her out."
+
+[["Wait..."]]
+[["Farewell, Mother."]]
+[["I won't forget this."]]
+
+::"Wait..."
+"No."
+[[>exile4]]
+
+::"Farewell, Mother."
+P: She doesn't respond.
+[[>exile4]]
+
+::"I won't forget this."
+voiceQueen
+"Then take the memory to the grave."
+[[>exile4]]
+
+::exile4
+<<do this.show('')>>
+P: My sisters - the word stings in my head - usher me away.
+>
+P: I don't fight it.
+>
+<<do this.scene.goto({ area: 'town-exile', x: -369, y: -156 })>>
+P: They lead me back to the entrance. I want to say something - anything to feel like this isn't the end.
+>
+P: Instead, I stand there in silence, and they shove me out the door.
+[[>close]]
+
+::exile-refuse-1
+P: The Queen Mother's retinue block the entrance.
+>
+P: I'm not welcome here.
+[[...|this.scene.player.walkBy(0,50);this.goto('close')]]
+
+::exile-refuse-2
+P: My former sisters stare pitifully at me from the constructions above.
+>
+P: I'm not welcome here.
+[[...|this.scene.player.walkBy(0,50);this.goto('close')]]
+
+::exile-refuse-3
+P: There's nothing for me here.
+>
+P: I'm not welcome.
+[[...|this.scene.player.walkBy(0,50);this.goto('close')]]
+
+
+::exile-exit
+P: ...
+>
+<<do this.scrim(1, 1000)>>
+P: It's still difficult to accept just how much changed that day.
+>
+<<do this.scene.goto({ area: 'town', x: 0, y: 10000 });this.show('bg_stars', { duration: 30000 })>>
+P: You'll forgive me if I gloss over the finer details of life in exile.
+>
+P: Not nearly as romantic as it sounds.
+
+I'm not much different than you, or anyone else here, for that matter. It just took me a bit longer to make my way.
+>
+P: ...Hm? My name?
+
+[[I'm still trying to come up with a new one.]]
+[[I decided I didn't need it.]]
+[[They never really took it from me.]]
+
+::I'm still trying to come up with a new one.
+P: Had a few since those days, but nothing that quite stuck.
+>
+P: Plenty of time to find one that does though.
+[[>exile4-noname]]
+
+::I decided I didn't need it.
+P: I don't particularly miss having one.
+[[>exile4-noname]]
+
+::exile4-noname
+P: Sure, sometimes there's that awkward moment, meeting someone on the road: We say our greetings, they introduce themselves, and I dodge the response.
+>
+P: But you'd be surprised how many travelers are content in their anonymity, and see no reason to question yours.
+>
+P: What's more important, really?
+>
+P: A handful of words you'll use once and forget, or a warm meal after a long day?
+>
+P: Something to call yourself, or knowing who you are?
+>
+P: A legacy, or a life?
+>
+P: ...No, don't- It's rhetorical.
+>
+P: It's something you have to answer for yourself.
+<<print new Array(20).fill('\u200B').join('')>>
+I made my choice a long time ago.
+<<print new Array(20).fill('\u200B').join('')>>
+I don't doubt my decision.
+<<print new Array(40).fill('\u200B').join('')>>
+[[The End]]
+
+::They never really took it from me.
+P: Sister Twenty of Many Oecophylla, at your service. Twenny if you're in a hurry.
+>
+P: What are they going to do, hunt me down? Arrest me for disobedience and kick me out again?
+>
+P: No, Mother's finished with me. Haven't even seen another Oecophylla since then.
+>
+P: She- no, all of them, they were so concerned with what it meant to be one.
+
+To be Many!
+>
+P: Why let them decide? It's mine as much as theirs.
+>
+P: That's something I'm not sure they ever understood: The name, the path, the life - it's something we share, not something we are.
+>
+P: Sometimes wish I had known how to make them see that.
+>
+P: ...Not that it matters now.
+<<print new Array(20).fill('\u200B').join('')>>
+It's not worth explaining myself to them.
+<<print new Array(20).fill('\u200B').join('')>>
+I doubt it ever was.
+<<print new Array(40).fill('\u200B').join('')>>
+[[The End]]
+
