@@ -37,7 +37,7 @@
 		"file-loader": "^6.2.0",
 		"glob": "^7.2.0",
 		"howler": "^2.2.3",
-		"howler-pixi-loader-middleware": "^1.0.2",
+		"howler-pixi-loader-middleware": "^3.0.0",
 		"html-webpack-plugin": "^5.3.2",
 		"input-gamepads.js": "^3.0.4",
 		"matter-js": "^0.17.1",
