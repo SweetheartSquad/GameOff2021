@@ -21,4 +21,9 @@ jobs:
           ITCH_GAME: we-follow-the-fickle-path
           ITCH_USER: sweetheartsquad
           PACKAGE: dist
-          VERSION: ${{ steps.package-version.outputs.current-version}}
+          VERSION: ${{ steps.package-version.outputs.current-version }}
+      - uses: Ilshidur/action-discord@0.3.2
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          args: 'deployed <https://sweetheartsquad.itch.io/we-follow-the-fickle-path>'
