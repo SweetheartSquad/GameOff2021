@@ -9,7 +9,8 @@ import { size } from './size';
 import { clamp } from './utils';
 
 const gamepads = new Gamepads();
-let mouse: Mouse;
+// eslint-disable-next-line import/no-mutable-exports
+export let mouse: Mouse;
 let activeScene: GameScene | undefined;
 let newScene: GameScene | undefined;
 

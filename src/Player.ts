@@ -1,5 +1,6 @@
 import { IChamferableBodyDefinition } from 'matter-js';
 import { Container, DisplayObject } from 'pixi.js';
+import { resizer } from '.';
 import { sfx } from './Audio';
 import { Character, speed } from './Character';
 import {
@@ -9,7 +10,8 @@ import {
 	SENSOR_PLAYER,
 } from './collision';
 import { game } from './Game';
-import { getInput } from './main';
+import { GameScene } from './GameScene';
+import { getActiveScene, getInput, mouse } from './main';
 import { NPC, Roam } from './NPC';
 import { size } from './size';
 import { removeFromArray } from './utils';
@@ -20,6 +22,8 @@ const playerSpeedY = 0.002 * speed;
 
 export class Player extends Character {
 	roam?: Roam;
+
+	clickMove = false;
 
 	camPoint: DisplayObject;
 
@@ -83,11 +87,25 @@ export class Player extends Character {
 		this.step = step;
 		this.updateCamPoint();
 
+		const input = getInput();
+		if (
+			this.clickMove &&
+			this.roam &&
+			(!this.canMove || input.move.x || input.move.y)
+		) {
+			this.clickMove = false;
+			this.roam.active = false;
+		}
 		if (this.roam?.active) {
 			this.moving.x = this.bodyCollision.body.velocity.x;
 			this.moving.y = this.bodyCollision.body.velocity.y;
+			if (this.clickMove && mouse.justDown && this.canMove) {
+				this.walkToMouse();
+			}
 		} else {
-			const input = getInput();
+			if (!input.move.x && !input.move.y && mouse.justDown && this.canMove) {
+				this.walkToMouse();
+			}
 			input.move = multiply(input.move, this.canMove ? 1 : 0);
 			// update player
 			this.bodyCollision.body.force.x +=
@@ -112,6 +130,7 @@ export class Player extends Character {
 	}
 
 	setPosition(x: number, y: number) {
+		this.cancelWalkToMouse();
 		super.setPosition(x, y);
 		this.followers.forEach((i) => {
 			i.setPosition(x, y);
@@ -137,7 +156,35 @@ export class Player extends Character {
 	}
 
 	walkBy(x: number, y: number, range?: number) {
+		this.cancelWalkToMouse();
 		return this.walkTo(this.transform.x + x, this.transform.y + y, range);
+	}
+
+	walkToMouse() {
+		const relativeMousePos = {
+			x:
+				((mouse.x - resizer.childElement.offsetLeft) /
+					resizer.childElement.clientWidth) *
+				size.x,
+			y:
+				((mouse.y - resizer.childElement.offsetTop) /
+					resizer.childElement.clientHeight) *
+				size.y,
+		};
+		const targetPos = (
+			getActiveScene() as GameScene
+		).camera.display.container.toLocal(relativeMousePos);
+		this.walkTo(targetPos.x, targetPos.y);
+		this.clickMove = true;
+	}
+
+	cancelWalkToMouse() {
+		if (this.clickMove) {
+			this.clickMove = false;
+			if (this.roam) {
+				this.roam.active = false;
+			}
+		}
 	}
 
 	follow(npc: NPC) {

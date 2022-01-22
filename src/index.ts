@@ -28,7 +28,7 @@ document.body.addEventListener('mousedown', () => {
 	window.focus();
 });
 
-const resizer = new Resizer(size.x, size.y, ScaleModes.MULTIPLES);
+export const resizer = new Resizer(size.x, size.y, ScaleModes.MULTIPLES);
 document.body.appendChild(resizer.element);
 
 const playEl = document.createElement('button');
