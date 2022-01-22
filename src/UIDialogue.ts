@@ -118,7 +118,7 @@ export class UIDialogue extends GameObject {
 		this.display.container.addChild(this.textPrompt);
 		this.display.container.accessible = true;
 		this.display.container.interactive = true;
-		(this.display.container as EventEmitter).on('click', () => {
+		(this.display.container as EventEmitter).on('pointerdown', () => {
 			this.complete();
 		});
 		this.containerChoices = new Container();
@@ -172,13 +172,13 @@ export class UIDialogue extends GameObject {
 					}
 					this.choices[this.selected].alpha = 0.75;
 				} else if (input.interact && this.selected !== undefined) {
-					this.choices[this.selected].emit('click');
+					this.choices[this.selected].emit('pointerdown');
 				} else if (input.interact) {
 					this.complete();
 				} else {
 					this.choices
 						.find((_, idx) => keys.isJustDown(KEYS.ONE + idx))
-						?.emit('click');
+						?.emit('pointerdown');
 				}
 			} else if (input.interact) {
 				this.complete();
@@ -257,7 +257,7 @@ export class UIDialogue extends GameObject {
 				t.alpha = 1;
 				this.selected = undefined;
 			});
-			t.on('click', () => {
+			t.on('pointerdown', () => {
 				if (this.containerChoices.alpha > 0.5) {
 					i.action();
 				}
