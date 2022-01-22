@@ -51,7 +51,8 @@ export function distance2(a: V, b: V): number {
 
 /* EDITS THIS OBJECT */
 export function normalize(v: V): void {
-	const m = magnitude(v);
+	const m = 1 / magnitude(v);
+	if (m === Infinity) return;
 	v.x *= m;
 	v.y *= m;
 }
