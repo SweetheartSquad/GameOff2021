@@ -17,6 +17,7 @@
 		"analyze": "webpack --config webpack.config.prod.js --mode production --profile --json > stats.json && npx webpack-bundle-analyzer stats.json"
 	},
 	"devDependencies": {
+		"@egjs/hammerjs": "^2.0.17",
 		"@pixi/interaction": "^6.1.1",
 		"@squoosh/lib": "^0.4.0",
 		"@types/eases": "^1.0.1",

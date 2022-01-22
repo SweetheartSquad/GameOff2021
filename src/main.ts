@@ -4,6 +4,7 @@ import { game } from './Game';
 import { GameScene } from './GameScene';
 import { keys, KEYS } from './input-keys';
 import { Mouse } from './input-mouse';
+import { swipes } from './input-swipe';
 import { size } from './size';
 import { clamp } from './utils';
 
@@ -109,6 +110,13 @@ export function getInput() {
 		}
 	}
 
+	if (swipes.press) {
+		res.interact = true;
+	} else if (swipes.y && Math.abs(swipes.y) > Math.abs(swipes.x)) {
+		res.move.y = Math.sign(swipes.y);
+		res.justMoved.y = Math.sign(swipes.y);
+	}
+
 	res.move.x = clamp(-1.0, res.move.x, 1.0);
 	res.move.y = clamp(-1.0, res.move.y, 1.0);
 
@@ -134,6 +142,7 @@ function update(): void {
 	gamepads.update();
 	keys.update();
 	mouse.update();
+	swipes.update();
 }
 
 export function init(): void {
