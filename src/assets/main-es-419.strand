@@ -604,7 +604,7 @@ P: Se produce una sacudida, un doloroso latigazo que mueve todas las articulacio
 >
 P: Pero resisto.
 >
-P: Me duele la cabeza. Ya puedo ver el dosel arbóreo.
+P: Me duele la cabeza. Ya puedo ver el dosel arbóreo.
 >
 P: Empieza a llover.
 <<do this.scene.goto({ area: 'intro' });>>
