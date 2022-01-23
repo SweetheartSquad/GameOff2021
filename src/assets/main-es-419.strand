@@ -1222,7 +1222,7 @@ voiceQueen
 "Tal es la naturaleza de los demonios."
 [[>feeding-questions-2]]
 
-::¿Qué pasó con la Hermana Treinta-y-Tres?
+::"¿Qué pasó con la Hermana Treinta-y-Tres?"
 <<do this.cordy1question=false>>
 P: "No... no tiene sentido. ¿Por qué haría eso?"
 >
