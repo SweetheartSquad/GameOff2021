@@ -29,6 +29,8 @@ const padding = {
 export class UIDialogue extends GameObject {
 	sprScrim: Sprite;
 
+	tweens: Tween[] = [];
+
 	tweenScrim?: Tween;
 
 	sprBg: Sprite;
@@ -310,14 +312,18 @@ export class UIDialogue extends GameObject {
 		if (!this.isOpen) {
 			this.isOpen = true;
 			this.scrim(0.5, 500);
-			TweenManager.tween(this.sprBg, 'alpha', 1, 500);
-			TweenManager.tween(
-				this.sprBg,
-				'y',
-				this.openY(),
-				500,
-				undefined,
-				cubicOut
+			this.tweens.forEach((t) => TweenManager.abort(t));
+			this.tweens.length = 0;
+			this.tweens.push(
+				TweenManager.tween(this.sprBg, 'alpha', 1, 500),
+				TweenManager.tween(
+					this.sprBg,
+					'y',
+					this.openY(),
+					500,
+					undefined,
+					cubicOut
+				)
 			);
 		}
 	}
@@ -329,14 +335,18 @@ export class UIDialogue extends GameObject {
 			});
 			this.isOpen = false;
 			this.scrim(0, 500);
-			TweenManager.tween(this.sprBg, 'alpha', 0, 500);
-			TweenManager.tween(
-				this.sprBg,
-				'y',
-				this.closeY(),
-				500,
-				undefined,
-				cubicIn
+			this.tweens.forEach((t) => TweenManager.abort(t));
+			this.tweens.length = 0;
+			this.tweens.push(
+				TweenManager.tween(this.sprBg, 'alpha', 0, 500),
+				TweenManager.tween(
+					this.sprBg,
+					'y',
+					this.closeY(),
+					500,
+					undefined,
+					cubicIn
+				)
 			);
 		}
 	}
