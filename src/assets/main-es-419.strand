@@ -433,7 +433,7 @@ this should never render
 
 
 
-::The End
+::El Fin
 <<do
 	this.howler = this.musicSynced('');
 	this.tween(this.scene.border.display.container, 'alpha', 0, 5000);
