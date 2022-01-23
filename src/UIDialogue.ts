@@ -1,6 +1,13 @@
 import type { EventEmitter } from '@pixi/utils';
 import { cubicIn, cubicOut } from 'eases';
-import { Container, Sprite, Text, TextMetrics, Texture } from 'pixi.js';
+import {
+	Container,
+	Rectangle,
+	Sprite,
+	Text,
+	TextMetrics,
+	Texture,
+} from 'pixi.js';
 import Strand from 'strand-core';
 import { sfx } from './Audio';
 import { fontDialogue, fontPrompt } from './font';
@@ -118,8 +125,8 @@ export class UIDialogue extends GameObject {
 		this.display.container.addChild(this.textPrompt);
 		this.display.container.accessible = true;
 		this.display.container.interactive = true;
-		(this.display.container as EventEmitter).on('click', () => {
-			this.complete();
+		(this.display.container as EventEmitter).on('pointerdown', () => {
+			if (this.isOpen) this.complete();
 		});
 		this.containerChoices = new Container();
 		this.containerChoices.x = size.x - padding.x;
@@ -156,6 +163,12 @@ export class UIDialogue extends GameObject {
 		if (this.progress() < 0.9) return;
 
 		if (this.isOpen && this.choices.length) {
+			// make single option clickable from anywhere
+			if (this.choices.length === 1) {
+				const p = this.choices[0].toGlobal({ x: 0, y: 0 });
+				this.choices[0].hitArea = new Rectangle(-p.x, -p.y, size.x, size.y);
+			}
+
 			if (this.containerChoices.alpha > 0.5) {
 				if (input.justMoved.y) {
 					if (this.selected !== undefined) {
@@ -172,13 +185,13 @@ export class UIDialogue extends GameObject {
 					}
 					this.choices[this.selected].alpha = 0.75;
 				} else if (input.interact && this.selected !== undefined) {
-					this.choices[this.selected].emit('click');
+					this.choices[this.selected].emit('pointerdown');
 				} else if (input.interact) {
 					this.complete();
 				} else {
 					this.choices
 						.find((_, idx) => keys.isJustDown(KEYS.ONE + idx))
-						?.emit('click');
+						?.emit('pointerdown');
 				}
 			} else if (input.interact) {
 				this.complete();
@@ -257,7 +270,7 @@ export class UIDialogue extends GameObject {
 				t.alpha = 1;
 				this.selected = undefined;
 			});
-			t.on('click', () => {
+			t.on('pointerdown', () => {
 				if (this.containerChoices.alpha > 0.5) {
 					i.action();
 				}
@@ -311,6 +324,9 @@ export class UIDialogue extends GameObject {
 
 	close() {
 		if (this.isOpen) {
+			this.choices.forEach((i) => {
+				i.interactive = false;
+			});
 			this.isOpen = false;
 			this.scrim(0, 500);
 			TweenManager.tween(this.sprBg, 'alpha', 0, 500);

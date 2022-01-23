@@ -1,12 +1,12 @@
 {
 	"private": true,
 	"name": "walkaround",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "We Follow The Fickle Path",
 	"main": "./src/index.js",
 	"author": "SweetHeart Squad <sweetheartsquad@gmail.com>",
 	"scripts": {
-		"serve": "npx hs ./dist --cors -c-1 -p 8080",
+		"serve": "npx hs ./dist --cors -p 8080",
 		"build:debug": "webpack --config webpack.config.dev.js --mode development",
 		"build:prod": "webpack --config webpack.config.prod.js --mode production",
 		"build": "npm run build:prod",
@@ -17,6 +17,7 @@
 		"analyze": "webpack --config webpack.config.prod.js --mode production --profile --json > stats.json && npx webpack-bundle-analyzer stats.json"
 	},
 	"devDependencies": {
+		"@egjs/hammerjs": "^2.0.17",
 		"@pixi/interaction": "^6.1.1",
 		"@squoosh/lib": "^0.4.0",
 		"@types/browser-lang": "^0.1.0",
@@ -39,10 +40,10 @@
 		"file-loader": "^6.2.0",
 		"glob": "^7.2.0",
 		"howler": "^2.2.3",
-		"howler-pixi-loader-middleware": "^1.0.2",
+		"howler-pixi-loader-middleware": "^3.0.0",
 		"html-webpack-plugin": "^5.3.2",
 		"input-gamepads.js": "^3.0.4",
-		"matter-js": "^0.17.1",
+		"matter-js": "^0.18.0",
 		"path-browserify": "^1.0.1",
 		"pixi.js": "^6.1.2",
 		"postcss-clean": "1.2.0",

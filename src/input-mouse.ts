@@ -47,10 +47,10 @@ export class Mouse {
 		this.wheelX = 0;
 
 		this.element = element;
-		this.element.addEventListener('mouseup', this.onUp);
-		this.element.addEventListener('mouseout', this.onUp);
-		this.element.addEventListener('mousedown', this.onDown);
-		this.element.addEventListener('mousemove', this.onMove);
+		this.element.addEventListener('pointerup', this.onUp);
+		this.element.addEventListener('pointerout', this.onUp);
+		this.element.addEventListener('pointerdown', this.onDown);
+		this.element.addEventListener('pointermove', this.onMove);
 		this.element.addEventListener('wheel', this.onWheel);
 		this.lock = !!lock;
 		if (this.lock) {

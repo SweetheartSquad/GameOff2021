@@ -52,7 +52,7 @@ module.exports = (env, argv) => ({
 		},
 	},
 	output: {
-		filename: '[name].bundle.js',
+		filename: '[name].[contenthash].bundle.js',
 		clean: true,
 	},
 	plugins: [
