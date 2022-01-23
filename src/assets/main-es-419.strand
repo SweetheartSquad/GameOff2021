@@ -618,23 +618,23 @@ P: No puedo confiar en que lo que queda sea estable, necesito volver.
 
 ::intro-panic
 <<do this.gameObject.line = this.gameObject.line || this.shuffle([
-	''La mitad del séquito estaba frente a nosotras... todas desaparecieron...'',
-	"Madre... ¿dónde está la Reina Madre?",
-	"Hermanas... nuestras hermanas...",
-	"No... esto no puede estar pasando",
-	'"Cayeron. No podemos ayudarlas...",
-	"Llegamos demasiado tarde...",
+	'"La mitad del séquito estaba frente a nosotras... todas desaparecieron..."',
+	'"Madre... ¿dónde está la Reina Madre?"',
+	'"Hermanas... nuestras hermanas..."',
+	'"No... esto no puede estar pasando."',
+	'"Cayeron. No podemos ayudarlas..."',
+	'"Llegamos demasiado tarde..."',
 	'"¡¡No!!"',
-	"Por favor, déjenos en paz...",
-	'"Madre sabrá qué hacer. Madre siempre sabe qué hacer",
-	"Tenemos qué encontrar un refugio. No podemos quedarnos aquí",
-	"Esto no puede estar pasando. Esto no puede estar pasando."',
-	"¡Hermana! Nos da gusto que estés a salvo, ¡por favor ayuda a las demás!",
+	'"Por favor, déjenos en paz..."',
+	'"Madre sabrá qué hacer. Madre siempre sabe qué hacer."',
+	'"Tenemos qué encontrar un refugio. No podemos quedarnos aquí."',
+	'"Esto no puede estar pasando. Esto no puede estar pasando."',
+	'"¡Hermana! Nos da gusto que estés a salvo, ¡por favor ayuda a las demás!"',
 	'"Hermana..."',
 	"P: Está asustada y no me escucha.",
 	"P: Está ocupada ayudando a los demás.",
 	"P: No debería distraerla.",
-	"P: Quisiera decirle que todo estará bien, pero seria mentirle",
+	"P: Quisiera decirle que todo estará bien, pero seria mentirle.",
 ])[0]>>
 <<print this.gameObject.line>>
 [[>close]]
