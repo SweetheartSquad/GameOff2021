@@ -1653,7 +1653,7 @@ Démonos prisa y busquemos a tu hermana enfermera para que te pueda responder la
 >
 "Pero Madre dijo que la Hermana Enfermera Treinta-y-dos se fue."
 >"Oh hermanita..."
-P: "Lo siento mucho".
+P: "Lo siento mucho."
 >
 P: Me arrodillo para contemplar mejor su rostro. Sin embargo, no busca compasión: Los ojos que me devuelven su mirada están llenos de ira, no de tristeza.
 >
@@ -1729,7 +1729,7 @@ P: "Tendrían que tener mucha, mucha suerte."
 >
 P: Ella se mira las patas. Patadas dirigadas a un pedazo de tierra, no dice nada.
 >
-P: "Si lo hacen, nuestras hermanas necesitarán un hogar al que volver".
+P: "Si lo hacen, nuestras hermanas necesitarán un hogar al que volver."
 
 "¡Un hogar adecuado y fuerte!"
 >
@@ -1828,7 +1828,7 @@ P: Interviene una de las hermanas menores presentes:
 <<do this.show('superiorIdle')>>
 "¡Por supuesto! Por aquel entonces, todas teníamos que serlo."
 >
-"Sólo éramos hermanas: teníamos que hacer todo lo posible para que nuestras futuras hermanas crecieran, sólo con la orientación de Madre, y no con su cuidado directo".
+"Sólo éramos hermanas: teníamos que hacer todo lo posible para que nuestras futuras hermanas crecieran, sólo con la orientación de Madre, y no con su cuidado directo."
 >
 "Y quizás hicimos nuestro trabajo demasiado bien: ¡Todas crecieron mucho!"
 >
