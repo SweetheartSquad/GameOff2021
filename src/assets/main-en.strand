@@ -1144,7 +1144,6 @@ P: ...
 ::feeding-questions
 P: She continues to eat, and I consider what to say.
 
-// TODO: more questions
 <<do this.qc=0>>
 // only first 6 questions will be shown
 // question template:
