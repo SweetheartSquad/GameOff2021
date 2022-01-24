@@ -453,6 +453,7 @@ Hecho por Sean, IAN, and Michael of SweetHeart Squad.
 >>
 [[passage select>passage select]]
 [[area warp]]
+[[language select]]
 [[toggle debugPhysics|window.debugPhysics=!window.debugPhysics]]
 [[draw walls|
 	const canvas = window.game.app.renderer.context.gl.canvas;
@@ -514,6 +515,10 @@ Hecho por Sean, IAN, and Michael of SweetHeart Squad.
 ]]
 [[close]]
 [[volver|this.back()]]
+
+::language select
+[[en|this.setSource(game.app.loader.resources['main-en'].data);this.back();]]
+[[es-419|this.setSource(game.app.loader.resources['main-es-419'].data);this.back();]]
 
 ::test-npc
 "Hola, soy un NPC."
