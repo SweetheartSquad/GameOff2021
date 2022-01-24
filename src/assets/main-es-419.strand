@@ -1155,7 +1155,7 @@ P: Ella sigue comiendo y yo me pienso qué decir.
 <<if this.qc<6 && this.innquestion>><<do ++this.qc>>[["¿Por qué no nos quedamos más tiempo en la posada?"]]<<endif>>
 <<if this.qc<6 && this.deserterquestion>><<do ++this.qc>>[["¿Quién era la hermana que escapó?"]]<<endif>>
 <<if this.qc<6 && this.motherquestion!==false>><<do ++this.qc>>[["¿Cómo era tu madre?"]]<<endif>>
-<<if this.qc<6 && this.fatherquestion!==false>><<do ++this.qc>>[["¿Cómo era Padre?""]]<<endif>>
+<<if this.qc<6 && this.fatherquestion!==false>><<do ++this.qc>>[["¿Cómo era Padre?"]]<<endif>>
 <<if this.qc<6>>[["...">feeding-questions-none]]<<endif>>
 
 ::feeding-questions-none
