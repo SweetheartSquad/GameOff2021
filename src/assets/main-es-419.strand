@@ -1190,7 +1190,7 @@ P: "Está convencida de que es la segunda vez."
 voiceQueen
 "¿Quieres que adoptemos un enfoque más directo?"
 
-" ¿Deberíamos quemar a los que se han asociado con la maldad, como la Hija Tres sugirió?"
+"¿Deberíamos quemar a los que se han asociado con la maldad, como la Hija Tres sugirió?"
 >"¡No!"
 "No te preocupes, nunca lo haríamos."
 
@@ -1368,7 +1368,7 @@ voiceQueen
 "¿Los guardianes de la posada?"
 >
 "Se ocuparon de ellos."
->" Entonces, están..."
+>"Entonces, están..."
 "Si preguntas si aún viven, no lo sabemos ni nos importa."
 >
 "No cooperaron y fueron desalojados del establecimiento."
@@ -1743,7 +1743,7 @@ P: "Por eso tenemos que seguir avanzando."
 >
 "...De acuerdo."
 >
-P: " De acuerdo, regresemos con las otras hermanitas y futuras hermanas."
+P: "De acuerdo, regresemos con las otras hermanitas y futuras hermanas."
 >
 <<do this.scrim(1,1000)>>
 P: La levanto y la dejo subir a mis hombros en el camino de vuelta a la guardería temporal.
@@ -1870,7 +1870,7 @@ P: La Hermana Diez-y-Nueve se levanta de su lugar al lado del fuego cuando me ve
 <<endif>>
 >
 <<do this.talked19=true>>
-"¡Hermana Veinte!" ¿Cómo estás?"
+"¡Hermana Veinte! ¿Cómo estás?"
 
 [["He estado mejor."]]
 [["A todas nos vendría bien descansar."]]
@@ -2726,7 +2726,7 @@ P: We've made it this far, but we've just been roughing it. Our luck is running 
 
 
 ::outside-inn-ants
-"¡Hermana Veinte!" How goes the scouting operation?"
+"¡Hermana Veinte! How goes the scouting operation?"
 <<if this.metbunty>>
 [["How do we feel about roly polies?">outside-inn-ants-proposal]]
 <<endif>>
