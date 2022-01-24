@@ -1952,7 +1952,7 @@ P: "Ja... Muy bien. Buenas noches, Hermana."
 >
 "¿Has descansado lo suficiente?"
 >
-P: "...No. ¿Y tú?
+P: "...No. ¿Y tú?"
 >
 <<do this.gameObject.roam.active=true>>
 P: She just laughs.
