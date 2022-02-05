@@ -2150,7 +2150,7 @@ P: "Pero creo que las cosas serían muy diferentes si yo estuviera al mando."
 >
 P: "...Pero sabes que Madre no cría a sus hijas."
 >
-P: " Si se trata de eso, ¿por qué no tomar un turno en la guardería con las hermanas que sí lo hacen?"
+P: "Si se trata de eso, ¿por qué no tomar un turno en la guardería con las hermanas que sí lo hacen?"
 >
 P: Sus antenas se encogen hacia dentro.
 >
@@ -2273,8 +2273,8 @@ P: Está murmurando, demasiado bajo como para oírla.
 P: Sus palabras no parecen ir dirigidas a mí: ignora mis preguntas y continúa con un ritmo cadencioso.
 >
 "vértigo"
-"molestias" "dolor"
-"molestias" "dolor"
+  "molestias"    "dolor"
+    "molestias"    "dolor"
 >
 P: Da un paso adelante, luego otro, y otro.
 [[Bloquear su camino]]
@@ -2291,8 +2291,8 @@ P: No parece que intente hacerme daño, es casi un despiste, pero aun así grito
 ::Déjarla caminar
 P: Ella sigue caminando.
 >
-"dolor" "molestias" "vértigo"
-"dolor"        "vértigo"
+"dolor"    "molestias"    "vértigo"
+          "dolor"           "vértigo"
 >
 P: Ella camina hasta el borde.
 > "¡¡Hermana, no!!"
@@ -2410,7 +2410,7 @@ P: 'Accidente.'
 >
 "Hicimos falta las cuatro para detenerla."
 
-" También hemos mandado llamar a la Hermana Superiora, pero queríamos que confirmaras nuestra sospecha."
+"También hemos mandado llamar a la Hermana Superiora, pero queríamos que confirmaras nuestra sospecha."
 >
 P: Observo de cerca a la hermana sometida: sus patas siguen luchando, pero me doy cuenta de que su movimiento no es frenético ni agitado.
 
@@ -2470,7 +2470,7 @@ P: "Su comportamiento, sin embargo..."
 
 "La Hermana Treinta-y-tres también caminaba así."
 >
-P: " ¿Ella ha dicho algo?"
+P: "¿Ella ha dicho algo?"
 >
 "No, nada en absoluto desde que la hermana enfermera la ató."
 >
@@ -2573,7 +2573,7 @@ Aunque Treinta-y-cinco no se pueda salvar, ¡hay cuatro hermanas más ahí dentr
 
 ::"¡Tú también!"
 <<do ++this.countwe>>
-P: " ¡Las dos estuvimos ahí!"
+P: "¡Las dos estuvimos ahí!"
 
 "Nuestras manos se han tocado, y estas manos han estado en presencia no sólo de Treinta-y-cinco, sino también de Treinta-y-tres."
 >
@@ -2890,7 +2890,7 @@ voicePillbug
 P: ¿Una cochinilla?
 >
 voicePillbug
-"Vaya clima que estamos teniendo, ¿eh, señorita?" 
+"Vaya clima que estamos teniendo, ¿eh, señorita?"
 >
 P: ¿Está bromeando?
 >
@@ -2930,7 +2930,7 @@ voicePillbug
 
 "Todo por un módico precio: No encontrará una oferta mejor en este árbol, señorita"
 
-"*Por favor, tenga en cuenta que el buffet es estrictamente vegetariano. El horario del desayuno es de..." 
+"*Por favor, tenga en cuenta que el buffet es estrictamente vegetariano. El horario del desayuno es de..."
 
 [["Ok, lo entiendo."|++this.counti;this.goto('outside-inn3')]]
 [["por favor, deténgase">outside-inn3]]
@@ -3464,7 +3464,7 @@ B: "ENTONCES NO CRUZAS."
 :: "¿Me voy a arrepentir de esto?"
 <<do this.frogregret=true>>
 <<do ++this.counti>>
-B: " ¿ARREPENTIR?"
+B: "¿ARREPENTIR?"
 >
 B: "NO SABÍA QUE LOS PEQUEÑOS PODÍAN HACER ESO."
 >
