@@ -3272,7 +3272,7 @@ P: No puedo volver sin comprobar esto primero.
 [[>close]]
 
 ::frog-wall-2
-P: 'Sistema de compañeros.'
+P: 'Sistema de compañeros'.
 >
 <<do this.scrim(1, 1000)>>
 P: En realidad sólo hay una solución, así que sigo el rastro de la feremona hasta el grupo principal e informo de lo que he aprendido.
