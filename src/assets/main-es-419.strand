@@ -3915,7 +3915,7 @@ P: Me despierto entre gritos.
 >
 P: Una conmoción se ha apoderado de todo el campamento. Las hermanas corren de un lado a otro, gritando y sacándose unas a otras del improvisado refugio.
 >
-P: <<if this.counti>this.countwe>>Salgo<<else>>Salimos<<endif>> Salimos a tropezones, semi-dormidas.
+P: <<if this.counti>this.countwe>>Salgo<<else>>Salimos<<endif>> a tropezones, semi-dormidas.
 
 El sol golpea mi cara, y también lo hace un aroma abrumador.
 >
