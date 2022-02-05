@@ -4348,7 +4348,7 @@ voiceQueen
 <<if !this.exilename3>>[["Oecophylla"]]<<endif>>
 <<if this.exilename1&&this.exilename2&&this.exilename3>>[[>exile-noname]]<<endif>>
 
-::"Hermana Veinte."
+::"Hermana Veinte"
 <<do this.exilename1=true>>
 voiceQueen
 "¡Ja! Te preguntamos tu nombre, niña, no tu cargo."
