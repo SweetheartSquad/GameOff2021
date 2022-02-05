@@ -3546,9 +3546,9 @@ P: Será mejor que cruce antes de que decida volver.
 <<do this.frogquestion=true>>
 P: Parece que realmente ha perdido el interés...
 >
-P: <<if this.frogregret>>Sabía que era una mala idea. I knew it!<<else>>No puedo creer que hayamos caído justo en eso.<<endif>>
+P: <<if this.frogregret>>Sabía que era una mala idea. ¡Lo sabía!<<else>>No puedo creer que hayamos caído justo en eso.<<endif>>
 
-<<if this.frogeat>>¡¡Literalmente dijo que nos comería!!<<else>>Of course he just wanted to eat us!!<<endif>>
+<<if this.frogeat>>¡¡Literalmente dijo que nos comería!!<<else>>¡¡Por supuesto que sólo quería comernos!!<<endif>>
 >
 P: Estúpida. Soy tan estúpida.
 >
@@ -3634,7 +3634,7 @@ P: Esto es demasiado arriesgado. Necesito encontrar un terreno familiar y reagru
 >
 P: ...
 >
-P: El olor es cada vez más fuerte aquí... I'm definitely getting closer to the rest of the group.
+P: El olor es cada vez más fuerte aquí... Definitivamente me estoy acercando al resto del grupo.
 >
 P: ...
 >
