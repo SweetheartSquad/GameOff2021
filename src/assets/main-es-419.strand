@@ -3725,7 +3725,7 @@ P: "Si."
 
 ::"Tenemos que regresar."
 <<do ++this.countwe>>
-"Oh 'nosotras', 'tenemos' que regresar?"
+"Oh 'tenemos', 'tenemos' que regresar?"
 >
 P: "¡Sí! Si nos damos prisa, probablemente llegaremos al anochecer, pero las demás no se han detenido en nuestra ausencia."
 >
