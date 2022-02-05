@@ -2726,7 +2726,7 @@ P: Hemos llegado hasta aquí, pero nos ha costado. Nuestra suerte se acaba.
 
 
 ::outside-inn-ants
-"¡Hermana Veinte!" ¿Cómo va la operación de exploración?"
+"¡Hermana Veinte! ¿Cómo va la operación de exploración?"
 <<if this.metbunty>>
 [["¿Qué opinamos de las cochinillas?">outside-inn-ants-proposal]]
 <<endif>>
