@@ -3217,7 +3217,7 @@ P: "Hola de nuevo, Bunty."
 voicePillbug
 "¡Señorita<<if this.buntyname>> Veinte<<endif>>!"
 
-" ¿Esta realizando el check-in?"
+"¿Esta realizando el check-in?"
 
 >"Todavía no."
 <<do this.scene.player.walkBy(30,0)>>
