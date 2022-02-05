@@ -2749,7 +2749,7 @@ P: Los esfuerzos para la construcción de nidos parecen detenerse.
 P: Algún tiempo después, recibo una citación de la Hermana Superiora.
 >
 <<do this.show('superiorIdle')>>
-"Hemos oído hablar mucho de estos ' acuerdos alternativos' para nuestro nido pasajero."
+"Hemos oído hablar mucho de estos 'acuerdos alternativos' para nuestro nido pasajero."
 >
 "Hermana Veinte, ¿esto es obra tuya?"
 >
