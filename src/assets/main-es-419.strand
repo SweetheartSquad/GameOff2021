@@ -1995,7 +1995,7 @@ P: Vuelvo por donde vine.
 <<do this.outlook=2>>
 <<do this.outlooknpc.flipped=false>>
 <<do this.scene.player.walkBy(-100,0)>>
-"¡¡¡Ahh!!"
+"¡¡Ahh!!"
 >
 "¡Hermana Veinte, me asustaste!"
 >"Lo siento..."
