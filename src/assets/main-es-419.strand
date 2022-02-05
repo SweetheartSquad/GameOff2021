@@ -2859,7 +2859,7 @@ P: Intento quedarme dormida.
 [["Tal vez más tarde.">close]]
 <<endif>>
 
-::""Es demasiado peligroso."
+::"Es demasiado peligroso."
 P: "¿Con esta lluvia y con esa pendiente? Escalar allí es una sentencia de muerte."
 >
 "Quedarse aquí fuera es una sentencia de muerte..."
@@ -3847,7 +3847,7 @@ P: Puedo decir que su paciencia, la poca que había, se ha agotado.
 "Adiós, Veinte."
 [[>deserter-end3]]
 
-::""Espero algún día volver a verte."
+::"Espero algún día volver a verte."
 <<do ++this.counti>>
 "Por mi bien, espero que no suceda."
 [[>deserter-end3]]
@@ -4214,7 +4214,7 @@ P: Lo pida o no, (¡y a menudo pide lo contrario!), todas la tratamos de forma d
 P: ¿Cómo no hacerlo? ¡Somos diferentes!
 [[>"Todas lo somos."]]
 
-::""Todas lo somos."
+::"Todas lo somos."
 P: Decir lo contrario sería mentirnos a nosotras mismos.
 >
 P: Es mejor entender estas diferencias, hermanas, para comprender mejor cómo somos iguales.
