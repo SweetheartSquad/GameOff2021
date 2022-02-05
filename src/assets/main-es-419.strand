@@ -2510,7 +2510,7 @@ P: "¡Pero es nuestra hermana! Debemos ayudarla."
 
 "¡Todo el tiempo hemos tenido un demonio entre nosotros!"
 
-[["¡¡Basta!!"]]
+[["¡Basta!"]]
 [["...">cordyceps-2-silent]]
 
 
@@ -2522,7 +2522,7 @@ P: "¡Pero es nuestra hermana! Debemos ayudarla."
 "¿Quién la encontró? ¿Quién la tocó?"
 [[>cordyceps-2-hands]]
 
-:: "¡Detente!"
+::"¡Basta!"
 P: "Hermana superiora, ¿no está exagerando?"
 
 "Ella está bien asegurada, y podemos pensar en esto..."
