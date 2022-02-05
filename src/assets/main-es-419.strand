@@ -1273,7 +1273,7 @@ voiceQueen
 
 [[>feeding-questions-2]]
 
-:: "¿Cómo era tu madre?"
+::"¿Cómo era tu madre?"
 <<do this.motherquestion=false>>
 P: Es algo que me pregunto desde hace tiempo: Madre se llama a sí misma "Una y Muchas", pero no puede ser la primera.
 
@@ -1306,7 +1306,7 @@ voiceQueen
 [[>feeding-questions-2]]
 
 
-:: "¿Por qué soltamos a la rana?"
+::"¿Por qué soltamos a la rana?"
 <<do this.frogquestion=false>>
 P: "Ese monstruo, esa terrible bestia..."
 
@@ -3460,7 +3460,7 @@ B: "ENTONCES NO CRUZAS."
 <<if !this.frogeat>>[["You're not going to eat us?"]]<<endif>>
 [["Vuelvo más tarde, entonces."]]
 
-:: "¿Me voy a arrepentir de esto?"
+::"¿Me voy a arrepentir de esto?"
 <<do this.frogregret=true>>
 <<do ++this.counti>>
 B: "¿ARREPENTIR?"
@@ -3472,7 +3472,7 @@ P: Agh- de acuerdo, me voy...
 [[>close]]
 
 
-:: "¿No vas a comernos?"
+::"¿No vas a comernos?"
 <<do this.frogeat=true>>
 <<do ++this.countwe>>
 B: "¿COMERTE?"
