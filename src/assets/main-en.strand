@@ -3289,7 +3289,6 @@ P: ...
 P: "There was no aggression in his words, but..."
 >
 <<do
-
 	this.scene.areas[this.scene.area].push(
 		...this.AntProp({ x: -208, y: -73 }),
 		...this.AntProp({ x: -317, y: 48 }),
