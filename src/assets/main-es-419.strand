@@ -3364,7 +3364,7 @@ P: Las preguntas corren: ¿Quién? ¿Dónde? ¿¿¿Correr???
 	this.tween(this.frog.spr, 'alpha', 1, 500);
 	this.scene.camera.display.container.pivot.y += 50;
 >>
-P: Las dos primeras son contestadas inmediatamente por el choque de una rana gigante que se posa en la rama que tengo delante
+P: Las dos primeras son contestadas inmediatamente por el choque de una rana gigante que se posa en la rama que tengo delante.
 >
 P: Debería correr. El puente se estremece y cruje bajo su peso mientras da un paso hacia mí.
 
