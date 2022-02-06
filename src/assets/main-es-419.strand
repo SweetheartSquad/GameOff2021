@@ -3776,7 +3776,7 @@ P: "Pero Hermana, tu-"
 [["Pero... ¿por qué no te detienes?">deserter-why]]
 
 ::deserter-qs
-Ella sigue caminando.
+P: Ella sigue caminando.
 
 <<if !this.deserterwho>>[["¿Quién eras?">deserter-who]]<<endif>>
 <<if !this.deserterwhere>>[["¿Adónde vas?">deserter-where]]<<endif>>

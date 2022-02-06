@@ -3776,7 +3776,7 @@ P: "But Sister, you-"
 [["But... why aren't you stopping?">deserter-why]]
 
 ::deserter-qs
-She keeps walking.
+P: She keeps walking.
 
 <<if !this.deserterwho>>[["Who were you?">deserter-who]]<<endif>>
 <<if !this.deserterwhere>>[["Where are you going?">deserter-where]]<<endif>>
