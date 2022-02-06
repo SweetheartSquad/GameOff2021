@@ -2931,7 +2931,7 @@ voicePillbug
 "Camas cálidas, baños fríos (para los inclinados a la humedad), ¡incluso un buffet de desayuno*!"
 
 "Todo por un módico precio: No encontrará una oferta mejor en este árbol, señorita"
-
+>
 "*Por favor, tenga en cuenta que el buffet es estrictamente vegetariano. El horario del desayuno es de..."
 
 [["ok, lo entiendo"|++this.counti;this.goto('outside-inn3')]]
