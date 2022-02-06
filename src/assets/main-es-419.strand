@@ -3458,8 +3458,8 @@ B: "¿TODAVÍA SOLA?"
 B: "ENTONCES NO CRUZAS."
 
 
-<<if !this.frogregret>>[["Am I going to regret this?"]]<<endif>>
-<<if !this.frogeat>>[["You're not going to eat us?"]]<<endif>>
+<<if !this.frogregret>>[["¿Me voy a arrepentir de esto?"]]<<endif>>
+<<if !this.frogeat>>[["¿No vas a comernos?"]]<<endif>>
 [["Vuelvo más tarde, entonces."]]
 
 ::"¿Me voy a arrepentir de esto?"
