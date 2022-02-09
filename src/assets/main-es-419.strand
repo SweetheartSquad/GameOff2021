@@ -423,7 +423,9 @@ P: Seguimos El Sendero Voluble
 <<if this.debug>>[[debug menu]]<<endif>>
 
 ::Creditos
-P: Hecho por Sean, Michael, and IAN of SweetHeart Squad.
+P: Hecho por Sean, Michael y IAN de SweetHeart Squad.
+
+Traducción al español (Latinoamérica) por David Pérez.
 
 [[Mas juegos|window.open('https://sweetheartsquad.itch.io', '_blank')]]
 [[Volver|this.back()]]
@@ -442,7 +444,9 @@ hablar
 >>
 P: Seguimos El Sendero Voluble
 
-Hecho por Sean, IAN, and Michael of SweetHeart Squad.
+Hecho por Sean, IAN y Michael de SweetHeart Squad.
+
+Traducción al español (Latinoamérica) por David Pérez.
 
 [[Reiniciar|this.restart()]]
 [[Mas juegos|window.open('https://sweetheartsquad.itch.io', '_blank')]]
