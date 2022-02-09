@@ -14,6 +14,8 @@ let offset = 0;
 
 export const speed = 0.5;
 
+const baseScale = 0.8 + 25 / 30;
+
 export class Character extends GameObject {
 	bodyCollision: Body;
 
@@ -93,7 +95,7 @@ export class Character extends GameObject {
 		this.spr.anchor.y = 1.0;
 		this.display.container.addChild(this.shadow);
 		this.display.container.addChild(this.spr);
-		this.spr.scale.x = this.spr.scale.y = this.getScale() * this.rawScale;
+		this.spr.scale.x = this.spr.scale.y = baseScale * this.rawScale;
 
 		this.moving = { x: 0, y: 0 };
 
@@ -149,13 +151,7 @@ export class Character extends GameObject {
 		this.update();
 	}
 
-	getScale(): number {
-		return 0.8 + (0 + 250) / 300;
-		// return 0.8 + (this.display.container.y + 250) / 300;
-	}
-
 	update(): void {
-		const curTime = game.app.ticker.lastTime;
 		if (
 			Math.abs(this.bodyCollision.body.velocity.x) +
 				Math.abs(this.bodyCollision.body.velocity.y) >
@@ -175,9 +171,6 @@ export class Character extends GameObject {
 			if (Math.abs(this.moving.x) > FLIP_ESPILON) {
 				this.flipped = this.moving.x < 0;
 			}
-			// this.spr.anchor.y =
-			// 	1 +
-			// 	Math.abs(Math.sin(curTime * this.freq + this.offset * 0.5) ** 2) / 20;
 		} else {
 			this.spr.anchor.y = 1;
 		}
@@ -189,7 +182,7 @@ export class Character extends GameObject {
 
 	updateScale(): void {
 		const curTime = game.app.ticker.lastTime * this.freq;
-		this.s = lerp(this.s, this.getScale(), 0.3);
+		this.s = lerp(this.s, baseScale, 0.3);
 		this.spr.scale.y =
 			(this.s +
 				(Math.sin(curTime + this.offset) / 50 +
