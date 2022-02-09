@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"name": "walkaround",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "We Follow The Fickle Path",
 	"main": "./src/index.js",
 	"author": "SweetHeart Squad <sweetheartsquad@gmail.com>",
