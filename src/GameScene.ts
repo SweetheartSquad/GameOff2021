@@ -65,7 +65,7 @@ export class GameScene {
 		this.container.addChild(player.display.container);
 
 		this.strand = new StrandE({
-			source: resources.main.data,
+			source: resources['main-en'].data,
 			renderer: {
 				displayPassage: (passage) => {
 					if (passage.title === 'close') {
@@ -169,10 +169,13 @@ export class GameScene {
 			} else {
 				const { passage, label = 'talk', focus, gameObject } = top.plugin;
 				this.interactionFocus = focus ? add(top.position, focus) : top.position;
-				this.dialogue.prompt(`< ${label.toUpperCase()} >`, () => {
-					this.strand.gameObject = gameObject;
-					this.strand.goto(passage);
-				});
+				this.dialogue.prompt(
+					`< ${(this.strand.passages[label]?.body || label).toUpperCase()} >`,
+					() => {
+						this.strand.gameObject = gameObject;
+						this.strand.goto(passage);
+					}
+				);
 			}
 		};
 		Events.on(

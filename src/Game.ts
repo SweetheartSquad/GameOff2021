@@ -10,7 +10,7 @@ import {
 import assets from './assets.txt';
 import frag from './assets/postprocess.frag.glsl';
 import * as fonts from './font';
-import { enableHotReload, main } from './GameHotReload';
+import { enableHotReload, mainen, maines419 } from './GameHotReload';
 import { init } from './main';
 import { size } from './size';
 
@@ -78,8 +78,9 @@ class Game {
 				}));
 			this.app.loader.reset();
 			this.app.loader.add(assetResources);
-			this.app.loader.add({ name: 'main', url: cacheBust(main) });
 			this.app.loader.add({ name: 'frag', url: cacheBust(frag) });
+			this.app.loader.add({ name: 'main-en', url: cacheBust(mainen) });
+			this.app.loader.add({ name: 'main-es-419', url: cacheBust(maines419) });
 			this.app.loader.onLoad.add(onLoad);
 			this.app.loader.onComplete.once(onComplete);
 			this.app.loader.onComplete.once(init);

@@ -417,6 +417,7 @@ P: We Follow The Fickle Path
 
 [[Begin]]
 [[Begin (skip intro)]]
+[[Language>language select]]
 [[Credits]]
 [[Content warnings]]
 <<if this.debug>>[[debug menu]]<<endif>>
@@ -424,12 +425,16 @@ P: We Follow The Fickle Path
 ::Credits
 P: Made by Sean, Michael, and IAN of SweetHeart Squad.
 
+Spanish (Latin America) translation by David Pérez.
+
 [[More games|window.open('https://sweetheartsquad.itch.io', '_blank')]]
 [[Back|this.back()]]
 
 ::close
 this should never render
 
+::talk
+talk
 
 
 ::The End
@@ -440,6 +445,8 @@ this should never render
 P: We Follow The Fickle Path
 
 Made by Sean, IAN, and Michael of SweetHeart Squad.
+
+Spanish (Latin America) translation by David Pérez.
 
 [[Restart|this.restart()]]
 [[More games|window.open('https://sweetheartsquad.itch.io', '_blank')]]
@@ -452,6 +459,7 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 >>
 [[passage select>passage select]]
 [[area warp]]
+[[language select]]
 [[toggle debugPhysics|window.debugPhysics=!window.debugPhysics]]
 [[draw walls|
 	const canvas = window.game.app.renderer.context.gl.canvas;
@@ -513,6 +521,10 @@ Made by Sean, IAN, and Michael of SweetHeart Squad.
 ]]
 [[close]]
 [[back|this.back()]]
+
+::language select
+[[en|this.setSource(game.app.loader.resources['main-en'].data);this.back();]]
+[[es-419|this.setSource(game.app.loader.resources['main-es-419'].data);this.back();]]
 
 ::test-npc
 "Hello I am an NPC."
@@ -1138,7 +1150,6 @@ P: ...
 ::feeding-questions
 P: She continues to eat, and I consider what to say.
 
-// TODO: more questions
 <<do this.qc=0>>
 // only first 6 questions will be shown
 // question template:
@@ -3284,7 +3295,6 @@ P: ...
 P: "There was no aggression in his words, but..."
 >
 <<do
-
 	this.scene.areas[this.scene.area].push(
 		...this.AntProp({ x: -208, y: -73 }),
 		...this.AntProp({ x: -317, y: 48 }),
@@ -3770,7 +3780,7 @@ P: "But Sister, you-"
 [["But... why aren't you stopping?">deserter-why]]
 
 ::deserter-qs
-She keeps walking.
+P: She keeps walking.
 
 <<if !this.deserterwho>>[["Who were you?">deserter-who]]<<endif>>
 <<if !this.deserterwhere>>[["Where are you going?">deserter-where]]<<endif>>
