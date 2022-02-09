@@ -2666,7 +2666,7 @@ Me alejo por un momento, no queriendo separarme con un tono tan sombrío.
 
 [["Todo saldrá bien."]]
 [["Estaré pensando en ti."]]
-[["Nos encontraremos de nuevo."|++this.countwe;this.goto('"It will be okay."')]]
+[["Nos encontraremos de nuevo."|++this.countwe;this.goto('"Todo saldrá bien."')]]
 
 ::"Todo saldrá bien."
 P: Miran hacia la atada Treinta-y-cinco, que sigue raspando silenciosamente sus patas por el suelo.
