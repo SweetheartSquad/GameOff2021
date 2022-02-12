@@ -2,6 +2,9 @@ name: release
 
 on: workflow_dispatch
 
+concurrency:
+  group: ${{ github.workflow }}
+
 jobs:
   release:
     runs-on: ubuntu-latest
