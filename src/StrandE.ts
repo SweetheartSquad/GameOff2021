@@ -55,8 +55,7 @@ export class StrandE extends Strand {
 							.split('|')
 							.map(
 								(l) =>
-									`[[${l || promptDefault}|this.goto('auto-${
-										autolink + 1
+									`[[${l || promptDefault}|this.goto('auto-${autolink + 1
 									}')]]`
 							)
 							.concat(`\n::auto-${++autolink}`)
@@ -94,6 +93,7 @@ export class StrandE extends Strand {
 		const languageLabels: Partial<{ [key: string]: string }> = {
 			en: 'English',
 			'es-419': 'Español',
+			'fr': 'Français',
 		};
 		const languages = Object.keys(resources)
 			.filter((i) => i.startsWith('main-'))
@@ -104,7 +104,7 @@ export class StrandE extends Strand {
 			: browserLang({
 				languages,
 				fallback: 'en',
-			  });
+			});
 		document.documentElement.lang = this.language || 'en';
 
 		this.passages['language select'] = {
@@ -112,8 +112,7 @@ export class StrandE extends Strand {
 			body: languages
 				.map(
 					(i) =>
-						`[[${
-							languageLabels[i] || i
+						`[[${languageLabels[i] || i
 						}|this.language='${i}';this.setSource(game.app.loader.resources['main-${i}'].data);this.back();]]`
 				)
 				.concat('[[back|this.back()]]')

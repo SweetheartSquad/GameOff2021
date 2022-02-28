@@ -413,19 +413,19 @@
 	});
 >>
 <<endif>>
-P: We Follow The Fickle Path
+P: Nous Suivons Le Chemin Capriceux
 
-[[Begin]]
-[[Begin (skip intro)]]
-[[Language>language select]]
-[[Credits]]
-[[Content warnings]]
-<<if this.debug>>[[debug menu]]<<endif>>
+[[Commence]]
+[[Commence (sauter l'intro)]]
+[[Langue>language select]]
+[[Crédits]]
+[[Avertissements de contenus]]
+<<if this.debug>>[[node débogage]]<<endif>>
 
-::Credits
-P: Made by Sean, Michael, and IAN of SweetHeart Squad.
+::Crédits
+P: Fabriqué par Sean, Michael, and IAN de SweetHeart Squad.
 
-Spanish (Latin America) translation by David Pérez.
+Traduction français par IAN.
 
 [[More games|window.open('https://sweetheartsquad.itch.io', '_blank')]]
 [[Back|this.back()]]
@@ -434,7 +434,7 @@ Spanish (Latin America) translation by David Pérez.
 this should never render
 
 ::talk
-talk
+parler
 
 
 ::The End
@@ -442,14 +442,14 @@ talk
 	this.howler = this.musicSynced('');
 	this.tween(this.scene.border.display.container, 'alpha', 0, 5000);
 >>
-P: We Follow The Fickle Path
+P: Nous Suivons Le Chemin Capriceux
 
-Made by Sean, IAN, and Michael of SweetHeart Squad.
+Fabriqué par Sean, Michael, et IAN de SweetHeart Squad.
 
-Spanish (Latin America) translation by David Pérez.
+Traduction français par IAN.
 
-[[Restart|this.restart()]]
-[[More games|window.open('https://sweetheartsquad.itch.io', '_blank')]]
+[[Recommencer|this.restart()]]
+[[Plus de jeus|window.open('https://sweetheartsquad.itch.io', '_blank')]]
 
 ::debug menu
 <<do
@@ -528,23 +528,23 @@ Spanish (Latin America) translation by David Pérez.
 [[fr|this.setSource(game.app.loader.resources['main-fr'].data);this.back();]]
 
 ::test-npc
-"Hello I am an NPC."
+« Bonjour, je suis un PNJ. »
 >
-P: "And now I am the player."
+P: « Et maintenant, je suis le joueur. »
 >
-P: I can monologue too.
+P: Je peut monologuer aussi.
 
 [[leave>close]]
 
-::Content warnings
-P: This is a story about bugs.
+::Avertissements de contenus
+P: Ceci est une histoire de l'insectes.
 
-It deals with themes of identity and autonomy, death and disaster, and family and faith.
+Il traite des thèmes de l'identité et de l'autonomie, de le mort et de la catastrophe, de la famille et de la foi.
 
 [[Back|this.back()]]
 
 
-::Begin (skip intro)
+::Commence (sauter l'intro)
 <<do
 	this.howler = this.musicSynced('bgm_normal');
 	this.counti = 0;
@@ -553,73 +553,73 @@ It deals with themes of identity and autonomy, death and disaster, and family an
 	this.goto('march');
 >>
 
-::Begin
+::Commence
 <<do
 	this.howler = this.musicSynced('bgm_normal');
 	this.counti = 0;
 	this.countwe = 0;
 >>
-P: Doubt comes to you so easily when you're bored.
+P: Le doute on vient facilement quand on se ennuyé.
 >
 <<do this.tween(this.scene.border.display.container, 'alpha', 1, 5000);>>
-P: Your mind wanders. You think about things. You ask yourself questions, and come up with answers that are yours and yours alone.
+P: L'esprit erre. On pense à des choses. On se pose des questions, et on trouve des réponses qui ne sont que pour soi.
 >
 <<do this.scrim(0.5, 10000)>>
-P: Sometimes I feel like this dubious boredom is itself just another expression of our shared existence and purpose.
+P: Parfois j'ai l'impression que cet ennui particulier n'est en soi qu'une autre expression de notre existence et de notre objectif communs.
 >
-P: We all march along the limb of the same tree, we all get caught up in our heads with the same thoughts, we all wonder if the others do the same.
+P: On marche tout le long de la branche du même arbre, on est tout pris dans nos esprits avec les même pensees, on se demande tout si que les autres faire le même chose.
 >
-P: Most of the time I think that I am being specifically punished with this burden, and that my sisters would not understand were I to share it aloud.
+P: La plupart du temps je pense que je suis spécifiquement puni avec ce fardeau, et que mes sœurs ne se comprendraient pas si je le disais à haute voix.
 >
-P: I doubt myself.
+P: Je doute de moi.
 >
-P: So I am briefly glad to be interrupted by someone shouting my name.
+P: Je suis donc brièvement heureux d'être interrompu par quelqu'un qui crie mon nom.
 >
-"Sister Twenty, look out!"
-[[Freeze]]
-[[Duck]]
-[[Dodge]]
+« Sœur Vingt, attention! »
+[[Geler]]
+[[Se cacher]]
+[[Sauter en arrière]]
 
-::Freeze
+::Geler
 <<do this.scrim(1, 100)>>
-P: I freeze in place. A moment later, my vision is flooded by a great branch collapsing down mere inches in front of me.
-[[Oh no.>begin2]]
+P: Je me gèle sur place. Un moment plus tard, ma vision est inondée par un grand branche qui s'effondre à quelques centimètres de moi.
+[[Oh non.>begin2]]
 
-::Duck
+::Se baisser
 <<do this.scrim(1, 100)>>
-P: I fall to the ground instinctively. As soon as I do, I hear the crash of a great branch collapsing down mere inches in front of me, and cling on for dear life.
-[[Oh no.>begin2]]
+P: Je tombe par terre instinctivement. A ce moment j'entends le craquement d'un grand branche qui s'effondre à quelques centimètres de moi, et je m'accroche comme si ma vie en dépendait.
+[[Oh non.>begin2]]
 
-::Dodge
+::Sauter en arrière
 <<do this.scrim(1, 100)>>
-P: I leap backwards on instinct, barreling into the one who called out, Sister Ten-and-nine. The two of us tumble down just as I hear the crash of a great branch collapsing into the path ahead.
-[[Oh no.>begin2]]
+P: Je saute instinctivement en arrière, et je tombe sur celui qui m'appelle, Sœur Dix-et-neuf. Nous tombons tous les deux alors que j'entends le craquement d'un grand branche qui s'effondre sur le chemin devant.
+[[Oh non.>begin2]]
 
 ::begin2
-P: All at once there is a panic. Sisters are screaming, reaching out, running. The fallen limb weighs heavy on the branch we walk. It dips, and I struggle to keep my balance.
+P: Tout à coup ç'est la panique. Les sœurs crient, elles tendent les mains, elles courent. La branche tombée pèse lourdement sur la branche que nous tenons. Il se plie, et j'ai du mal à garder mon équilibre.
 >
-P: It creaks and groans, and unleashes a horrible crack as something gives.
+P: La branche grince et gémit, et laisse échapper un horrible craquement quand quelque chose se brise.
 >
-P: The world rushes away. I'm falling. This is it.
+P: Le monde s'en va. Je tombe. Voila, j'ai fini.
 
-[[We're going to die.|++this.countwe;this.goto('begin3')]]
-[[I'm sorry Mother.|++this.counti;this.goto('begin3')]]
-[[I don't want to die.|++this.counti;this.goto('begin3')]]
+[[Nous allons mourir.|++this.countwe;this.goto('begin3')]]
+[[Désolé, Maman.|++this.counti;this.goto('begin3')]]
+[[Je ne veux pas mourir.|++this.counti;this.goto('begin3')]]
 
 ::begin3
-P: But I'm wrong.
+P: Mais je me trompe.
 >
-P: I realize I'm being flung upwards. The branch snapped in front of me, and the leftover stump is recoiling. I need to hold on. I need to hold on.
->I need to hold on!
-P: I grip as tightly as I can. I bite into the bark: Anything to stay put.
+P: Je réalise que j'ai été propulsé en l'air. La branche s'est cassée juste devant moi, et la souche restante vacille. Je dois m'accrocher. Je dois m'accrocher.
+>Je dois m'accrocher!
+P: Je tiens la branche aussi fort que je peux. Je mords dans l'ecorce - n'importe quoi pour rester en place.
 >
-P: There's a jolt, a painful whiplash that wrenches every joint in my body.
+P: Il y a une secousse, un coup de fouet douloureux qui secoue toutes les articulations de mon corps.
 >
-P: But I hold.
+P: Mais je m'accroche.
 >
-P: My head aches. The canopy comes back into focus.
+P: Je fais mal au tête. Mes yeux se recentrent sur la voûte forestière.
 >
-P: It starts to rain.
+P: Il commence a pleuvoir.
 <<do this.scene.goto({ area: 'intro' });>>
 
 [[>close]]
@@ -631,110 +631,110 @@ P: Can't trust what's left to be stable, I need to get back.
 
 ::intro-panic
 <<do this.gameObject.line = this.gameObject.line || this.shuffle([
-	'"Half the retinue was in front of us... all gone..."',
-	'"Mother... where is the Queen Mother!?"',
-	'"Sisters... our sisters..."',
-	'"No... this cannot be happening."',
-	'"They fell. We can\'t help them now..."',
-	'"We were too late..."',
-	'"No!!"',
-	'"Please, leave us alone..."',
-	'"Mother will know what to do. Mother always knows what to do."',
-	'"We need to find shelter. We can\'t stay out like this."',
-	'"This can\'t be happening. This can\'t be happening."',
-	'"Sister! We\'re glad you\'re safe, please help the others!"',
-	'"Sister..."',
-	'P: She\'s panicked, and doesn\'t listen to me.',
-	'P: She\'s busy helping the others.',
-	'P: I shouldn\'t distract her.',
-	'P: I want to tell her it will be okay, but it won\'t be.',
+	'«La moitié du cortège était devant nous... tous parties... »',
+	'«Maman... ou est la Reine Mère!? »',
+	'«Les sœurs... notre sœurs... »',
+	'«Non... ce n\'est pas possible... »',
+	'«Elles sont tombées. Nous ne peuvons pas leurs aider... »',
+	'«Nous étions trop tard... »',
+	'«Non!! »',
+	'«S\'il vous plaît... laissez-nous tranquille... »',
+	'«La Reine Mère will know what to do. Elle sait toujours quoi faire. »',
+	'«Nous devons trouver refuge. Nous ne pouvons pas rester comme ça. »',
+	'«Ce n\'est pas possible. Ce n\'est pas possible. Ce n\'est pas possible. »',
+	'«Notre sœur! Nous sommes heureux que vous allez bien. Aidez les autres, s\'il vous plaît! »',
+	'«Notre sœur... »',
+	'P: Elle panique, et elle ne m\'écoute pas.',
+	'P: Elle est occupée avec les autres.',
+	'P: Je ne devrais pas lui distraire.',
+	'P: Je veux lui dire que tout ira bien, mais ce ne sera pas bien.',
 ])[0]>>
 <<print this.gameObject.line>>
 [[>close]]
 
 ::intro-end
 <<do this.destroy(this.gameObject)>>
-P: It's a nightmare.
+P: C'est un cauchemar.
 
-Sisters call out, trying to make sense of it all:
+Des sœurs crient, essayant de donner un sens à tout:
 >
-"How many fell?"
-       "We must turn back!"
-    "Where is Mother?!"
+« Combien sont tombées? »
+       « Nous devons y retourner! »
+    « Où est Maman?! »
 
-"Wait, there's her retinue..."
-[[Mother!>mother-speech]]
+« Attends, il y a son cortège... »
+[[Maman!>mother-speech]]
 
 ::mother-speech
 <<do this.scrim(1, 100)>>
-P: We all stop. There is no need for anyone to shush another in her presence.
+P: Nous nous arrêtons tous. Il n'y a aucune raison de faire taire tout le monde en sa présence.
 
-The rain itself quiets as if it senses our anticipation.
+La pluie elle-même devient plus calme, comme si elle sent notre anticipation.
 >
-P: Queen Mother One and Many Oecophylla is going to speak.
+P: La Reine Mère Une Et Plusieurs Oécophylles prendra la parole.
 >
 <<do this.show('queenIdle')>>
 voiceQueen
-"..."
+« ... »
 >
-"Daughters. Sisters."
->Mother!
-"We see fear in our faces."
-[[We are scared!|++this.countwe;this.goto('mother-speech2')]]
-[[I don't want to die!|++this.counti;this.goto('mother-speech2')]]
+« Nos filles. Nos sœurs. »
+>Maman!
+« Nous voyons la peur sur nos visages. »
+[[Nous avons peur!|++this.countwe;this.goto('mother-speech2')]]
+[[Je ne veux pas mourir!|++this.counti;this.goto('mother-speech2')]]
 ::mother-speech2
-"We smell grief in the air."
-[[We are crying!|++this.countwe;this.goto('mother-speech3')]]
-[[I cannot continue!|++this.counti;this.goto('mother-speech3')]]
+« Nous sentons le chagrin dans l'air. »
+[[Nous pleurons!|++this.countwe;this.goto('mother-speech3')]]
+[[Je ne peux pas continuer!|++this.counti;this.goto('mother-speech3')]]
 ::mother-speech3
-"Do not worry."
-[[We should not worry.|++this.countwe;this.goto('mother-speech4')]]
-[[How could I not?|++this.counti;this.goto('mother-speech4')]]
+« Ne nous inquiétons pas. »
+[[Nous devons n'inquiétons pas.|++this.countwe;this.goto('mother-speech4')]]
+[[Comment puis-je pas?|++this.counti;this.goto('mother-speech4')]]
 ::mother-speech4
-"Do not weep for the sisters we've lost."
-[[We should not weep.|++this.countwe;this.goto('mother-speech5')]]
-[[My cries go unanswered.|++this.counti;this.goto('mother-speech5')]]
+« Ne nous pleurons pas pour les sœurs qui sont perdues. »
+[[Nous devons ne pleurons pas.|++this.countwe;this.goto('mother-speech5')]]
+[[Mes cris restent sans réponse.|++this.counti;this.goto('mother-speech5')]]
 ::mother-speech5
-"Our daughters, our sisters, are not gone."
+« Nos filles, nos sœurs, ne sont pas vraiment perdues. »
 
-"Yes, our numbers are lessened, but look around."
+« Oui, notre population est réduite, mais regard autour de nous. »
 
-[[We see.|++this.countwe;this.goto('mother-speech6')]]
-[[I see.|++this.counti;this.goto('mother-speech6')]]
+[[Nous voyons.|++this.countwe;this.goto('mother-speech6')]]
+[[Je vois.|++this.counti;this.goto('mother-speech6')]]
 ::mother-speech6
-"Listen."
+« Écoutons. »
 >
-"We are surrounded by our family."
+« Nous sommes entourés de notre famille. »
 
-"Our strength."
+« Notre force. »
 
-"Our gift and our blessing to ourselves and each other."
->Our family...
-P: The sister to my left reaches out, clasps hands in mine.
->In ours.
+« Notre cadeau et notre bénédiction, pour nous, pour les uns les autres. »
+>Notre famille...
+P: La sœur à mon côté tend la main, me tient la main.
+>Nos mains.
 voiceQueen
-"A sister is One, and one may be lost."
+« Une sœur est Une, et Une peut être perdue. »
 
-"A sister of Many, will always have sisters."
->Our sisters...
-"Our sisters of Many survive."
+« Une sœur de Plusiers, aura toujours les sœurs. »
+>Nos sœurs...
+« Nos sœurs de Plusiers survivent. »
 >
-"So too will each One."
+« Il en sera de même pour Une. »
 >
-"..."
+« ... »
 >
 <<do this.show('')>>
-P: Mother... Her words trace themselves through our sisters and our self.
-[[We have faith.|++this.countwe;this.goto('mother-speech7')]]
-[[I really do.|++this.counti;this.goto('mother-speech7')]]
+P: Maman... Ses mots tracent entre nos sœurs et nous-mêmes.
+[[Nous avons la foi.|++this.countwe;this.goto('mother-speech7')]]
+[[J'ai vraiment la foi.|++this.counti;this.goto('mother-speech7')]]
 
 ::mother-speech7
-P: The feeling passes in waves. Our sisters cheer, and we join with them. I can't help but notice how much quieter the crowd is than when it set out.
+P: Le sentiment passe par vagues. Nos sœurs acclament, et nous nous joignons. Je ne peux pas m'empêcher de remarquer à quel point la foule est plus silencieuse que lorsque nous avons commencé.
 
-Our hopes are brightened. My worry sets itself deep in my stomach.
+Nos espoirs sont illuminés. Mon inquiétude s'enfonce profondément dans mon estomac.
 >
-P: But there's ground to cover.
-[[So we march.>march]]
+P: Mais il y a un long chemin à parcourir.
+[[Alors on marche.>march]]
 
 
 
@@ -749,33 +749,33 @@ P: But there's ground to cover.
 	}
 	if (!this.marchqs1 || !this.marchqs1.length < 3) {
 		this.marchqs1 = this.shuffle([
-			'"Mother is safe. That is what matters."',
-			'"Our sisters are strong."',
-			'"We are strong. We are strong."',
-			'"How long has it been since we set out?"',
-			'"Our legs ache..."',
-			'"Where will we sleep tonight?"',
-			'"Has anyone seen Sister Thirty-and-four?"',
-			'"We saw them fall..."',
-			'"Has Sister Superior said anything?"',
-			'"There is no time to waste."',
-			'"We must. We simply must."',
-			'"Luck will not help us."',
-			'"We must help ourselves."',
-			'"Our Mother will guide us."',
-			'"We will follow the path."',
-			'"Left, right..."',
-			'"Stay safe."',
-			'"All gone..."',
-			'"Look at the trees..."',
-			'"We have no reason to fear."',
-			'"How do the little ones fare?"',
-			'"How many have fallen?"',
-			'"How many still stand?"',
-			'"We will not stop."',
-			'"The path is long."',
-			'"The path is hard."',
-			'"The path is ours."',
+			'« Maman est en sécurité. Ç\'est tout ce qui compte. »',
+			'« Nos soeurs sont fortes. »',
+			'« Nous sommes fortes. Nous sommes fortes. »',
+			'« Depuis combien de temps marchons-nous? »',
+			'« Nos jambes sont douloureuses... »',
+			'« Où dormirons-nous ce soir? »',
+			'« Quelqu\'un a-t-elle vu Sœur Trente-Et-Quatre? »',
+			'« Nous les avons vus tomber... »',
+			'« Sœur Supérieure a-t-elle dit quelque chose? »',
+			'« Il n\'y a pas de temps à perdre. »',
+			'« Nous devons. Nous devons simplement. »',
+			'« La chance ne nous aidera pas. »',
+			'« Nous devons nous entraider. »',
+			'« Notre Reine Mère nous guidera. »',
+			'« Nous suivrons la chemin. »',
+			'« Gauche, droit, gauche, droit... »',
+			'« Soyons prudentes. »',
+			'« Tous parties... »',
+			'« Regardons les arbres... »',
+			'« Nous n\'avons aucune raison d\'avoir peur. »',
+			'« Comment font-elles les petites? »',
+			'« Combien sont tombées? »',
+			'« Combien sont encore debout? »',
+			'« Nous ne nous arrêterons pas. »',
+			'« Le chemin est long. »',
+			'« Le chemin est dur. »',
+			'« Le chemin est à nous. »',
 		]);
 	}
 	if (!this.marchqs2 || !this.marchqs2.length < 3) {
