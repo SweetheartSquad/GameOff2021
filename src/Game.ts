@@ -5,12 +5,12 @@ import {
 	Renderer,
 	SCALE_MODES,
 	settings,
-	Text,
+	Text
 } from 'pixi.js';
 import assets from './assets.txt';
 import frag from './assets/postprocess.frag.glsl';
 import * as fonts from './font';
-import { enableHotReload, mainen, maines419 } from './GameHotReload';
+import { enableHotReload, mainen, maines419, mainfr } from './GameHotReload';
 import { init } from './main';
 import { size } from './size';
 
@@ -81,6 +81,7 @@ class Game {
 			this.app.loader.add({ name: 'frag', url: cacheBust(frag) });
 			this.app.loader.add({ name: 'main-en', url: cacheBust(mainen) });
 			this.app.loader.add({ name: 'main-es-419', url: cacheBust(maines419) });
+			this.app.loader.add({ name: 'main-fr', url: cacheBust(mainfr) });
 			this.app.loader.onLoad.add(onLoad);
 			this.app.loader.onComplete.once(onComplete);
 			this.app.loader.onComplete.once(init);
