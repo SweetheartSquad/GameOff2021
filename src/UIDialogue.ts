@@ -277,12 +277,17 @@ export class UIDialogue extends GameObject {
 					i.action();
 				}
 			});
-			t.y += this.containerChoices.height;
+			if (idx > 0) {
+				t.y +=
+					this.containerChoices.children[idx - 1].y +
+					(this.containerChoices.children[idx - 1] as Text).height;
+			}
 			t.anchor.x = 1.0;
 			this.containerChoices.addChild(t);
 			return t;
 		});
-		this.containerChoices.y = -this.containerChoices.height - 40;
+		this.containerChoices.y =
+			-this.containerChoices.height - 40 + (fontDialogue.padding ?? 0) * 2;
 		this.containerChoices.alpha = 0.0;
 		this.open();
 		this.pos = 0;

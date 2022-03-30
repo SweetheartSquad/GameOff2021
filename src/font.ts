@@ -7,6 +7,7 @@ export const fontDialogue: Partial<ITextStyle> = {
 	align: 'left',
 	lineHeight: 26,
 	letterSpacing: -1,
+	padding: 30,
 };
 export const fontPrompt: Partial<ITextStyle> = {
 	fontFamily: 'font',
@@ -18,6 +19,7 @@ export const fontPrompt: Partial<ITextStyle> = {
 	align: 'center',
 	lineHeight: 26,
 	letterSpacing: 3,
+	padding: 30,
 };
 export const fontIngame: Partial<ITextStyle> = {
 	fontFamily: 'font',
@@ -26,4 +28,5 @@ export const fontIngame: Partial<ITextStyle> = {
 	align: 'center',
 	lineHeight: 20,
 	letterSpacing: -1,
+	padding: 30,
 };
