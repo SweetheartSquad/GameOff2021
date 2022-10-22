@@ -58,6 +58,8 @@ export class StrandE extends Strand {
 									link || promptDefault
 							  }|this.goto('auto-${++autolink}')]]\n\n::auto-${autolink}\n`
 				)
+				// auto link escape
+				.replace(/^\\>/gm, '>')
 				// voice sugar
 				.replace(
 					/^voice(\w+)$/gm,
