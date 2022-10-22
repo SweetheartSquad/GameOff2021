@@ -6,7 +6,7 @@
 	"main": "./src/index.js",
 	"author": "SweetHeart Squad <sweetheartsquad@gmail.com>",
 	"scripts": {
-		"serve": "npx hs ./dist --cors -p 80",
+		"serve": "npx http-server ./dist --cors -p 80",
 		"build:debug": "webpack --config webpack.config.dev.js --mode development",
 		"build:prod": "webpack --config webpack.config.prod.js --mode production",
 		"build": "npm run build:prod",
