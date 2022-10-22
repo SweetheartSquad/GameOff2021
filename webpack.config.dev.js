@@ -18,5 +18,6 @@ module.exports = (env, argv) =>
 				directory: './dist',
 			},
 			hot: true,
+			port: 80,
 		},
 	});
