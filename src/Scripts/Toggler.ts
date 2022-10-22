@@ -46,7 +46,7 @@ export class Toggler extends Script {
 	}
 
 	show(
-		tex?: string,
+		texture?: string,
 		{
 			duration = 1000,
 			x = 0,
@@ -67,10 +67,10 @@ export class Toggler extends Script {
 			flip?: boolean;
 		} = {}
 	) {
-		if (tex !== this.active.animation) {
+		if (texture !== this.active.animation) {
 			this.inactive =
 				this.active === this.animatorA ? this.animatorB : this.animatorA;
-			this.inactive.setAnimation(tex || 'blank');
+			this.inactive.setAnimation(texture || 'blank');
 			this.container.addChild(this.inactive.spr);
 			[this.inactive, this.active] = [this.active, this.inactive];
 			this.tweens.forEach((i) => TweenManager.finish(i));
