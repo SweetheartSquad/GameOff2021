@@ -1,7 +1,7 @@
 import { Container, Sprite } from 'pixi.js';
-import { resources } from '../Game';
 import { GameObject } from '../GameObject';
 import { Tween, TweenManager } from '../Tweens';
+import { tex } from '../utils';
 import { Animator } from './Animator';
 import { Script } from './Script';
 
@@ -25,8 +25,8 @@ export class Toggler extends Script {
 	constructor(gameObject: GameObject) {
 		super(gameObject);
 		this.container = new Container();
-		this.sprA = new Sprite(resources.blank.texture);
-		this.sprB = new Sprite(resources.blank.texture);
+		this.sprA = new Sprite(tex('blank'));
+		this.sprB = new Sprite(tex('blank'));
 		this.sprA.anchor.x =
 			this.sprA.anchor.y =
 			this.sprB.anchor.x =
