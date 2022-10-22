@@ -23,6 +23,7 @@ import { TweenManager } from './Tweens';
 import { chunks, removeFromArray, shuffle } from './utils';
 
 let autolink = 0;
+const promptDefault = '...';
 export class StrandE extends Strand {
 	public scene!: GameScene;
 
@@ -44,8 +45,7 @@ export class StrandE extends Strand {
 				.replace(
 					/\[{2}(.*?)>(.*?)\]{2}/gm,
 					// @ts-ignore
-					(_: never, label: string, target: string) =>
-						`[[${label || '...'}|this.goto(\`${target}\`)]]`
+						`[[${label || promptDefault}|this.goto(\`${target}\`)]]`
 				)
 				// auto link sugar
 				.replace(
@@ -55,7 +55,7 @@ export class StrandE extends Strand {
 						link === '>'
 							? `>${link}`
 							: `[[${
-								link || '...'
+									link || promptDefault
 							  }|this.goto('auto-${++autolink}')]]\n\n::auto-${autolink}\n`
 				)
 				// voice sugar
