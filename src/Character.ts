@@ -1,6 +1,6 @@
 import Matter, { IChamferableBodyDefinition } from 'matter-js';
 import { Sprite } from 'pixi.js';
-import { game, resources } from './Game';
+import { game } from './Game';
 import { GameObject } from './GameObject';
 import { Animator } from './Scripts/Animator';
 import { Body } from './Scripts/Body';
@@ -35,7 +35,7 @@ export class Character extends GameObject {
 
 	flipped: boolean;
 
-	shadow: Sprite;
+	shadow?: Sprite;
 
 	spr: Sprite;
 
@@ -63,6 +63,7 @@ export class Character extends GameObject {
 		scale = 0.3,
 		bodyCollision,
 		bodySensor: { radius, ...bodySensor } = {},
+		shadow = true,
 	}: {
 		body?: string;
 		x?: number;
@@ -70,6 +71,7 @@ export class Character extends GameObject {
 		scale?: number;
 		bodyCollision?: Partial<IChamferableBodyDefinition>;
 		bodySensor?: Partial<IChamferableBodyDefinition> & { radius?: number };
+		shadow?: boolean;
 	}) {
 		super();
 
@@ -85,15 +87,20 @@ export class Character extends GameObject {
 		this.running = false;
 		this.flipped = false;
 
-		this.shadow = new Sprite(resources.shadows.texture);
-		this.shadow.anchor.x = 0.5;
-		this.shadow.anchor.y = 0.75;
+		if (shadow) {
+			this.shadow = new Sprite(tex('shadows'));
+			this.shadow.anchor.x = 0.5;
+			this.shadow.anchor.y = 0.75;
+		}
 		this.animation = 'Idle';
 		this.spr = new Sprite(tex(`${body}Idle`));
 
 		this.spr.anchor.x = 0.5;
 		this.spr.anchor.y = 1.0;
-		this.display.container.addChild(this.shadow);
+
+		if (this.shadow) {
+			this.display.container.addChild(this.shadow);
+		}
 		this.display.container.addChild(this.spr);
 		this.spr.scale.x = this.spr.scale.y = baseScale * this.rawScale;
 
@@ -190,13 +197,16 @@ export class Character extends GameObject {
 			this.rawScale;
 		this.spr.scale.x = (this.flipped ? -this.s : this.s) * this.rawScale;
 		this.spr.skew.x = -this.bodyCollision.body.velocity.x / 50;
-		this.shadow.width =
-			this.spr.width / 2 -
-			((Math.sin(curTime + this.offset) / 30 +
-				Math.abs(Math.sin(curTime + this.offset) / 10)) *
-				this.spr.width) /
-				2;
-		this.shadow.height = this.spr.height * 0.1;
+
+		if (this.shadow) {
+			this.shadow.width =
+				this.spr.width / 2 -
+				((Math.sin(curTime + this.offset) / 30 +
+					Math.abs(Math.sin(curTime + this.offset) / 10)) *
+					this.spr.width) /
+					2;
+			this.shadow.height = this.spr.height * 0.1;
+		}
 	}
 
 	updatePosition() {
