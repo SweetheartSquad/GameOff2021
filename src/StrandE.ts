@@ -84,6 +84,7 @@ export class StrandE extends Strand {
 		// create language select for debugging purposes
 		const languageLabels: Partial<{ [key: string]: string }> = {
 			en: 'English',
+			'es-419': 'Español',
 		};
 		const languages = Object.keys(resources)
 			.filter((i) => i.startsWith('main-'))
