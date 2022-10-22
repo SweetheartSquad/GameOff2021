@@ -1,11 +1,11 @@
 import { Axes, Buttons, Gamepads } from 'input-gamepads.js';
 import { Sprite, Texture } from 'pixi.js';
+import { fps, size } from './config';
 import { game } from './Game';
 import { GameScene } from './GameScene';
 import { keys, KEYS } from './input-keys';
 import { Mouse } from './input-mouse';
 import { swipes } from './input-swipe';
-import { size } from './size';
 import { clamp } from './utils';
 
 const gamepads = new Gamepads();
@@ -168,6 +168,7 @@ export function init(): void {
 	setScene(new GameScene());
 
 	// start main loop
+	game.app.ticker.maxFPS = fps;
 	game.app.ticker.add(update);
 	game.app.ticker.update();
 }

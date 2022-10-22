@@ -10,6 +10,7 @@ import {
 } from 'pixi.js';
 import Strand from 'strand-core';
 import { sfx } from './Audio';
+import { size } from './config';
 import { fontDialogue, fontPrompt } from './font';
 import { game } from './Game';
 import { GameObject } from './GameObject';
@@ -18,7 +19,6 @@ import { getInput } from './main';
 import { Display } from './Scripts/Display';
 import { Toggler } from './Scripts/Toggler';
 import { Transform } from './Scripts/Transform';
-import { size } from './size';
 import { Tween, TweenManager } from './Tweens';
 import { lerp, tex } from './utils';
 

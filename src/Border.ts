@@ -1,8 +1,8 @@
 import { Sprite } from 'pixi.js';
+import { size } from './config';
+import { game, resources } from './Game';
 import { GameObject } from './GameObject';
 import { Display } from './Scripts/Display';
-import { resources, game } from './Game';
-import { size } from './size';
 
 export class Border extends GameObject {
 	display: Display;

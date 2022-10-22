@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/extensions
 import './assets/style.css';
+import { size } from './config';
 import { DEBUG } from './debug';
 import { Resizer, ScaleModes } from './Resizer';
-import { size } from './size';
 
 let preloaded = false;
 

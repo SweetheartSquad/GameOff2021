@@ -1,8 +1,8 @@
 import { DisplayObject } from 'pixi.js';
+import { size } from './config';
 import { game } from './Game';
 import { GameObject } from './GameObject';
 import { Display } from './Scripts/Display';
-import { size } from './size';
 import { zero } from './utils';
 import * as VMath from './VMath';
 

@@ -9,10 +9,10 @@ import {
 } from 'pixi.js';
 import assets from './assets.txt';
 import frag from './assets/postprocess.frag.glsl';
+import { size } from './config';
 import * as fonts from './font';
 import { enableHotReload, mainen, maines419 } from './GameHotReload';
 import { init } from './main';
-import { size } from './size';
 
 // PIXI configuration stuff
 settings.SCALE_MODE = SCALE_MODES.NEAREST;

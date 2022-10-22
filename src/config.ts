@@ -5,3 +5,5 @@ export const size: {
 	x: 1280,
 	y: 720,
 };
+
+export const fps = 60;

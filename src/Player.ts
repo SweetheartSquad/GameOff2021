@@ -9,11 +9,11 @@ import {
 	SENSOR_INTERACTION,
 	SENSOR_PLAYER,
 } from './collision';
+import { size } from './config';
 import { game } from './Game';
 import { GameScene } from './GameScene';
 import { getActiveScene, getInput, mouse } from './main';
 import { NPC, Roam } from './NPC';
-import { size } from './size';
 import { removeFromArray } from './utils';
 import { distance, multiply } from './VMath';
 

@@ -1,10 +1,10 @@
 import { SCALE_MODES, TilingSprite } from 'pixi.js';
 import { Camera } from './Camera';
+import { size } from './config';
 import { GameObject } from './GameObject';
 import { Animator } from './Scripts/Animator';
 import { Display } from './Scripts/Display';
 import { Transform } from './Scripts/Transform';
-import { size } from './size';
 import { tex } from './utils';
 import { V } from './VMath';
 
