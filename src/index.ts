@@ -110,7 +110,6 @@ function play(): void {
 
 playEl.onclick = play;
 if (DEBUG) {
-	// @ts-ignore
 	window.debugPhysics = false;
 	playEl.click();
 }
@@ -119,6 +118,7 @@ interface LoadedEvent {
 	detail: { loaded: number; total: number; resource: { url: string } };
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 document.addEventListener(
 	'chunk-progress-webpack-plugin',

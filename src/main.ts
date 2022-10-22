@@ -128,7 +128,6 @@ function update(): void {
 	// switch scene
 	if (newScene && activeScene !== newScene) {
 		activeScene?.destroy();
-		// @ts-ignore
 		window.scene = activeScene = newScene;
 		newScene = undefined;
 		if (activeScene) {

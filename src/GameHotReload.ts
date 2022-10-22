@@ -12,15 +12,12 @@ export function enableHotReload(app: Application) {
 		app.loader.add('main-en', mainen);
 		app.loader.add('main-es-419', maines419);
 		app.loader.onComplete.once(() => {
-			// @ts-ignore
+			if (!window.scene) throw new Error('Could not find scene');
 			window.scene.strand.setSource(
-				// @ts-ignore
 				app.loader.resources[`main-${window.scene.strand.language || 'en'}`]
 					.data
 			);
-			// @ts-ignore
 			if (window.scene.strand.currentPassage?.title) {
-				// @ts-ignore
 				window.scene.strand.goto(window.scene.strand.currentPassage.title);
 			}
 		});
@@ -28,11 +25,8 @@ export function enableHotReload(app: Application) {
 	}
 	// allow hot-reloading main.strand
 	if (DEBUG) {
-		// @ts-ignore
 		if (module.hot) {
-			// @ts-ignore
 			module.hot.accept('./assets/main-en.strand', onHotReload);
-			// @ts-ignore
 			module.hot.accept('./assets/main-es-419.strand', onHotReload);
 		}
 	}

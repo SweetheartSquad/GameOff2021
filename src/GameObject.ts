@@ -40,5 +40,4 @@ export class GameObject {
 	}
 }
 
-// @ts-ignore
 window.gameObjects = GameObject.gameObjects;

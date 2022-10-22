@@ -4,5 +4,4 @@ import { Engine } from 'matter-js';
 export const engine = Engine.create();
 export const { world } = engine;
 engine.gravity.y = 0;
-// @ts-ignore
 window.engine = engine;

@@ -20,12 +20,11 @@ settings.ROUND_PIXELS = true;
 
 function cacheBust(url: string) {
 	const urlObj = new URL(url, window.location.href);
-	// @ts-ignore
-	urlObj.searchParams.set('t', process.env.HASH);
+	urlObj.searchParams.set('t', process.env.HASH || '');
 	return urlObj.toString();
 }
 
-class Game {
+export class Game {
 	app: Application;
 
 	startTime: number;
@@ -102,7 +101,6 @@ class Game {
 }
 
 export const game = new Game();
-// @ts-ignore
 window.game = game;
 // eslint-disable-next-line import/no-mutable-exports
 export let resources: Loader['resources'];

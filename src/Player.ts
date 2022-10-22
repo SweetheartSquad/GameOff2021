@@ -71,7 +71,6 @@ export class Player extends Character {
 		this.canMove = true;
 		this.step = 0;
 
-		// @ts-ignore
 		window.player = this;
 	}
 

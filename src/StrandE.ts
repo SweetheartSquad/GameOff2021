@@ -44,27 +44,23 @@ export class StrandE extends Strand {
 				// replacer link sugar
 				.replace(
 					/\[{2}(.*?)>(.*?)\]{2}/gm,
-					// @ts-ignore
+					(_: string, label: string, target: string) =>
 						`[[${label || promptDefault}|this.goto(\`${target}\`)]]`
 				)
 				// auto link sugar
-				.replace(
-					/^>(.*)/gm,
-					// @ts-ignore
-					(_: never, link: string) =>
-						link === '>'
-							? `>${link}`
-							: `[[${
-									link || promptDefault
-							  }|this.goto('auto-${++autolink}')]]\n\n::auto-${autolink}\n`
+				.replace(/^>(.*)/gm, (_: string, link: string) =>
+					link === '>'
+						? `>${link}`
+						: `[[${
+								link || promptDefault
+						  }|this.goto('auto-${++autolink}')]]\n\n::auto-${autolink}\n`
 				)
 				// auto link escape
 				.replace(/^\\>/gm, '>')
 				// voice sugar
 				.replace(
 					/^voice(\w+)$/gm,
-					// @ts-ignore
-					(_: never, voice: string) => `<<do this.voice='${voice}'>>`
+					(_: string, voice: string) => `<<do this.voice='${voice}'>>`
 				)
 		);
 
@@ -88,7 +84,6 @@ export class StrandE extends Strand {
 		// create language select for debugging purposes
 		const languageLabels: Partial<{ [key: string]: string }> = {
 			en: 'English',
-			'es-419': 'Español',
 		};
 		const languages = Object.keys(resources)
 			.filter((i) => i.startsWith('main-'))
@@ -121,6 +116,8 @@ export class StrandE extends Strand {
 	}
 
 	tween(...args: Parameters<typeof TweenManager['tween']>) {
+		// just a pass-through
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
 		return TweenManager.tween(...args);
 	}

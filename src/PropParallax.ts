@@ -1,5 +1,4 @@
 import { SCALE_MODES, TilingSprite } from 'pixi.js';
-import { Camera } from './Camera';
 import { size } from './config';
 import { GameObject } from './GameObject';
 import { Animator } from './Scripts/Animator';
@@ -91,8 +90,8 @@ export class PropParallax extends GameObject {
 	}
 
 	update() {
-		// @ts-ignore
-		const camera = window.scene.camera as Camera;
+		const camera = window.scene?.camera;
+		if (!camera) return;
 		this.transform.x = camera.display.container.pivot.x;
 		this.transform.y = camera.display.container.pivot.y + this.offset;
 		this.spr.tilePosition.x =

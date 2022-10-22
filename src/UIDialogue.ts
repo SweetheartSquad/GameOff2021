@@ -243,6 +243,8 @@ export class UIDialogue extends GameObject {
 
 		this.strText = TextMetrics.measureText(
 			text,
+			// needed bc `measureText` doesn't allow a partial, but the style might be
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore
 			this.textText.style,
 			true

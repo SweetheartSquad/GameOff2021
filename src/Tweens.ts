@@ -3,6 +3,8 @@ import { lerp, removeFromArray } from './utils';
 
 export type Tween = {
 	/** target */
+	// type safety is implemented in function to add tweens, carrying it through here is overcomplicated
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	t: any;
 	/** property */
 	p: string | number | symbol;
