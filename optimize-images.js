@@ -10,7 +10,7 @@ const imagePool = new ImagePool();
 	// eslint-disable-next-line no-restricted-syntax
 	for (const file of files) {
 		try {
-			execSync(`node --max-old-space-size=2048 ./optimize-image ${file}`, {
+			execSync(`node --max-old-space-size=2048 ./optimize-image "${file}"`, {
 				stdio: 'inherit',
 			});
 		} catch (err) {
