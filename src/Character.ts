@@ -8,7 +8,7 @@ import { Display } from './Scripts/Display';
 import { Transform } from './Scripts/Transform';
 import { lerp, tex } from './utils';
 
-const FLIP_ESPILON = 0.01;
+const FLIP_EPSILON = 0.01;
 
 let offset = 0;
 
@@ -168,7 +168,7 @@ export class Character extends GameObject {
 		if (this.running) {
 			this.animation = 'Run';
 			this.animatorBody.setAnimation(`${this.body}Run`);
-			if (Math.abs(this.moving.x) > FLIP_ESPILON) {
+			if (Math.abs(this.moving.x) > FLIP_EPSILON) {
 				this.flipped = this.moving.x < 0;
 			}
 		} else {
