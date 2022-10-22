@@ -95,6 +95,9 @@ export class Mouse {
 
 	onMove = (event: MouseEvent): void => {
 		if (this.lock) {
+			if (!document.hasFocus()) {
+				return;
+			}
 			this.delta.x = event.movementX;
 			this.delta.y = event.movementY;
 			this.x += this.delta.x;
