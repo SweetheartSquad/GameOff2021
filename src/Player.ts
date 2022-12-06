@@ -2,7 +2,7 @@ import { IChamferableBodyDefinition } from 'matter-js';
 import { Container, DisplayObject } from 'pixi.js';
 import { resizer } from '.';
 import { sfx } from './Audio';
-import { Character, speed } from './Character';
+import { Character } from './Character';
 import {
 	BODY_ENVIRONMENT,
 	BODY_PLAYER,
@@ -13,12 +13,14 @@ import { size } from './config';
 import { game } from './Game';
 import { GameScene } from './GameScene';
 import { getActiveScene, getInput, mouse } from './main';
-import { NPC, Roam } from './NPC';
+import { NPC } from './NPC';
+import { Poof } from './Poof';
+import { Roam } from './Scripts/Roam';
 import { removeFromArray } from './utils';
 import { distance, multiply } from './VMath';
 
-const playerSpeedX = 0.004 * speed;
-const playerSpeedY = 0.002 * speed;
+const playerSpeedX = 0.004;
+const playerSpeedY = 0.002;
 const framesFootstep = [4, 9];
 
 export class Player extends Character {
@@ -66,6 +68,8 @@ export class Player extends Character {
 		this.roam.active = false;
 		this.roam.freq.value = 0;
 		this.roam.freq.range = 0;
+		this.roam.speed.x = playerSpeedX;
+		this.roam.speed.y = playerSpeedY;
 		this.camPoint = new Container();
 		this.camPoint.visible = false;
 		this.display.container.addChild(this.camPoint);
@@ -120,9 +124,9 @@ export class Player extends Character {
 			input.move = multiply(input.move, this.canMove ? 1 : 0);
 			// update player
 			this.bodyCollision.body.force.x +=
-				input.move.x * playerSpeedX * this.bodyCollision.body.mass;
+				input.move.x * playerSpeedX * this.bodyCollision.body.mass * this.speed;
 			this.bodyCollision.body.force.y +=
-				input.move.y * playerSpeedY * this.bodyCollision.body.mass;
+				input.move.y * playerSpeedY * this.bodyCollision.body.mass * this.speed;
 			this.moving = {
 				x: input.move.x,
 				y: input.move.y,

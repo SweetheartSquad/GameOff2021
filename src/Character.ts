@@ -12,12 +12,10 @@ const FLIP_EPSILON = 0.01;
 
 let offset = 0;
 
-export const speed = 0.5;
-
 const baseScale = 0.8 + 25 / 30;
 
 export class Character extends GameObject {
-	speed = 1;
+	speed = 0.5;
 
 	bodyCollision: Body;
 
