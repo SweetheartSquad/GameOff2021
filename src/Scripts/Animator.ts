@@ -3,7 +3,7 @@ import { game, resources } from '../Game';
 import { GameObject } from '../GameObject';
 import { Script } from './Script';
 
-function getFrameCount(animation: string): number {
+export function getFrameCount(animation: string): number {
 	let count = 0;
 	while (resources[`${animation}.${count + 1}`]?.texture) {
 		++count;
