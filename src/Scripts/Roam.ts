@@ -27,7 +27,7 @@ export class Roam extends Script {
 	constructor(gameObject: Character) {
 		super(gameObject);
 		this.active = true;
-		const s = Math.random() * 0.1 + 0.4;
+		const s = (Math.random() * 0.1 + 0.4) * 2;
 		this.speed = {
 			x: s,
 			y: s,
