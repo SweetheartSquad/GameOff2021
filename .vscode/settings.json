@@ -4,6 +4,7 @@
         "source.organizeImports": true,
         "source.fixAll": true
     },
+    "files.insertFinalNewline": true,
     "cSpell.words": [
         "Bunty",
         "cordycep",
