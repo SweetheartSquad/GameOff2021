@@ -190,7 +190,7 @@ export class Character extends GameObject {
 
 	updateScale(): void {
 		const curTime = game.app.ticker.lastTime * this.freq;
-		this.s = lerp(this.s, baseScale, 0.3);
+		this.s = lerp(this.s, baseScale, 0.3 * game.app.ticker.deltaTime);
 		this.spr.scale.y =
 			(this.s +
 				(Math.sin(curTime + this.offset) / 50 +
