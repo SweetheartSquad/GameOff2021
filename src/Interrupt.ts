@@ -13,6 +13,7 @@ export class Interrupt extends GameObject {
 		width = 80,
 		height = 80,
 		radius = 40,
+		verts = [],
 		x = 0,
 		y = 0,
 	}: {
@@ -22,6 +23,7 @@ export class Interrupt extends GameObject {
 		width?: ConstructorParameters<typeof Body>[1]['width'];
 		height?: ConstructorParameters<typeof Body>[1]['height'];
 		radius?: ConstructorParameters<typeof Body>[1]['radius'];
+		verts?: ConstructorParameters<typeof Body>[1]['verts'];
 		x?: number;
 		y?: number;
 	}) {
@@ -34,6 +36,7 @@ export class Interrupt extends GameObject {
 					width,
 					height,
 					radius,
+					verts,
 				},
 				{
 					position: { x, y },
