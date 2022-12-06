@@ -49,15 +49,20 @@ export function distance2(a: V, b: V): number {
 	return magnitude2(subtract(a, b));
 }
 
-/* EDITS THIS OBJECT */
-export function normalize(v: V): void {
+/**
+ * EDITS THIS OBJECT
+ * @returns passed in vector */
+export function normalize(v: V): V {
 	const m = 1 / magnitude(v);
-	if (m === Infinity) return;
+	if (m === Infinity) return v;
 	v.x *= m;
 	v.y *= m;
+	return v;
 }
 
-/* returns a copy; DOES NOT EDIT THIS OBJECT */
+/**
+ * DOES NOT EDIT THIS OBJECT
+ * @returns a normalized copy */
 export function normalized(v: V): V {
 	return divide(v, magnitude(v));
 }
