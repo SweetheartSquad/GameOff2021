@@ -155,6 +155,10 @@ export class Character extends GameObject {
 		);
 		this.animatorBody.offset = Math.random() * 10000;
 
+		if (!body) {
+			this.display.container.visible = false;
+		}
+
 		this.init();
 		this.update();
 	}

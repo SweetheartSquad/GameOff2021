@@ -50,9 +50,6 @@ export class NPC extends Character {
 		const speed = (Math.random() * 0.2 + 0.8) * 0.004;
 		this.roam.speed.x *= speed;
 		this.roam.speed.y *= speed;
-		if (!options.body) {
-			this.display.container.visible = false;
-		}
 	}
 
 	update(): void {
