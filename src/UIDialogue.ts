@@ -16,7 +16,7 @@ import { fontDialogue, fontPrompt } from './font';
 import { game } from './Game';
 import { GameObject } from './GameObject';
 import { KEYS, keys } from './input-keys';
-import { getInput } from './main';
+import { getInput, mouse } from './main';
 import { Display } from './Scripts/Display';
 import { Toggler } from './Scripts/Toggler';
 import { Transform } from './Scripts/Transform';
@@ -283,6 +283,7 @@ export class UIDialogue extends GameObject {
 				this.selected = undefined;
 			});
 			t.on('pointerdown', () => {
+				if (mouse.button !== mouse.LEFT) return;
 				if (this.containerChoices.alpha > 0.5) {
 					i.action();
 				}
