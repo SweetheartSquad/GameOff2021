@@ -21,7 +21,7 @@ const playerSpeedX = 0.004 * speed;
 const playerSpeedY = 0.002 * speed;
 
 export class Player extends Character {
-	roam?: Roam;
+	roam: Roam;
 
 	clickMove = false;
 
