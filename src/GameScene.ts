@@ -81,7 +81,9 @@ export class GameScene {
 					if (passage.title === 'close') {
 						this.dialogue.close();
 						requestAnimationFrame(() => {
-							player.canMove = true;
+							requestAnimationFrame(() => {
+								player.canMove = true;
+							});
 						});
 						player.followers.forEach((i) => {
 							i.roam.active = true;
