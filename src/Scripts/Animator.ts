@@ -74,7 +74,8 @@ export class Animator extends Script {
 		const curTime = game.app.ticker.lastTime;
 		const oldFrame = this.frame;
 		this.frame =
-			Math.floor((curTime + this.offset) * this.freq) % this.frames.length;
+			Math.floor(Math.abs(curTime + this.offset) * this.freq) %
+			this.frames.length;
 		this.frameChanged = this.frame !== oldFrame;
 		this.updateTexture();
 	}
