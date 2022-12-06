@@ -25,13 +25,13 @@ import { chunks, removeFromArray, shuffle } from './utils';
 let autolink = 0;
 const promptDefault = '...';
 export class StrandE extends Strand {
-	public scene!: GameScene;
+	scene!: GameScene;
 
-	public debug?: boolean;
+	debug?: boolean;
 
-	public gameObject?: GameObject;
+	gameObject?: GameObject;
 
-	public voice?: string;
+	voice?: string;
 
 	ease = ease;
 
