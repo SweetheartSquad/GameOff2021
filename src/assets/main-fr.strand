@@ -415,8 +415,8 @@
 <<endif>>
 P: Nous Suivons Le Chemin Capriceux
 
-[[Commence]]
-[[Commence (sauter l'intro)]]
+[[Commencer]]
+[[Commencer (sauter l'intro)]]
 [[Langue>language select]]
 [[Crédits]]
 [[Avertissements de contenus]]
@@ -537,14 +537,14 @@ P: Je peut monologuer aussi.
 [[leave>close]]
 
 ::Avertissements de contenus
-P: Ceci est une histoire de l'insectes.
+P: Ceci est une histoire des insectes.
 
 Il traite des thèmes de l'identité et de l'autonomie, de le mort et de la catastrophe, de la famille et de la foi.
 
 [[Back|this.back()]]
 
 
-::Commence (sauter l'intro)
+::Commencer (sauter l'intro)
 <<do
 	this.howler = this.musicSynced('bgm_normal');
 	this.counti = 0;
@@ -553,7 +553,7 @@ Il traite des thèmes de l'identité et de l'autonomie, de le mort et de la cata
 	this.goto('march');
 >>
 
-::Commence
+::Commencer
 <<do
 	this.howler = this.musicSynced('bgm_normal');
 	this.counti = 0;
@@ -576,18 +576,18 @@ P: Je doute de moi.
 P: Je suis donc brièvement heureux d'être interrompu par quelqu'un qui crie mon nom.
 >
 « Sœur Vingt, attention! »
-[[Geler]]
-[[Se cacher]]
+[[Figer]]
+[[Jeter par terre]]
 [[Sauter en arrière]]
 
-::Geler
+::Figer
 <<do this.scrim(1, 100)>>
-P: Je me gèle sur place. Un moment plus tard, ma vision est inondée par un grand branche qui s'effondre à quelques centimètres de moi.
+P: Je me fige sur place. Un moment plus tard, ma vision est inondée par un grand branche qui s'effondre à quelques centimètres de moi.
 [[Oh non.>begin2]]
 
-::Se baisser
+::s
 <<do this.scrim(1, 100)>>
-P: Je tombe par terre instinctivement. A ce moment j'entends le craquement d'un grand branche qui s'effondre à quelques centimètres de moi, et je m'accroche comme si ma vie en dépendait.
+P: Je me jete par terre instinctivement. A ce moment j'entends le craquement d'un grand branche qui s'effondre à quelques centimètres de moi, et je m'accroche comme si ma vie en dépendait.
 [[Oh non.>begin2]]
 
 ::Sauter en arrière
@@ -626,24 +626,24 @@ P: Il commence a pleuvoir.
 
 ::intro-wall
 <<do this.scene.player.walkBy(50,0)>>
-P: Can't trust what's left to be stable, I need to get back.
+P: Je ne peux pas faire confiance à ce qui reste pour être stable. Je dois retourner.
 [[>close]]
 
 ::intro-panic
 <<do this.gameObject.line = this.gameObject.line || this.shuffle([
-	'«La moitié du cortège était devant nous... tous parties... »',
-	'«Maman... ou est la Reine Mère!? »',
-	'«Les sœurs... notre sœurs... »',
-	'«Non... ce n\'est pas possible... »',
-	'«Elles sont tombées. Nous ne peuvons pas leurs aider... »',
-	'«Nous étions trop tard... »',
-	'«Non!! »',
-	'«S\'il vous plaît... laissez-nous tranquille... »',
-	'«La Reine Mère will know what to do. Elle sait toujours quoi faire. »',
-	'«Nous devons trouver refuge. Nous ne pouvons pas rester comme ça. »',
-	'«Ce n\'est pas possible. Ce n\'est pas possible. Ce n\'est pas possible. »',
-	'«Notre sœur! Nous sommes heureux que vous allez bien. Aidez les autres, s\'il vous plaît! »',
-	'«Notre sœur... »',
+	'« La moitié du cortège était devant nous... tous parties... »',
+	'« La Reine Mère... ou est la Reine Mère!? »',
+	'« Les sœurs... notre sœurs... »',
+	'« Non... ce n\'est pas possible... »',
+	'« Elles sont tombées. Nous ne peuvons pas leurs aider... »',
+	'« Nous étions trop tard... »',
+	'« Non!! »',
+	'« S\'il vous plaît... laissez-nous tranquille... »',
+	'« La Reine Mère will know what to do. Elle sait toujours quoi faire. »',
+	'« Nous devons trouver refuge. Nous ne pouvons pas rester comme ça. »',
+	'« Ce n\'est pas possible. Ce n\'est pas possible. Ce n\'est pas possible. »',
+	'« Notre sœur! Nous sommes heureux que vous allez bien. Aidez les autres, s\'il vous plaît! »',
+	'« Notre sœur... »',
 	'P: Elle panique, et elle ne m\'écoute pas.',
 	'P: Elle est occupée avec les autres.',
 	'P: Je ne devrais pas lui distraire.',
@@ -656,11 +656,11 @@ P: Can't trust what's left to be stable, I need to get back.
 <<do this.destroy(this.gameObject)>>
 P: C'est un cauchemar.
 
-Des sœurs crient, essayant de donner un sens à tout:
+Des sœurs appelent, essayant de donner un sens à tout:
 >
 « Combien sont tombées? »
-       « Nous devons y retourner! »
-    « Où est Maman?! »
+       							« Nous devons y retourner! »
+    		« Où est Maman?! »
 
 « Attends, il y a son cortège... »
 [[Maman!>mother-speech]]
@@ -669,7 +669,7 @@ Des sœurs crient, essayant de donner un sens à tout:
 <<do this.scrim(1, 100)>>
 P: Nous nous arrêtons tous. Il n'y a aucune raison de faire taire tout le monde en sa présence.
 
-La pluie elle-même devient plus calme, comme si elle sent notre anticipation.
+La pluie elle-même se calme, comme si elle sens notre anticipation.
 >
 P: La Reine Mère Une Et Plusieurs Oécophylles prendra la parole.
 >
@@ -729,7 +729,7 @@ P: Maman... Ses mots tracent entre nos sœurs et nous-mêmes.
 [[J'ai vraiment la foi.|++this.counti;this.goto('mother-speech7')]]
 
 ::mother-speech7
-P: Le sentiment passe par vagues. Nos sœurs acclament, et nous nous joignons. Je ne peux pas m'empêcher de remarquer à quel point la foule est plus silencieuse que lorsque nous avons commencé.
+P: Le sentiment passe par vagues. Nos sœurs acclament, et nous nous joignons. Je ne peux pas m'empêcher de remarquer que la foule est plus silencieuse qu'au début.
 
 Nos espoirs sont illuminés. Mon inquiétude s'enfonce profondément dans mon estomac.
 >
@@ -780,59 +780,59 @@ P: Mais il y a un long chemin à parcourir.
 	}
 	if (!this.marchqs2 || !this.marchqs2.length < 3) {
 		this.marchqs2 = this.shuffle([
-			'"Haven\'t we been here before?"',
-			'"Where are we?"',
-			'"Are we still on the path?"',
-			'"Is Mother alright?"',
-			'"When can we rest?"',
-			'"We\'re tired..."',
-			'"We\'re hungry..."',
-			'"We\'re sore..."',
-			'"We\'re thirsty..."',
-			'"This is too much... too much..."',
-			'"What are we going to do?"',
-			'"Leave us alone."',
-			'"We need to."',
-			'"Where is the path taking us?"',
-			'"Should we stop?"',
-			'"We cannot stop."',
-			'"We must go on."',
-			'"So many sisters..."',
-			'"We are still sisters."',
-			'"We are still Many."',
-			'"Have we gone too far?"',
-			'"Must we go further?"',
-			'"Mother..."',
-			'"Sister..."',
-			'"Will we see them again?"',
-			'"Hold our hands, Sister."',
-			'"Do not fear, Sister."',
-			'"Sister, walk with me."',
-			'"The path is too long."',
-			'"The path is too hard."',
-			'"Is this truly the path?"',
+			'« N\'avons-nous pas été ici avant? »',
+			'« Où sommes-nous? »',
+			'« Sommes-nous toujours sur la bonne chemin? »',
+			'« Maman va bien? »',
+			'« Quand pouvons-nous nous reposer? »',
+			'« Nous sommes fatiguées... »',
+			'« Nous avons faim ... »',
+			'« Nous sommes blessées... »',
+			'« Nous avons soif... »',
+			'« C\'est trop... c\'est trop. »',
+			'« Qu\'est-ce qu\'allons nous faire? »',
+			'« Laisse-nous tranquille. »',
+			'« Nous devons. »',
+			'« Où nous mène le chemin? »',
+			'« Devons-nous arrêter? »',
+			'« Nous ne pouvons pas arrêter. »',
+			'« Nous devons continuer. »',
+			'« Tant de sœurs... »',
+			'« Nous sommes toujours des sœurs. »',
+			'« Nous sommes toujours Plusiers. »',
+			'« Avons-nous voyagé trop loin? »',
+			'« Devons-nous aller plus loin? »',
+			'« Maman... »',
+			'« Sœur... »',
+			'« Les reverrons-nous? »',
+			'« Prends nos mains, ma Sœur. »',
+			'« N\'ayez pas peur, ma Sœur. »',
+			'« Ma sœur, marche avec moi. »',
+			'« Le chemin est trop long. »',
+			'« Le chemin est trop difficile. »',
+			'« C\'est vraiment le bon chemin? »',
 		]);
 	}
 	if (!this.marchqs3 || !this.marchqs3.length < 3) {
 		this.marchqs3 = this.shuffle([
-			'"We must be on the path."',
-			'"Do you smell that?"',
-			'"This must be the path."',
-			'"The path will not let us down."',
-			'"We will follow the path."',
-			'"It smells nice..."',
-			'"Our path is clear."',
-			'"There is no time to lose."',
-			'"We must hurry."',
-			'"Is our journey ending?"',
-			'"We will see this through."',
-			'"The trees... The leaves..."',
-			'"Our home..."',
-			'"Is this it?"',
-			'"Can it be true?"',
-			'"We must believe."',
-			'"We cannot lose faith."',
-			'"We will."',
+			'« Nous devons être sur le bon chemin. »',
+			'« Tu sens ça? »',
+			'« Cela doit être le bon chemin.  »',
+			'« Le chemin ne nous décevra pas. »',
+			'« Nous suivrons ce chemin. »',
+			'« Il sent beau... »',
+			'« Notre chemin est clair. »',
+			'« Il n\'y a pas de temps à perdre. »',
+			'« Nous devons nous dépêcher. »',
+			'« Notre voyage se termine-t-il bientôt? »',
+			'« Nous promettons de terminer cette voyage. »',
+			'« L\'arbre... Les feuilles... »',
+			'« Notre foyer... »',
+			'« Est-ce la fin? »',
+			'« Est-ce vrai? »',
+			'« Nous devrons avoir la foi. »',
+			'« Nous ne pouvons pas perdre la foi. »',
+			'« Nous le ferons. »',
 		]);
 	}
 	// sets up progression
@@ -881,26 +881,26 @@ P: Mais il y a un long chemin à parcourir.
 ::march-1
 P: ...
 >
-P: No one questions it.
+P: Personne ne le remet en question.
 >
-P: The tension is palpable, but we follow the path.
+P: La tension est palpable. Mais nous suivons la chemin.
 [[>march-end]]
 
 ::march-2
 P: ...
 >
-P: The mood is strange as we walk today.
+P: L'ambiance est étrange alors que nous marchons aujourd'hui.
 >
-P: Sisters buzz in idle chatter, they speak their minds without expecting answers.
->
-<<print this.marchqs1.pop()>>
+P: Des sœurs bourdonnent avec du bavardage inutile, elles s'expriment sans attendre un réponse.
 >
 <<print this.marchqs1.pop()>>
 >
 <<print this.marchqs1.pop()>>
-[["We just need to keep going."|++this.countwe;this.goto('march-end')]]
-[["I will make it through this."|++this.counti;this.goto('march-end')]]
-[["This is hopeless.">march-end]]
+>
+<<print this.marchqs1.pop()>>
+[[« Nous devrons juste continuer. »|++this.countwe;this.goto('march-end')]]
+[[« Je vais survivre. »|++this.counti;this.goto('march-end')]]
+[[« C'est sans espoir. »>march-end]]
 
 ::march-3
 P: ...
@@ -912,97 +912,97 @@ P: We keep a steady pace, feet moving, minds bustling.
 <<print this.marchqs1.pop()>>
 >
 <<print this.marchqs1.pop()>>
-[["We will make it."|++this.countwe;this.goto('march-end')]]
-[["I know I can do it."|++this.counti;this.goto('march-end')]]
-[["This is a waste of time.">march-end]]
+[[« Nous allons survivre. »|++this.countwe;this.goto('march-end')]]
+[[« Je sais que je peux le faire. »|++this.counti;this.goto('march-end')]]
+[[« C'est une perte de temps. »>march-end]]
 
 ::march-4
 P: ...
 >
-P: Our stomachs growl, but our legs keep moving.
+P: Nos estomacs gargouillent, mais nos jambes continuent de bouger.
 >
 <<print this.marchqs2.pop()>>
 >
 <<print this.marchqs2.pop()>>
 >
 <<print this.marchqs2.pop()>>
-[["Is this really what we should be doing?"|++this.countwe;this.goto('march-end')]]
-[["Can't I do more to help?"|++this.counti;this.goto('march-end')]]
-[["Why did this happen?">march-end]]
+[[« Est-ce vraiment ce que nous devrions faire? »|++this.countwe;this.goto('march-end')]]
+[[« Ne puis-je pas faire plus pour aider? »|++this.counti;this.goto('march-end')]]
+[[« Pourquoi est-ce arrivé? »>march-end]]
 
 ::march-5
 P: ...
 >
-P: The canopy rustles overhead.
+P: Le feuillage bruisse au-dessus.
 >
 <<print this.marchqs2.pop()>>
 >
 <<print this.marchqs2.pop()>>
 >
 <<print this.marchqs2.pop()>>
-[["Will we ever find what we're looking for?"|++this.countwe;this.goto('march-end')]]
-[["Is this my fault?"|++this.counti;this.goto('march-end')]]
-[["Where is the path?">march-end]]
+[[« Trouverons-nous un jour ce que nous cherchons? »|++this.countwe;this.goto('march-end')]]
+[[« Est-ce ma faute? »|++this.counti;this.goto('march-end')]]
+[[« Où est le chemin? »>march-end]]
 
 ::march-6
 P: ...
 >
-P: The scouts find a few fresh leaves, and we take what we can.
+P: Les éclaireurs trouve quelques feuilles fraîches, et nous les recueillons.
 >
-P: It's not enough for a nest, but it is hopefully a good sign.
->
-<<print this.marchqs1.pop()>>
+P: Il n'y a pas assez pour un nid, mais espérons-le c'est bon signe.
 >
 <<print this.marchqs1.pop()>>
 >
 <<print this.marchqs1.pop()>>
-[["Can we go on like this?"|++this.countwe;this.goto('march-end')]]
-[["What if I'm wrong?"|++this.counti;this.goto('march-end')]]
-[["It doesn't matter, none of it.">march-end]]
+>
+<<print this.marchqs1.pop()>>
+[[« Pouvons-nous continuer comme ça? »|++this.countwe;this.goto('march-end')]]
+[[« Et si je me trompe? »|++this.counti;this.goto('march-end')]]
+[[« Cela n'a plus d'importance. Rien. »>march-end]]
 
 ::march-7
 P: ...
 >
-P: The air is humid. The bark is light underfoot.
+P: L'air est humid. L'écorce est léger sous nos pieds.
 >
 <<print this.marchqs1.pop()>>
 >
 <<print this.marchqs1.pop()>>
 >
 <<print this.marchqs1.pop()>>
-[["Why haven't we stopped?"|++this.countwe;this.goto('march-end')]]
-[["Should I bother?"|++this.counti;this.goto('march-end')]]
-[["No one will listen.">march-end]]
+[[« Pourquoi n'avons-nous pas arrêter? »|++this.countwe;this.goto('march-end')]]
+[[« Pourquoi ça me perturbe? »|++this.counti;this.goto('march-end')]]
+[[« Personne n'écoute. »>march-end]]
 
 ::march-8
 P: ...
 >
-P: There are new scents in the air.
+P: Il y a de nouvelles odeurs dans l'air.
 >
-P: Strong, and redolent.
->
-<<print this.marchqs3.pop()>>
+P: Puissantes et parfumées.
 >
 <<print this.marchqs3.pop()>>
 >
 <<print this.marchqs3.pop()>>
-[["Our path must be coming to an end."|++this.countwe;this.goto('march-end')]]
-[["I can't believe it."|++this.counti;this.goto('march-end')]]
-[["This must be it.">march-end]]
+>
+<<print this.marchqs3.pop()>>
+[[« Notre chemin doit bientôt toucher à sa fin. »|++this.countwe;this.goto('march-end')]]
+[[« Je n'en reviens pas. »|++this.counti;this.goto('march-end')]]
+[[« Ça doit être ça. »>march-end]]
 
 ::march-9
 P: ...
 >
-P: The sun shines through the leaves above, speckling the path in greens and golds.
+P: Le soleil brille à travers les feuilles au-dessus, mouchetant le chemin avec de verts et d'or.
 >
 <<print this.marchqs3.pop()>>
 >
 <<print this.marchqs3.pop()>>
 >
 <<print this.marchqs3.pop()>>
-[["We have faith."|++this.countwe;this.goto('march-end')]]
-[["I will continue."|++this.counti;this.goto('march-end')]]
-[["It can't be much further.">march-end]]
+[[« Nous avons le foi. »|++this.countwe;this.goto('march-end')]]
+[[« Je vais continuer. »|++this.counti;this.goto('march-end')]]
+[[« Ça ne peut pas être beaucoup plus loin. »>march-end]]
 
 ::march-end
 P: ...
@@ -1018,89 +1018,89 @@ P: ...
 
 
 ::feeding-march
-P: Before I can lose myself in my thoughts, I am called upon by Sister Superior Three.
+P: Avant de me perdre dans mes pensées, Je suis convoqué par la Sœur Supérieure Trois.
 >
 <<do this.fed = (this.fed || 0) + 1>>
 <<do this.scrim(1, 1000);this.show('superiorIdle')>>
-"Sister Twenty. You are being placed on feeding duties today."
+« Sœur Vingt. Tu es mis en devoir de nourrir aujourd'hui.."
 [[...|this.show('');this.goto('feeding-'+this.fed)]]
 
 ::feeding-1
-P: She leads me through the marching order, easily cutting in and out between other sisters.
+P: Elle me guide à travers l'order de marche, zigzaguer à contresens facilement entre les autres sœurs.
 >
-P: ...I've never fed Mother before.
+P: ...Je n'ai jamais nourri Maman.
 >
-P: We all share food of course, but it is a responsibility and privilege reserved for those in her retinue.
+P: Nous partageons tous la nourriture, bien sûr, mais nourrir Maman, c'est une responsabilité et un honneur réservé à ceux de sa suite.
 >
-P: Our retinue, I remind myself.
->
-P: I follow along meekly, until I am standing before the Queen Mother's palanquin.
+P: Notre suite, je me rapelle.
+>Queen 
+P: Je la suis docilement, jusqu'à je sois devant le palanquin de la Reine Mere.
 >
 <<do this.show('queenIdle')>>
-P: I do not know what to say.
+P: Je ne sais pas quoi dire.
 
-[["Hello Mother.">"Hungry?"]]
-[["Hungry?"]]
-[["...">feeding-1-2]]
+[[« Maman... »>« Avez-vous faim? »]]
+[[« Avez-vous faim? »]]
+[[« ... »>feeding-1-2]]
 
-::"Hungry?"
-P: I receive a swat to the back of the head from Three.
+::« Avez-vous faim? »
+P: Je reçois un coup à l'arrière de la tête par Trois.
 >
-"Shh!"
+« Chut! »
 [[>feeding-1-2]]
 
 ::feeding-1-2
-P: Sister Superior clears her throat, and addresses Mother:
+P: La Sœur Supérieure se racle la gorge, et s'adresse Maman:
 >
-"Queen Mother, please allow us to introduce Sister Twenty of Many Oecophylla."
+« La Reine Mère, permettez-nous de vous présenter Sœur Vingt de Plusiers Oecophylle. »
 >
-"Sister Twenty, please begin your duty to Queen Mother One and Many Oecophylla."
+« Sœur Vingt, merci de commencer ton devoir à la Reine Mère Une et Plusiers Oecophylle. »
 >
-P: She steps back, and I am left face to face with Mother.
+P: Elle recule, et je reste face à face avec Maman.
 >
-P: "..."
+P: « ... »
 >
-P: "...Sorry. This is the first time-"
->
-voiceQueen
-"We are aware. We do not forget our own daughters, our own sisters."
->
-P: Her voice is calm, and firm. The same as it always is.
+P: « Désolé. C'est le premier fois... »
 >
 voiceQueen
-"Despite Daughter Three's insistence on formalities, there is no need for special treatment. We all must eat, so we all share food."
+« Nous sommes conscients. Nous n'oublions pas nos propres filles, nos propre sœurs. »
 >
-P: I nod, and regurgitate some of the contents of my stomach.
+P: Sa voix est calme, et ferme. Même chose que d'habitude.
 >
-P: She asks for no special treatment, but I can't help but give up a larger portion than I usually would to another sister.
+voiceQueen
+« Malgré l'insistance de Fille Trois pour les formalités, il n'y a pas de raison pour un traitement particulier. Nous devons tous manger, alors nous partageons tous la nourriture."
+>
+P: J'acquiesce, and je régurgite une partie du contenu de mon estomac.
+>
+P: Elle demande pas de traitement particulier, mais je ne peux m'empêcher de lui donner une plus grande portion que je ne donnerais habituellement à une autre sœur.
+>
+Si elle le remarque, elle ne commente pas.
+>
+P: Maman prend son repas à petites gorgées et coups de langue, apparemment pas pressé.
+>
+P: Pourquoi le serait-elle?  Elle sera toujours assise ici si elle finit maintenant ou plus tard.
+>
+P: Je me tiens dans un silence anxieux pendant qu'elle mange.
+>
+voiceQueen
+« ... »
+>
+« Fille Vingt. »
+>« Oui? »
+« Nous ne voulons pas être mal à l'aise »
 
-If she notices, she does not comment.
+« Parle avec nous, si nous avons quelques choses de parler. »
 >
-P: Mother partakes of her meal in small sips and licks, seemingly in no hurry.
->
-P: Why would she be? She will still be seated here whether she finishes now or later.
->
-P: I stand in anxious silence as she eats.
->
-voiceQueen
-"..."
->
-"Daughter Twenty."
->"Yes?"
-"We do not wish to be uncomfortable."
-
-"Speak with us, if we would have anything to say."
->
-P: I shouldn't be shocked that she could see through my nerves so clearly, but it catches me off-guard regardless.
+P: Je ne devrais pas être choqué que elle pourrait puisse voir si clairement à travers mes nerfs, mais ça baisse quand même ma garde.
 [[>feeding-questions]]
 
 ::feeding-2
-P: Again?
+P: Encore?
 >
-P: I suppose there are fewer of us, so it shouldn't be surprising.
+P: Je suppose que nous sommes moins nombreux, donc ça ne devrait pas être surprenant.
 >
 <<do this.show('queenIdle')>>
-P: The ceremony of it keeps me on edge, but it is not long before Mother is contently feasting on a conserved lunch of mine from earlier that day.
+P: La cérémonie de celui-ci me rendre tendues, mais ce n'est pas long avant que Maman se délecter d'un de mes déjeuners conservés de tout à l'heure.
 [[>feeding-questions]]
 
 
