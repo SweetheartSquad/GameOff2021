@@ -12,7 +12,7 @@ export function toggleMute(): void {
 	muted = !muted;
 }
 
-function getHowl(howl: string) {
+export function getHowl(howl: string) {
 	const h = resources[howl]?.data as Maybe<Howl>;
 	if (!h) {
 		console.warn(`Audio "${howl}" not found`);
