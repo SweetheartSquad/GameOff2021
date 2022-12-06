@@ -61,7 +61,7 @@ export class UIDialogue extends GameObject {
 
 	strand: Strand;
 
-	private pos: number;
+	pos: number;
 
 	private posTime: number;
 
