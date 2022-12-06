@@ -6,6 +6,7 @@ import {
 	Sprite,
 	Text,
 	TextMetrics,
+	TextStyle,
 	Texture,
 } from 'pixi.js';
 import Strand from 'strand-core';
@@ -15,7 +16,7 @@ import { fontDialogue, fontPrompt } from './font';
 import { game } from './Game';
 import { GameObject } from './GameObject';
 import { KEYS, keys } from './input-keys';
-import { getInput } from './main';
+import { getInput, mouse } from './main';
 import { Display } from './Scripts/Display';
 import { Toggler } from './Scripts/Toggler';
 import { Transform } from './Scripts/Transform';
@@ -61,7 +62,7 @@ export class UIDialogue extends GameObject {
 
 	strand: Strand;
 
-	private pos: number;
+	pos: number;
 
 	private posTime: number;
 
@@ -124,6 +125,10 @@ export class UIDialogue extends GameObject {
 		this.textPrompt.x = size.x / 2;
 		this.textPrompt.y = 40;
 		this.textPrompt.anchor.x = 0.5;
+		this.textPrompt.accessible = true;
+		this.textPrompt.on('pointerdown', () => {
+			if (!this.isOpen && this.fnPrompt) this.fnPrompt();
+		});
 		this.display.container.addChild(this.textPrompt);
 		this.display.container.accessible = true;
 		this.display.container.interactive = true;
@@ -150,11 +155,14 @@ export class UIDialogue extends GameObject {
 
 	update(): void {
 		super.update();
+		const shouldPrompt = !!(!this.isOpen && this.fnPrompt);
 		this.textPrompt.alpha = lerp(
 			this.textPrompt.alpha,
-			!this.isOpen && this.fnPrompt ? 1 : 0,
+			shouldPrompt ? 1 : 0,
 			0.1
 		);
+		this.textPrompt.interactive = this.textPrompt.buttonMode = shouldPrompt;
+		this.textPrompt.tabIndex = shouldPrompt ? 0 : undefined;
 		const input = getInput();
 
 		if (!this.isOpen && input.interact && this.fnPrompt) {
@@ -246,7 +254,7 @@ export class UIDialogue extends GameObject {
 			// needed bc `measureText` doesn't allow a partial, but the style might be
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore
-			this.textText.style,
+			this.textText.style || new TextStyle(fontDialogue),
 			true
 		).lines.join('\n');
 
@@ -275,6 +283,7 @@ export class UIDialogue extends GameObject {
 				this.selected = undefined;
 			});
 			t.on('pointerdown', () => {
+				if (mouse.button !== mouse.LEFT) return;
 				if (this.containerChoices.alpha > 0.5) {
 					i.action();
 				}
@@ -305,7 +314,7 @@ export class UIDialogue extends GameObject {
 		action: (() => void) | undefined = undefined
 	) {
 		this.strPrompt = label;
-		this.textPrompt.text = label;
+		this.textPrompt.text = this.textPrompt.accessibleHint = label;
 		this.fnPrompt = action;
 	}
 
@@ -358,13 +367,17 @@ export class UIDialogue extends GameObject {
 		}
 	}
 
-	scrim(amount: number, duration: number) {
+	scrim(amount: number, duration?: number) {
 		if (this.tweenScrim) TweenManager.abort(this.tweenScrim);
-		this.tweenScrim = TweenManager.tween(
-			this.sprScrim,
-			'alpha',
-			amount,
-			duration
-		);
+		if (duration) {
+			this.tweenScrim = TweenManager.tween(
+				this.sprScrim,
+				'alpha',
+				amount,
+				duration
+			);
+		} else {
+			this.sprScrim.alpha = amount;
+		}
 	}
 }

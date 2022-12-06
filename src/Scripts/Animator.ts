@@ -3,7 +3,7 @@ import { game, resources } from '../Game';
 import { GameObject } from '../GameObject';
 import { Script } from './Script';
 
-function getFrameCount(animation: string): number {
+export function getFrameCount(animation: string): number {
 	let count = 0;
 	while (resources[`${animation}.${count + 1}`]?.texture) {
 		++count;
@@ -29,6 +29,8 @@ export class Animator extends Script {
 	holds: { [frame: number]: number } = {};
 
 	active = true;
+
+	frameChanged = false;
 
 	constructor(
 		gameObject: GameObject,
@@ -70,8 +72,11 @@ export class Animator extends Script {
 	update(): void {
 		if (!this.frameCount || !this.active) return;
 		const curTime = game.app.ticker.lastTime;
+		const oldFrame = this.frame;
 		this.frame =
-			Math.floor((curTime + this.offset) * this.freq) % this.frames.length;
+			Math.floor(Math.abs(curTime + this.offset) * this.freq) %
+			this.frames.length;
+		this.frameChanged = this.frame !== oldFrame;
 		this.updateTexture();
 	}
 }

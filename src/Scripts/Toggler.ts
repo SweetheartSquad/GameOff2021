@@ -1,7 +1,7 @@
 import { Container, Sprite } from 'pixi.js';
 import { GameObject } from '../GameObject';
 import { Tween, TweenManager } from '../Tweens';
-import { tex } from '../utils';
+import { delay, tex } from '../utils';
 import { Animator } from './Animator';
 import { Script } from './Script';
 
@@ -71,14 +71,22 @@ export class Toggler extends Script {
 			this.inactive =
 				this.active === this.animatorA ? this.animatorB : this.animatorA;
 			this.inactive.setAnimation(texture || 'blank');
-			this.container.addChild(this.inactive.spr);
+			this.container.addChildAt(
+				this.inactive.spr,
+				this.container.getChildIndex(this.active.spr)
+			);
 			[this.inactive, this.active] = [this.active, this.inactive];
 			this.tweens.forEach((i) => TweenManager.finish(i));
 			this.tweens.length = 0;
-			this.tweens.push(
-				TweenManager.tween(this.active.spr, 'alpha', alpha, duration),
-				TweenManager.tween(this.inactive.spr, 'alpha', 0, duration)
-			);
+			if (duration) {
+				this.tweens.push(
+					TweenManager.tween(this.active.spr, 'alpha', alpha, duration),
+					TweenManager.tween(this.inactive.spr, 'alpha', 0, duration)
+				);
+			} else {
+				this.active.spr.alpha = alpha;
+				this.inactive.spr.alpha = 0;
+			}
 		}
 		this.active.spr.position.x = x;
 		this.active.spr.position.y = y;
@@ -86,6 +94,7 @@ export class Toggler extends Script {
 		if (flip) this.active.spr.scale.x *= -1;
 		this.active.active = animate;
 		this.active.freq = freq;
+		return delay(duration);
 	}
 
 	destroy() {

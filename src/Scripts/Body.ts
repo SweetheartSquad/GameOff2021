@@ -2,11 +2,12 @@ import * as Matter from 'matter-js';
 import {
 	Bodies,
 	Body as MatterBody,
+	Composite,
 	IChamferableBodyDefinition,
-	World,
 } from 'matter-js';
 import { GameObject } from '../GameObject';
 import { world } from '../Physics';
+import { chunks } from '../utils';
 import { Script } from './Script';
 
 export class Body extends Script {
@@ -17,10 +18,11 @@ export class Body extends Script {
 	constructor(
 		gameObject: GameObject,
 		shape: {
-			type: 'rectangle' | 'circle';
+			type: 'rectangle' | 'circle' | 'poly';
 			radius?: number;
 			width?: number;
 			height?: number;
+			verts?: number[];
 		},
 		bodyDef: IChamferableBodyDefinition
 	) {
@@ -38,17 +40,29 @@ export class Body extends Script {
 			case 'circle':
 				this.body = Bodies.circle(0, 0, shape.radius || 0, bodyDef, 1);
 				break;
+			case 'poly': {
+				const v = chunks(shape.verts || [], 2).map(([x, y]) =>
+					Matter.Vector.create(x, y)
+				);
+				const b = Matter.Bounds.create(v);
+				this.body = Bodies.fromVertices(0, 0, [v], bodyDef);
+				this.move(
+					b.min.x - this.body.bounds.min.x,
+					b.min.y - this.body.bounds.min.y
+				);
+				break;
+			}
 			default:
 				throw new Error(`Unrecognized body type: ${shape.type}`);
 		}
 	}
 
 	init() {
-		World.add(world, this.body);
+		Composite.add(world, this.body);
 	}
 
 	destroy() {
-		World.remove(world, this.body);
+		Composite.remove(world, this.body);
 	}
 
 	move(x: number, y: number) {

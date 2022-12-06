@@ -12,7 +12,7 @@ export function toggleMute(): void {
 	muted = !muted;
 }
 
-function getHowl(howl: string) {
+export function getHowl(howl: string) {
 	const h = resources[howl]?.data as Maybe<Howl>;
 	if (!h) {
 		console.warn(`Audio "${howl}" not found`);
@@ -32,12 +32,17 @@ let musicPlaying:
 
 export function sfx(
 	sfxName: string,
-	{ rate = 1, volume = 1 }: { rate?: number; volume?: number } = {}
+	{
+		rate = 1,
+		volume = 1,
+		loop = false,
+	}: { rate?: number; volume?: number; loop?: boolean } = {}
 ) {
 	const howl = getHowl(sfxName);
 	if (!howl) return undefined;
 	const id = howl.play();
 	howl.rate(rate, id);
+	howl.loop(loop, id);
 	howl.volume(volume, id);
 	return id;
 }

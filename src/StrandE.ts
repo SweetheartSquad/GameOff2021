@@ -25,13 +25,13 @@ import { chunks, removeFromArray, shuffle } from './utils';
 let autolink = 0;
 const promptDefault = '...';
 export class StrandE extends Strand {
-	public scene!: GameScene;
+	scene!: GameScene;
 
-	public debug?: boolean;
+	debug?: boolean;
 
-	public gameObject?: GameObject;
+	gameObject?: GameObject;
 
-	public voice?: string;
+	voice?: string;
 
 	ease = ease;
 
@@ -41,20 +41,29 @@ export class StrandE extends Strand {
 		autolink = 0;
 		super.setSource(
 			src
-				// replacer link sugar
+				// replacer link sugar: `[[text>target]]` and `[[>target]]` (uses default prompt)
 				.replace(
-					/\[{2}(.*?)>(.*?)\]{2}/gm,
+					/\[{2}(.*?)(?<!=)>(.*?)\]{2}/gm,
 					(_: string, label: string, target: string) =>
 						`[[${label || promptDefault}|this.goto(\`${target}\`)]]`
 				)
-				// auto link sugar
+				// auto link sugar: `>` (uses default prompt) and `>text`
 				.replace(/^>(.*)/gm, (_: string, link: string) =>
 					link === '>'
 						? `>${link}`
-						: `[[${
-								link || promptDefault
-						  }|this.goto('auto-${++autolink}')]]\n\n::auto-${autolink}\n`
+						: link
+								.split('|')
+								.map(
+									(l) =>
+										`[[${l || promptDefault}|this.goto('auto-${
+											autolink + 1
+										}')]]`
+								)
+								.concat(`\n::auto-${++autolink}`)
+								.join('\n')
 				)
+				// action sugar: `[[|some js]]` (uses default prompt)
+				.replace(/^\[\[\|/gm, `[[${promptDefault}|`)
 				// auto link escape
 				.replace(/^\\>/gm, '>')
 				// voice sugar

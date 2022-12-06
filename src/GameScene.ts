@@ -1,4 +1,4 @@
-import { Body, Composite, Events, Runner } from 'matter-js';
+import { Body, Events, Runner } from 'matter-js';
 import { Container, DisplayObject, Graphics } from 'pixi.js';
 import { Area } from './Area';
 import { Border } from './Border';
@@ -7,7 +7,8 @@ import { DEBUG } from './debug';
 import { game, resources } from './Game';
 import { GameObject } from './GameObject';
 import { getInput } from './main';
-import { engine, world } from './Physics';
+import { engine } from './Physics';
+import { PhysicsDebug } from './PhysicsDebug';
 import { Player } from './Player';
 import { ScreenFilter } from './ScreenFilter';
 import { StrandE } from './StrandE';
@@ -51,9 +52,11 @@ export class GameScene {
 
 	onCollisionEnd: (e: Matter.IEventCollision<Matter.Engine>) => void;
 
-	constructor() {
-		this.container.addChildAt(this.graphics, 0);
+	runner: Runner;
 
+	physicsDebug?: PhysicsDebug;
+
+	constructor() {
 		this.player = player = new Player({});
 		player.updateCamPoint = () => {
 			Player.prototype.updateCamPoint.call(player);
@@ -66,12 +69,21 @@ export class GameScene {
 
 		this.strand = new StrandE({
 			source: resources['main-en'].data,
+			logger: {
+				/* eslint-disable no-console */
+				log: (...args) => this.strand.debug && console.log(...args),
+				warn: (...args) => console.warn(...args),
+				error: (...args) => console.error(...args),
+				/* eslint-enable no-console */
+			},
 			renderer: {
 				displayPassage: (passage) => {
 					if (passage.title === 'close') {
 						this.dialogue.close();
 						requestAnimationFrame(() => {
-							player.canMove = true;
+							requestAnimationFrame(() => {
+								player.canMove = true;
+							});
 						});
 						player.followers.forEach((i) => {
 							i.roam.active = true;
@@ -130,10 +142,11 @@ export class GameScene {
 				interactions.length = 0;
 				this.strand.gameObject = interrupt.plugin.gameObject as GameObject;
 				if (interrupt.plugin.focus) {
-					this.interactionFocus = add(
-						interrupt.position,
-						interrupt.plugin.focus
-					);
+					this.interactionFocus = add(interrupt.position, {
+						x: 0,
+						y: 0,
+						...interrupt.plugin.focus,
+					});
 				}
 				if (interrupt.plugin.interrupt.passage) {
 					this.strand.goto(interrupt.plugin.interrupt.passage);
@@ -143,18 +156,18 @@ export class GameScene {
 			const goto = interactions.find((i) => i.plugin.goto);
 			if (goto) {
 				interactions.length = 0;
-				const { transition = true } = goto.plugin.goto;
+				const { transition = 1 } = goto.plugin.goto;
 				const collidesWith = player.bodySensor.body.collisionFilter.mask;
 				if (transition) {
 					player.bodySensor.body.collisionFilter.mask = 0;
-					this.dialogue.scrim(1, 300);
-					await delay(300);
+					this.dialogue.scrim(1, 300 * transition);
+					await delay(300 * transition);
 				}
 				this.goto(goto.plugin.goto);
 				this.camera.setTarget(player.camPoint, true);
 				if (transition) {
-					this.dialogue.scrim(0, 100);
-					await delay(100);
+					this.dialogue.scrim(0, 100 * transition);
+					await delay(100 * transition);
 					player.bodySensor.body.collisionFilter.mask = collidesWith;
 				}
 				return;
@@ -167,8 +180,11 @@ export class GameScene {
 				this.dialogue.prompt();
 				this.interactionFocus = undefined;
 			} else {
+				if (this.dialogue.isOpen) return;
 				const { passage, label = 'talk', focus, gameObject } = top.plugin;
-				this.interactionFocus = focus ? add(top.position, focus) : top.position;
+				this.interactionFocus = focus
+					? add(top.position, { x: 0, y: 0, ...focus })
+					: top.position;
 				this.dialogue.prompt(
 					`< ${(this.strand.passages[label]?.body || label).toUpperCase()} >`,
 					() => {
@@ -225,13 +241,14 @@ export class GameScene {
 		this.border.display.container.alpha = 0;
 		this.strand.goto('start');
 
-		const runner = Runner.create({
+		this.runner = Runner.create({
 			isFixed: true,
 		});
-		Runner.start(runner, engine);
+		Runner.start(this.runner, engine);
 	}
 
 	destroy(): void {
+		this.physicsDebug?.destroy();
 		if (this.area && this.areas[this.area]) {
 			Area.unmount(this.areas[this.area]);
 		}
@@ -241,6 +258,7 @@ export class GameScene {
 		this.container.destroy({
 			children: true,
 		});
+		Runner.stop(this.runner);
 	}
 
 	goto({
@@ -291,6 +309,10 @@ export class GameScene {
 
 		// depth sort
 		this.container.children.sort(depthCompare);
+		if (window.debugPhysics) {
+			if (!this.physicsDebug) this.physicsDebug = new PhysicsDebug();
+			this.container.addChild(this.physicsDebug.display.container);
+		}
 		this.container.addChild(this.graphics);
 
 		// adjust camera based on dialogue state
@@ -309,40 +331,9 @@ export class GameScene {
 
 		this.screenFilter.update();
 
-		const g = this.graphics;
-
-		// test bg
-		g.clear();
-		// draw physics
-		// @ts-ignore
-		if (DEBUG && window.debugPhysics) {
-			Composite.allBodies(world).forEach(this.debugDraw);
-		}
-
 		GameObject.update();
 		TweenManager.update();
 	}
-
-	debugDraw = (body: Body): void => {
-		const g = this.graphics;
-
-		if (body.isSensor) {
-			g.beginFill(0xff0000, 0.1);
-		} else if (body.isStatic) {
-			g.beginFill(0x0000ff, 0.1);
-		} else {
-			g.beginFill(0xffffff, 0.2);
-		}
-		g.lineStyle(1, 0xffffff, 0.5);
-		g.moveTo(
-			body.vertices[body.vertices.length - 1].x,
-			body.vertices[body.vertices.length - 1].y
-		);
-
-		body.vertices.forEach(({ x, y }) => g.lineTo(x, y));
-
-		g.endFill();
-	};
 
 	take(gameObject: GameObject) {
 		if (this.area && this.areas[this.area]) {

@@ -2,7 +2,7 @@ import { IChamferableBodyDefinition } from 'matter-js';
 import { Container, DisplayObject } from 'pixi.js';
 import { resizer } from '.';
 import { sfx } from './Audio';
-import { Character, speed } from './Character';
+import { Character } from './Character';
 import {
 	BODY_ENVIRONMENT,
 	BODY_PLAYER,
@@ -13,15 +13,18 @@ import { size } from './config';
 import { game } from './Game';
 import { GameScene } from './GameScene';
 import { getActiveScene, getInput, mouse } from './main';
-import { NPC, Roam } from './NPC';
+import { NPC } from './NPC';
+import { Poof } from './Poof';
+import { Roam } from './Scripts/Roam';
 import { removeFromArray } from './utils';
 import { distance, multiply } from './VMath';
 
-const playerSpeedX = 0.004 * speed;
-const playerSpeedY = 0.002 * speed;
+const playerSpeedX = 0.004;
+const playerSpeedY = 0.002;
+const framesFootstep = [4, 9];
 
 export class Player extends Character {
-	roam?: Roam;
+	roam: Roam;
 
 	clickMove = false;
 
@@ -65,6 +68,8 @@ export class Player extends Character {
 		this.roam.active = false;
 		this.roam.freq.value = 0;
 		this.roam.freq.range = 0;
+		this.roam.speed.x = playerSpeedX;
+		this.roam.speed.y = playerSpeedY;
 		this.camPoint = new Container();
 		this.camPoint.visible = false;
 		this.display.container.addChild(this.camPoint);
@@ -79,7 +84,7 @@ export class Player extends Character {
 		if (
 			this.animation === 'Run' &&
 			step !== this.step &&
-			(step === 4 || step === 9)
+			framesFootstep.includes(step)
 		) {
 			sfx('step', { rate: Math.random() * 0.2 + 0.9 });
 		}
@@ -98,19 +103,30 @@ export class Player extends Character {
 		if (this.roam?.active) {
 			this.moving.x = this.bodyCollision.body.velocity.x;
 			this.moving.y = this.bodyCollision.body.velocity.y;
-			if (this.clickMove && mouse.justDown && this.canMove) {
+			if (
+				this.clickMove &&
+				mouse.justDown &&
+				mouse.button === mouse.LEFT &&
+				this.canMove
+			) {
 				this.walkToMouse();
 			}
 		} else {
-			if (!input.move.x && !input.move.y && mouse.justDown && this.canMove) {
+			if (
+				!input.move.x &&
+				!input.move.y &&
+				mouse.button === mouse.LEFT &&
+				mouse.justDown &&
+				this.canMove
+			) {
 				this.walkToMouse();
 			}
 			input.move = multiply(input.move, this.canMove ? 1 : 0);
 			// update player
 			this.bodyCollision.body.force.x +=
-				input.move.x * playerSpeedX * this.bodyCollision.body.mass;
+				input.move.x * playerSpeedX * this.bodyCollision.body.mass * this.speed;
 			this.bodyCollision.body.force.y +=
-				input.move.y * playerSpeedY * this.bodyCollision.body.mass;
+				input.move.y * playerSpeedY * this.bodyCollision.body.mass * this.speed;
 			this.moving = {
 				x: input.move.x,
 				y: input.move.y,
@@ -175,6 +191,14 @@ export class Player extends Character {
 		).camera.display.container.toLocal(relativeMousePos);
 		this.walkTo(targetPos.x, targetPos.y);
 		this.clickMove = true;
+		// eslint-disable-next-line no-new
+		new Poof({
+			texture: 'walk_cursor',
+			freq: 1 / 100,
+			x: targetPos.x,
+			y: targetPos.y,
+			offset: 1000000,
+		});
 	}
 
 	cancelWalkToMouse() {

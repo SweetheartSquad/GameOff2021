@@ -29,6 +29,7 @@ document.body.addEventListener('mousedown', () => {
 });
 
 export const resizer = new Resizer(size.x, size.y, ScaleModes.MULTIPLES);
+window.resizer = resizer;
 document.body.appendChild(resizer.element);
 
 const playEl = document.createElement('button');
@@ -36,15 +37,18 @@ playEl.id = 'play';
 playEl.textContent = 'Play';
 resizer.appendChild(playEl);
 
+let hasErrored = false;
 function fail({ message, error }: { message: string; error: unknown }): void {
+	hasErrored = true;
 	progressEl.textContent = `${message} - Sorry :(`;
 	throw error;
 }
 
 function loadProgressHandler(loader?: { progress: number }): void {
+	if (hasErrored) return;
 	// called during loading
 	if (loader?.progress !== undefined) {
-		progress = loader.progress || progress;
+		progress = loader.progress;
 		if (preloaded) {
 			progress *= 1 - preloadWeight;
 			progress += preloadWeight * 100;

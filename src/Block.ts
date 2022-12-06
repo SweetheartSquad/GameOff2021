@@ -8,17 +8,19 @@ export class Block extends GameObject {
 	constructor({
 		x = 0,
 		y = 0,
+		type = 'rectangle',
 		width = 10,
 		height = 10,
 		radius = 5,
-		type = 'rectangle',
+		verts = [],
 	}: {
 		x?: number;
 		y?: number;
-		width?: number;
-		height?: number;
-		radius?: number;
-		type?: 'rectangle' | 'circle';
+		type?: ConstructorParameters<typeof Body>[1]['type'];
+		width?: ConstructorParameters<typeof Body>[1]['width'];
+		height?: ConstructorParameters<typeof Body>[1]['height'];
+		radius?: ConstructorParameters<typeof Body>[1]['radius'];
+		verts?: ConstructorParameters<typeof Body>[1]['verts'];
 	}) {
 		super();
 		this.scripts.push(
@@ -29,6 +31,7 @@ export class Block extends GameObject {
 					radius,
 					width,
 					height,
+					verts,
 				},
 				{
 					isStatic: true,

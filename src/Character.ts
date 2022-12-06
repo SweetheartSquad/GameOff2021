@@ -12,11 +12,11 @@ const FLIP_EPSILON = 0.01;
 
 let offset = 0;
 
-export const speed = 0.5;
-
 const baseScale = 0.8 + 25 / 30;
 
 export class Character extends GameObject {
+	speed = 0.5;
+
 	bodyCollision: Body;
 
 	bodySensor: Body;
@@ -117,6 +117,7 @@ export class Character extends GameObject {
 			},
 			{
 				restitution: 0,
+				friction: 0,
 				frictionAir: 0.2,
 				inertia: Infinity, // prevent rotation
 				chamfer: { radius: this.colliderSize / 2, quality: 10 },
@@ -154,6 +155,10 @@ export class Character extends GameObject {
 		);
 		this.animatorBody.offset = Math.random() * 10000;
 
+		if (!body) {
+			this.display.container.visible = false;
+		}
+
 		this.init();
 		this.update();
 	}
@@ -162,7 +167,7 @@ export class Character extends GameObject {
 		if (
 			Math.abs(this.bodyCollision.body.velocity.x) +
 				Math.abs(this.bodyCollision.body.velocity.y) >
-			1 - Math.abs(this.moving.x) - Math.abs(this.moving.y)
+			(1 - Math.abs(this.moving.x) - Math.abs(this.moving.y)) * this.speed
 		) {
 			this.running = true;
 		} else if (this.running) {
@@ -189,7 +194,7 @@ export class Character extends GameObject {
 
 	updateScale(): void {
 		const curTime = game.app.ticker.lastTime * this.freq;
-		this.s = lerp(this.s, baseScale, 0.3);
+		this.s = lerp(this.s, baseScale, 0.3 * game.app.ticker.deltaTime);
 		this.spr.scale.y =
 			(this.s +
 				(Math.sin(curTime + this.offset) / 50 +

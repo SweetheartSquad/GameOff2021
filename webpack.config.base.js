@@ -30,7 +30,7 @@ module.exports = (env, argv) => ({
 				],
 			},
 			{
-				test: /(?<!\.fnt)\.(png|jpg|gif|wav|ogg|mp3|glsl|xml|strand|txt)$/,
+				test: /(?<!\.fnt)\.(png|jpg|gif|webp|wav|ogg|mp3|glsl|xml|strand|txt|gltf)$/,
 				use: {
 					loader: 'file-loader',
 					options: {
@@ -60,7 +60,7 @@ module.exports = (env, argv) => ({
 		new CopyPlugin({
 			patterns: [
 				{
-					from: 'assets/**/*.{png,jpg,mp3,ogg,txt,fnt}',
+					from: 'assets/**/*.{png,jpg,gif,webp,mp3,ogg,txt,fnt,gltf}',
 					context: 'src',
 				},
 			],

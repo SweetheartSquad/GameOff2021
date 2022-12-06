@@ -1,5 +1,17 @@
 // setup inputs
 export class Mouse {
+	LEFT = 0;
+
+	MIDDLE = 1;
+
+	RIGHT = 2;
+
+	BACK = 3;
+
+	FORWARD = 4;
+
+	button: number;
+
 	wheelY: number;
 
 	wheelX: number;
@@ -29,6 +41,7 @@ export class Mouse {
 	element: HTMLElement;
 
 	constructor(element: HTMLElement, lock: boolean) {
+		this.button = 0;
 		this.down = false;
 		this.justDown = false;
 		this.justUp = false;
@@ -77,7 +90,8 @@ export class Mouse {
 		this.delta.y = 0;
 	}
 
-	onDown = (): void => {
+	onDown = (event: MouseEvent): void => {
+		this.button = event.button > -1 ? event.button : this.button;
 		if (!this.down) {
 			this.down = true;
 			this.justDown = true;
@@ -87,7 +101,8 @@ export class Mouse {
 		}
 	};
 
-	onUp = (): void => {
+	onUp = (event: MouseEvent): void => {
+		this.button = event.button > -1 ? event.button : this.button;
 		this.down = false;
 		this.justDown = false;
 		this.justUp = true;
