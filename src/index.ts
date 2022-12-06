@@ -37,12 +37,15 @@ playEl.id = 'play';
 playEl.textContent = 'Play';
 resizer.appendChild(playEl);
 
+let hasErrored = false;
 function fail({ message, error }: { message: string; error: unknown }): void {
+	hasErrored = true;
 	progressEl.textContent = `${message} - Sorry :(`;
 	throw error;
 }
 
 function loadProgressHandler(loader?: { progress: number }): void {
+	if (hasErrored) return;
 	// called during loading
 	if (loader?.progress !== undefined) {
 		progress = loader.progress || progress;
