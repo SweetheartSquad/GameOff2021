@@ -4,6 +4,7 @@ import { Game } from '../Game';
 import { GameObject } from '../GameObject';
 import { GameScene } from '../GameScene';
 import { Player } from '../Player';
+import { Resizer } from '../Resizer';
 import { ScreenFilter } from '../ScreenFilter';
 
 declare global {
@@ -17,6 +18,7 @@ declare global {
 		gameObjects?: typeof GameObject['gameObjects'];
 		game?: Game;
 		player?: Player;
+		resizer: Resizer;
 	}
 
 	type Maybe<T> = T | undefined;
