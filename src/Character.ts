@@ -17,6 +17,8 @@ export const speed = 0.5;
 const baseScale = 0.8 + 25 / 30;
 
 export class Character extends GameObject {
+	speed = 1;
+
 	bodyCollision: Body;
 
 	bodySensor: Body;
@@ -163,7 +165,7 @@ export class Character extends GameObject {
 		if (
 			Math.abs(this.bodyCollision.body.velocity.x) +
 				Math.abs(this.bodyCollision.body.velocity.y) >
-			1 - Math.abs(this.moving.x) - Math.abs(this.moving.y)
+			(1 - Math.abs(this.moving.x) - Math.abs(this.moving.y)) * this.speed
 		) {
 			this.running = true;
 		} else if (this.running) {
