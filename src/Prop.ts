@@ -14,6 +14,8 @@ export class Prop extends GameObject {
 
 	display: Display;
 
+	offset: number;
+
 	constructor({
 		texture,
 		x = 0,
@@ -24,7 +26,7 @@ export class Prop extends GameObject {
 		animate = true,
 		flip,
 		blur,
-		offset,
+		offset = 0,
 		freq = 1 / 400,
 	}: {
 		texture: string;
@@ -40,6 +42,7 @@ export class Prop extends GameObject {
 		freq?: number;
 	}) {
 		super();
+		this.offset = offset;
 
 		const t = tex(texture);
 		this.spr = new Sprite(t);
