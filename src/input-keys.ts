@@ -61,6 +61,8 @@ interface KeyStateMap {
 }
 
 class Keys {
+	enabled = true;
+
 	down: KeyStateMap;
 
 	justDown: KeyStateMap;
@@ -88,11 +90,15 @@ class Keys {
 	}
 
 	update(): void {
+		if (!this.enabled) {
+			this.down = {};
+		}
 		this.justDown = [];
 		this.justUp = [];
 	}
 
 	onDown = (event: KeyboardEvent): boolean => {
+		if (!this.enabled) return true;
 		if (this.down[event.keyCode] !== true) {
 			this.down[event.keyCode] = true;
 			this.justDown[event.keyCode] = true;
@@ -105,6 +111,7 @@ class Keys {
 	};
 
 	onUp = (event: KeyboardEvent): boolean => {
+		if (!this.enabled) return true;
 		this.down[event.keyCode] = false;
 		this.justDown[event.keyCode] = false;
 		this.justUp[event.keyCode] = true;
