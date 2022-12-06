@@ -53,6 +53,7 @@ export class GameScene {
 
 	constructor() {
 		this.container.addChildAt(this.graphics, 0);
+	runner: Runner;
 
 		this.player = player = new Player({});
 		player.updateCamPoint = () => {
@@ -225,10 +226,10 @@ export class GameScene {
 		this.border.display.container.alpha = 0;
 		this.strand.goto('start');
 
-		const runner = Runner.create({
+		this.runner = Runner.create({
 			isFixed: true,
 		});
-		Runner.start(runner, engine);
+		Runner.start(this.runner, engine);
 	}
 
 	destroy(): void {
@@ -241,6 +242,7 @@ export class GameScene {
 		this.container.destroy({
 			children: true,
 		});
+		Runner.stop(this.runner);
 	}
 
 	goto({
