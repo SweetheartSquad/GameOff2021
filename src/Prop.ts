@@ -87,4 +87,13 @@ export class Prop extends GameObject {
 		this.display.updatePosition();
 		this.init();
 	}
+
+	set(texture: string) {
+		if (this.animator) {
+			this.animator.setAnimation(texture);
+		} else {
+			const t = tex(texture);
+			this.spr.texture = t;
+		}
+	}
 }
