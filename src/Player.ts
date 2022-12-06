@@ -19,6 +19,7 @@ import { distance, multiply } from './VMath';
 
 const playerSpeedX = 0.004 * speed;
 const playerSpeedY = 0.002 * speed;
+const framesFootstep = [4, 9];
 
 export class Player extends Character {
 	roam: Roam;
@@ -79,7 +80,7 @@ export class Player extends Character {
 		if (
 			this.animation === 'Run' &&
 			step !== this.step &&
-			(step === 4 || step === 9)
+			framesFootstep.includes(step)
 		) {
 			sfx('step', { rate: Math.random() * 0.2 + 0.9 });
 		}
