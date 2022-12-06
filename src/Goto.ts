@@ -21,7 +21,7 @@ export class Goto extends GameObject {
 			verts?: ConstructorParameters<typeof Body>[1]['verts'];
 			x?: number;
 			y?: number;
-		}
+		} = {}
 	) {
 		super();
 		this.scripts.push(
