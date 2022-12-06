@@ -1,7 +1,7 @@
 import { Container, Sprite } from 'pixi.js';
 import { GameObject } from '../GameObject';
 import { Tween, TweenManager } from '../Tweens';
-import { tex } from '../utils';
+import { delay, tex } from '../utils';
 import { Animator } from './Animator';
 import { Script } from './Script';
 
@@ -86,6 +86,7 @@ export class Toggler extends Script {
 		if (flip) this.active.spr.scale.x *= -1;
 		this.active.active = animate;
 		this.active.freq = freq;
+		return delay(duration);
 	}
 
 	destroy() {
