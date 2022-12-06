@@ -22,21 +22,36 @@ export class GameObject {
 		) as InstanceType<T>[];
 	}
 
+	static initScript(s: Script) {
+		return s.init?.();
+	}
+
 	init(): void {
-		this.scripts.forEach((s) => s.init && s.init());
+		this.scripts.forEach(GameObject.initScript);
+	}
+	static updateScript(s: Script) {
+		return s.update?.();
 	}
 
 	update(): void {
-		this.scripts.forEach((s) => s.update && s.update());
+		this.scripts.forEach(GameObject.updateScript);
+	}
+
+	static destroyScript(s: Script) {
+		return s.destroy?.();
 	}
 
 	destroy(): void {
-		this.scripts.forEach((s) => s.destroy && s.destroy());
+		this.scripts.forEach(GameObject.destroyScript);
 		removeFromArray(GameObject.gameObjects, this);
 	}
 
+	static updateObject(s: GameObject) {
+		return s.update();
+	}
+
 	static update(): void {
-		GameObject.gameObjects.forEach((s) => s.update());
+		GameObject.gameObjects.forEach(GameObject.updateObject);
 	}
 }
 
