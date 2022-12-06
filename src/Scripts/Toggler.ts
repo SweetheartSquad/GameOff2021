@@ -71,7 +71,10 @@ export class Toggler extends Script {
 			this.inactive =
 				this.active === this.animatorA ? this.animatorB : this.animatorA;
 			this.inactive.setAnimation(texture || 'blank');
-			this.container.addChild(this.inactive.spr);
+			this.container.addChildAt(
+				this.inactive.spr,
+				this.container.getChildIndex(this.active.spr)
+			);
 			[this.inactive, this.active] = [this.active, this.inactive];
 			this.tweens.forEach((i) => TweenManager.finish(i));
 			this.tweens.length = 0;
