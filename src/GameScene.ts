@@ -139,10 +139,11 @@ export class GameScene {
 				interactions.length = 0;
 				this.strand.gameObject = interrupt.plugin.gameObject as GameObject;
 				if (interrupt.plugin.focus) {
-					this.interactionFocus = add(
-						interrupt.position,
-						interrupt.plugin.focus
-					);
+					this.interactionFocus = add(interrupt.position, {
+						x: 0,
+						y: 0,
+						...interrupt.plugin.focus,
+					});
 				}
 				if (interrupt.plugin.interrupt.passage) {
 					this.strand.goto(interrupt.plugin.interrupt.passage);
@@ -177,7 +178,9 @@ export class GameScene {
 				this.interactionFocus = undefined;
 			} else {
 				const { passage, label = 'talk', focus, gameObject } = top.plugin;
-				this.interactionFocus = focus ? add(top.position, focus) : top.position;
+				this.interactionFocus = focus
+					? add(top.position, { x: 0, y: 0, ...focus })
+					: top.position;
 				this.dialogue.prompt(
 					`< ${(this.strand.passages[label]?.body || label).toUpperCase()} >`,
 					() => {
