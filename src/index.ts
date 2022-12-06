@@ -48,7 +48,7 @@ function loadProgressHandler(loader?: { progress: number }): void {
 	if (hasErrored) return;
 	// called during loading
 	if (loader?.progress !== undefined) {
-		progress = loader.progress || progress;
+		progress = loader.progress;
 		if (preloaded) {
 			progress *= 1 - preloadWeight;
 			progress += preloadWeight * 100;
