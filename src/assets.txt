@@ -16,7 +16,7 @@ audio/voiceDefault.mp3
 audio/voiceFrog.mp3
 audio/voiceQueen.mp3
 
-textures/cursor/walk_cursor.x5.png
+textures/cursor/walk_cursor.x8.png
 
 textures/basicAntIdle/basicAntIdle.x5.png
 textures/basicAntRun/basicAntRun.x10.png
