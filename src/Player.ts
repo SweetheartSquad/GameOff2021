@@ -191,14 +191,14 @@ export class Player extends Character {
 		).camera.display.container.toLocal(relativeMousePos);
 		this.walkTo(targetPos.x, targetPos.y);
 		this.clickMove = true;
-		// eslint-disable-next-line no-new
-		new Poof({
+		const cursor = new Poof({
 			texture: 'walk_cursor',
 			freq: 1 / 100,
 			x: targetPos.x,
 			y: targetPos.y,
 			offset: 1000000,
 		});
+		cursor.spr.anchor.y = 0.5;
 	}
 
 	cancelWalkToMouse() {
