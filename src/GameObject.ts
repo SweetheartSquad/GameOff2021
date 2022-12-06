@@ -29,6 +29,7 @@ export class GameObject {
 	init(): void {
 		this.scripts.forEach(GameObject.initScript);
 	}
+
 	static updateScript(s: Script) {
 		return s.update?.();
 	}
