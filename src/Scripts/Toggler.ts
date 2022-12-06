@@ -75,10 +75,15 @@ export class Toggler extends Script {
 			[this.inactive, this.active] = [this.active, this.inactive];
 			this.tweens.forEach((i) => TweenManager.finish(i));
 			this.tweens.length = 0;
-			this.tweens.push(
-				TweenManager.tween(this.active.spr, 'alpha', alpha, duration),
-				TweenManager.tween(this.inactive.spr, 'alpha', 0, duration)
-			);
+			if (duration) {
+				this.tweens.push(
+					TweenManager.tween(this.active.spr, 'alpha', alpha, duration),
+					TweenManager.tween(this.inactive.spr, 'alpha', 0, duration)
+				);
+			} else {
+				this.active.spr.alpha = alpha;
+				this.inactive.spr.alpha = 0;
+			}
 		}
 		this.active.spr.position.x = x;
 		this.active.spr.position.y = y;
