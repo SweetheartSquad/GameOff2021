@@ -51,10 +51,11 @@ export class GameScene {
 
 	onCollisionEnd: (e: Matter.IEventCollision<Matter.Engine>) => void;
 
-	constructor() {
-		this.container.addChildAt(this.graphics, 0);
 	runner: Runner;
 
+	physicsDebug?: PhysicsDebug;
+
+	constructor() {
 		this.player = player = new Player({});
 		player.updateCamPoint = () => {
 			Player.prototype.updateCamPoint.call(player);
@@ -240,6 +241,7 @@ export class GameScene {
 	}
 
 	destroy(): void {
+		this.physicsDebug?.destroy();
 		if (this.area && this.areas[this.area]) {
 			Area.unmount(this.areas[this.area]);
 		}
@@ -300,6 +302,10 @@ export class GameScene {
 
 		// depth sort
 		this.container.children.sort(depthCompare);
+		if (window.debugPhysics) {
+			if (!this.physicsDebug) this.physicsDebug = new PhysicsDebug();
+			this.container.addChild(this.physicsDebug.display.container);
+		}
 		this.container.addChild(this.graphics);
 
 		// adjust camera based on dialogue state
@@ -318,40 +324,9 @@ export class GameScene {
 
 		this.screenFilter.update();
 
-		const g = this.graphics;
-
-		// test bg
-		g.clear();
-		// draw physics
-		// @ts-ignore
-		if (DEBUG && window.debugPhysics) {
-			Composite.allBodies(world).forEach(this.debugDraw);
-		}
-
 		GameObject.update();
 		TweenManager.update();
 	}
-
-	debugDraw = (body: Body): void => {
-		const g = this.graphics;
-
-		if (body.isSensor) {
-			g.beginFill(0xff0000, 0.1);
-		} else if (body.isStatic) {
-			g.beginFill(0x0000ff, 0.1);
-		} else {
-			g.beginFill(0xffffff, 0.2);
-		}
-		g.lineStyle(1, 0xffffff, 0.5);
-		g.moveTo(
-			body.vertices[body.vertices.length - 1].x,
-			body.vertices[body.vertices.length - 1].y
-		);
-
-		body.vertices.forEach(({ x, y }) => g.lineTo(x, y));
-
-		g.endFill();
-	};
 
 	take(gameObject: GameObject) {
 		if (this.area && this.areas[this.area]) {
