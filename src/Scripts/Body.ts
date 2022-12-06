@@ -2,8 +2,8 @@ import * as Matter from 'matter-js';
 import {
 	Bodies,
 	Body as MatterBody,
+	Composite,
 	IChamferableBodyDefinition,
-	World,
 } from 'matter-js';
 import { GameObject } from '../GameObject';
 import { world } from '../Physics';
@@ -58,11 +58,11 @@ export class Body extends Script {
 	}
 
 	init() {
-		World.add(world, this.body);
+		Composite.add(world, this.body);
 	}
 
 	destroy() {
-		World.remove(world, this.body);
+		Composite.remove(world, this.body);
 	}
 
 	move(x: number, y: number) {
