@@ -124,6 +124,10 @@ export class UIDialogue extends GameObject {
 		this.textPrompt.x = size.x / 2;
 		this.textPrompt.y = 40;
 		this.textPrompt.anchor.x = 0.5;
+		this.textPrompt.accessible = true;
+		this.textPrompt.on('pointerdown', () => {
+			if (!this.isOpen && this.fnPrompt) this.fnPrompt();
+		});
 		this.display.container.addChild(this.textPrompt);
 		this.display.container.accessible = true;
 		this.display.container.interactive = true;
@@ -150,11 +154,14 @@ export class UIDialogue extends GameObject {
 
 	update(): void {
 		super.update();
+		const shouldPrompt = !!(!this.isOpen && this.fnPrompt);
 		this.textPrompt.alpha = lerp(
 			this.textPrompt.alpha,
-			!this.isOpen && this.fnPrompt ? 1 : 0,
+			shouldPrompt ? 1 : 0,
 			0.1
 		);
+		this.textPrompt.interactive = this.textPrompt.buttonMode = shouldPrompt;
+		this.textPrompt.tabIndex = shouldPrompt ? 0 : undefined;
 		const input = getInput();
 
 		if (!this.isOpen && input.interact && this.fnPrompt) {
@@ -305,7 +312,7 @@ export class UIDialogue extends GameObject {
 		action: (() => void) | undefined = undefined
 	) {
 		this.strPrompt = label;
-		this.textPrompt.text = label;
+		this.textPrompt.text = this.textPrompt.accessibleHint = label;
 		this.fnPrompt = action;
 	}
 
