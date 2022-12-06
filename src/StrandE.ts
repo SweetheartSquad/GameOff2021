@@ -52,15 +52,15 @@ export class StrandE extends Strand {
 					link === '>'
 						? `>${link}`
 						: link
-								.split('|')
-								.map(
-									(l) =>
-										`[[${l || promptDefault}|this.goto('auto-${
-											autolink + 1
-										}')]]`
-								)
-								.concat(`\n::auto-${++autolink}`)
-								.join('\n')
+							.split('|')
+							.map(
+								(l) =>
+									`[[${l || promptDefault}|this.goto('auto-${
+										autolink + 1
+									}')]]`
+							)
+							.concat(`\n::auto-${++autolink}`)
+							.join('\n')
 				)
 				// action sugar: `[[|some js]]` (uses default prompt)
 				.replace(/^\[\[\|/gm, `[[${promptDefault}|`)
