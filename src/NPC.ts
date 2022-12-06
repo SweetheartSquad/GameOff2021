@@ -110,6 +110,9 @@ export class NPC extends Character {
 		this.roam.range[1] = roam;
 		this.roam.target.x = this.transform.x;
 		this.roam.target.y = this.transform.y;
+		if (!options.body) {
+			this.display.container.visible = false;
+		}
 	}
 
 	update(): void {
