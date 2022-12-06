@@ -153,18 +153,18 @@ export class GameScene {
 			const goto = interactions.find((i) => i.plugin.goto);
 			if (goto) {
 				interactions.length = 0;
-				const { transition = true } = goto.plugin.goto;
+				const { transition = 1 } = goto.plugin.goto;
 				const collidesWith = player.bodySensor.body.collisionFilter.mask;
 				if (transition) {
 					player.bodySensor.body.collisionFilter.mask = 0;
-					this.dialogue.scrim(1, 300);
-					await delay(300);
+					this.dialogue.scrim(1, 300 * transition);
+					await delay(300 * transition);
 				}
 				this.goto(goto.plugin.goto);
 				this.camera.setTarget(player.camPoint, true);
 				if (transition) {
-					this.dialogue.scrim(0, 100);
-					await delay(100);
+					this.dialogue.scrim(0, 100 * transition);
+					await delay(100 * transition);
 					player.bodySensor.body.collisionFilter.mask = collidesWith;
 				}
 				return;
