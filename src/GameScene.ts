@@ -1,4 +1,4 @@
-import { Body, Composite, Events, Runner } from 'matter-js';
+import { Body, Events, Runner } from 'matter-js';
 import { Container, DisplayObject, Graphics } from 'pixi.js';
 import { Area } from './Area';
 import { Border } from './Border';
@@ -7,7 +7,8 @@ import { DEBUG } from './debug';
 import { game, resources } from './Game';
 import { GameObject } from './GameObject';
 import { getInput } from './main';
-import { engine, world } from './Physics';
+import { engine } from './Physics';
+import { PhysicsDebug } from './PhysicsDebug';
 import { Player } from './Player';
 import { ScreenFilter } from './ScreenFilter';
 import { StrandE } from './StrandE';
