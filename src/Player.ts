@@ -99,11 +99,22 @@ export class Player extends Character {
 		if (this.roam?.active) {
 			this.moving.x = this.bodyCollision.body.velocity.x;
 			this.moving.y = this.bodyCollision.body.velocity.y;
-			if (this.clickMove && mouse.justDown && this.canMove) {
+			if (
+				this.clickMove &&
+				mouse.justDown &&
+				mouse.button === mouse.LEFT &&
+				this.canMove
+			) {
 				this.walkToMouse();
 			}
 		} else {
-			if (!input.move.x && !input.move.y && mouse.justDown && this.canMove) {
+			if (
+				!input.move.x &&
+				!input.move.y &&
+				mouse.button === mouse.LEFT &&
+				mouse.justDown &&
+				this.canMove
+			) {
 				this.walkToMouse();
 			}
 			input.move = multiply(input.move, this.canMove ? 1 : 0);
