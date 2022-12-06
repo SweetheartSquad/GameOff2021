@@ -6,6 +6,7 @@ textures/ditherGrid.png
 textures/border.png
 textures/dialogueBg.png
 textures/shadows.png
+textures/walk_cursor.x7.png
 
 audio/bgm_march.mp3
 audio/bgm_normal.mp3
