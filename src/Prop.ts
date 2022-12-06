@@ -28,6 +28,7 @@ export class Prop extends GameObject {
 		blur,
 		offset = 0,
 		freq = 1 / 400,
+		tint,
 	}: {
 		texture: string;
 		x?: number;
@@ -40,6 +41,7 @@ export class Prop extends GameObject {
 		animate?: boolean;
 		offset?: number;
 		freq?: number;
+		tint?: number;
 	}) {
 		super();
 		this.offset = offset;
@@ -52,6 +54,9 @@ export class Prop extends GameObject {
 		this.spr.anchor.x = 0.5;
 		this.spr.anchor.y = 1.0;
 		this.spr.alpha = alpha;
+		if (tint !== undefined) {
+			this.spr.tint = tint;
+		}
 		this.spr.scale.x = this.spr.scale.y = scale;
 		if (flip) {
 			this.spr.scale.x *= -1;
