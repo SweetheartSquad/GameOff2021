@@ -117,6 +117,7 @@ export class Character extends GameObject {
 			},
 			{
 				restitution: 0,
+				friction: 0,
 				frictionAir: 0.2,
 				inertia: Infinity, // prevent rotation
 				chamfer: { radius: this.colliderSize / 2, quality: 10 },
