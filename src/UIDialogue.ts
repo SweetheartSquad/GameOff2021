@@ -6,6 +6,7 @@ import {
 	Sprite,
 	Text,
 	TextMetrics,
+	TextStyle,
 	Texture,
 } from 'pixi.js';
 import Strand from 'strand-core';
@@ -253,7 +254,7 @@ export class UIDialogue extends GameObject {
 			// needed bc `measureText` doesn't allow a partial, but the style might be
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore
-			this.textText.style,
+			this.textText.style || new TextStyle(fontDialogue),
 			true
 		).lines.join('\n');
 
