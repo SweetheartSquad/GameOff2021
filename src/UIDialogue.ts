@@ -365,13 +365,17 @@ export class UIDialogue extends GameObject {
 		}
 	}
 
-	scrim(amount: number, duration: number) {
+	scrim(amount: number, duration?: number) {
 		if (this.tweenScrim) TweenManager.abort(this.tweenScrim);
-		this.tweenScrim = TweenManager.tween(
-			this.sprScrim,
-			'alpha',
-			amount,
-			duration
-		);
+		if (duration) {
+			this.tweenScrim = TweenManager.tween(
+				this.sprScrim,
+				'alpha',
+				amount,
+				duration
+			);
+		} else {
+			this.sprScrim.alpha = amount;
+		}
 	}
 }
