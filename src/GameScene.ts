@@ -177,6 +177,7 @@ export class GameScene {
 				this.dialogue.prompt();
 				this.interactionFocus = undefined;
 			} else {
+				if (this.dialogue.isOpen) return;
 				const { passage, label = 'talk', focus, gameObject } = top.plugin;
 				this.interactionFocus = focus
 					? add(top.position, { x: 0, y: 0, ...focus })
