@@ -67,6 +67,13 @@ export class GameScene {
 
 		this.strand = new StrandE({
 			source: resources['main-en'].data,
+			logger: {
+				/* eslint-disable no-console */
+				log: (...args) => this.strand.debug && console.log(...args),
+				warn: (...args) => console.warn(...args),
+				error: (...args) => console.error(...args),
+				/* eslint-enable no-console */
+			},
 			renderer: {
 				displayPassage: (passage) => {
 					if (passage.title === 'close') {
