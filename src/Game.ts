@@ -5,7 +5,7 @@ import {
 	Renderer,
 	SCALE_MODES,
 	settings,
-	Text
+	Text,
 } from 'pixi.js';
 import assets from './assets.txt';
 import frag from './assets/postprocess.frag.glsl';
