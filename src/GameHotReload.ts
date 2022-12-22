@@ -30,7 +30,6 @@ export function enableHotReload(app: Application) {
 		if (module.hot) {
 			module.hot.accept('./assets/main-en.strand', onHotReload);
 			module.hot.accept('./assets/main-es-419.strand', onHotReload);
-			// @ts-ignore
 			module.hot.accept('./assets/main-fr.strand', onHotReload);
 		}
 	}
