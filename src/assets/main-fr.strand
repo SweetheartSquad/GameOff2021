@@ -437,7 +437,7 @@ this should never render
 parler
 
 
-::The End
+::Fin
 <<do
 	this.howler = this.musicSynced('');
 	this.tween(this.scene.border.display.container, 'alpha', 0, 5000);
@@ -449,7 +449,7 @@ Fabriqué par Sean, Michael, et IAN de SweetHeart Squad.
 Traduction français par IAN.
 
 [[Recommencer|this.restart()]]
-[[Plus de jeus|window.open('https://sweetheartsquad.itch.io', '_blank')]]
+[[Trouver plus de jeus|window.open('https://sweetheartsquad.itch.io', '_blank')]]
 
 ::debug menu
 <<do
@@ -576,8 +576,8 @@ P: Je doute de moi.
 P: Je suis donc brièvement heureux d'être interrompu par quelqu'un qui crie mon nom.
 >
 « Sœur Vingt, attention! »
-[[Se figer]]
-[[Se jeter par terre]]
+[[Te figer]]
+[[Te jeter par terre]]
 [[Sauter en arrière]]
 
 ::Figer
@@ -816,8 +816,8 @@ P: Mais il y a un long chemin à parcourir.
 	if (!this.marchqs3 || !this.marchqs3.length < 3) {
 		this.marchqs3 = this.shuffle([
 			'« Nous devons être sur le bon chemin. »',
-			'« Tu sens ça ? »',
-			'« Cela doit être le bon chemin.  »',
+			'« Vous sentez ça ? »',
+			'« Cela doit être le bon chemin. »',
 			'« Le chemin ne nous décevra pas. »',
 			'« Nous suivrons ce chemin. »',
 			'« Il sent beau... »',
@@ -1018,11 +1018,11 @@ P: ...
 
 
 ::feeding-march
-P: Avant de me perdre dans mes pensées, Je suis convoqué par Sœur Supérieure Trois.
+P: Avant de me perdre dans mes pensées, je suis convoqué par Sœur Supérieure Trois.
 >
 <<do this.fed = (this.fed || 0) + 1>>
 <<do this.scrim(1, 1000);this.show('superiorIdle')>>
-« Sœur Vingt. Tu es mis en service d'alimentation aujourd'hui.."
+« Sœur Vingt. Vous êtes mis en service d'alimentation aujourd'hui.."
 [[...|this.show('');this.goto('feeding-'+this.fed)]]
 
 ::feeding-1
@@ -1133,7 +1133,7 @@ P: Elle continue de manger et je réfléchis à quoi dire.
 Mais avant que je ne dise quoi que ce soit, elle dit :
 >
 voiceQueen
-« S'il te plaît, ma Fille. »
+« S'il vous plaît, ma Fille. »
 >
 « Le chemain a été long et dur pour nous tous. »
 >
@@ -1184,7 +1184,7 @@ P: « La Sœur Supérieure a parlé comme si elle savait... »
 P: « Elle l'a traitée de diable. »
 >
 voiceQueen
-« Tu doutes d'elle ? »
+« Vous doutez d'elle ? »
 
 [[« Oui. »>devil]]
 [[« Non. »>devil]]
@@ -1195,7 +1195,7 @@ P: « Elle est convaincue que c'est le deuxième cas. »
 <<if !this.cordy1question>>« Nous avons parlé du premier cas, mais ensuite nous n'avons rien fait. Pourquoi ? »<<else>>« S'ils étaient liés, pourquoi rien n'a été fait après le premier cas ? »<<endif>>
 >
 voiceQueen
-« Tu voudrais que nous adoptions une approche plus directe ?
+« Vous voudriez que nous adoptions une approche plus directe ?
 
 » Devrions-nous brûler celles qui ont été associées à la diablerie, comme Fille Trois l'a suggéré ? »
 >« Non! »
@@ -1246,9 +1246,9 @@ voiceQueen
 
 » Elle était perdue pour nous avant la chute. »
 >« Que voulez-vous dire ? »
-« Nous voulons dire, Sœur Vingt, qu'il faut te souvenir de ta soeur.
+« Nous voulons dire, Sœur Vingt, qu'il faut vous souvenir de ta soeur.
 
-» Et pas les créatures que tu as vues cette nuit-là. »
+» Et pas les créatures que vous avez vues cette nuit-là. »
 [[>feeding-questions-2]]
 
 ::« Comment était le Père ? »
@@ -1259,9 +1259,9 @@ voiceQueen
 P: Elle arrête de manger, soudain plus concentrée et sévère.
 >
 voiceQueen
-« Faites-nous confiance quand nous disons qu'il vaut mieux que tu ne le connais pas.
+« Faites-nous confiance quand nous disons qu'il vaut mieux que vous ne le connaissez pas.
 
-» Pas que tu pourrais même... »
+» Pas que vous pourriez même... »
 >
 P: « ...Ah. »
 >
@@ -1274,7 +1274,7 @@ voiceQueen
 
 » Ne pourrait pas être comme nous. »
 >
-« Peut-être quand nous avons suivi le chemin à sa fin, quand nous avons construit un nid - un foyer - tu auras un frère ou deux. »
+« Peut-être quand nous avons suivi le chemin à sa fin, quand nous avons construit un nid - un foyer - vous aurez un frère ou deux. »
 >
 « À ce moment-là, vous verrez ce que nous voulons dire. »
 
@@ -1289,22 +1289,22 @@ Tout le monde a une mère, n'est-ce pas ?
 voiceQueen
 « ...Nous ne parlons jamais d'elle. »
 >
-« Tu comprends ? »
+« Vous comprenez ? »
 
 [[« Quoi ? »>« Pourquoi pas ? »]]
 [[« Pourquoi pas ? »]]
 [[« Oui, Maman. »]]
 
 ::« Pourquoi pas ? »
-« Fille Vingt, pourquoi nous demandes-tu cela ? Qui veut savoir ?
+« Fille Vingt, pourquoi nous demandez-vous cela ? Qui veut savoir ?
 
 » Avez-vous été en contact avec la Fausse Reine ? »
 >« Je... »
-« Non, ce serait impossible. Tu ne comprends tout simplement pas ce que tu demandes... »
+« Non, ce serait impossible. Vous ne comprenez tout simplement pas ce que vous demandez... »
 >
 « Maman n'a aucun pouvoir ici. Nous marchons notre chemin propre.
 
-» Tu comprends ? »
+» Vous comprenez ? »
 
 [[« Oui, Maman. »]]
 
@@ -1320,14 +1320,14 @@ P: « Ce monstre, cette terrible bête...
 » Pourquoi laisser une telle cruauté impunie ? »
 >
 voiceQueen
-« "Cruauté" ? Tu penses que ce qu'il a fait est cruel ? »
+« "Cruauté" ? Vous pensez que ce qu'il a fait est cruel ? »
 >
 P: « Bien sûr! Il a assassiné notre sœur!
 
 » Qu'est-ce qui pourrait être plus cruel que ça ?! »
 >
 voiceQueen
-« Fille Vingt, qu'as-tu préparé pour le dîner ? »
+« Fille Vingt, qu'avez-vous préparé pour le dîner ? »
 > « Quoi ? »
 P: Le non-sequitur me déconcerte.
 
@@ -1365,7 +1365,7 @@ voiceQueen
 >
 « Nous n'avons pas besoin de gâcher notre appétit avec des discussions sur de telles choses.
 
-» Ne parle plus, s'il te plaît. »
+» Ne parle plus, s'il vous plaît. »
 [[>feeding-questions-2]]
 
 ::« Qu'est il arrivé au les roly-polies ? »
@@ -1375,7 +1375,7 @@ voiceQueen
 >
 « Ils ont été traités. »
 >« Donc, ils... »
-« Si tu nous demandes s'ils vivent encore, nous ne savons pas et ne nous soucions pas. »
+« Si vous nous demandez s'ils vivent encore, nous ne savons pas et ne nous soucions pas. »
 >
 « Ils n'ont pas coopéré, et ont été expulsés des locaux.
 
@@ -1390,7 +1390,7 @@ voiceQueen
 <<do ++this.countwe>>
 « Ils étaient prêts à nous extorquer. »
 >
-« Ne te méprends pas, ma Fille : nous ne pouvons pas faire confiance à ceux qui voudraient nous vendre. »
+« Ne vous méprenez pas, ma Fille : nous ne pouvons pas faire confiance à ceux qui voudraient nous vendre. »
 [[>feeding-questions-2]]
 
 ::« Je ne voulais pas leur faire de mal. »
@@ -1414,9 +1414,9 @@ voiceQueen
 
 » L'arbre sur lequel ils ont jalonné leur revendication était déjà mort et il pourrit. »
 >« Quoi? »
-« Pourquoi penses-tu que nous avons eu tant de mal à trouver des feuilles convenables pour un nid cette nuit-là ? »
+« Pourquoi pensez-vous que nous avons eu tant de mal à trouver des feuilles convenables pour un nid cette nuit-là ? »
 >
-« Et n'as-tu pas remarqué que nous étions les seules "clients"? »
+« Et n'avez-vous pas remarqué que nous étions les seules "clients"? »
 >
 « Ne faites jamais confiance à la parole d'un marchand, ma Fille. »
 [[>feeding-questions-2]]
@@ -1625,11 +1625,11 @@ P: Il fait noir dehors. Tout le monde dort déjà.
 P: Une jeune ? Qu'est-ce qu'elle fait jusqu'ici ?
 <<endif>>
 >
-P: « Ma petite sœur! Es-tu perdue? »
+P: « Ma petite sœur! Êtes-vous perdue? »
 >
 « Quarante-et-huit ! »
 >« Quarante-et-huit ? »
-P: « Est-ce toi? »
+P: « Est-ce vous? »
 >
 « Nous sommes Quarante-et-huit! »
 >
@@ -1639,7 +1639,7 @@ Elle a dû se nymphoser juste au moment où nous sommes partis.
 >
 P: « Eh bien, c'est un plaisir de vous rencontrer Sœur Quarante-et-huit, mais c'est dangeureux ici.
 
-» Tu ne devrais pas être à la crèche ? »
+» Vous ne devriez pas être à la crèche ? »
 >
 « Non!! »
 >
@@ -1649,9 +1649,9 @@ P: Elle se retourne et s'en va.
 
 ::little-sister-2
 <<do this.camplittlesister2=true;>>
-P: « Petite Sœur Quarante-et-huit, es-tu sûr que tu devrais te promener ici toute seule ? »
+P: « Petite Sœur Quarante-et-huit, êtes-vous sûr que vous devriez vous promener ici toute seule ? »
 >
-P: « Tes autres sœurs oivent s'inquiéter pour toi ! »
+P: « Vos autres sœurs doivent s'inquiéter pour vous ! »
 >
 « Mais nous avons une question ! »
 >« Ah ? »
@@ -1679,7 +1679,7 @@ P: « ... »
 >
 P: « ...La force n'est pas tout, ma petite sœur. »
 >
-P: « Tu as raison d'être en colère. Nos sœurs sont fortes, et nous sommes aussi! »
+P: « Vous avez raison d'être en colère. Nos sœurs sont fortes, et nous sommes aussi! »
 >
 P: Elles auraient dû lui apprendre qu'à la crèche - mais je ne peux pas la laisser comme ça.
 >
@@ -1689,7 +1689,7 @@ P: « Elles sont tombées. »
 >
 « Pourquoi ne remontent-elles pas simplement? »
 >
-P: « Envisager ma sœur : si tu était sur le sol de la forêt, combien de temps penses-tu qu'il vous faudrait pour remonter jusqu'au foyer ? »
+P: « Envisager ma sœur : si vous étiez sur le sol de la forêt, combien de temps pensez-vous qu'il vous faudrait pour remonter jusqu'au foyer ? »
 >
 P: Elle s'arrête pour réfléchir, son petit visage en tremblant.
 >
@@ -1699,13 +1699,13 @@ P: Elle s'arrête pour réfléchir, son petit visage en tremblant.
 >
 P: « Quatre marches! Ce serait vraiment très rapide. »
 >
-P: « Et quel arbre passerais-tu ces quatre marches à grimper? »
+P: « Et quel arbre passeriez-vous ces quatre marches à grimper? »
 >
 « L'arbre sur lequel nous sommes, bien sûr ? Question bête ! »
 >
 P: « Sœur Quarante-et-huit, ça peut paraître un peu bête, mais réfléchis bien de cela :
 
-» Comment save-tu quel arbre est le nôtre ? »
+» Comment savez-vous quel arbre est le nôtre ? »
 >
 P: Elle remue ses antennes.
 >
@@ -1749,7 +1749,7 @@ P: « c'est pourquoi nous devons continuer à bouger.. »
 >
 « ...D'accord. »
 >
-P: « Viens avec moi, nous te ramenons avec les autres sœurs and futures sœurs. »
+P: « Viens avec moi, nous vous ramenons avec les autres sœurs and futures sœurs. »
 >
 <<do this.scrim(1,1000)>>
 P: Je la soulève, la laisse monter sur mes épaules sur le chemin du retour à la crèche temporaire.
@@ -1776,9 +1776,9 @@ P: « Sœur Supérieure Trois? »
 >
 P: Elle me regarde avec un mélange de dédain et d'épuisement.
 >
-« Qu'est-ce que tu veux, Sœur Vingt ?
+« Qu'est-ce que vous voulez, Sœur Vingt ?
 
-» Tu interrompes un cours d'histoire. »
+» Vous interrompez un cours d'histoire. »
 
 <<if !this.historylessonreject>>[[« Je voulais vous parler. »]]<<endif>>
 [[« Pouvons-nous écouter? »]]
@@ -1793,7 +1793,7 @@ P: Elle me regarde avec un mélange de dédain et d'épuisement.
 ::"May we listen?"
 <<do ++this.countwe>>
 <<do this.historylesson=true>>
-« ...Tu nous surprends, Twenty.
+« ...Vous nous surprenez, Twenty.
 
 » Mais bien sûr : Prends un siège avec les autres enfants. »
 >
@@ -1858,7 +1858,7 @@ P: Il y a une légère vague de rires des jeunes sœurs.
 >
 <<do this.show('')>>
 P: Elle s'étire, et la foule commence à se disperser.
-[[>Se coucher]]
+[[>Te coucher]]
 
 ::superior-camp-2
 P: Sœur Supérieure Trois me fait signe de partir avec impatience, occupée avec les plus jeunes fourmis.
@@ -1902,7 +1902,7 @@ P: « Nos sœurs ont travaillé dur aujourd'hui...
 « Euh, vous savez comment c'est.... »
 >
 <<do this.gameObject.roam.active=true>>
-« Toujours un train de retard sur toi, ah ha! »
+« Toujours un train de retard sur vous, ah ha! »
 [[>close]]
 
 ::19-camp-2
@@ -1925,7 +1925,7 @@ P: Elle se penche la tête légèrement, mais fait un geste d'adieu.
 >
 P: « Quand... Quand le branche est tombée. Vous avez crié pour m'avertir, et...
 
-» Eh bien, je pense que je ne m'en serais jamais sorti sans toi. »
+» Eh bien, je pense que je ne m'en serais jamais sorti sans vous. »
 >
 P: « Donc... merci. »
 >
@@ -2062,7 +2062,7 @@ P: Elle fait un geste vers la couverture sombre de la nuit.
 « Je... Nous savons que c'est bête. Mais s'il vous plaît, ne le disez pas aux les autres. »
 
 [[« Il n'y a pas de règles contre les vœus. »]]
-[[« Si tu ne le dirai pas, je ne le dirais pas. »]]
+[[« Si vous ne le direz pas, je ne le dirais pas. »]]
 
 ::« Il n'y a pas de règles contre les vœus. »
 <<do ++this.countwe>>
@@ -2070,12 +2070,12 @@ P: Elle fait un geste vers la couverture sombre de la nuit.
 >« ...D'accord. »
 « Merci, ma Sœur. »
 >
-P: « Mais je ne peux que me demander... »
+P: « Mais nous ne pouvons pas nous empêcher de demander... »
 >
 P: « Qu'est-ce que vous souhaitiez ? »
 [[>approach3]]
 
-::« Si tu ne le dirai pas, je ne le dirais pas. »
+::« Si vous ne le direz pas, je ne le dirais pas. »
 <<do ++this.counti>>
 « Merci, ma Sœur. »
 >
@@ -2093,7 +2093,7 @@ P: J'ai rien a répondre à ça, donc je change de sujet:
 
 « Il se fait assez tard. Nous devrions retourner. »
 >
-P: « c'est-à-dire si vous êtes prêt ? »
+P: « c'est-à-dire si vous êtes prêtes ? »
 >
 « O-oui. Reposons-nous un peu, ma Sœur. »
 >
@@ -2288,7 +2288,7 @@ P: Elle fait un pas en avant, et un autre, et un autre.
 [[Laisser la marcher]]
 
 ::Barrer son chemin
-P: « Ce n'est pas drôle, ma Sœur. Arrêtez ça, nous ne pouvons — hé ! Arrêtez ! Posez-moi ! »
+P: « Ce n'est pas drôle, ma Sœur. Arrêtez ça, nous ne pouvons— hé ! Arrêtez ! Posez-moi ! »
 >
 P: Sœur Trente-et-trois me soulève, et m'a jeté par terre.
 >
@@ -2493,7 +2493,7 @@ P: « "Douleur", "souffrance", des choses comme ça. »
 <<do this.show('superiorIdle')>>
 P: A ce moment, le porte est jetée ouvert, et Sœur Supérieure Trois entre.
 >
-« Qu'est-ce que — »
+« Qu'est-ce que— »
 >
 P: Elle s'arrête, soudain horrifiée à la vue de Trente-et-cinq tout ligotée.
 >
@@ -2522,7 +2522,7 @@ P: « Mais elle est notre sœur ! Nous devons l'aider ! »
 
 
 ::cordyceps-2-silent
-« ...Hein !? Arrêtez de rechigner et — »
+« ...Hein !? Arrêtez de rechigner et— »
 
 « Bien, elle est là depuis combien de temps ? »
 >
@@ -2532,7 +2532,7 @@ P: « Mais elle est notre sœur ! Nous devons l'aider ! »
 ::« Arrêtez ! »
 P: « Sœur Supérieure, vous exagèrez sûrement ?
 
-» Elle est bien attachée, et nous pouvons réfléchir — »
+» Elle est bien attachée, et nous pouvons réfléchir— »
 >
 « Des ignorants! Nous sommes en danger, juste respirer le même air que cet être immonde...
 
@@ -2552,13 +2552,13 @@ P: Elle me prend par la main, et me traîne à l'entrée du refuge.
 >
 « Nos sœurs... Nos pauvres sœurs. »
 >
-« Nous sommes désolées. Tu dois rester dehors. »
+« Nous sommes désolées. Vous devez rester dehors. »
 >
 P: Elle ferme la porte, et me conduisant à l'extérieur.
 >
 P: J'ai du mal à réfléchir. J'aimerais être encore endormi.
 
-La Sœur Supérieure Trois allume une torche avec les braises du feu du camp.
+Sœur Supérieure Trois allume une torche avec les braises du feu du camp.
 >
 P: « Qu'est-ce que vous faites ? »
 >
@@ -2611,11 +2611,11 @@ P: La tige flamboyante danse et scintille pendant qu'elle le considère.
 
 Elle le considère vraiment !
 >
-« Combien de temps es-tu resté dans cet endroit ? »
+« Combien de temps êtes-vous resté dans cet endroit ? »
 >
 P: « Pas beaucoup plus longtemps que vous. »
 >
-« Et tu n'as montré aucun signe depuis le premier incident ? »
+« Et vous n'avez montré aucun signe depuis le premier incident ? »
 
 « Pas d'envies bizarres, pas de pensées ou de mots qui n'étaient pas les tiennes ? »
 >« Non, rien. »
@@ -2758,9 +2758,9 @@ P: Quelque temps après, je reçois une convocation de la Sœur Supérieure.
 <<do this.show('superiorIdle')>>
 « Nous avons entendu beaucoup de des "autres agencements" pour notre nid de voyage. »
 >
-« Sœur Vingt, c'est grâce à toi? »
+« Sœur Vingt, c'est grâce à vous? »
 >
-P: Sœur Supérieure Trois de Plusiers est une tête de moins que moi, mais elle parvient toujours à me fais sentir regardé de haut avec chaque mot.
+P: Sœur Supérieure Trois de Plusieurs est une tête de moins que moi, mais elle parvient toujours à me fais sentir regardé de haut avec chaque mot.
 >« Oui. Nous avons trouvé une solution. »
 « Une solution. »
 >
@@ -2768,13 +2768,13 @@ P: Sœur Supérieure Trois de Plusiers est une tête de moins que moi, mais elle
 >« Non, vous ne comprenez pas. »
 P: « Tout est déjà arrangé! Nous ne sommes pas besoin de payer : Ils veulent seulement un marché honnête. »
 >
-« Ah? Et tu voudrais que nous échangerons quoi exactement? »
+« Ah? Et vous voudriez que nous échangerons quoi exactement? »
 >
 P: « L'aubergiste est conscient de le tissage de les sœurs infirmières. Ils sont prêts à échanger le gîte et le couvert pour des marchandises tissées, fournis pars notre sœurs. »
 >
 « ... »
 >
-« Tu veux que nous vendons nos corps, vendons les cadeaux fournis par nos futures sœurs, et tu penses que c'est un "marché honnête" ? »
+« Vous voulez que nous vendons nos corps, vendons les cadeaux fournis par nos futures sœurs, et vous pensez que c'est un "marché honnête" ? »
 >
 « Et tout ça pour l'hospitalité réticente d'une paire de bougres misérables, parmi tout le monde ?! »
 >« Mais... »
@@ -2784,7 +2784,7 @@ P: « Que pouvons-nous faire d'autre ?
 >
 P: « Sommes-nous si fiers que nous préférerions mourir que de travailler pour survivre une nuit ? »
 >
-« C'est toi qui ne comprends pas, ma Sœur.
+« C'est vous qui ne comprenez pas, ma Sœur.
 
 » Nous ne discutons pas de nos options de survie. »
 >« Que voulez-vous dire ? »
@@ -2804,17 +2804,17 @@ P: « ...Donc c'est quoi le problème ? Si Maman l'a decidé, nous devrions disc
 [[« Nous vous comprenons... »|++this.countwe;this.goto('outside-inn-ants-proposal2')]]
 
 ::outside-inn-ants-proposal2
-« Maman te remercie pour ton diligence, ma Sœur. »
+« Maman vous remercie pour ton diligence, ma Sœur. »
 >
-« Mais s'il te plaît, pour nous : n'oublies pas que tu fait partie de la cortège de la Reine Mère. »
+« Mais s'il vous plaît, pour nous : n'oublies pas que vous faisez partie de la cortège de la Reine Mère. »
 >
-« Même quand tu agis seule, tu est une extension de Maman, et de notre soeurs. »
+« Même lorsque vous agissez seule, vous êtes une extension de Maman, et de notre soeurs. »
 >
-« Tu n'agis jamais seule. Nous agissons ensemble. »
+« Vous n'agissez jamais seule. Nous agissons ensemble. »
 >« ...Oui, Sœur Supérieure. »
 P: Elle semble contente d'en rester là.
 >
-« Maintenant, vas-y — reviens à nos sœurs.
+« Maintenant, vas-y — retournez à nos sœurs.
 
 » Nous pensons que le régiment avancé aura réussi à s'imposer maintenant, et qu'il aura besoin de votre soutien. »
 >
@@ -2830,7 +2830,7 @@ P: Le Bunty Nathan ressemble à la première fois que je suis entré. Chaleureux
 
 Mais il n'y a aucune de portier à passer, et personne assis au bureau.
 >
-P: Il y a beaucoup d'autre acitivité — les sœurs fourmillent près de l'entrée, déterminant où dormir, quoi manger, quand partir.
+P: Il y a beaucoup d'autre activité — les sœurs fourmillent près de l'entrée, déterminant où dormir, quoi manger, quand partir.
 >
 <<do this.show('')>>
 P: Je dois me reposer, donc je me concentre sur le premier, et je me trouve bientot à diriger un groupe à la première des chambres vacantes.
@@ -2915,7 +2915,7 @@ P: « ... »
 >
 P: « OUI !!! »
 >
-P: « Euh, c'est-à-dire — oui, oui c'est vrai. Nous cherchons un logement, en fait. »
+P: « Euh, c'est-à-dire— oui, oui c'est vrai. Nous cherchons un logement, en fait. »
 >
 voicePillbug
 « Bien alors, vous avez de la chance !! »
@@ -2937,7 +2937,7 @@ voicePillbug
 
 « Tout ça pour rien sauf un prix modeste : Vous ne trouverez pas une meilleure affaire dans cet arbre, petite demoiselle! »
 
-« *Veuillez noter que le buffet est strictement végétarien. Les heures de petit dejeuner sont — »
+« *Veuillez noter que le buffet est strictement végétarien. Les heures de petit dejeuner sont— »
 
 [[« ok je comprends »|++this.counti;this.goto('outside-inn3')]]
 [[« arrêtez s'il vous plaît »>outside-inn3]]
@@ -2972,7 +2972,7 @@ voicePillbug
 <<do this.buntyname=true>>
 « Le plaisir est pour moi, Madame...? »
 >
-P: « ...Vingt de Plusiers Oecophylle. »
+P: « ...Vingt de Plusieurs Oecophylle. »
 >
 voicePillbug
 « De plusiers? Bien, j'espère que vous direz à vos amies de venir aussi ! »
@@ -2986,7 +2986,7 @@ voicePillbug
 « Bien sûr! Rendez-vous à l'intérieur et parler avec Nathan ! »
 >
 <<do this.scrim(1, 1000)>>
-P: « Non, nous — »
+P: « Non, nous— »
 
 Le grand roly-poly ne me laisse pas finir, et commence à me pousser à l'intérieur.
 [[>bunty-enter]]
@@ -3056,13 +3056,13 @@ P: « Oui, notre Mère, noter sœurs aussi. Nous avons besoin d'un hébergement.
 ::nathan2
 voicePillbug
 « Ah, les vacances en famille ! »
->« Non, c'est — »
+>« Non, c'est— »
 « C'est charmant. La famille est SI importante, et il peut être si difficile de prendre du temps pour eux, peu importe tous nos efforts. »
->« Ce n'est pas — »
+>« Ce n'est pas— »
 « C'est pourquoi notre famille a fondé l'entreprise ensemble ! Se passe pas un jour que je ne suis pas reconnaissant de vivre et travailler parmi le mienne. »
->« OK, mais — »
+>« OK, mais— »
 « Bien que cela rend le travail de Bunty plus difficile : ne faut pas crier jours après jour si Mamie Le Gris dort à l'étage ! »
->« Qui — ? »
+>« Qui— ? »
 « Heureusement, mon grand frère est content de faire sa part dehors — plus agréable pour vos oreilles, ho ho! »
 >« S'il vous plaît — »
 « Mais vous êtes ici pour une chambre pour VOTRE famille ! Donc, il y a combien dans votre groupe ? »
@@ -3073,11 +3073,11 @@ P: Combien en avons-nous perdu quand le branche s'est cassée ? Combien en avon-
 >
 P: Le dernier bon décompte était avant le départ, et il comptait plus d'un cent. Nous ne pouvons pas être plus de la moitié maintenant.
 
-[[« Plusiers. »]]
+[[« Plusieurs. »]]
 [[« Une cinquantaine. »]]
 [[« Quelques dizaines. »>« Une cinquantaine. »]]
 
-::« Plusiers. »
+::« Plusieurs. »
 voicePillbug
 « ...Pouvez-vous être plus précis? »
 >
@@ -3097,7 +3097,7 @@ voicePillbug
 
 « Combien de temps allez-vous rester avec nous ? »
 >« Juste pour la nuit. »
-« Etes-vous sûr? Peut-être Bunty n'a pas dit, mais nous avons une bonne affaire ce soir : rester deux nuits pour le prix d'une ! »
+« Êtes-vous sûr? Peut-être Bunty n'a pas dit, mais nous avons une bonne affaire ce soir : rester deux nuits pour le prix d'une ! »
 >« Nous avons juste besoin d'une. »
 « Bien, comme vous voulez !
 
@@ -3143,7 +3143,7 @@ voicePillbug
 « Pas d'argent ! Rien ! »
 >« Oui. »
 « J'ai peur que vous avez pas de la chance, alors. Cette auberge n'accepte que les locataires qui paient. »
->« Mais — »
+>« Mais— »
 « Nos prix, c'est un vol, mais c'est encore une entreprise. Si je vous permets de rester ici pour rien, vous serez vraiment une criminelle ! »
 >« Est-ce qu'il y a une autre façon pour nous de vous payer ? »
 « Comment paieriez-vous sans argent !? »
@@ -3153,7 +3153,7 @@ voicePillbug
 [[« Nous pouvons travailler.  »|++this.countwe;this.goto('nathan5')]]
 
 ::nathan5
-« Non, je ne pense pas que — hum, alors. Peut-être... »
+« Non, je ne pense pas que— hum, alors. Peut-être... »
 >
 P: Sa voix s'éteint, s'arrêtant pour réfléchir. Ses jambes tremblent un par un, une vague commençant du haut et scintillant le long de ses membres, comme s'il tapotait des choses dans sa tête.
 >
@@ -3260,7 +3260,7 @@ P: C'est une longue recherche, avec peu de succès. En plus des branches sèches
 
 Les arbres sont trop loin l'un de l'autre, les branches très proches mais ne pas se toucher.
 >
-P: Juste au moment où je suis prêt à abandonner : je le trouve.
+P: Juste au moment où je suis prête à abandonner : je le trouve.
 [[>close]]
 
 
@@ -3319,7 +3319,7 @@ P: « Son discours sur la sécurité ne semblait pas particulièrement sincère.
 >« Non. » 
 « Alors nous devons fair confiance à cette bête, peu importe qu'il le mérite ou non. »
 >
-« Prends Sœur Dix-et-neuf avec toi : nous vous suivrons de près, et vous rejoindrons de l'autre côté, si notre route n'est pas interrompu. »
+« Prends Sœur Dix-et-neuf avec vous : nous vous suivrons de près, et vous rejoindrons de l'autre côté, si notre route n'est pas interrompu. »
 
 <<do this.scene.player.walkBy(30, 0)>>
 [[>close]]
@@ -3352,7 +3352,7 @@ P: Quelqu'un a faisait un pont sur l'écart ici !
 >
 P: C'est un bon signe : sûrement ca veut dire que nous approchons d'un territoire sûr
 
-Peut-être même —
+Peut-être même—
 >
 B: « HALTE ! »
 >
@@ -3379,7 +3379,7 @@ B: « ALORS ? JE TE PARLE, TOUTE PETITE. »
 >
 P: Je regarde en haut ce qui pourrait être un solide mur de slime et masse. Le mur cligne lentement d'un œil bronzé et brillant, puis de l'autre.
 >
-P: « Qu — o — »
+P: « Qu— o— »
 >
 P: Quoi. Arrêté de parler, cours.
 >
@@ -3394,12 +3394,12 @@ P: Il est SI GRAND.
 
 ::frog2-we
 <<do ++this.countwe>>
-P: « N-nous sommes Oecophylle. Nous juste — »
+P: « N-nous sommes Oecophylle. Nous juste— »
 [[>frog2]]
 
 ::frog2-i
 <<do ++this.counti>>
-P: « J-je suis Soeur Vingt. Je suis ici pour — »
+P: « J-je suis Soeur Vingt. Je suis ici pour— »
 [[>frog2]]
 
 ::frog2
@@ -3417,7 +3417,7 @@ B: « ...QUOI ? PARLE PLUS FORT. »
 <<do this.scrim(0.5, 2000)>>
 P: Il tourne la tête, en pointant une oreille vers moi.
 >Parler plus fort
-P: « S-sœur Vingt de Plusiers Oecophylle!! »
+P: « S-sœur Vingt de Plusieurs Oecophylle!! »
 >
 P: La bête laisse échapper soudainement un grondement sourd. Il résonne dans mon corps entier, presque me renversant.
 >
@@ -3433,7 +3433,7 @@ P: « Transgresser ? Vous voulez dire ce pont ? »
 >
 B: « MON DOMAINE. TU VEUX LE TRAVERSER? »
 >
-P: « O-oui. Tu as construit ça ? »
+P: « O-oui. Vous avez construit ça ? »
 >
 B: « CONSTRUIT ? HA ! »
 
@@ -3521,7 +3521,7 @@ Il frappe Sœur Dix-et-neuf, la clouant au sol.
 « A-au secours... »
 >« Ma sœur!! »
 <<do this.scrim(0.5,1000)>>
-P: Il y a un bruit écoeurant quand la longue revient brusquement, la faisant disparaître dans la gueule de bête.
+P: Il y a un bruit écoeurant quand la longue retourne brusquement, la faisant disparaître dans la gueule de bête.
 >« Non !!! »
 B: « BLEURGH ! »
 >« Vous... avez LA MANGER !! »
@@ -3602,7 +3602,7 @@ P: La trace — ai-je quitté la trace de phéromone pendant que je rêvassais ?
 >
 P: Je fais des tours, les antennes s'agitant furieusement.
 
-Je suis si stupide. Comment pourrais-je — non. Non, c'est bien.
+Je suis si stupide. Comment pourrais-je— non. Non, c'est bien.
 
 Je suis encore sur la trace.
 >
@@ -3617,7 +3617,7 @@ Mais pourquoi est-il une trace ici ?
 P: Le jour baisse déjà. Je dois bouger.
 
 [[Continuer à suivre la trace]]
-[[Revenir par où tu es venu]]
+[[Retourner au point de départ]]
 
 ::Continuer à suivre la trace
 <<do this.scene.goto({ area: 'deserter-path' })>>
@@ -3660,7 +3660,7 @@ P: C'est dangereux, ça. Qui sait où j'aurais pu aller sans réaliser que j'ét
 >
 P: Des autres sœurs essaient peut-être encore de trouver notre chemin, et elles pourraient faire la même erreur.
 >
-P: Celui qui a fait ça, je suis désolé, ma Sœur. Tu dois retrouver ton chemin.
+P: Celui qui a fait ça, je suis désolé, ma Sœur. Vous allez devoir retrouver ton chemin.
 [[>go-back-2]]
 
 
@@ -3672,7 +3672,7 @@ P: Mais je ne peux pas m'empêcher de briser la fourche.
 >
 P: Celui qui a fait ça est plus perdue que moi. C'est sa seule bouée de sauvetage, et je ne peux pas le couper.
 >
-P: Je suis désolé que je ne peut faire plus, ma Sœur, mais j'espère que tu vas retrouver ton chemin.
+P: Je suis désolé que je ne peut faire plus, ma Sœur, mais j'espère que vouz allez retrouver ton chemin.
 
 [[>go-back-2]]
 
@@ -3723,7 +3723,7 @@ P: Ah, hah... Je ne devrais probablement pas la corriger.
 >
 P: « Oui. »
 
-[[« Je m'inquiétais pour toi. »]]
+[[« Je m'inquiétais pour vous. »]]
 [[« Nous devons retourner. »]]
 
 ::« Nous devrons retourner. »
@@ -3757,13 +3757,13 @@ P: « ...Pardon ? »
 >
 « Je ne suis pas ta sœur, Vingt. Plus maintenant. »
 >
-P: « Vous — vous allez bien ?
+P: « Vous— vous allez bien ?
 
 » Nous avons marché une longue distance, voulez-vous vous reposer ? »
 >
 « Je vais bien. Tu peux te reposer si tu veux, ça ne me dérange pas. »
 >
-P: « Mais ma Sœur, vous — »
+P: « Mais ma Sœur, vous— »
 >
 <<do
 	this.deserterwho = 0;
@@ -3836,7 +3836,7 @@ P: « Q-quoi ? »
 <<do ++this.countwe>>
 P: Pour la première fois, son humeur maussade se craque, et elle rit.
 >
-« As-tu oublié que je n'ai pas besoin de suivre le chemin? »
+« As-tu oublié que je n'ai pas besoin de suivre le chemin ? »
 >
 « Je préférerais nous envoyer tous les deux tomber au sol que de te laisser m'emmener n'importe où. »
 [[>deserter-end2]]
@@ -3860,7 +3860,7 @@ P: Je peux dire que sa patience — le peu qui restait — a diminué.
 <<do ++this.countwe>>
 « ...Tu penses que c'est une gentillesse ? »
 >
-« D'être à jamais marqué par la circonstance de la naissance? »
+« D'être à jamais marqué par la circonstance de la naissance ? »
 >
 « Tu me plaignes avec tes paroles de liens familiaux. Je ne les veux pas. »
 [[>deserter-end3]]
@@ -3886,75 +3886,75 @@ P: En revenant par où je suis venue, je suis soulagée de trouver la fourche da
 
 ::ending-march
 <<do this.scrim(1, 1000)>>
-P: We stop for the night, as we always do.
+P: Nous nous arrêtons pour la nuit, comme toujours.
 >
-P: Temporary shelter is built. Food is distributed.
+P: Un nid temporaire est construit. La nourriture est distribuée.
 
-Sisters are tired.
+Les sœurs sont fatiguées.
 >
 <<do this.show('fireplace')>>
-P: Sister Superior Three assigns tasks. Watch shifts are debated and decided.
+P: Sœur Supérieure Trois Three assigne des tâches. L'horaire du garde de nuit est discuté et décidé.
 
-The campfire is lit.
+Le feu du camp est allumé.
 >
-P: In the morning, we scrape together what remains of our fresh leaves, preparing for the next day's journey.
+P: Le matin, nous rassemblons ce qui reste de nos feuilles fraîches, en préparant le voyage du lendemain.
 >
-P: We have more than usual. It makes the march a little tougher to carry the extra weight, but the next night's camp is built much easier as a result.
+P: Nous avons plus que d'habitude. C'est plus difficile de porter le poids supplémentaire, mais le campement de la nuit suivante est plus facile de construire.
 >
-P: I take a late shift. Sister Superior Three gathers the scouts, and sends them out early.
+P: Je prends un service tardif. Sœur Supérieure Trois rassemble les scouts, et les envoie tôt.
 >
 <<do this.show('')>>
-P: They haven't returned by the time I collapse into a cot.
+P: Elles ne sont pas revenus à l'heure que je tombe dans mon lit.
 >
 <<if this.counti > this.countwe>>
-P: My hopes are not high tonight.
+P: Mes espoirs ne sont pas grands ce soir.
 <<else>>
-P: Our hopes are high tonight.
+P: Nos espoirs sont grands ce soir.
 <<endif>>
 >
 P: ...
 >
-"Sisters! Wake up! Wake up!!"
+« Mes sœurs ! Réveillez-vous ! Réveillez-vous !! »
 >
-P: I awake to shouting.
+P: Je me réveille au son des cris.
 >
-P: A commotion has taken hold of the whole camp. Sisters run to and fro, yelling and pulling each other from the makeshift shelter.
+P: Un agitation s'est emparée du campement entier. Des sœurs courent de va-et-vient, hurlant et se tirant hors de l'abri de fortune.
 >
-P: <<if this.counti>this.countwe>>I<<else>>We<<endif>> stumble out, half-asleep.
+P: <<if this.counti>this.countwe>>Je sors du lit en titubant, à moitié endormi.<<else>>Nous sortons du lit en titubant, à moitié endormis.<<endif>>
 
-The sun hits my face, and so too does an overwhelming scent.
+Le soleil frappe mon visage, et ce qui fait aussi une odeur écrasante.
 >
-P: It's... fresh. Exciting.
+P: C'est... fraîche. Excitante.
 >
 <<do this.show('basicAntRun', { scale: 3, y: -250, alpha: 0.5, flip: true, duration: 2000, freq: 1/100 })>>
-P: Sisters are running off to one direction.
+P: Des sœurs courent toutes dans une direction.
 
-The scouts have found something.
+Les scouts ont trouvé quelque chose.
 >
-P: We follow the trail left by our sisters. The scent gets stronger and stronger.
+P: Nous suivons le chemin laissées par nos sœurs. L'odeur devient plus et plus forte.
 
-Sisters chatter excitedly along the path.
+Des sœurs bavardent avec excitation sur le chemin.
 >
-P: By the time we arrive, a chain has already assembled:
+P: Avant que nous arrivons, une chaîne a déjà formé:
 
-Sisters have begun folding the first leaves.
+Des sœurs ont commencé de plier les premières feuilles.
 >
 <<do this.show('')>>
 <<if this.counti > this.countwe>>
-P: I join a second chain, straining to carry my sisters.
+P: Je me joins à une deuxième chaîne, me forçant de soutenir mes sœurs.
 <<else>>
-P: We form a second chain, holding strong with our sisters.
+P: Nous formons une deuxième chaîne, maintient bien avec nos sœurs.
 <<endif>>
 >
-P: The weaving begins. Sister nurses carefully tend to our sisters-to-be, delicately stringing their silk between the leaves.
+P: Le tissage commence. Des sœurs infirmières prennent soin doucement des futures sœurs, enfilant délicatement leur soie entre les feuilles.
 >
-P: We tentatively release our grip, and it holds.
+P: Nous relâchons timidement notre emprise, et il tient.
 
-The first wall of our new nest.
+Le premier mur de notre nouveau nid.
 >
-P: My sisters celebrate as we work, letting the excitement drive their mouths and limbs.
+P: Mes sœurs celèbrent pendant que nous travaillons, laissant l'excitation conduire leurs bouches et leurs jambes.
 >
-P: There is scarcely time to think of anything but the work ahead.
+P: Il y avait à peine le temps penser à autre chose qu'au travail à venir.
 <<if this.counti > this.countwe>>
 [[>ending-start-exile]]
 <<else>>
@@ -3965,574 +3965,572 @@ P: There is scarcely time to think of anything but the work ahead.
 
 
 ::ending-start-family
-P: A home for the Many, built by all.
+P: Un foyer pour les Plusieurs, construit par tous.
 >
 P: ...
 >
-P: And so we work.
+P: Donc nous travaillons.
 >
-P: And work.
+P: Et travaillons.
 >
-P: One day passes.
+P: Un jour passe.
 >
-P: Then another.
+P: Puis un autre.
 >
-P: Then many more.
+P: Puis beaucoup d'autres.
 >
-P: Our food stores grow, our nurseries blossom, and the nest begins to feel like home.
+P: Nos réserves de nourriture deviennent plus grands, nos crèches s'épanouissent, et le nid commence à se sentir comme chez nous.
 >
-P: The work slows, but it never stops. There is always much to do.
+P: Le travail ralentit, mais il ne s'arrête jamais. Il y a toujours quelque chose à faire.
 >
-P: Plans for a second nest are discussed.
+P: Des plans pour un deuxième nid sont discutés.
 
-I volunteer to help scout the path.
+Je me porte volontaire pour aider d'éclairer le chemin.
 >
-P: The day I am set to make the first trip, a Forty-and sister pays me a visit.
+P: Le jour que je suis prête à faire le premier voyage, une sœur Quarante-et me rend visite.
 
-A courier, from Mother's new retinue.
+Une coursière, du nouveau cortège de Maman.
 >
-"Sister Twenty, Sister Twenty!"
->"Yes?"
-"Mother has called for an audience with you."
+« Sœur Vingt, Sœur Vingt ! »
+>« Oui ? »
+« Maman a demandé une audience avec vous. »
 >
-P: I have spoken with Mother as part of the recent nest planning, but personal audiences are rare in our new home.
->"We will come."
-P: As we pass through the many passages and rooms of the nest, I feel proud of the work I've done to help build it. The work we've all done.
+P: J'ai parlé avec Maman dans le cadre du la récente planification du nid, mes les audiences personnelles sont rares dans notre nouveau foyer.
+>« Nous viendrons. »
+P: Lorsque nous traversons les noumbreaux couloirs et chambres du nid, Je suis fier du travail que j'ai fait pour aider le construire. Le travail que nous avons tous fait.
 >
-P: Near Mother's chamber, a strange feeling hangs in the air.
+P: Pres de la chambre de Maman, un sentiment étrange flotte dans l'air.
 >
-P: Whatever awaits beyond this door will be momentous.
+P: Ce qui attend au-delà de cette porte sera être mémorable.
 >
-P: I turn to thank the courier, but she has already scurried away.
+P: Je me tourne pour remercier la coursière, mais ella est déjà partie.
 >
->I enter Mother's chamber.
+>J'entre dans la chambre de Maman.
 <<do this.show('queenIdle')>>
 voiceQueen
-"..."
+« ... »
 >
-P: No one is present but Mother herself.
->Introduce ourselves
-P: "Sister Twenty of Many Oecophylla."
+P: Personne n'est présent sauf Maman elle-même.
+>Te présenter
+P: « Sœur Vingt de Plusieurs Oecophylle.
 
-"Reporting for duty to Queen Mother One and Many Oecophylla."
+» Au rapport à la Reine Mère Une et Plusieurs Oecophylle. »
 >
 voiceQueen
-"Sister Twenty of Many Oecophylla..."
-> "Yes, Queen Mother?"
-"We have been given an opportunity."
+« Sœur Vingt de Plusieurs Oecophylle... »
+> « Oui, Reine Mère ? »
+« Nous avons reçu une opportunité. »
 >
-"An opportunity to further shape this home we have created."
+« Une opportunité pour mieux définir ce foyer que nous avons créé. »
 >
-"This morning, Daughter Three did not wake up."
->Three... is dead?
-P: Thoughts race at the news, but Mother continues:
->
-voiceQueen
-"Her work, our work, must be continued."
->
-"We have made a decision."
-
-"Our daughters, our sisters, they will call you Sister Superior Twenty."
->
-P: The shock of Three's passing and of the new role compete for space in my mind.
->
-P: Why me? Why now?
->
-P: Mother rests silently before me.
-
-[["We understand."]]
-[["We must consider this offer."]]
-[["This must be a mistake."]]
-
-::"This must be a mistake."
-voiceQueen
-"We feel your doubt."
->
-"But we must not let it cloud the truth."
-
-"We have seen you overcome it so many times already."
->
-"There is no better sister for this role."
-
-[["We understand."]]
-[["But there are elder sisters still with us."]]
-
-::"We must consider this offer."
-voiceQueen
-"It is not an offer, Daughter Twenty."
-
-"The name is already yours."
->
-P: She says it plainly.
-
-As if it were as self-evident as the colour of the sky.
-
-[["We understand."]]
-[["But there are elder sisters still with us."]]
-
-::"But there are elder sisters still with us."
-voiceQueen
-"But they do not understand the weight of this responsibility."
->
-"And whether you know it or not, we know that you do."
-
-[["We understand."]]
-[["...">"We understand."]]
-
-::"We understand."
-voiceQueen
-"We are saddened by Daughter Three's passing."
-
-"But Sister Superior is not gone."
->
-"Remember, a sister of Many, will always have sisters."
->
-P: There's a finality to her words that echoes in the chamber.
+« Ce matin, Fille Trois ne s'est pas réveillé. »
+>Trois... est morte ?
+P: Mes pensées s'emballent à la nouvelle, mais Maman continue :
 >
 voiceQueen
-"Now, inform the others. Become acquainted with your new role."
+« Son travail, notre travail, doit être poursuivi. »
 >
-"We shall speak more after feeding."
+« Nous avons pris une décision.
 
->"Yes, Queen Mother."
+» Nos filles, nos sœurs, elles t'appelleront Sœur Supérieure Vingt. »
+>
+P: Le choc de la disparition de Three et le nouveau rôle se disputent l'espace dans ma tête.
+>
+P: Pourquoi moi ? Pourquoi maintenant ?
+>
+P: Maman s'assoit silencieusement devant moi.
+
+[[« Nous comprenons. »]]
+[[« Nous devons considérer cette offre. »]]
+[[« Ce doit être une erreur. »]]
+
+::« Ce doit être une erreur. »
+voiceQueen
+« Nous sentons tes doutes. »
+>
+« Mais nous ne devons pas la laisser ça assombrir la vérité. »
+
+« We have seen you overcome it so many times already. »
+>
+« There is no better sister for this role. »
+
+[[« Nous comprenons. »]]
+[[« Mais il y a encore des soeurs plus grandes que nous. »]]
+
+::« Nous devons considérer cette offre. »
+voiceQueen
+« Ce n'est pas une offre, Fille Vingt. »
+
+« Le nom est déjà le vôtre. »
+>
+P: Elle le dit simplement.
+
+Comme si c'était aussi évident que la couleur du ciel.
+
+[[« Nous comprenons. »]]
+[[« Mais il y a encore des soeurs plus grandes que nous. »]]
+
+::« Mais il y a encore des soeurs plus grandes que nous. »
+voiceQueen
+« Mais elles ne comprennent pas le poids de cette responsabilité. »
+>
+« Et si vous le savez ou non, nous savons que vous le comprends. »
+
+[[« Nous comprenons. »]]
+[[« ... »>« Nous comprenons. »]]
+
+::« Nous comprenons. »
+voiceQueen
+« Nous sommes attristés par la disparition de Fille Trois. »
+
+« Mais la Sœur Supérieure n'est pas partie. »
+>
+« Rappelle-toi, une sœur de Plusieurs, aura toujours des sœurs. »
+>
+P: Il y a un caractère définitif à ses motsqui résonne dans la chambre.
+>
+voiceQueen
+« Maintenant, informes les autres. Familiarisez-vous avec votre nouveau rôle. »
+>
+« Nous parlerons plus après le temps d'alimentation. »
+
+>« Oui, Reine Mère. »
 <<do this.show('')>>
 >
-P: I leave her chambers, returning to the nest's common area.
+P: Je sortis de sa chambre, retournant dans la zone commune du nid.
 >
-P: I must accept what Mother asks of me, but am I ready for this new responsibility?
+P: Je dois accepter ce que Maman me demande, mais suis-je prête pour cette nouvelle responsabilité ?
 >
-P: Someone must take the role. And Mother has chosen me.
+P: Quelqu'un doit assumer ce rôle. Et maman m'a choisi.
 >
-P: I have been unsure at many times.
+P: J'ai été incertain plusieurs.
 
-But I have also continued on for my sisters.
+Mais j'ai continué pour mes sœurs aussi.
 >
-P: Is this any different?
+P: Est-ce différent?
 >
-P: I know that I don't feel different, at least.
+P: Je sais que je ne me sens pas différent, au moins.
 >
 <<do this.scene.goto({ area: 'town-family', x: -369, y: -156 })>>
-P: And however I feel, it is done.
+P: Et peu importe ce que je ressens, c'est fini.
 
-Time to go and tell my sisters.
+Il est temps d'aller dire à mes sœurs.
 [[>close]]
 
 
 ::family-role-1
 <<do this.gameObject.roam.active=false>>
-P: I tell my sister the news.
+P: J'annonce la nouvelle à mes sœurs.
 >
-"Sister Superior Twenty, thank you for telling us."
+« Sœur Supérieure Vingt, merci de nous dire. »
 >
-"We're proud of you for taking this role."
+« Nous sommes fiers de vous pour avoir assumé ce rôle. »
 >
 <<do this.gameObject.roam.active=true>>
-"Be well."
+« Allez bien. »
 [[>close]]
 
 ::family-role-2
 <<do this.gameObject.roam.active=false>>
-P: I tell my sister the news.
+P: J'annonce la nouvelle à ma sœur.
 >
-"Sister Superior Twenty! What an honour."
+« Sœur Supérieure Vingt! Quel honneur. »
 >
 <<do this.gameObject.roam.active=true>>
-"We hope you will guide us well."
+« Nous espérons que vous nous guiderez bien. »
 [[>close]]
 
 ::family-role-3
 <<do this.gameObject.roam.active=false>>
-P: I tell my sister the news.
+P: J'annonce la nouvelle à ma sœur.
 >
-"We are sorry to hear about Three..."
+« Nous sommes désolés d'entendre parler de Trois... »
 >
-"Thank you for letting us know, Sister Twe- Sorry, Sister Superior Twenty."
+« Merci pour nous dire, Sœur Vi— désolé, Sœur Supérieure Vingt. »
 >
 <<do this.gameObject.roam.active=true>>
-"Let us talk again soon."
+"Nous pourrons en reparler bientôt."
 [[>close]]
 
 
 ::family-wall
-P: I should tell my sisters about my new role.
+P: Je devrais annoncer la nouvelle à mes sœurs.
 [[...|this.scene.player.walkBy(0,50);this.goto('close')]]
 
 
 ::family-exit
-P: The news is heavy, but if my sisters are sad, I do not see it in their eyes.
+P: La nouvelle est grave, mais si mes sœurs sont tristes, je ne la trouve pas dans ses yeux.
 >
 <<do this.scrim(1, 1000)>>
-P: I continue on through the nest.
+P: Je continue à travers le nid.
 >
-P: As I inform my sisters of my new role, I observe their reactions.
+P: Alors que j'annonce mon nouveau rôle à mes sœurs, j'observe ses réactions.
 >
-P: Some seem happy for me, others indifferent.
+P: Certains d'entre eux semblent heureux, les autres semblent indifférents.
 >
-P: I appreciate the indifferent ones more.
+P: J'apprécie plus les indifférents.
 >
-P: ...Sister Superior Twenty of Many Oceophylla.
+P: ...Sœur Supérieure Vingt de Plusieurs Oceophylle.
 >
-P: The new title slides into the old. Becomes a part of me. A part of us.
+P: Le nouveau titre glisse dans l'ancien. Il devient une partie de moi. Une partie de nous.
 >
 P: ...
 >
-P: Sister Superior Three always had a different presence to the other sisters.
+P: Sœur Supérieure Trois avait toujours avait une autre présence que les autres sœurs.
 >
 <<do this.scene.goto({ area: 'town', x: 0, y: 10000 });this.show('bg_stars', { duration: 30000 })>>
-P: Sometimes we suspected that she enjoyed her elevated status a little too much.
+P: Parfois, nous soupçonnions qu'elle appréciait un peu trop son statut élevé.
 
-The closeness to Mother, the responsibility, the privilege.
+La proximité avec Maman, la responsabilité, le privilège.
 >
-P: We're sure you would have agreed, had you known her.
+P: Nous sommes sûrs que vous auriez été d'accord, si vous l'aviez connu.
 >
-P: ...Hm? Are we any different?
+P: ...Hum? Sommes-nous si différents ?
 
-[["We don't think so."]]
-[["In a sense."]]
-[["We all are."]]
+[[« Nous ne pensons pas. »]]
+[[« Dans un sens. »]]
+[[« Nous sommes tous différents. »]]
 
-::"We don't think so."
-P: Even now, we don't wish to think of ourselves as separate from our sisters.
+::« Nous ne pensons pas. »
+P: Même maintenant, nous ne voulons pas penser nous considérer comme séparés de nos sœurs.
 >
-P: Whether you wish to say 'Superior' or not, we are still your sister, still Twenty.
+P: Si vous voulez dire 'Supérieure' ou non, nous sommes encore ta sœur, encore Vingt.
 >
-P: And there will come a time when we are gone, and another sister will take the name.
+P: Et il viendra un temps quand nous serons parties, et une autre sœur prendra le nom.
 >
-P: Will they be different for having taken it? Perhaps.
+P: Sera-t-elle différente pour le prendre ? Peut-être.
 
-But they too, will still be your sister.
+Mais elle aussi sera toujours votre sœur.
 >
-P: We hope that we live up to the name, of course.
+P: Nous espérons que nous respecterons le nom, bien sûr.
 <<print new Array(20).fill('\u200B').join('')>>
-But it is a name we all share, in the end.
+Mais c'est un nom que nous partageons tous, à la fin.
 <<print new Array(20).fill('\u200B').join('')>>
-We hope that you will live up to it too, Sister.
+Nous espérons que vous le respecterez aussi, ma Sœur.
 <<print new Array(40).fill('\u200B').join('')>>
-[[The End]]
+[[Fin]]
 
-::"In a sense."
-P: Consider the Queen Mother:
+::« Dans un sens. »
+P: Considérer la Reine Mère :
 >
-P: Whether she requests it or not - and she often requests the opposite! - we all treat her differently.
+P: Si elle le demande ou non — et elle demande souvent le contraire ! — nous la traitons différemment.
 >
-P: How could we not? We are different!
-[[>"We all are."]]
+P: Comment pourrions-nous ne pas le faire ? Nous sommes tous différents !
+[[>« Nous sommes tous différents. »]]
 
-::"We all are."
-P: To say otherwise would be to lie to ourselves.
+::« Nous sommes tous différents. »
+P: Dire le contraire serait se mentir.
 >
-P: It is better to understand these differences, sisters, in order to better understand how we are the same.
+P: C'est mieux de comprendre ces différences, mes sœurs, pour mieux comprendre comment nous sommes toutes pareilles.
 >
-P: It is natural to doubt it.
+P: C'est naturel d'en douter.
 <<print new Array(20).fill('\u200B').join('')>>
-We may be different, but we all have our doubts.
+Nous sommes peut-être différents, mais nous avons tous nos doutes.
 <<print new Array(20).fill('\u200B').join('')>>
-We hope that you will overcome yours, Sister.
+Nous espérons que vous allez les surmonter, ma Sœur.
 <<print new Array(40).fill('\u200B').join('')>>
-[[The End]]
-
-
+[[Fin]]
 
 
 ::ending-start-exile
-P: All I can think about is how nice it will be to finally rest.
+P: Je ne peut que penser à quel point ce sera bon de se reposer enfin.
 >
 P: ...
 >
-P: The work is long.
+P: Le travail est longue.
 >
-P: A day passes.
+P: Un jour passe.
 >
-P: Then another.
+P: Puis un autre.
 >
-P: Then many more.
+P: Puis beaucoup d'autres.
 >
-P: Our food stores grow, our nurseries fill up, and the nest begins to feel established.
+P: Nos réserves de nourriture deviennent plus grands, nos crèches s'épanouissent, et le nid commence a se sentir établi.
 >
-P: Plans for a second nest - another dangerous trip along the path - are discussed.
+P: Des plans pour un deuxième nid - un autre voyage dangereux sur le chemin - sont discutés.
 >
-P: The work slows at times, but it never stops. There is always much to do.
+P: Le travail ralentit, mais il ne s'arrête jamais. Il y a toujours plein à faire.
 
-The other sisters seem happy. Content.
+Les autres sœurs semblent heureuses. Contentes. 
 >
-P: I have been assigned waste management. Again.
+P: J'ai été assigné en service de gestion des déchets. Encore.
 >
-P: Just as my duties are coming to a close, I am interrupted by a Forty-and sister calling my name.
+P: Juste au moment où mon service touche à sa fin, je suis interrompu par une sœur Quarante-et qui crie mon nom.
 
-A courier, from Mother's new retinue.
+Une coursière, du nouveau cortège de Maman.
 >
-"Sister Twenty!"
->"Yes?"
-P: I brush the rot from my arms, and let her catch her breath.
+« Sœur Vingt ! »
+>« Oui ? »
+P: Je brosse la pourriture de mes bras, et la laisser reprendre son souffle.
 >
-"It is our duty to inform you that Mother has called for an audience."
->"With me?"
-"Yes. Come along."
+« Il est de mon devoir de vous informer que Maman a demandé une audience."
+>« Avec moi? »
+« Oui. Venez-vous. »
 >
-P: We pass through many passages and rooms of the always-expanding nest.
+P: Nous traversons les noumbreaux couloirs et chambres d'un nid en croissance.
 >
-P: Near Mother's chamber, I can't help but notice how small it makes me feel.
+P: Pres de la chambre de Maman, je ne peut m'empecher de remarquer à quel point ça me fait me sentir petit.
 >
 <<do this.show('superiorIdle')>>
-P: Sister Three waits at the entrance.
+P: Sœur Trois attend à l'entrée.
 >
-P: She whispers something to the Forty-and courier, and waves her off.
+P: Elle chuchote quelque chose à la coursière Quarante-et, et lui fait signe de partir.
 >
-"Are you ready, Sister Twenty?"
+« Êtes-vous prête, Sœur Vingt ? »
 >
-P: Whatever awaits me beyond this door will be momentous.
+P: Ce qui attend au-delà de cette porte sera être mémorable.
 
->"I'm ready."
-P: She opens the door, and leads me inside.
+>« Je suis prête. »
+P: Elle ouvre la porte, et me conduit à l'intérieur.
 >
-"Queen Mother, please allow us to introduce-"
+« La Reine Mère, permettez-nous de vous présentons— »
 >
 <<do this.show('queenIdle')>>
 voiceQueen
-"No."
+« No. »
 >
-P: Mother cuts her off. Sister Superior Three doesn't seem to know how to react.
+P: Maman lui coupe la parole. Sœur Supérieure Trois ne sait comment réagir.
 >
-"...Queen Mother?"
+« ...Reine Mère ? »
 >
-P: It's strange seeing Three squirm under pressure. I didn't think she knew how.
+P: C'est étrange de voir Trois se tortille sous pression. J'ignorais qu'elle savait comment.
 >
-P: Mother addresses me directly.
+P: Maman m'adresse directement.
 >
 voiceQueen
-"Introduce yourself."
+« Présentez-vous. »
 >Answer
-P: "Sister Twenty of Many Oecophylla."
+P: « Sœur Vingt de Plusieurs Oecophylle. »
 >
 voiceQueen
-"No."
+« Non. »
 >
-P: And now it's my turn to squirm. I've had plenty of experience, but it doesn't make it easier.
+P: Et maintenant, c'est mon tour de me tortiller. J'ai eu beaucoup d'expérience, mais cela ne facilite pas les choses.
 >
-P: "...No?"
+P: « Non ? »
 >
-P: Her mandibles click impatiently.
+P: Ses mandibules claquent d'impatience.
 >
 voiceQueen
-"You have spoken a name. Is it yours?"
+« Vous avez dire un nom. C'est le votre ? »
 >
-"A name carries with it a weight, child."
+« Un nom a du poids, fille. »
 >
-"A responsibility."
+« Une responabilitié. »
 
-"An understanding."
+« Une compréhension. »
 >
-"Do you understand the one which spills so freely from your wanton mouth?"
+« Vous comprenez le nom qui se renverser librement de votre bouche dévergondée ? »
 
-"Do you bear it?"
+« Vous portez bien ce nom ? »
 
-[["Yes, of course.">exile-2]]
-[["No, how could I?">exile-2]]
-[["Mother, what is this?">exile-2]]
+[[« Oui, bien sûr. »>exile-2]]
+[[« Non, comment le pourrais-je ? »>exile-2]]
+[[« Maman, c'est quoi ça ? »>exile-2]]
 
 ::exile-2
-P: I want to answer, but cannot. Mother is mad at me, and she continues.
+P: Je veut la répondre, mais je ne peut pas. Maman est en colère contre moi, et elle continue.
 >
 voiceQueen
-"Tell us: What is your name?"
->My name...
-P: It's a simple answer, but the pressure is unbearable.
+« Dites-nous : quel est ton nom ? »
+>Mon nom...
+P: C'est un réponse simple, mais la pression est insupportable.
 
-I want to crumple to the ground, but Mother is asking me a question.
+Je veut m'effondre au sol, mais Maman me demande un question.
 
-[["Sister Twenty"]]
-[["of Many"]]
-[["Oecophylla"]]
+[[« Sœur Vingt »]]
+[[« de Plusieurs »]]
+[[« Oecophylle »]]
 
 ::exile-names
 voiceQueen
-"Tell us your name!"
+« Dites-nous ton nom ! »
 
-<<if !this.exilename1>>[["Sister Twenty"]]<<endif>>
-<<if !this.exilename2>>[["of Many"]]<<endif>>
-<<if !this.exilename3>>[["Oecophylla"]]<<endif>>
+<<if !this.exilename1>>[[« Sœur Vingt »]]<<endif>>
+<<if !this.exilename2>>[[« de Plusieurs »]]<<endif>>
+<<if !this.exilename3>>[[« Oecophylle »]]<<endif>>
 <<if this.exilename1&&this.exilename2&&this.exilename3>>[[>exile-noname]]<<endif>>
 
 ::"Sister Twenty"
 <<do this.exilename1=true>>
 voiceQueen
-"Hah! We asked your name, child, not your position."
+« Ha ! Vous avez demandez ton nom, fille, pas ta position. »
 >
-P: Mother is... laughing at me.
+P: Maman... se moque de moi.
 >
 voiceQueen
-"Surely by now you understand that the latter is flexible, to say the least."
+« Maintenant tu comprends certainement que la dernière est est flexible, au moins. »
 >
-"And we will not be saying the least."
+« Et nous parlons pas au moins. »
 
 [[>exile-names]]
 
 ::"of Many"
 <<do this.exilename2=true>>
 voiceQueen
-"Oh? Is that so?"
+« Oh ? C'est vrai ? »
 >
-"Who is this Many you speak of?"
+« C'est qui ce "Plusieurs" que tu parles ? »
 >
-"Could it be our daughters, our sisters?"
+« Peut-être c'est nos filles, nos sœurs ? »
 
-"We should think not."
+« Nous devrions penser non. »
 >
-"Any foolish enough to consider you among their number will soon find that number to be lacking, and oh so very... finite."
+« Tous celles qui sont assez fou de te considérer comme partie de leur nombre vont trouvé bientot que ce nombre fait défaut, oh, si peu... limité. »
 >
-"You'd do well to remember how little the difference is between One and None."
+« Tu feras bien de vous rappeler à quel point la différence entre Un et Aucun est minime. »
 
 [[>exile-names]]
 
 ::"Oecophylla"
 <<do this.exilename3=true>>
 voiceQueen
-"..."
+« ... »
 >
-"You DARE!"
+« Tu OSES? »
 >
 P: Mother is shouting at me.
 >
 voiceQueen
-"Oecophylla!"
+« Oecophylle ! »
 >
-"It is our name! Our sisters' name. Our mother's name."
+« C'est notre nom ! Le nom de nos sœurs. Le nom de notre mére. »
 
-"Do you understand?"
+« Tu comprends ! »
 >
-"Not mine. Certainly not yours. It is OUR name!"
+« Pas le mien. Certainment pas le tien. C'est NOTRE nom ! »
 >
-P: Burning light flashes off her eyes.
+P: Une lumière brûlante jaillit de ses yeux.
 
 [[>exile-names]]
 
 ::exile-noname
-P: What does she want me to say?
+P: Qu'est-ce qu'elle veut que je dis ?
 >
-P: What do I have left?
+P: Que me reste-t-il ?
 
-[["Daughter."]]
-[["I have no name."]]
-[["I don't know."]]
+[[« Fille. »]]
+[[« J'ai pas un nom. »]]
+[[« Je ne sais pas. »]]
 
-::"Daughter."
-P: She sighs.
+::« Fille. »
+P: Elle soupire.
 >
 voiceQueen
-"Would that you still were..."
+« Nous voudrions que tu sois encore... »
 [[>exile2]]
 
-::"I have no name."
-P: She sighs.
+::« J'ai pas un nom. »
+P: Elle soupire.
 >
 voiceQueen
-"We are relieved. You do understand."
+« Nous sommes soulagés. Tu le comprends. »
 [[>exile2]]
 
-::"I don't know."
-P: She sighs.
+::« Je ne sais pas. »
+P: Elle soupire.
 >
 voiceQueen
-"We do you a favour, child, whether you know it or not."
+« Nous te rendons service, mon enfant, que tu le sais ou non. »
 [[>exile2]]
 
 ::exile2
 voiceQueen
-"The weight of a name is heavy. It is one we carry together, or not at all."
+« Le poid d'un nom est lourd. C'est un poids que nous portons ensemble, ou pas du tout. »
 >
-"It is our self, and our path. Our purpose, and our spirit."
+« C'est pour notre soi, et notre chemin. Notre but, et notre esprit. »
 >
-"Yet for all we have given you, these are things which you do not share."
+« Mais tout ce que nous t'avons donné, celles-ci sont des choses que tu ne partages pas. »
 >
-"So we have lifted this weight from your shoulders."
+« Donc nous avons soulevé ce poids de tes épaules. »
 >
-P: I feel as heavy as ever.
->
-voiceQueen
-"You have been unburdened: Stand up."
->
-P: ...And I suppose I did crumple to the floor at some point.
->
-P: Sister Superior Three offers a hand.
-
-The Queen Mother motions, and she retracts her offer.
->Stand
-P: I don't need her help anyway. I can stand on my own legs.
+P: Je me sens aussi lourde que toujours.
 >
 voiceQueen
-"Our daughters will allow you safe passage, of course."
+« Vous avez été soulagé : Levez-vous. »
 >
-"A courtesy that will not be extended should you return."
-
-[["You're kicking me out?"]]
-[["Passage to where?"]]
-[["I understand."]]
-
-
-::"Passage to where?"
-"Where you choose to go is of no concern to us."
+P: ...Et je suppose que j'ai m'effondé au sol, enfin.
 >
-"All that matters is that you go."
+P: Sœur Supérieure Trois tend une main.
+
+La Reine Mere Queen Mother fait un signe, et elle retire son offre.
+>Se lever
+P: Je n'ai pas besoin de son aide de toute façon. Je peux me tenir debout avec mes propres jambes.
+>
+voiceQueen
+« Nos filles te permettront de passer en toute sécurité, bien sûr. »
+>
+« Une courtoisie qui ne sera pas prolongée si vous revenez. »
+
+[[« Tu me vires? »]]
+[[« Passage vers où? »]]
+[[« Je comprends. »]]
+
+
+::« Passage vers où? »
+« Où tu vas ne nous concerne pas. »
+>
+« Tout ce qui compte c'est que tu partes. »
 [[>exile3]]
 
-::"You're kicking me out?"
-"Let us make ourselves perfectly clear, nameless one:"
+::« Tu me vires? »
+« Soyons parfaitement clairs, toi sans nom: »
 >
-"Our age has made us sentimental, and we are allowing you to leave before you should come to any harm."
+« Notre âge nous a rendus sentimentaux, donc nous te permettons de partir avant que tu ne sois blessé. »
 [[>exile3]]
 
-::"I understand."
-"Good."
+::« Je comprends. »
+« Bien. »
 [[>exile3]]
 
 ::exile3
-"Daughter Three, show her out."
+« Fille Trois, lui montrer la sortie. »
 
-[["Wait..."]]
-[["Farewell, Mother."]]
-[["I won't forget this."]]
+[[« Attendez... »]]
+[[« Au revoir, Maman. »]]
+[[« Je n'oublierai pas ça. »]]
 
-::"Wait..."
-"No."
+::« Attendez... »
+« Non. »
 [[>exile4]]
 
-::"Farewell, Mother."
-P: She doesn't respond.
+::« Au revoir, Maman. »
+P: Elle ne répond pas.
 [[>exile4]]
 
-::"I won't forget this."
+::« Je n'oublierai pas ça. »
 voiceQueen
-"Then take the memory to the grave."
+« Donc emportes-la dans ta tombe. »
 [[>exile4]]
 
 ::exile4
 <<do this.show('')>>
-P: My sisters - the word stings in my head - usher me away.
+P: Mes sœurs — ces mots piquent dans ma tête — me sortent.
 >
-P: I don't fight it.
+P: Je ne le résiste pas.
 >
 <<do this.scene.goto({ area: 'town-exile', x: -369, y: -156 })>>
-P: They lead me back to the entrance. I want to say something - anything to feel like this isn't the end.
+P: Elles me conduisent à l'entrée. Je veux dire quelque chose — n'importe quel chose pour sentir comme cela ce n'est pas la fin.
 >
-P: Instead, I stand there in silence, and they shove me out the door.
+P: Au lieu, je reste là en silence, et elles me poussent par la porte.
 [[>close]]
 
 ::exile-refuse-1
-P: The Queen Mother's retinue block the entrance.
+P: La cortège de la Reine Mère bloque l'entrée.
 >
-P: I'm not welcome here.
+P: Je ne suis pas la bienvenue ici.
 [[...|this.scene.player.walkBy(0,50);this.goto('close')]]
 
 ::exile-refuse-2
-P: My former sisters stare pitifully at me from the constructions above.
+P: Mes anciennes soeurs me regardent avec pitié du nid au-dessus.
 >
-P: I'm not welcome here.
+P: Je ne suis pas la bienvenue ici.
 [[...|this.scene.player.walkBy(0,50);this.goto('close')]]
 
 ::exile-refuse-3
-P: There's nothing for me here.
+P: Il n'y a rien ici pour moi.
 >
-P: I'm not welcome.
+P: Je ne suis pas la bienvenue.
 [[...|this.scene.player.walkBy(0,50);this.goto('close')]]
 
 
@@ -4540,76 +4538,76 @@ P: I'm not welcome.
 P: ...
 >
 <<do this.scrim(1, 1000)>>
-P: It's still difficult to accept just how much changed that day.
+P: C'est encore difficile de accepter accepter à quel point cela a changé ce jour-là.
 >
 <<do this.scene.goto({ area: 'town', x: 0, y: 10000 });this.show('bg_stars', { duration: 30000 })>>
-P: You'll forgive me if I gloss over the finer details of life in exile.
+P: Vous me pardonnerez si je survole les détails plus fins de exil.
 >
-P: Not nearly as romantic as it sounds.
+P: Ce n'est pas aussi romantique que vous pensez.
 
-I'm not much different than you, or anyone else here, for that matter. It just took me a bit longer to make my way.
+Je ne suis pas aussi différent de toi, ou quelqu'un d'autre, d'ailleurs. Il m'a juste fallu un peu plus de temps pour trouver mon chemin.
 >
-P: ...Hm? My name?
+P: ...Hum ? Mon nom ?
 
-[[I'm still trying to come up with a new one.]]
-[[I decided I didn't need it.]]
-[[They never really took it from me.]]
+[[J'essaie toujours d'en trouver un nouveau.]]
+[[J'ai décidé que je n'en avais pas besoin.]]
+[[Elles ne me l'ont jamais vraiment pris.]]
 
-::I'm still trying to come up with a new one.
-P: Had a few since those days, but nothing that quite stuck.
+::J'essaie toujours d'en trouver un nouveau.
+P: J'en ai eu quelques-unes depuis, mais rien qui ne colle.
 >
-P: Plenty of time to find one that does though.
+P: Beaucoup de temps pour en trouver un qui le fasse.
 [[>exile4-noname]]
 
-::I decided I didn't need it.
-P: I don't particularly miss having one.
+::J'ai décidé que je n'en avais pas besoin.
+P: Ça ne me manque pas de l'avoir.
 [[>exile4-noname]]
 
 ::exile4-noname
-P: Sure, sometimes there's that awkward moment, meeting someone on the road: We say our greetings, they introduce themselves, and I dodge the response.
+P: Bien, parfois il y a un moment gênant, rencontrer quelqu'un sur le chemin : Nous disons nos salutations, il se présente, et j'esquive la question.
 >
-P: But you'd be surprised how many travelers are content in their anonymity, and see no reason to question yours.
+P: Mais vous seriez surpris combien de voyageurs sont contents dans leur anonymat, et ne voient aucune raison de vous questionner.
 >
-P: What's more important, really?
+P: Quoi de plus important, vraiment ?
 >
-P: A handful of words you'll use once and forget, or a warm meal after a long day?
+P: Une poignée de mots que vous utiliserez une fois et que vous oublierez, ou un repas chaud après une longue journée ?
 >
-P: Something to call yourself, or knowing who you are?
+P: Quelque chose de vous appeler, ou la conscience de vous-même ?
 >
-P: A legacy, or a life?
+P: Un héritage, ou une vie ?
 >
-P: ...No, don't- It's rhetorical.
+P: ...Non, ne— c'est de la rhétorique.
 >
-P: It's something you have to answer for yourself.
+P: C'est quelque chose que vous devrez répondre par vous-même.
 <<print new Array(20).fill('\u200B').join('')>>
-I made my choice a long time ago.
+J'ai fait mon choix il y a longtemps.
 <<print new Array(20).fill('\u200B').join('')>>
-I don't doubt my decision.
+Je ne doute pas de ma décision.
 <<print new Array(40).fill('\u200B').join('')>>
 [[The End]]
 
-::They never really took it from me.
-P: Sister Twenty of Many Oecophylla, at your service. Twenny if you're in a hurry.
+::Elles ne me l'ont jamais vraiment pris.
+P: Sœur Vingt de Plusieurs Oecophylle, à votre service. Vingt, si vous etes pressé.
 >
-P: What are they going to do, hunt me down? Arrest me for disobedience and kick me out again?
+P: Qu'est-ce qu'ils vont faire, me traquer ? Arrête-moi pour la désobéissance et expulse-moi à nouveau ?
 >
-P: No, Mother's finished with me. Haven't even seen another Oecophylla since then.
+P: Non, Maman en a fini avec moi. Je n'ai même pas vu d'autre Oecophylle depuis.
 >
-P: She- no, all of them, they were so concerned with what it meant to be one.
+P: Elle— non, tous, elles étaient tellement préoccupés par ce que cela signifiait d'être une.
 
-To be Many!
+Une de Plusieurs !
 >
-P: Why let them decide? It's mine as much as theirs.
+P: Pourquoi les laisser décider ? C'est le mien autant que le leur.
 >
-P: That's something I'm not sure they ever understood: The name, the path, the life - it's something we share, not something we are.
+P: C'est que je ne suis pas sûr qu'elles aient jamais compris : Le nom, le chemin, la vie — c'est quelque chose que nous partageons, pas quelque chose que nous sommes.
 >
-P: Sometimes wish I had known how to make them see that.
+P: Parfois j'aimerais savoir comment le leur expliquer.
 >
-P: ...Not that it matters now.
+P: ...Ça ne compte plus mainentant.
 <<print new Array(20).fill('\u200B').join('')>>
-It's not worth explaining myself to them.
+Ce n'est pas la peine de leur expliquer.
 <<print new Array(20).fill('\u200B').join('')>>
-I doubt it ever was.
+Je doute que ça en jamais valait la peine.
 <<print new Array(40).fill('\u200B').join('')>>
-[[The End]]
+[[Fin]]
 
