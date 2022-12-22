@@ -576,16 +576,16 @@ P: Je doute de moi.
 P: Je suis donc brièvement heureux d'être interrompu par quelqu'un qui crie mon nom.
 >
 « Sœur Vingt, attention! »
-[[Te figer]]
-[[Te jeter par terre]]
+[[Se figer]]
+[[Se jeter par terre]]
 [[Sauter en arrière]]
 
-::Figer
+::Se figer
 <<do this.scrim(1, 100)>>
 P: Je me fige sur place. Un moment plus tard, ma vision est inondée par un grand branche qui s'effondre à quelques centimètres de moi.
 [[Oh non.>begin2]]
 
-::s
+::Se jeter par terre
 <<do this.scrim(1, 100)>>
 P: Je me jete par terre instinctivement. A ce moment j'entends le craquement d'un grand branche qui s'effondre à quelques centimètres de moi, et je m'accroche comme si ma vie en dépendait.
 [[Oh non.>begin2]]
