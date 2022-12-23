@@ -1631,7 +1631,7 @@ P: « Ma petite sœur! Êtes-vous perdue? »
 >
 « Quarante-et-huit ! »
 >« Quarante-et-huit ? »
-P: « Est-ce vous? »
+P: « Est-ce vous ? »
 >
 « Nous sommes Quarante-et-huit! »
 >
@@ -1643,7 +1643,7 @@ P: « Eh bien, c'est un plaisir de vous rencontrer Sœur Quarante-et-huit, mais 
 
 » Vous ne devriez pas être à la crèche ? »
 >
-« Non!! »
+« Non !! »
 >
 <<do this.gameObject.roam.active=true;this.camplittlesister=true>>
 P: Elle se retourne et s'en va.
