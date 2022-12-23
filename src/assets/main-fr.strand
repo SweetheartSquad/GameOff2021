@@ -1589,7 +1589,7 @@ P: Il fait noir dehors. Tout le monde dort déjà.
 
 ::camp-npc
 <<do this.gameObject.line = this.gameObject.line || this.shuffle([
-	'« Ça a été une longue journée: vous devriez vous reposer, notre Sœur. »',
+	'« Ça a été une longue journée : vous devriez vous reposer, notre Sœur. »',
 	'P: Elle acquiesce, mais elle semble occupée avec quelque chose et elle continue.',
 	'« Sœur Vingt, n\'est-ce pas ? Nous esperons que vous allez bien. »',
 	'« Désolé notre Sœur, mais nous sommes en garde : nous pouvons pas parler maintenant. »',
