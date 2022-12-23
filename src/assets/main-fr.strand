@@ -1672,17 +1672,17 @@ P: Je m'agenouille pour mieux voir son visage. Elle ne cherche pas la sympathie 
 >
 P: « ...Il y avait un accident, Quarante-et-huit. Nous avons perdu beaucoup de sœurs. »
 >
-« Mais... comment?! Nos sœurs sont fortes!! »
+« Mais... comment ?! Nos sœurs sont fortes !! »
 >
-« Sœur Trente-et-deux m'a dit que nous sommes les plus fortes dans notre couvée, mais elle nous bat toujours quand nous jouons, sauf quand elle nous laisse gagner, ce qu'elle dit ne pas faire - mais nous savons mieux! »
+« Sœur Trente-et-deux m'a dit que nous sommes les plus fortes dans notre couvée, mais elle nous bat toujours quand nous jouons, sauf quand elle nous laisse gagner, ce qu'elle dit ne pas faire - mais nous savons mieux ! »
 >
-« Comment... comment pourrait-elle être morte? »
+« Comment... comment pourrait-elle être morte ? »
 >
 P: « ... »
 >
 P: « ...La force n'est pas tout, ma petite sœur. »
 >
-P: « Vous avez raison d'être en colère. Nos sœurs sont fortes, et nous sommes aussi! »
+P: « Vous avez raison d'être en colère. Nos sœurs sont fortes, et nous sommes aussi ! »
 >
 P: Elles auraient dû lui apprendre qu'à la crèche - mais je ne peux pas la laisser comme ça.
 >
@@ -1690,7 +1690,7 @@ P: « Tes sœurs sont parties, mais pas mortes. Pas encore. »
 >
 P: « Elles sont tombées. »
 >
-« Pourquoi ne remontent-elles pas simplement? »
+« Pourquoi ne remontent-elles pas simplement ? »
 >
 P: « Envisager notre sœur : si vous étiez sur le sol de la forêt, combien de temps pensez-vous qu'il vous faudrait pour remonter jusqu'au foyer ? »
 >
@@ -1700,9 +1700,9 @@ P: Elle s'arrête pour réfléchir, son petit visage en tremblant.
 >
 « Peut-être... quatre marches ? »
 >
-P: « Quatre marches! Ce serait vraiment très rapide. »
+P: « Quatre marches ! Ce serait vraiment très rapide. »
 >
-P: « Et quel arbre passeriez-vous ces quatre marches à grimper? »
+P: « Et quel arbre passeriez-vous ces quatre marches à grimper ? »
 >
 « L'arbre sur lequel nous sommes, bien sûr ? Question bête ! »
 >
@@ -1722,7 +1722,7 @@ P: « À cette distance, autant deviner.
 >
 « Nous... nous les quittons ?
 
-» Mais que se passe-t-il s'elles reviennent?! »
+» Mais que se passe-t-il s'elles reviennent ?! »
 >
 P: Est-ce que tous les enfants se demandent ça ? Étaient-elles vraiment tenus dans l'ignorance ?
 >
@@ -1730,7 +1730,7 @@ P: « La Reine Mère a besoin de nous pour continuer à bouger, pour construire 
 >
 P: « Si nos sœurs ont de la chance, elles trouveront peut-être notre parfum et le chemin que nous avons emprunté. »
 >
-« Vraiment? »
+« Vraiment ? »
 >
 P: Je veux être optimiste pour elle, mais je ne veux pas mentir.
 >
@@ -1740,7 +1740,7 @@ P: Elle regarde ses pieds. Elle donne un coup de pied dans un morceau de terre, 
 >
 P: « Si elles nous trouvent, nos sœurs auront besoin d'un foyer pour revenir.
 
-» Un vrai nid solide! »
+» Un vrai nid solide ! »
 >
 P: « Nous avons besoin de le construire pour elles.
 
@@ -1774,7 +1774,7 @@ P: Elle serre ma main, puis elle pleure quand je la passe à une infirmière inc
 <<if this.historylesson>>
 <<do this.goto('superior-camp-2')>>
 <<else>>
-P: « Sœur Supérieure Trois? »
+P: « Sœur Supérieure Trois ? »
 <<endif>>
 >
 P: Elle me regarde avec un mélange de dédain et d'épuisement.
@@ -1784,7 +1784,7 @@ P: Elle me regarde avec un mélange de dédain et d'épuisement.
 » Vous interrompez un cours d'histoire. »
 
 <<if !this.historylessonreject>>[[« Je voulais vous parler. »]]<<endif>>
-[[« Pouvons-nous écouter? »]]
+[[« Pouvons-nous écouter ? »]]
 [[« C'est rien. »>close]]
 
 ::« Je voulais vous parler. »
