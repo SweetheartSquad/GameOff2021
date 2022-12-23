@@ -3474,8 +3474,7 @@ B: « DONC TU TRAVERS PAS. »
 <<do ++this.counti>>
 B: « REGRETTER ? »
 >
-B: « J'RÉALISE PAS QUE LES TOUTES P'TITES POURRAIT FAIRE
-ÇA. »
+B: « J'RÉALISE PAS QUE LES TOUTES P'TITES POURRAIT FAIRE ÇA. »
 >
 <<do this.scene.player.walkBy(-30,30)>>
 P: Pouah — d'accord, je m'en vais...
