@@ -2275,7 +2275,7 @@ P: Elle marmonne, presque trop calme pour entendre.
   « la »
 >« Sœur ? »
 « douleur »
->« Douleur? Vous faites mal, notre Sœur? »
+>« Douleur ? Vous faites mal, notre Sœur ? »
 « Douleur Douleur
 
 » vertige »
@@ -2319,7 +2319,7 @@ P: Mais c'est trop tard. C'est une longue chute jusqu'au sol de la forêt.
 
 Si nous n'allions pas laisser le chemin pour plusieurs de sœurs, nous ne le ferons certainement pas pour une.
 >
-P: Je pouvais réveiller les autres, mais à quoi ça sert?
+P: Je pouvais réveiller les autres, mais à quoi ça sert ?
 >
 P: Ça ne ferait que interrompre leur sommeil pour un problème qui ne peut être résolu.
 
@@ -2378,7 +2378,7 @@ Mais je me lève quand même, me laissant guider somnolemment vers un morceau de
 [[>close]]
 
 ::cordyceps-2-wall
-P: ...Où vais-je?
+P: ...Où vais-je ?
 
 Je devrais suivre ma sœur.
 <<do this.scene.player.walkBy(-Math.sign(this.scene.player.transform.x)*30, -Math.sign(this.scene.player.transform.y)*100)>>
@@ -2391,7 +2391,7 @@ P: Non, attends —
 >
 P: Elle est ligotée.
 >
-P: « Attendez — qu'est qu'il se passe ici? »
+P: « Attendez — qu'est qu'il se passe ici ? »
 >
 P: Elle est fixé à une brindille, collé en place avec d'épaisses mèches de soie tissés étroitement autour de ses bras et son torse.
 >
@@ -2406,11 +2406,11 @@ P: « Qu'est ce que vous faites ?! Pourquoi est-elle attachée comme ca ?
 >
 P: La sœur attachée est en face de moi. Ses jambes frappent et grattent le sol, mais elle ne dit rien et ne semble pas faire de progrès pour desserrer ses liens.
 >
-« Vous avez été témoin de la chute de Sœur Trente-et-trois, non? »
+« Vous avez été témoin de la chute de Sœur Trente-et-trois, non ? »
 >
 P: Sa "chute".
 
-« ...Oui. Qu'est-ce que ça vient faire dans tout ça? »
+« ...Oui. Qu'est-ce que ça vient faire dans tout ça ? »
 >
 « Sœur Trente-et-cinq... les deux étaient proches.
 
@@ -2432,15 +2432,15 @@ P: « Oui, bien sûr ! c'est quoi, cette question ?! »
 >
 « ...Outre le chute. Comment elle vous semblait?
 
-» Était-elle... velue? »
->« ...Velue? »
+» Était-elle... velue ? »
+>« ...Velue ? »
 P: Elle fait signe à Trente-et-cinq.
 >
 P: Je bouge pour me pencher plus près, les antennes frémissant curieusement.
 
 Comme je le fais, une autre sœur tend son bras pour m'arrêter.
 >
-« Faites attention! Nous ne savons pas si elle est dangereuse... »
+« Faites attention ! Nous ne savons pas si elle est dangereuse... »
 >
 P: J'acquiesce, et je m'approche plus lentement, en gardant mes distances.
 
@@ -2480,7 +2480,7 @@ P: « Son comportement, pourtant...
 
 » Sœur Trente-et-trois a marché comme ça aussi. »
 >
-P: « A-t-elle dit quelque chose? »
+P: « A-t-elle dit quelque chose ? »
 >
 « Non, rien du tout depuis que la sœur infirmière l'a attachée ici. »
 >
@@ -2518,7 +2518,7 @@ P: « Mais elle est notre sœur ! Nous devons l'aider ! »
 >
 « Ah, ça explique tout... Bien sûr, nous nous sommes éloignés du droit chemin. 
 
-» Pendant tout ce temps, nous avons eu un diable parmi nous! »
+» Pendant tout ce temps, nous avons eu un diable parmi nous ! »
 
 [[« Arrêtez ! »]]
 [[« ... »>cordyceps-2-silent]]
@@ -2537,7 +2537,7 @@ P: « Sœur Supérieure, vous exagèrez sûrement ?
 
 » Elle est bien attachée, et nous pouvons réfléchir— »
 >
-« Des ignorants! Nous sommes en danger, juste respirer le même air que cet être immonde...
+« Des ignorants ! Nous sommes en danger, juste respirer le même air que cet être immonde...
 
 » Qui l'a trouvée ? Qui l'a touchée ?! »
 [[>cordyceps-2-hands]]
@@ -2650,7 +2650,7 @@ P: Elles commencent à protester, mais elle les interrompt et continue.
 
 » Vous allez compter jusqu'à ce que nous arrêtons de marcher, et encore jusqu'à ce que nous commençons à marcher à nouveau. C'est seulement alors que vous commencez à marcher vous-mêmes. »
 >
-« Est-ce clair? Restez sur le chemin, gardez votre rythme.
+« Est-ce clair ? Restez sur le chemin, gardez votre rythme.
 
 » Mais aussi gardez votre distance. »
 >
@@ -2721,7 +2721,7 @@ P: Ce n'est pas juste un petit crachin.
 Nous devrons nous réfugions pour durer.
 >
 <<do this.scrim(1, 1000)>>
-P: Hereusement, je ne suis pas le seule personne qui le pense. Maman demande que la marche s'arrête. 
+P: Hereusement, je ne suis pas le seule personne qui le pense. Maman demande que la marche s'arrête.
 >
 P: Nous preparons l'encampement. Ou, nous essayons, mais c'est clair immediatement que nous avons pas le temps ni les ressources pour gérer des fortes pluies.
 >
@@ -2786,7 +2786,7 @@ P: « Que pouvons-nous faire d'autre ?
 » C'est un travail peu prestigieux, mais c'est du travail. »
 >
 P: « Sommes-nous si fiers que nous préférerions mourir que de travailler pour survivre
-une nuit ?»
+une nuit ? »
 >
 « C'est vous qui ne comprenez pas, notre Sœur.
 
@@ -2799,7 +2799,7 @@ P: « ...Donc c'est quoi le problème ? Si Maman l'a decidé, nous devrions disc
 « Sœur Vingt, si les roly-polies veux nous loger ou non n'a pas d'importance. »
 >« Quoi ? »
 « D'après votre rapport, il ya seulement les deux. Peut-être un troisième, mais peu de chance de pouvoir combattre. »
->« Combattre!? »
+>« Combattre !? »
 « Nous ne voulons pas de provoquer des violences, bien sûr.
 
 » Mais si ces imbéciles cupides tiennent à leur vie moins que leur argent, nous serons heureux de les prendre. »
