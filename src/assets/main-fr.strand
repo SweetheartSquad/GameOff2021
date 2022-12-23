@@ -2455,7 +2455,7 @@ Même son visage est touché: une fourrure blanche translucide tapisse les bords
 >
 P: Après l'avoir vu, tout son corps prend une nouveau aura bizarre que je n'avais pas encore enregistré.
 
-c'est rebutant. Écoeurant.
+C'est rebutant. Écoeurant.
 >
 <<do this.scrim(0.5, 1000)>>
 <<do this.show('')>>
