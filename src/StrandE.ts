@@ -52,14 +52,15 @@ export class StrandE extends Strand {
 					link === '>'
 						? `>${link}`
 						: link
-							.split('|')
-							.map(
-								(l) =>
-									`[[${l || promptDefault}|this.goto('auto-${autolink + 1
-									}')]]`
-							)
-							.concat(`\n::auto-${++autolink}`)
-							.join('\n')
+								.split('|')
+								.map(
+									(l) =>
+										`[[${l || promptDefault}|this.goto('auto-${
+											autolink + 1
+										}')]]`
+								)
+								.concat(`\n::auto-${++autolink}`)
+								.join('\n')
 				)
 				// action sugar: `[[|some js]]` (uses default prompt)
 				.replace(/^\[\[\|/gm, `[[${promptDefault}|`)
@@ -102,9 +103,9 @@ export class StrandE extends Strand {
 		this.language = languages.includes(this.language || '')
 			? this.language
 			: browserLang({
-				languages,
-				fallback: 'en',
-			});
+					languages,
+					fallback: 'en',
+			  });
 		document.documentElement.lang = this.language || 'en';
 
 		this.passages['language select'] = {
@@ -158,6 +159,10 @@ export class StrandE extends Strand {
 		const p = this.scene.screenFilter.targetPalette;
 		const newScene = new GameScene();
 		newScene.screenFilter.targetPalette = p;
+		newScene.strand.language = this.scene.strand.language;
+		newScene.strand.setSource(
+			resources[`main-${this.scene.strand.language}`].data
+		);
 		setScene(newScene);
 	}
 
