@@ -451,7 +451,7 @@ Traduction français par IAN.
 [[Recommencer|this.restart()]]
 [[Trouver plus de jeus|window.open('https://sweetheartsquad.itch.io', '_blank')]]
 
-::debug menu
+::node débogage
 <<do
 	this.howler = this.musicSynced('bgm_normal');
 	this.scene.border.display.container.alpha=1;
@@ -567,13 +567,13 @@ P: L'esprit erre. On pense à des choses. On se pose des questions, et on trouve
 <<do this.scrim(0.5, 10000)>>
 P: Parfois j'ai l'impression que cet ennui particulier n'est en soi qu'une autre expression de notre existence et de notre objectif communs.
 >
-P: On marche tout le long de la branche du même arbre, on est tout pris dans nos esprits avec les même pensees, on se demande tout si que les autres faire le même chose.
+P: On marche tout le long de la branche du même arbre, on est tout pris dans nos esprits avec les même pensées, on se demande tout si que les autres faire le même chose.
 >
 P: La plupart du temps je pense que je suis spécifiquement puni avec ce fardeau, et que mes sœurs ne se comprendraient pas si je le disais à haute voix.
 >
 P: Je doute de moi.
 >
-P: Je suis donc brièvement heureux d'être interrompu par quelqu'un qui crie mon nom.
+P: Je suis donc brièvement heureux d'être interrompu par quelqu'une qui crie mon nom.
 >
 « Sœur Vingt, attention! »
 [[Se figer]]
@@ -587,7 +587,7 @@ P: Je me fige sur place. Un moment plus tard, ma vision est inondée par un gran
 
 ::Se jeter par terre
 <<do this.scrim(1, 100)>>
-P: Je me jete par terre instinctivement. A ce moment j'entends le craquement d'un grand branche qui s'effondre à quelques centimètres de moi, et je m'accroche comme si ma vie en dépendait.
+P: Je me jete par terre instinctivement. À ce moment j'entends le craquement d'un grand branche qui s'effondre à quelques centimètres de moi, et je m'accroche comme si ma vie en dépendait.
 [[Oh non.>begin2]]
 
 ::Sauter en arrière
@@ -635,11 +635,11 @@ P: Je ne peux pas faire confiance à ce qui reste pour être stable. Je dois ret
 	'« La Reine Mère... ou est la Reine Mère!? »',
 	'« Les sœurs... notre sœurs... »',
 	'« Non... ce n\'est pas possible... »',
-	'« Elles sont tombées. Nous ne peuvons pas leurs aider... »',
+	'« Elles sont tombées. Nous ne pouvions pas leurs aider... »',
 	'« Nous étions trop tard... »',
 	'« Non !! »',
 	'« S\'il vous plaît... laissez-nous tranquille... »',
-	'« La Reine Mère will know what to do. Elle sait toujours quoi faire. »',
+	'« La Reine Mère saura quoi faire. Elle sait toujours quoi faire. »',
 	'« Nous devons trouver refuge. Nous ne pouvons pas rester comme ça. »',
 	'« Ce n\'est pas possible. Ce n\'est pas possible. Ce n\'est pas possible. »',
 	'« Notre sœur ! Nous sommes heureux que vous allez bien. Aidez les autres, s\'il vous plaît! »',
@@ -654,7 +654,7 @@ P: Je ne peux pas faire confiance à ce qui reste pour être stable. Je dois ret
 
 ::intro-end
 <<do this.destroy(this.gameObject)>>
-P: c'est un cauchemar.
+P: C'est un cauchemar.
 
 Des sœurs appelent, essayant de donner un sens à tout :
 >
@@ -679,7 +679,7 @@ voiceQueen
 >
 « Nos filles. Nos sœurs. »
 >Maman!
-« Nous voyons la peur sur nos visages. »
+« Nous voyons la peur sur vos visages. »
 [[Nous avons peur !|++this.countwe;this.goto('mother-speech2')]]
 [[Je ne veux pas mourir !|++this.counti;this.goto('mother-speech2')]]
 ::mother-speech2
@@ -706,9 +706,9 @@ voiceQueen
 >
 « Nous sommes entourés de notre famille.
 
-» Notre force. »
+» Notre force.
 
-» Notre cadeau et notre bénédiction, pour nous, pour les uns les autres. »
+» Notre cadeau et notre bénédiction, pour nous, pour les unes les autres. »
 >Notre famille...
 P: La sœur à mon côté tend la main, me tient la main.
 >Nos mains.
@@ -755,7 +755,7 @@ P: Mais il y a un long chemin à parcourir.
 			'« Depuis combien de temps marchons-nous ? »',
 			'« Nos jambes sont douloureuses... »',
 			'« Où dormirons-nous ce soir ? »',
-			'« Quelqu\'un a-t-elle vu Sœur Trente-Et-Quatre ? »',
+			'« Quelqu\'une a-t-elle vu Sœur Trente-Et-Quatre ? »',
 			'« Nous les avons vus tomber... »',
 			'« Sœur Supérieure a-t-elle dit quelque chose ? »',
 			'« Il n\'y a pas de temps à perdre. »',
@@ -803,11 +803,11 @@ P: Mais il y a un long chemin à parcourir.
 			'« Avons-nous voyagé trop loin ? »',
 			'« Devons-nous aller plus loin ? »',
 			'« Maman... »',
-			'« Sœur... »',
+			'« Notre sœur... »',
 			'« Les reverrons-nous? »',
-			'« Prends nos mains, ma Sœur. »',
-			'« N\'ayez pas peur, ma Sœur. »',
-			'« Ma sœur, marche avec moi. »',
+			'« Prends nos mains, notre Sœur. »',
+			'« N\'ayez pas peur, notre Sœur. »',
+			'« Notre sœur, marche avec moi. »',
 			'« Le chemin est trop long. »',
 			'« Le chemin est trop difficile. »',
 			'« C\'est vraiment le bon chemin ? »',
@@ -900,7 +900,7 @@ P: Des sœurs bourdonnent avec du bavardage inutile, elles s'expriment sans atte
 <<print this.marchqs1.pop()>>
 [[« Nous devrons juste continuer. »|++this.countwe;this.goto('march-end')]]
 [[« Je vais survivre. »|++this.counti;this.goto('march-end')]]
-[[« c'est sans espoir. »>march-end]]
+[[« C'est sans espoir. »>march-end]]
 
 ::march-3
 P: ...
@@ -914,7 +914,7 @@ P: Nous gardons un rythme régulier, pieds marchant, esprits courant.
 <<print this.marchqs1.pop()>>
 [[« Nous allons survivre. »|++this.countwe;this.goto('march-end')]]
 [[« Je sais que je peux le faire. »|++this.counti;this.goto('march-end')]]
-[[« c'est une perte de temps. »>march-end]]
+[[« C'est une perte de temps. »>march-end]]
 
 ::march-4
 P: ...
@@ -1022,7 +1022,7 @@ P: Avant de me perdre dans mes pensées, je suis convoqué par Sœur Supérieure
 >
 <<do this.fed = (this.fed || 0) + 1>>
 <<do this.scrim(1, 1000);this.show('superiorIdle')>>
-« Sœur Vingt. Vous êtes mis en service d'alimentation aujourd'hui.."
+« Sœur Vingt. Vous êtes mis en service d'alimentation aujourd'hui.. »
 [[...|this.show('');this.goto('feeding-'+this.fed)]]
 
 ::feeding-1
@@ -1033,8 +1033,8 @@ P: ...Je n'ai jamais nourri Maman.
 P: Nous partageons tous la nourriture, bien sûr, mais nourrir Maman, c'est une responsabilité et un honneur réservé à ceux de sa cortège.
 >
 P: Notre cortège, je me rapelle.
->Queen 
-P: Je la suis docilement, jusqu'à je sois devant le palanquin de la Reine Mere.
+>
+P: Je la suis docilement, jusqu'à je sois devant le palanquin de la Reine Mère.
 >
 <<do this.show('queenIdle')>>
 P: Je ne sais pas quoi dire.
@@ -1052,15 +1052,16 @@ P: Je reçois un coup à l'arrière de la tête par Trois.
 ::feeding-1-2
 P: La Sœur Supérieure se racle la gorge, et s'adresse Maman :
 >
-« La Reine Mère, permettez-nous de vous présenter Sœur Vingt de Plusieurs Oecophylle. »
+« La Reine Mère, permettez-nous de vous présenter Sœur Vingt de Plusieurs Oécophylles. »
 >
-« Sœur Vingt, merci de commencer ton devoir à la Reine Mère Une et Plusieurs Oecophylle. »
+« Sœur Vingt, merci de commencer votre devoir à la Reine Mère Une et Plusieurs
+Oécophylles. »
 >
 P: Elle recule, et je reste face à face avec Maman.
 >
 P: « ... »
 >
-P: « Désolé. c'est le premier fois... »
+P: « Désolé. C'est le premier fois... »
 >
 voiceQueen
 « Nous sommes conscients. Nous n'oublions pas nos propres filles, nos propre sœurs. »
@@ -1068,7 +1069,7 @@ voiceQueen
 P: Sa voix est calme, et ferme. Même chose que d'habitude.
 >
 voiceQueen
-« Malgré l'insistance de Fille Trois pour les formalités, il n'y a pas de raison pour un traitement particulier. Nous devons tous manger, alors nous partageons tous la nourriture."
+« Malgré l'insistance de Fille Trois pour les formalités, il n'y a pas de raison pour un traitement particulier. Nous devons tous manger, alors nous partageons tous la nourriture. »
 >
 P: J'acquiesce, and je régurgite une partie du contenu de mon estomac.
 >
@@ -1163,7 +1164,7 @@ P: Elle continue de manger et je réfléchis à quoi dire.
 <<if this.qc<6 && this.deserterquestion>><<do ++this.qc>>[[« Qui est la soeur qui s'est enfuie ? »]]<<endif>>
 <<if this.qc<6 && this.motherquestion!==false>><<do ++this.qc>>[[« Comment était notre Mère ? »]]<<endif>>
 <<if this.qc<6 && this.fatherquestion!==false>><<do ++this.qc>>[[« Comment était mon père ? »]]<<endif>>
-<<if this.qc<6>>[["...">feeding-questions-none]]<<endif>>
+<<if this.qc<6>>[[« ... »>feeding-questions-none]]<<endif>>
 
 ::feeding-questions-none
 P: Je ne peux penser à rien. Rien que je veuille lui demander.
@@ -1210,7 +1211,7 @@ voiceQueen
 [[« Ai-je été infecté ? »]]
 
 ::« Alors, qu'y a-t-il à faire ? »
-« Nous devons prendre soin les uns des autres, Fille Vingt. »
+« Nous devons prendre soin les unes des autres, Fille Vingt. »
 >
 « Et nous devons marcher. »
 [[>feeding-questions-2]]
@@ -1248,7 +1249,7 @@ voiceQueen
 >« Que voulez-vous dire ? »
 « Nous voulons dire, Sœur Vingt, qu'il faut vous souvenir de ta soeur.
 
-» Et pas les créatures que vous avez vues cette nuit-là. »
+» Et pas le créature que vous avez vues cette nuit-là. »
 [[>feeding-questions-2]]
 
 ::« Comment était le Père ? »
@@ -1282,7 +1283,7 @@ voiceQueen
 
 ::« Comment était notre Mère ? »
 <<do this.motherquestion=false>>
-P: c'est quelque chose que je me suis demandé pour quelques temps : Maman s'appelle 'Un et Plusieurs', mais elle ne peut pas être la première.
+P: C'est quelque chose que je me suis demandé pour quelques temps : Maman s'appelle 'Un et Plusieurs', mais elle ne peut pas être la première.
 
 Tout le monde a une mère, n'est-ce pas ?
 >
@@ -1300,7 +1301,8 @@ voiceQueen
 
 » Avez-vous été en contact avec la Fausse Reine ? »
 >« Je... »
-« Non, ce serait impossible. Vous ne comprenez tout simplement pas ce que vous demandez... »
+« Non, ce serait impossible. Vous ne comprenez tout simplement pas ce que vous
+demandez... »
 >
 « Maman n'a aucun pouvoir ici. Nous marchons notre chemin propre.
 
@@ -1331,13 +1333,13 @@ voiceQueen
 > « Quoi ? »
 P: Le non-sequitur me déconcerte.
 
-« c'est... euh, hum ? c'est des restes ? Des restes du coléoptère que nous avons attrapé il y a deux jours. Mais qu'est-ce que ça... »
+« C'est... euh, hum ? c'est des restes ? Des restes du coléoptère que nous avons attrapé il y a deux jours. Mais qu'est-ce que ça... »
 voiceQueen
 « Était-ce cruel, quand nous avons arraché les pattes de ce coléoptère de son corps ?
 
 » Ou quand nous avons aspergé ses entrailles avec de l'acide ? »
 >
-P: « ...c'est différent. »
+P: « ...C'est différent. »
 >
 voiceQueen
 « Le coléoptère serait probablement en désaccord. »
@@ -1379,7 +1381,7 @@ voiceQueen
 >
 « Ils n'ont pas coopéré, et ont été expulsés des locaux.
 
-» c'est le début et la fin de l'affaire. »
+» C'est le début et la fin de l'affaire. »
 >
 « Pourquoi est-ce une préoccupation? »
 
@@ -1565,14 +1567,14 @@ P: <<print this.shuffle([
 [[...|this.camppromise.then(this.goto.bind(this, 'close'))]]
 
 ::camp-fireplace
-P: ...c'est douillet.
+P: ...C'est douillet.
 >
 P: Je devrais probablement aller me coucher.
 
-[[Go to bed]]
-[[Not yet>close]]
+[[Se coucher]]
+[[Pas maintenent>close]]
 
-::Go to bed
+::Se coucher
 <<do this.scrim(1, 1000)>>
 P: Je trouve un lit vide et je laisse mon esprit vagabonder.
 >
@@ -1587,19 +1589,19 @@ P: Il fait noir dehors. Tout le monde dort déjà.
 
 ::camp-npc
 <<do this.gameObject.line = this.gameObject.line || this.shuffle([
-	'« Ça a été une longue journée: vous devriez vous reposer, ma Sœur. »',
+	'« Ça a été une longue journée: vous devriez vous reposer, notre Sœur. »',
 	'P: Elle acquiesce, mais elle semble occupée avec quelque chose et elle continue.',
 	'« Sœur Vingt, n\'est-ce pas ? Nous esperons que vous allez bien. »',
-	'« Désolé ma Sœur, mais nous sommes en garde : nous pouvons pas parler maintenant. »',
+	'« Désolé notre Sœur, mais nous sommes en garde : nous pouvons pas parler maintenant. »',
 	'P: La sœur qui est en garde fait signe de la main, et retourne à son poste.',
 	'P: Elle semble perdu dans ses pensées. Elle ne me reconnaît pas.',
-	'« Comment allez-vous, ma Sœur ? Bien ? Bien... »',
+	'« Comment allez-vous, notre Sœur ? Bien ? Bien... »',
 	'Nous allons bientôt nous coucher, ne vous inquiète pas. »',
 	'« Tout notre corps fait mal... J\'ai hâte de faire une bonne sieste. »',
-	'« Avez-vous faim, ma Sœur ? Non ? Comme vous voulez.... »',
+	'« Avez-vous faim, notre Sœur ? Non ? Comme vous voulez.... »',
 	'« Combien plus loin pensez-vous que nous devons marcher ? Nous espérons que ce n\'est pas loin... »',
 	'« Les étoiles sont plutôt jolies ce soir. »',
-	'« S\'il vous plaît, ma Sœur, reposer-vous. Nous monterons la garde à tour de rôle. »',
+	'« S\'il vous plaît, notre Sœur, reposer-vous. Nous monterons la garde à tour de rôle. »',
 	'« Salut Sœur Vingt ! Évitez de causer des ennuis ! »',
 	'« La Sœur Supérieure nous met en garde ce soir. Soyez tranquille, Sister. »',
 	'« Salut, Vingt. »',
@@ -1649,7 +1651,8 @@ P: Elle se retourne et s'en va.
 
 ::little-sister-2
 <<do this.camplittlesister2=true;>>
-P: « Petite Sœur Quarante-et-huit, êtes-vous sûr que vous devriez vous promener ici toute seule ? »
+P: « Petite Sœur Quarante-et-huit, êtes-vous sûr que vous devriez vous promener ici toute
+seule ? »
 >
 P: « Vos autres sœurs doivent s'inquiéter pour vous ! »
 >
@@ -1689,7 +1692,7 @@ P: « Elles sont tombées. »
 >
 « Pourquoi ne remontent-elles pas simplement? »
 >
-P: « Envisager ma sœur : si vous étiez sur le sol de la forêt, combien de temps pensez-vous qu'il vous faudrait pour remonter jusqu'au foyer ? »
+P: « Envisager notre sœur : si vous étiez sur le sol de la forêt, combien de temps pensez-vous qu'il vous faudrait pour remonter jusqu'au foyer ? »
 >
 P: Elle s'arrête pour réfléchir, son petit visage en tremblant.
 >
@@ -1713,7 +1716,7 @@ P: Elle remue ses antennes.
 >
 P: « Quatre marches est une longue distance qu'une odeur voyage, ma petite sœur. »
 >
-P: « A cette distance, autant deviner.
+P: « À cette distance, autant deviner.
 
 » Et malheureusement, nous ne pouvons pas nous permettre d'attendre qu'elles devinent correctement : nous marcherons aussi. »
 >
@@ -1743,7 +1746,7 @@ P: « Nous avons besoin de le construire pour elles.
 
 » Et pour nous aussi ! »
 >
-P: « c'est pourquoi nous devons continuer à bouger.. »
+P: « C'est pourquoi nous devons continuer à bouger.. »
 >
 « ... »
 >
@@ -1758,7 +1761,7 @@ P: Elle rigole quand je lui donne un petit rebond.
 >
 P: Elle frappe ma tête en jouant quand je dois m'arrêter et me rééquilibrer.
 >
-P: Elle serre ma main et hurle quand je la passe à une infirmière inconnue.
+P: Elle serre ma main, puis elle pleure quand je la passe à une infirmière inconnue.
 [[>march]]
 
 
@@ -1782,7 +1785,7 @@ P: Elle me regarde avec un mélange de dédain et d'épuisement.
 
 <<if !this.historylessonreject>>[[« Je voulais vous parler. »]]<<endif>>
 [[« Pouvons-nous écouter? »]]
-[[« c'est rien. »>close]]
+[[« C'est rien. »>close]]
 
 ::« Je voulais vous parler. »
 <<do ++this.counti>>
@@ -1790,7 +1793,7 @@ P: Elle me regarde avec un mélange de dédain et d'épuisement.
 « Il faudra patienter. »
 [[>close]]
 
-::"May we listen?"
+::« Pouvons-nous écouter? »
 <<do ++this.countwe>>
 <<do this.historylesson=true>>
 « ...Vous nous surprenez, Twenty.
@@ -1812,7 +1815,7 @@ P: J'ouvre la bouche pour rétorquer, mais je décide de ne pas pousser, and je 
 >
 « Mais être l'un des plusieurs enfants est très différent d'être l'un des rares. »
 >
-« Être l'un des rares est quelque chose que, bien sûr, seuls quelques-uns d'entre nous ont vécu.
+« Être l'une des rares est quelque chose que, bien sûr, seuls quelques-unes d'entre nous ont vécu.
 
 » Encore moins savent ce que c'est que d'avoir été les deux. »
 >
@@ -1858,7 +1861,7 @@ P: Il y a une légère vague de rires des jeunes sœurs.
 >
 <<do this.show('')>>
 P: Elle s'étire, et la foule commence à se disperser.
-[[>Te coucher]]
+[[>Se coucher]]
 
 ::superior-camp-2
 P: Sœur Supérieure Trois me fait signe de partir avec impatience, occupée avec les plus jeunes fourmis.
@@ -1876,7 +1879,7 @@ P: Sœur Dix-et-neuf se requinque de sa place quand elle me voit.
 <<endif>>
 >
 <<do this.talked19=true>>
-« Sœur Vingt ! Commentallez-vous? »
+« Sœur Vingt ! Comment allez-vous? »
 
 [[« J'ai connu mieux. »]]
 [[« Nous pourrions tous utiliser un repos. »]]
@@ -1912,9 +1915,9 @@ P: « Nos sœurs ont travaillé dur aujourd'hui...
 P: « Non, c'est juste... »
 
 [[« Je voulais vous remercier. »]]
-[[« c'est rien. »]]
+[[« C'est rien. »]]
 
-::« c'est rien. »
+::« C'est rien. »
 <<do this.gameObject.roam.active=true>>
 P: Elle se penche la tête légèrement, mais fait un geste d'adieu.
 [[>close]]
@@ -1945,7 +1948,7 @@ P: Elle tapote ma tête.
 >
 « Allez vous reposer. Vous avez l'air fatiguée. »
 >
-P: « Hah... d'accord. Bonne nuit, ma Sœur. »
+P: « Hah... d'accord. Bonne nuit, notre Sœur. »
 >
 <<do this.scrim(1, 1000)>>
 <<do this.talked192=true>>
@@ -1958,7 +1961,7 @@ P: « Hah... d'accord. Bonne nuit, ma Sœur. »
 >
 « Dormez-vous suffisamment? »
 >
-P: "...Non. Et vous ? »
+P: « ...Non. Et vous ? »
 >
 <<do this.gameObject.roam.active=true>>
 P: Elle rit simplement.
@@ -1979,7 +1982,7 @@ Les étoiles sont très claires ici.
 
 
 ::camp-outlook-1
-P: Je me promene loin du campement, et il semble que quelqu'un d'autre a eu la même idée.
+P: Je me promene loin du campement, et il semble que quelqu'une d'autre a eu la même idée.
 >
 P: Sœur Vingt-et-sept contemple les étoiles.
 
@@ -2005,7 +2008,7 @@ P: Je m'en retourne par où je suis venu.
 >
 « Sœur Vingt, vous m'avez fait peur ! »
 >« Désolé... »
-P: « Je voulais juste regarder les étoiles - je ne pensais pas de trouver quelqu'un ici. »
+P: « Je voulais juste regarder les étoiles - je ne pensais pas de trouver quelqu'une ici. »
 >
 P: Elle regarde autour anxieusement, comme je l'ai pris sur le fait.
 
@@ -2020,7 +2023,7 @@ P: Alors je lui demande.
 
 » Et puis vous nous avez trouvé. »
 >
-« c'est tout. D'accord ? »
+« C'est tout. D'accord ? »
 >
 P: « Vingt-et-sept...
 
@@ -2028,7 +2031,7 @@ P: « Vingt-et-sept...
 >
 « Quoi !? »
 >
-P: « c'est bon ! Calmez-vous, s'il vous plaît. »
+P: « C'est bon ! Calmez-vous, s'il vous plaît. »
 
 [[« Devrions-nous nous inquiéter ? »]]
 [[« Ça ne me regarde pas. »>« Je ne dirai à personne. »]]
@@ -2068,7 +2071,7 @@ P: Elle fait un geste vers la couverture sombre de la nuit.
 <<do ++this.countwe>>
 « Pourtant... nous préfèrons garder ça secret. »
 >« ...D'accord. »
-« Merci, ma Sœur. »
+« Merci, notre Sœur. »
 >
 P: « Mais nous ne pouvons pas nous empêcher de demander... »
 >
@@ -2077,7 +2080,7 @@ P: « Qu'est-ce que vous souhaitiez ? »
 
 ::« Si vous ne le direz pas, je ne le dirais pas. »
 <<do ++this.counti>>
-« Merci, ma Sœur. »
+« Merci, notre Sœur. »
 >
 P: « Mais je dois demander... »
 >
@@ -2093,9 +2096,9 @@ P: J'ai rien a répondre à ça, donc je change de sujet:
 
 « Il se fait assez tard. Nous devrions retourner. »
 >
-P: « c'est-à-dire si vous êtes prêtes ? »
+P: « C'est-à-dire si vous êtes prêtes ? »
 >
-« O-oui. Reposons-nous un peu, ma Sœur. »
+« O-oui. Reposons-nous un peu, notre Sœur. »
 >
 <<do this.scrim(1, 1000)>>
 P: Nous retournons tous les deux au campement, et retrouvons nos places respectives parmi les sœurs endormies.
@@ -2114,7 +2117,7 @@ Ce fois, elle me voit arriver.
 « C-ce n'est pas ce que vous croyez ! »
 >
 <<do this.scene.player.walkBy(-200,-20)>>
-P: « Ce n'est pas grave, ma Sœur. Nous avons déjà décidé de garder votre secret, vous vous souvenez ? »
+P: « Ce n'est pas grave, notre Sœur. Nous avons déjà décidé de garder votre secret, vous vous souvenez ? »
 >
 <<do this.outlooknpc.flipped=true>>
 « B-bien sûr. »
@@ -2135,7 +2138,7 @@ P: « Vous ne devez pas à dire. »
 
 ::« Nous n'avons pas l'imaginé. »
 <<do ++this.countwe>>
-P: « c'est encore difficile de faire notre travail sans devoir vérifier que tout le monde faire les leurs aussi. »
+P: « C'est encore difficile de faire notre travail sans devoir vérifier que tout le monde faire les leurs aussi. »
 >
 « C-ce n'est pas ce que je... pas comme ça. »
 [[>« Que voulez-vous dire? »]]
@@ -2144,7 +2147,7 @@ P: « c'est encore difficile de faire notre travail sans devoir vérifier que to
 <<do ++this.counti>>
 P: « Il semble... difficile, pour le moins. »
 >
-P: "Mais je pense que ce serait différent si j'étais responsable."
+P: « Mais je pense que ce serait différent si j'étais responsable. »
 >
 « C-ce n'est pas ce que je... pas comme ça. »
 [[>« Que voulez-vous dire? »]]
@@ -2161,7 +2164,7 @@ P: « Si c'est ce que vous voulez dire, pourquoi ne pas prendre une tournée dan
 >
 P: Ses antennes se froissent.
 >
-« c'est different un peu, quand c'est notre sœur, pas notre fille. »
+« C'est different un peu, quand c'est notre sœur, pas notre fille. »
 >
 « Notre propre fille. »
 >
@@ -2169,11 +2172,11 @@ P: « ... »
 >
 P:  Je ne sais pas quoi dire.
 >
-P: c'est impossible, après tout.
+P: C'est impossible, après tout.
 
 Elle le sait aussi bien que moi.
 >
-P: « ...c'est ce que vous avez souhaité? »
+P: « ...C'est ce que vous avez souhaité? »
 >
 P: Elle penche la tête vers les étoiles, mais elle ne répond pas.
 >
@@ -2195,7 +2198,7 @@ P: Elle croise les jambes nerveusement.
 >
 « Je ne veux pas être seule. »
 >
-P: « ...Bien sûr, ma Sœur. »
+P: « ...Bien sûr, notre Sœur. »
 >
 <<do this.scrim(1, 2000)>>
 P: Nous prenons place tous les deux sur le branche surplombant les étoiles.
@@ -2250,7 +2253,7 @@ P: Elle est si heureuse de changer de place.
 <<do this.scrim(0.5, 2000)>>
 P: ...
 >
-P: c'est une nuit calme. Quelques mites tournent dans le ciel pour un moment, mais partent sans atterrir. Le nid temporaire bruisse pendant que les sœurs mélangent et prennent soin des jeunes.
+P: C'est une nuit calme. Quelques mites tournent dans le ciel pour un moment, mais partent sans atterrir. Le nid temporaire bruisse pendant que les sœurs mélangent et prennent soin des jeunes.
 >
 P: J'entends des pas derrière moi.
 >
@@ -2272,7 +2275,7 @@ P: Elle marmonne, presque trop calme pour entendre.
   « la »
 >« Sœur ? »
 « douleur »
->"Douleur? Vous faites mal, ma Sœur?"
+>« Douleur? Vous faites mal, notre Sœur? »
 « Douleur Douleur
 
 » vertige »
@@ -2288,7 +2291,7 @@ P: Elle fait un pas en avant, et un autre, et un autre.
 [[Laisser la marcher]]
 
 ::Barrer son chemin
-P: « Ce n'est pas drôle, ma Sœur. Arrêtez ça, nous ne pouvons— hé ! Arrêtez ! Posez-moi ! »
+P: « Ce n'est pas drôle, notre Sœur. Arrêtez ça, nous ne pouvons— hé ! Arrêtez ! Posez-moi ! »
 >
 P: Sœur Trente-et-trois me soulève, et m'a jeté par terre.
 >
@@ -2302,19 +2305,19 @@ P: Elle continue de marcher.
          « douleur »        « vertige »
 >
 P: Elle marche jusqu'au bord de la branche.
-> « Ma Sœur, non !! »
+> « Notre Sœur, non !! »
 <<do this.show('')>>
 P: Elle prends un autre pas, et elle est partie.
 >
 P: Que... Que s'est-il passé ?!
 >
-P: Je devrais chercher de l'aide. Je devrais parler à quelqu'un.
+P: Je devrais chercher de l'aide. Je devrais parler à quelqu'une.
 
 Je devrais faire QUELQUE CHOSE.
 >
-P: Mais c'est trop tard. c'est une longue chutejusqu'au sol de la forêt.
+P: Mais c'est trop tard. C'est une longue chute jusqu'au sol de la forêt.
 
-Si nous n'allions pas laisser le chemin pour plusiers de sœurs, nous ne le ferons certainement pas pour une.
+Si nous n'allions pas laisser le chemin pour plusieurs de sœurs, nous ne le ferons certainement pas pour une.
 >
 P: Je pouvais réveiller les autres, mais à quoi ça sert?
 >
@@ -2351,7 +2354,7 @@ P: Un pas, un pas, un pas, un pas.
 >
 P: Tap, tap ! Tap !! TAP !!!
 >
-P: Je me réveille en sursaut, en réalisant que quelqu'un tape près de ma tête.
+P: Je me réveille en sursaut, en réalisant que quelqu'une tape près de ma tête.
 >« Ahh !! »
 P: Une sœur, Trente-et... quelque chose? Beurk... je suis si fatiguée...
 
@@ -2359,7 +2362,7 @@ Elle plane au-dessus de moi.
 >
 « Désolé de vous réveiller Sœur Vingt, mais s'il vous plait venez vite, nous avons besoin de votre aide ! »
 >
-P: c'est trop tôt pour ça...
+P: C'est trop tôt pour ça...
 
 Mais je me lève quand même, me laissant guider somnolemment vers un morceau de feuille de l'autre côté du campement.
 <<do
@@ -2401,7 +2404,7 @@ P: « Qu'est ce que vous faites ?! Pourquoi est-elle attachée comme ca ?
 >
 « ...Nous espérions que vous seriez capable de nous aider à comprendre cela. »
 >
-P: La sœur attachée est en face de moi. Her legs kick and scratch at the ground, but she says nothing, and doesn't appear to be making any progress in loosening her bonds.
+P: La sœur attachée est en face de moi. Ses jambes frappent et grattent le sol, mais elle ne dit rien et ne semble pas faire de progrès pour desserrer ses liens.
 >
 « Vous avez été témoin de la chute de Sœur Trente-et-trois, non? »
 >
@@ -2409,15 +2412,15 @@ P: Sa "chute".
 
 « ...Oui. Qu'est-ce que ça vient faire dans tout ça? »
 >
-« Sœur Trente-et-cinq... les deux étaient proches. »
+« Sœur Trente-et-cinq... les deux étaient proches.
 
-« Nous l'avons attrapée juste avant qu'elle n'ait subi le même sort. »
+» Nous l'avons attrapée juste avant qu'elle n'ait subi le même sort. »
 >
-P: "Le même sort".
+P: « Le même sort ».
 >
-« Il a fallu nous quatre pour l'appréhender. »
+« Il a fallu nous quatre pour l'appréhender.
 
-« Nous avons envoyé pour la Sœur Supérieure aussi, mais nous voulions que vous confirmiez nos soupçons. »
+» Nous avons envoyé pour la Sœur Supérieure aussi, mais nous voulions que vous confirmiez nos soupçons. »
 >
 P: Je regarde de plus près la sœur modéré: ses jambes continuent de lutter, mais je réalise que ses mouvements ne sont pas frénétique ou agité.
 
@@ -2427,9 +2430,9 @@ Elle n'essaie pas de s'échapper : ses mouvements sont rythmés, comme si elle m
 >
 P: « Oui, bien sûr ! c'est quoi, cette question ?! »
 >
-« ...Outre le chute. Comment elle vous semblait? »
+« ...Outre le chute. Comment elle vous semblait?
 
-« Était-elle... velue? »
+» Était-elle... velue? »
 >« ...Velue? »
 P: Elle fait signe à Trente-et-cinq.
 >
@@ -2457,7 +2460,7 @@ c'est rebutant. Écoeurant.
 >
 <<do this.scrim(0.5, 1000)>>
 <<do this.show('')>>
-P: « c'est... c'est partout. Et il vient de l'intérieur d'elle ! »
+P: « C'est... c'est partout. Et il vient de l'intérieur d'elle ! »
 >
 « Oui, ça y ressemble. »
 >
@@ -2469,7 +2472,7 @@ P: « ...Comment est-elle encore en vie ? »
 >
 P: Je repense, essayant de me souvenir des détails spécifiques.
 >
-P: « c'est difficile à dire. C'était au milieu de la nuit, et tout est arrivé très vite.
+P: « C'est difficile à dire. C'était au milieu de la nuit, et tout est arrivé très vite.
 
 » Ces saillies : elles ne sont pas normales. »
 >
@@ -2491,7 +2494,7 @@ P: « "Douleur", "souffrance", des choses comme ça. »
 >
 <<do this.scrim(1, 100)>>
 <<do this.show('superiorIdle')>>
-P: A ce moment, le porte est jetée ouvert, et Sœur Supérieure Trois entre.
+P: À ce moment, le porte est jetée ouvert, et Sœur Supérieure Trois entre.
 >
 « Qu'est-ce que— »
 >
@@ -2522,9 +2525,9 @@ P: « Mais elle est notre sœur ! Nous devons l'aider ! »
 
 
 ::cordyceps-2-silent
-« ...Hein !? Arrêtez de rechigner et— »
+« ...Hein !? Arrêtez de rechigner et—
 
-« Bien, elle est là depuis combien de temps ? »
+» Bien, elle est là depuis combien de temps ? »
 >
 « Qui l'a trouvée ? Qui l'a touchée ?! »
 [[>cordyceps-2-hands]]
@@ -2564,7 +2567,7 @@ P: « Qu'est-ce que vous faites ? »
 >
 « Nous devons tous les purifier avant que ça n'empire ! »
 >
-P: "Nous... Quoi !?! »
+P: « Nous... Quoi !?! »
 >
 P: Elle ne peut pas être sérieuse.
 
@@ -2615,9 +2618,9 @@ Elle le considère vraiment !
 >
 P: « Pas beaucoup plus longtemps que vous. »
 >
-« Et vous n'avez montré aucun signe depuis le premier incident ? »
+« Et vous n'avez montré aucun signe depuis le premier incident ?
 
-« Pas d'envies bizarres, pas de pensées ou de mots qui n'étaient pas les tiennes ? »
+» Pas d'envies bizarres, pas de pensées ou de mots qui n'étaient pas les tiennes ? »
 >« Non, rien. »
 P: Elle soupire.
 >
@@ -2645,7 +2648,7 @@ P: Elles commencent à protester, mais elle les interrompt et continue.
 >
 « Vous allez rester ici, et vous allez compter des pas en notre absence.
 
-» Vous allez compter jusqu'à ce que nous arrêtons de marcher, et encore jusqu'à ce que nous commençons à marcher à nouveau. c'est seulement alors que vous commencez à marcher vous-mêmes. »
+» Vous allez compter jusqu'à ce que nous arrêtons de marcher, et encore jusqu'à ce que nous commençons à marcher à nouveau. C'est seulement alors que vous commencez à marcher vous-mêmes. »
 >
 « Est-ce clair? Restez sur le chemin, gardez votre rythme.
 
@@ -2653,21 +2656,21 @@ P: Elles commencent à protester, mais elle les interrompt et continue.
 >
 « Chacun de vous a été souillé, mais peut-être pas condamné.
 
-» Si quelqu'un s'éloinge du chemin, traitez-le. »
+» Si quelqu'une s'éloinge du chemin, traitez-le. »
 >
 P: Elle laisse tomber la torche, et regarde chacun un à la fois, attendant un signe solennel de compréhension et d'obéissance.
 >
 « ...Bien. »
 >
-« Au revoir mes sœurs. Nous espérons que vous pourrez nous rejoindre. »
+« Au revoir mes sœurs. Nous espérons que vous pourrez nous rejoindre.
 
-« S'il vous plait, traitez Trente-et-cinq après que nous departons. »
+» S'il vous plait, traitez Trente-et-cinq après que nous departons. »
 >
 <<do this.scrim(0.5, 1000)>>
 <<do this.show('')>>
 P: Elle se retourne pour partir.
 
-Je reste en arrière pour un moment hang back, ne voulant pas partir sur une note aussi austère.
+Je reste en arrière pour un moment, ne voulant pas partir sur une note aussi austère.
 
 [[« Tout ira bien. »]]
 [[« Je penserai à vous. »]]
@@ -2681,7 +2684,7 @@ P: Elles regardent vers Trente-et-cinq, raclant toujours silencieusement ses pie
 
 ::« Je penserai à vous. »
 <<do ++this.counti>>
-« ...Merci, ma Sœur. »
+« ...Merci, notre Sœur. »
 [[>cordyceps-2-end]]
 
 ::cordyceps-2-end
@@ -2713,18 +2716,18 @@ P: Le soleil commence à briller.
 ::inn-march
 P: La pluie redouble encore.
 >
-P: Je peux dire que ce n'est pas juste un petit crachin.
+P: Ce n'est pas juste un petit crachin.
 
 Nous devrons nous réfugions pour durer.
 >
 <<do this.scrim(1, 1000)>>
 P: Hereusement, je ne suis pas le seule personne qui le pense. Maman demande que la marche s'arrête. 
 >
-P: Nous preparons l'encampement. Ou, nous essayons, mais c'est clair immediatment que nous avons pas le temps ni les ressources pour gérer des fortes pluies.
+P: Nous preparons l'encampement. Ou, nous essayons, mais c'est clair immediatement que nous avons pas le temps ni les ressources pour gérer des fortes pluies.
 >
 P: Un nid de voyage adéquate prendre les efforts combinés des dizaines de sœurs. Nous aurions déjà dû chercher des feuilles fortes, nous avons besoin de gens pour les maintenir en place, et nous avons besoin des larves séricigènes pour les broder.
 >
-P: Nous avions tout quand nous sommes parties. Le sœurs infirmières prendre soin encore des jeunes, mais il ne sert pas à grand-chose quand nous sommes si loin du chemin choisi et nous avons perdue plus de sœurs que Maman than Mother ne veut bien l'admettre.
+P: Nous avions tout quand nous sommes parties. Le sœurs infirmières prendre soin encore des jeunes, mais il ne sert pas à grand-chose quand nous sommes si loin du chemin choisi et nous avons perdue plus de sœurs que Maman ne veut bien l'admettre.
 >
 P: Nous sommes arrivés si loin, mais nous avons vécu à la dure. Notre chance est en train d'expirer.
 <<do this.scene.goto({ area: 'inn-outside' })>>
@@ -2747,16 +2750,16 @@ P: Nous sommes arrivés si loin, mais nous avons vécu à la dure. Notre chance 
 
 ::outside-inn-ants-proposal
 <<do this.scrim(1, 1000)>>
-P: La réaction est pour les moins mitigée.
+P: La réaction est — pour les moins — mitigée.
 
-Néanmoins, un rapport officiel est livré, et transmise.
+Néanmoins, un rapport officiel est livré, et transmis.
 >
 P: Les efforts de construction du nid semble avoir ralenti à l'arrêt.
 >
 P: Quelque temps après, je reçois une convocation de la Sœur Supérieure.
 >
 <<do this.show('superiorIdle')>>
-« Nous avons entendu beaucoup de des "autres agencements" pour notre nid de voyage. »
+« Nous avons entendu beaucoup des "autres agencements" pour notre nid de voyage. »
 >
 « Sœur Vingt, c'est grâce à vous? »
 >
@@ -2766,7 +2769,7 @@ P: Sœur Supérieure Trois de Plusieurs est une tête de moins que moi, mais ell
 >
 « Corrigez-nous si nous nous trompons, mais ça sonnait comme ce "solution" nécessite l'utilisation de la monnaie. La monnaie étrangère, en plus. »
 >« Non, vous ne comprenez pas. »
-P: « Tout est déjà arrangé! Nous ne sommes pas besoin de payer : Ils veulent seulement un marché honnête. »
+P: « Tout est déjà arrangé ! Nous ne sommes pas besoin de payer : ils veulent seulement un marché honnête. »
 >
 « Ah? Et vous voudriez que nous échangerons quoi exactement? »
 >
@@ -2782,9 +2785,10 @@ P: « Que pouvons-nous faire d'autre ?
 
 » C'est un travail peu prestigieux, mais c'est du travail. »
 >
-P: « Sommes-nous si fiers que nous préférerions mourir que de travailler pour survivre une nuit ? »
+P: « Sommes-nous si fiers que nous préférerions mourir que de travailler pour survivre
+une nuit ?»
 >
-« C'est vous qui ne comprenez pas, ma Sœur.
+« C'est vous qui ne comprenez pas, notre Sœur.
 
 » Nous ne discutons pas de nos options de survie. »
 >« Que voulez-vous dire ? »
@@ -2804,7 +2808,7 @@ P: « ...Donc c'est quoi le problème ? Si Maman l'a decidé, nous devrions disc
 [[« Nous vous comprenons... »|++this.countwe;this.goto('outside-inn-ants-proposal2')]]
 
 ::outside-inn-ants-proposal2
-« Maman vous remercie pour ton diligence, ma Sœur. »
+« Maman vous remercie pour votre diligence, notre Sœur. »
 >
 « Mais s'il vous plaît, pour nous : n'oublies pas que vous faisez partie de la cortège de la Reine Mère. »
 >
@@ -2863,11 +2867,11 @@ P: J'essaie de m'endormir.
 « Il y a une bonne feuille sur celui-ci. Nous devrons le prendre. »
 
 [[« C'est trop dangereux. »]]
-[[« Maybe later. »>close]]
+[[« Peut-être plus tard. »>close]]
 <<endif>>
 
 ::« C'est trop dangereux. »
-P: "Danes cette pluie, avec cette pente? Grimper là-bas est une peine de mort."
+P: « Dans cette pluie, avec cette pente? Grimper là-bas est une peine de mort. »
 >
 « Rester ici est bien une peine de mort... »
 [[>close]]
@@ -2906,7 +2910,7 @@ P: « Hum, oui. Vous pourriez dire ça. »
 voicePillbug
 « Ho ho ! J'adore le pluie ! Les joies de la nature !! »
 >
-P: A large droplet splashes against my back, giving me a shiver.
+P: Une grosse goutte éclabousse mon dos, me donnant un frisson.
 >
 voicePillbug
 « ...Mais c'est trop mouillé pour vous? »
@@ -2915,7 +2919,7 @@ P: « ... »
 >
 P: « OUI !!! »
 >
-P: « Euh, c'est-à-dire— oui, oui c'est vrai. Nous cherchons un logement, en fait. »
+P: « Euh, c'est-à-dire— oui, oui c'est vrai. Nous cherchons un hébergement, en fait. »
 >
 voicePillbug
 « Bien alors, vous avez de la chance !! »
@@ -2923,38 +2927,37 @@ voicePillbug
 P: « Oh? Je peux utiliser un peu de chance en ce moment... »
 >
 voicePillbug
-« Il se trouve que juste là-dedans, vous trouverez la meilleure auberge de ce côté de la forêt ! »
+« Il se trouve juste à l'intérieur, la meilleure auberge de ce côté de la forêt ! »
 >
 P: Il fait signe avec une demi-douzaine de jambes vers un trou grand dans le tronc derrière lui.
 >
 voicePillbug
-« Oui madame, Le Bunty Nathan prendra soin de vous et votre pour presque rien ! »
+« Oui petite demoiselle, Le Bunty Nathan prendra soin de vous et votre pour presque rien ! »
 >
 P: Oh non.
 >
 voicePillbug
-« Des lits chauds, des bains frais (pour ceux qui sont enclins), même un buffet de petit déjeuner *! »
+« Des lits chauds, des bains frais (pour ceux qui sont enclins), même un buffet de petit déjeuner *! Tout ça pour rien sauf un prix modeste : vous ne trouverez pas une meilleure affaire dans cet arbre, petite demoiselle!
 
-« Tout ça pour rien sauf un prix modeste : Vous ne trouverez pas une meilleure affaire dans cet arbre, petite demoiselle! »
-
-« *Veuillez noter que le buffet est strictement végétarien. Les heures de petit dejeuner sont— »
+» *Veuillez noter que le buffet est strictement végétarien.
+Les heures de petit dejeuner sont— »
 
 [[« ok je comprends »|++this.counti;this.goto('outside-inn3')]]
 [[« arrêtez s'il vous plaît »>outside-inn3]]
 
 ::outside-inn3
-« Ho ho, mais il y a plus ! Si vous enregistrez au Le Bunty Nathan ce soir et CE SOIR SEULEMENT, nous offrirons une réduction spéciale ! »
+« Ho ho, mais il y a plus ! Si vous enregistrez au Le Bunty Nathan ce soir et CE SOIR SEULEMENT, nous offrirons une réduction spéciale !
 
-« DEUX nuits pour le prix d'UNE : C'est vrai, vous pouvez rester pour une nuit completement gratuite ! »
+» DEUX nuits pour le prix d'UNE : C'est vrai, vous pouvez rester pour une nuit completement gratuite ! »
 
 [[« Et si je veux rester juste une nuit ? »]]
 [[« Et quel est le prix ? »]]
 
 ::« Et si je veux rester juste une nuit ? »
 <<do ++this.counti>>
-« Eh bien, j'ai peur que ca va vous coûtera UNE NUIT pour le prix d'une. »
+« Eh bien, j'ai peur que ca va vous coûtera UNE NUIT pour le prix d'une.
 
-« Un peu moins spécial, mais toujours une affaire imbattable! »
+» Un peu moins spécial, mais toujours une affaire imbattable! »
 [[« Et quel est le prix ? »]]
 
 ::« Et quel est le prix ? »
@@ -2970,12 +2973,12 @@ voicePillbug
 
 ::« Ravie de vous rencontrer Bunty. »
 <<do this.buntyname=true>>
-« Le plaisir est pour moi, Madame...? »
+« Le plaisir est pour moi, Mademoiselle...? »
 >
-P: « ...Vingt de Plusieurs Oecophylle. »
+P: « ...Vingt de Plusieurs Oécophylles. »
 >
 voicePillbug
-« De plusiers? Bien, j'espère que vous direz à vos amies de venir aussi ! »
+« De plusieurs? Bien, j'espère que vous direz à vos amies de venir aussi ! »
 
 [[« Je vais juste entrer, alors. »]]
 [[« Nous devrons en discuter. »]]
@@ -3010,16 +3013,16 @@ voicePillbug
 P: Surement, a l'intérieur il y a un autre grand cloporte qui est assis à un bureau, complet avec un signe sculpté à la main.
 >
 voicePillbug
-« Bienvenue, Bienvenue ! »
+« Bienvenue, Bienvenue !
 
-« Comment puis-je vous aider ce soir? »
+» Comment puis-je vous aider ce soir? »
 
 [[« Bunty m'a envoyé. »]]
-[[« Je cherce un logement. »]]
+[[« Je cherce un hébergement. »]]
 [[« Nous avons besoin de votre aide. »]]
 
 ::« Bunty m'a envoyé. »
-« Ah, J'espere qu'il n'a pas vous déranger ! »
+« Ah, j'espere qu'il n'a pas vous déranger ! »
 >
 « Ne payez aucune attention à mon frère... Il veut bien faire, mais il en fait un peu trop. »
 >
@@ -3028,9 +3031,9 @@ voicePillbug
 P: Je commence à voir l'air de famille, mais je juste sourie et acquiesce.
 >
 voicePillbug
-« Je suppose qu'il t'a envoyé chez moi pour une raison, n'est ce pas ! »
+« Je suppose qu'il t'a envoyé chez moi pour une raison, n'est ce pas !
 
-« Dites-moi : comment puis-je vous aider? »
+» Dites-moi : comment puis-je vous aider? »
 
 [[« Je cherce un hébergement. »]]
 [[« Nous avons besoin de votre aide. »]]
@@ -3059,15 +3062,15 @@ voicePillbug
 >« Non, c'est— »
 « C'est charmant. La famille est SI importante, et il peut être si difficile de prendre du temps pour eux, peu importe tous nos efforts. »
 >« Ce n'est pas— »
-« C'est pourquoi notre famille a fondé l'entreprise ensemble ! Se passe pas un jour que je ne suis pas reconnaissant de vivre et travailler parmi le mienne. »
+« C'est pourquoi notre famille a fondé l'entreprise ensemble ! Ne se passe pas un jour que je ne suis pas reconnaissant de vivre et travailler parmi le mienne. »
 >« OK, mais— »
-« Bien que cela rend le travail de Bunty plus difficile : ne faut pas crier jours après jour si Mamie Le Gris dort à l'étage ! »
+« Bien que cela rend le travail de Bunty plus difficile : ne faut pas crier jour après jour si Mamie Le Gris dort à l'étage ! »
 >« Qui— ? »
 « Heureusement, mon grand frère est content de faire sa part dehors — plus agréable pour vos oreilles, ho ho! »
 >« S'il vous plaît — »
 « Mais vous êtes ici pour une chambre pour VOTRE famille ! Donc, il y a combien dans votre groupe ? »
 >
-P: Il arrête finalement de parler pour me laisser parler, et je réalize que je ne sais pais comment répondre a cette question.
+P: Il arrête finalement de parler pour me laisser parler, et je réalize que je ne sais pais comment répondre à cette question.
 >
 P: Combien en avons-nous perdu quand le branche s'est cassée ? Combien en avon-nous perdu depuis ?
 >
@@ -3093,9 +3096,9 @@ voicePillbug
 [[>nathan3]]
 
 ::nathan3
-« Heureusement, votre corps sont toutes petites, donc je suis sûr que nous pouvons faire de la place. »
+« Heureusement, votre corps sont toutes petites, donc je suis sûr que nous pouvons faire de la place.
 
-« Combien de temps allez-vous rester avec nous ? »
+» Combien de temps allez-vous rester avec nous ? »
 >« Juste pour la nuit. »
 « Êtes-vous sûr? Peut-être Bunty n'a pas dit, mais nous avons une bonne affaire ce soir : rester deux nuits pour le prix d'une ! »
 >« Nous avons juste besoin d'une. »
@@ -3103,7 +3106,7 @@ voicePillbug
 
 » Et comment allez-vous payer ? »
 >
-P: "..."
+P: « ... »
 >
 P: Je savais que ça allait arriver.
 
@@ -3115,18 +3118,18 @@ Le grand bogue me regarde avec l'air d'attendre.
 
 ::« Je ne peux pas payer. »
 <<do ++this.counti>>
-P: Il semble confus a ce déclaration, donc je continue.
+P: Il semble confus à ce déclaration, donc je continue.
 [[>nathan4]]
 
 ::« Nous n'avons pas d'argent. »
 <<do ++this.countwe>>
-P: Il semble confus a ce déclaration, donc je continue.
+P: Il semble confus à ce déclaration, donc je continue.
 [[>nathan4]]
 
 ::nathan4
-P: « Nos sœurs n'avons pas besoin d'argent. Nous nous soutenons sur le chemin, et chez nous. »
+P: « Nos sœurs n'avons pas besoin d'argent. Nous nous soutenons sur le chemin, et chez nous.
 
-« C'est un outil barbare, et il sert à rien pour nous. »
+» C'est un outil barbare, et il sert à rien pour nous. »
 >
 voicePillbug
 « ...Il sert à rien !? »
@@ -3138,9 +3141,9 @@ voicePillbug
 P: « ... »
 >
 voicePillbug
-« ...Vous êtes sérieuse, non ? »
+« ...Vous êtes sérieuse, non ?
 
-« Pas d'argent ! Rien ! »
+» Pas d'argent ! Rien ! »
 >« Oui. »
 « J'ai peur que vous avez pas de la chance, alors. Cette auberge n'accepte que les locataires qui paient. »
 >« Mais— »
@@ -3182,7 +3185,7 @@ voicePillbug
 P: « Vous voulez que nous... faisez des décorations pour vous ? »
 >
 voicePillbug
-"Pas juste des décorations : du ambience ! »
+« Pas juste des décorations : du ambience ! »
 >
 « Un nouveau segment de marché, en fait! Des suites exécutives pour le bogue sur le pouce !
 
@@ -3194,7 +3197,7 @@ voicePillbug
 >« La visibilité? »
 « Oui, je pense que ça profitera à nos deux entreprises!
 
-» Je suis convaincu : un nuitée, pour une nuit du travail de tisserands! »
+» Je suis convaincu : un nuitée, pour une nuit du travail de tisserands!
 
 » Que dites-vous? »
 
@@ -3211,11 +3214,11 @@ voicePillbug
 P: Avec ça, il pousse à agir soudainement : le roly-poly tombe au sol et s'en va à une vitesse étonnante plus profondément dans l'arbre.
 >
 <<do this.show('')>>
-P: Je reste seule dans l'entrée1. Il peut encore dehors.
+P: Je reste seule dans l'entrée. Il pleut encore dehors.
 >
-P: Ce n'est pas ce que j'imaginais dans ma tete, mais cela semble résoudre notre problème.
+P: Ce n'est pas ce que j'imaginais dans ma tête, mais cela semble résoudre notre problème.
 >
-P: Je me permets le luxe de quelques secondes de plus de l'abri, et je retourne à l'extérieur.
+P: Je me permets le luxe de quelques secondes de plus dans l'abri, et je retourne à l'extérieur.
 [[...|this.scene.player.walkBy(30,0);this.goto('close')]]
 
 ::bunty
@@ -3348,15 +3351,15 @@ P: Sœur Dix-et-neuf se tait.
 <<endif>>
 
 ::frog-bridge-1
-P: Quelqu'un a faisait un pont sur l'écart ici !
+P: Quelqu'une a faisait un pont sur l'écart ici !
 >
-P: C'est un bon signe : sûrement ca veut dire que nous approchons d'un territoire sûr
+P: C'est un bon signe : sûrement ca veut dire que nous approchons d'un territoire sûr.
 
 Peut-être même—
 >
 B: « HALTE ! »
 >
-P: I freeze in my steps at the sound of the booming voice.
+P: Je me fige au bruit d'une voix retentissante.
 >
 B: « QUI VA LÀ ? »
 >
@@ -3388,13 +3391,13 @@ B: « J'DEMANDÉ QUI T'ES. PARLE. »
 P: Il est SI GRAND.
 >
 
-[[« Oecophylle. »>frog2-we]]
+[[« Oécophylles. »>frog2-we]]
 [[« Vingt. »>frog2-i]]
 [[« Nous étions juste de passage. »>frog2-we]]
 
 ::frog2-we
 <<do ++this.countwe>>
-P: « N-nous sommes Oecophylle. Nous juste— »
+P: « N-nous sommes Oécophylles. Nous juste— »
 [[>frog2]]
 
 ::frog2-i
@@ -3417,7 +3420,7 @@ B: « ...QUOI ? PARLE PLUS FORT. »
 <<do this.scrim(0.5, 2000)>>
 P: Il tourne la tête, en pointant une oreille vers moi.
 >Parler plus fort
-P: « S-sœur Vingt de Plusieurs Oecophylle!! »
+P: « S-sœur Vingt de Plusieurs Oécophylles!! »
 >
 P: La bête laisse échapper soudainement un grondement sourd. Il résonne dans mon corps entier, presque me renversant.
 >
@@ -3435,9 +3438,9 @@ B: « MON DOMAINE. TU VEUX LE TRAVERSER? »
 >
 P: « O-oui. Vous avez construit ça ? »
 >
-B: « CONSTRUIT ? HA ! »
+B: « CONSTRUIT ? HA !
 
-« NON, VOUS LES TOUTES P'TITES, TOUJOURS EN CONSTRUISANT... »
+» NON, VOUS LES TOUTES P'TITES, TOUJOURS EN CONSTRUISANT... »
 >
 B: « PLUS FACILE DE PRENDRE. »
 >
@@ -3472,7 +3475,8 @@ B: « DONC TU TRAVERS PAS. »
 <<do ++this.counti>>
 B: « REGRETTER? »
 >
-B: « J'RÉALISE PAS QUE LES TOUTES P'TITES POURRAIT FAIRE ÇA. »
+B: « J'RÉALISE PAS QUE LES TOUTES P'TITES POURRAIT FAIRE
+ÇA. »
 >
 <<do this.scene.player.walkBy(-30,30)>>
 P: Pouah — d'accord, je m'en vais...
@@ -3497,7 +3501,7 @@ P: « B-ben nous préférerions que vous ne nous mangiez pas! »
 B: « MM, J'SPOSE QUE NON... »
 >
 B: « DEVRAS TROUVER UNE COPINE RAPIDEMENT, ALORS. »
-[[>"Back later, then."]]
+[[>« Je reviens plus tard, alors. »]]
 
 ::« Je reviens plus tard, alors. »
 <<do this.scene.player.walkBy(-30,30)>>
@@ -3527,9 +3531,9 @@ B: « BLEURGH ! »
 >« Vous... avez LA MANGER !! »
 B: « MM. J'SPOSE QUE J'AI FAIM. »
 >« Quoi !? »
-B: « VOUS AVEZ UN MAUVAIS GOÛT, TOUTE P'TITE. »
+B: « VOUS AVEZ UN MAUVAIS GOÛT, TOUTE P'TITE.
 
-« PASSE SI TU VEUX, CHUIS FINIS ICI. »
+» PASSE SI TU VEUX, CHUIS FINIS ICI. »
 >
 P: D'un grand bond, l'horrible bête disparaît dans la canopée.
 <<do
@@ -3553,7 +3557,7 @@ P: Il semble vraiment s'être désintéressé.
 >
 P: <<if this.frogregret>>Je savais que c'était pas une bonne idée. Je savais!<<else>>Je ne peux pas croire que j'ai marché droit dedans.<<endif>>
 
-<<if this.frogeat>>Il a dit littéralement qu'il va nous manger !!<<else>>Bien sûr il voulait juste nous manger!!<<endif>>
+<<if this.frogeat>>Il a dit littéralement qu'il va nous manger !<<else>>Bien sûr il voulait juste nous manger!<<endif>>
 >
 P: Stupide. Je suis stupide.
 >
@@ -3562,7 +3566,7 @@ P: Les autres traversent le pont en toute sécurité, au moins.
 >
 P: Il y a quelques paroles banales la remerciant du Dix-et-neuf pour son sacrifice... Je ne peux plus les écouter.
 >
-P: Quand l'ordre de marche reprend, je prends ma place, et quelqu'un d'autre prend la place après moi. La place de Dix-et-neuf.
+P: Quand l'ordre de marche reprend, je prends ma place, et quelqu'une d'autre prend la place après moi. La place de Dix-et-neuf.
 >
 P: Elle se fiche que Dix-et-neuf soit partie. Elle continue juste a marcher.
 [[>march]]
@@ -3634,7 +3638,7 @@ P: Finalement, l'odeur devient plus fort.
 P: Elles doivent être plus près.
 [[>close]]
 
-::Go back the way I came
+::Retourner au point de départ
 P: C'est trop risqué. JJe devrais trouver un endroit familier et me regrouper.
 >
 P: ...
@@ -3647,7 +3651,7 @@ P: Juste là !
 >
 P: La trace : il est bifurqué. Une odeur forte — clairement l'original — et une odeur plus faible qui m'a égaré.
 >
-P: Je regarde en arrière vers mon détour distrait. Je sais que quelqu'un a fait cette trace : quelqu'un qui est encore là.
+P: Je regarde en arrière vers mon détour distrait. Je sais que quelqu'une a fait cette trace : quelqu'une qui est encore là.
 
 [[Couvrir l'odeur plus faible]]
 [[La laisser seule]]
@@ -3660,7 +3664,7 @@ P: C'est dangereux, ça. Qui sait où j'aurais pu aller sans réaliser que j'ét
 >
 P: Des autres sœurs essaient peut-être encore de trouver notre chemin, et elles pourraient faire la même erreur.
 >
-P: Celui qui a fait ça, je suis désolé, ma Sœur. Vous allez devoir retrouver ton chemin.
+P: Celui qui a fait ça, je suis désolé, ma Sœur. Vous allez devoir retrouver votre chemin.
 [[>go-back-2]]
 
 
@@ -3672,7 +3676,7 @@ P: Mais je ne peux pas m'empêcher de briser la fourche.
 >
 P: Celui qui a fait ça est plus perdue que moi. C'est sa seule bouée de sauvetage, et je ne peux pas le couper.
 >
-P: Je suis désolé que je ne peut faire plus, ma Sœur, mais j'espère que vouz allez retrouver ton chemin.
+P: Je suis désolé que je ne peut faire plus, ma Sœur, mais j'espère que vouz allez retrouver votre chemin.
 
 [[>go-back-2]]
 
@@ -3706,7 +3710,7 @@ P: Je suis venu jusqu'ici, je ne peut pas retourner maintenant.
 	marchers[2].spr.alpha = 1;
 	this.scene.player.walkTo(1302, -13);
 >>
-P: « Ma Sœur! »
+P: « Notre Sœur! »
 >
 <<do this.scrim(1, 1000)>>
 P: Je suis soulagé de la retrouver, mais... je ne la reconnais pas. Elle est clairement plus vielle que moi — probablement une Dix-et, mais je ne sais pas qui.
@@ -3715,7 +3719,7 @@ P: Je suis soulagé de la retrouver, mais... je ne la reconnais pas. Elle est cl
 P: Elle répond, mais continue de marcher, me forçant à suivre son rythme.
 >
 <<do this.scrim(0.5, 5000)>>
-« Pouah. J'aurais dû deviner que quelqu'un aurait remarqué que je suis partie... »
+« Pouah. J'aurais dû deviner que quelqu'une aurait remarqué que je suis partie... »
 >
 P: Ah, hah... Je ne devrais probablement pas la corriger.
 >
@@ -3726,7 +3730,7 @@ P: « Oui. »
 [[« Je m'inquiétais pour vous. »]]
 [[« Nous devons retourner. »]]
 
-::« Nous devrons retourner. »
+::« Nous devons retourner. »
 <<do ++this.countwe>>
 « Ah, "nous" devons, n'est-ce pas ? "Nous" ? »
 >
@@ -3739,7 +3743,7 @@ P: « Du moins, à notre connaissance. »
 P: « Ben... »
 [[>worried2]]
 
-::"I was worried about you."
+::« Je m'inquiétais pour vous. »
 <<do ++this.counti>>
 « Tu t'inquiétais? »
 [[>worried2]]
@@ -3763,16 +3767,16 @@ P: « Vous— vous allez bien ?
 >
 « Je vais bien. Tu peux te reposer si tu veux, ça ne me dérange pas. »
 >
-P: « Mais ma Sœur, vous— »
+P: « Mais notre Sœur, vous— »
 >
 <<do
 	this.deserterwho = 0;
 	this.deserterwhere = 0;
 	this.deserterwhy = 0;
 >>
-« Arrête. »
+« Arrête.
 
-« J'ai dit que je ne suis pas ta sœur. »
+» J'ai dit que je ne suis pas ta sœur. »
 
 [[« Mais... qui étiez-vous ? »>deserter-who]]
 [[« Mais... où allez-vous ? »>deserter-where]]
@@ -3790,9 +3794,9 @@ P: Elle continue de marcher.
 <<do this.deserterwho=1>>
 « Quelle importance ? J'étais, et maintenant je ne suis plus. »
 >
-« Je suis sûr que quelqu'un qui savait le remarquera finalement. »
+« Je suis sûr que quelqu'une qui savait le remarquera finalement.
 
-« Tu peux leur demander à ton retour, si tu penses encore à moi. »
+» Tu peux leur demander à ton retour, si tu penses encore à moi. »
 <<do this.deserterquestion=true>>
 [[>deserter-qs]]
 
@@ -3827,9 +3831,9 @@ P: « Q-quoi ? »
 >
 « J'ai pris une décision. »
 >
-« <<if this.deserterwhy>>Je t'ai déjà dit: <<endif>>Ne m'encombre pas avec tes doutes. »
+« <<if this.deserterwhy>>Je t'ai déjà dit: <<endif>>Ne m'encombre pas avec tes doutes.
 
-« Ne te laisse pas alourdir par les miens. »
+» Ne te laisse pas alourdir par les miens. »
 [[>deserter-end2]]
 
 ::« Et si nous vous forçons ? »
@@ -3893,7 +3897,7 @@ P: Un nid temporaire est construit. La nourriture est distribuée.
 Les sœurs sont fatiguées.
 >
 <<do this.show('fireplace')>>
-P: Sœur Supérieure Trois Three assigne des tâches. L'horaire du garde de nuit est discuté et décidé.
+P: Sœur Supérieure Trois assigne des tâches. L'horaire du garde de nuit est discuté et décidé.
 
 Le feu du camp est allumé.
 >
@@ -4012,12 +4016,12 @@ voiceQueen
 >
 P: Personne n'est présent sauf Maman elle-même.
 >Te présenter
-P: « Sœur Vingt de Plusieurs Oecophylle.
+P: « Sœur Vingt de Plusieurs Oécophylles.
 
-» Au rapport à la Reine Mère Une et Plusieurs Oecophylle. »
+» Au rapport à la Reine Mère Une et Plusieurs Oécophylles. »
 >
 voiceQueen
-« Sœur Vingt de Plusieurs Oecophylle... »
+« Sœur Vingt de Plusieurs Oécophylles... »
 > « Oui, Reine Mère ? »
 « Nous avons reçu une opportunité. »
 >
@@ -4034,7 +4038,7 @@ voiceQueen
 
 » Nos filles, nos sœurs, elles t'appelleront Sœur Supérieure Vingt. »
 >
-P: Le choc de la disparition de Three et le nouveau rôle se disputent l'espace dans ma tête.
+P: Le choc de la disparition de Trois et le nouveau rôle se disputent l'espace dans ma tête.
 >
 P: Pourquoi moi ? Pourquoi maintenant ?
 >
@@ -4048,9 +4052,9 @@ P: Maman s'assoit silencieusement devant moi.
 voiceQueen
 « Nous sentons tes doutes. »
 >
-« Mais nous ne devons pas la laisser ça assombrir la vérité. »
+« Mais nous ne devons pas la laisser ça assombrir la vérité.
 
-« We have seen you overcome it so many times already. »
+» We have seen you overcome it so many times already. »
 >
 « There is no better sister for this role. »
 
@@ -4059,9 +4063,9 @@ voiceQueen
 
 ::« Nous devons considérer cette offre. »
 voiceQueen
-« Ce n'est pas une offre, Fille Vingt. »
+« Ce n'est pas une offre, Fille Vingt.
 
-« Le nom est déjà le vôtre. »
+» Le nom est déjà le vôtre. »
 >
 P: Elle le dit simplement.
 
@@ -4081,9 +4085,9 @@ voiceQueen
 
 ::« Nous comprenons. »
 voiceQueen
-« Nous sommes attristés par la disparition de Fille Trois. »
+« Nous sommes attristés par la disparition de Fille Trois.
 
-« Mais la Sœur Supérieure n'est pas partie. »
+» Mais la Sœur Supérieure n'est pas partie. »
 >
 « Rappelle-toi, une sœur de Plusieurs, aura toujours des sœurs. »
 >
@@ -4101,9 +4105,9 @@ P: Je sortis de sa chambre, retournant dans la zone commune du nid.
 >
 P: Je dois accepter ce que Maman me demande, mais suis-je prête pour cette nouvelle responsabilité ?
 >
-P: Quelqu'un doit assumer ce rôle. Et maman m'a choisi.
+P: Quelqu'une doit assumer ce rôle. Et maman m'a choisi.
 >
-P: J'ai été incertain plusieurs.
+P: J'ai été incertain plusieurs fois.
 
 Mais j'ai continué pour mes sœurs aussi.
 >
@@ -4132,7 +4136,7 @@ P: J'annonce la nouvelle à mes sœurs.
 
 ::family-role-2
 <<do this.gameObject.roam.active=false>>
-P: J'annonce la nouvelle à ma sœur.
+P: J'annonce la nouvelle à notre sœur.
 >
 « Sœur Supérieure Vingt! Quel honneur. »
 >
@@ -4142,14 +4146,14 @@ P: J'annonce la nouvelle à ma sœur.
 
 ::family-role-3
 <<do this.gameObject.roam.active=false>>
-P: J'annonce la nouvelle à ma sœur.
+P: J'annonce la nouvelle à notre sœur.
 >
 « Nous sommes désolés d'entendre parler de Trois... »
 >
 « Merci pour nous dire, Sœur Vi— désolé, Sœur Supérieure Vingt. »
 >
 <<do this.gameObject.roam.active=true>>
-"Nous pourrons en reparler bientôt."
+« Nous pourrons en reparler bientôt. »
 [[>close]]
 
 
@@ -4206,7 +4210,7 @@ P: Nous espérons que nous respecterons le nom, bien sûr.
 <<print new Array(20).fill('\u200B').join('')>>
 Mais c'est un nom que nous partageons tous, à la fin.
 <<print new Array(20).fill('\u200B').join('')>>
-Nous espérons que vous le respecterez aussi, ma Sœur.
+Nous espérons que vous le respecterez aussi, notre Sœur.
 <<print new Array(40).fill('\u200B').join('')>>
 [[Fin]]
 
@@ -4227,7 +4231,7 @@ P: C'est naturel d'en douter.
 <<print new Array(20).fill('\u200B').join('')>>
 Nous sommes peut-être différents, mais nous avons tous nos doutes.
 <<print new Array(20).fill('\u200B').join('')>>
-Nous espérons que vous allez les surmonter, ma Sœur.
+Nous espérons que vous allez les surmonter, notre Sœur.
 <<print new Array(40).fill('\u200B').join('')>>
 [[Fin]]
 
@@ -4263,7 +4267,7 @@ Une coursière, du nouveau cortège de Maman.
 >« Oui ? »
 P: Je brosse la pourriture de mes bras, et la laisser reprendre son souffle.
 >
-« Il est de mon devoir de vous informer que Maman a demandé une audience."
+« Il est de mon devoir de vous informer que Maman a demandé une audience. »
 >« Avec moi? »
 « Oui. Venez-vous. »
 >
@@ -4287,7 +4291,7 @@ P: Elle ouvre la porte, et me conduit à l'intérieur.
 >
 <<do this.show('queenIdle')>>
 voiceQueen
-« No. »
+« Non. »
 >
 P: Maman lui coupe la parole. Sœur Supérieure Trois ne sait comment réagir.
 >
@@ -4299,8 +4303,8 @@ P: Maman m'adresse directement.
 >
 voiceQueen
 « Présentez-vous. »
->Answer
-P: « Sœur Vingt de Plusieurs Oecophylle. »
+>Répondre
+P: « Sœur Vingt de Plusieurs Oécophylles. »
 >
 voiceQueen
 « Non. »
@@ -4316,13 +4320,13 @@ voiceQueen
 >
 « Un nom a du poids, fille. »
 >
-« Une responabilitié. »
+« Une responabilitié.
 
-« Une compréhension. »
+» Une compréhension. »
 >
-« Vous comprenez le nom qui se renverser librement de votre bouche dévergondée ? »
+« Vous comprenez le nom qui se renverser librement de votre bouche dévergondée ?
 
-« Vous portez bien ce nom ? »
+» Vous portez bien ce nom ? »
 
 [[« Oui, bien sûr. »>exile-2]]
 [[« Non, comment le pourrais-je ? »>exile-2]]
@@ -4340,7 +4344,7 @@ Je veut m'effondre au sol, mais Maman me demande un question.
 
 [[« Sœur Vingt »]]
 [[« de Plusieurs »]]
-[[« Oecophylle »]]
+[[« Oécophylles »]]
 
 ::exile-names
 voiceQueen
@@ -4348,13 +4352,13 @@ voiceQueen
 
 <<if !this.exilename1>>[[« Sœur Vingt »]]<<endif>>
 <<if !this.exilename2>>[[« de Plusieurs »]]<<endif>>
-<<if !this.exilename3>>[[« Oecophylle »]]<<endif>>
+<<if !this.exilename3>>[[« Oécophylles »]]<<endif>>
 <<if this.exilename1&&this.exilename2&&this.exilename3>>[[>exile-noname]]<<endif>>
 
-::"Sister Twenty"
+::« Sœur Vingt »
 <<do this.exilename1=true>>
 voiceQueen
-« Ha ! Vous avez demandez ton nom, fille, pas ta position. »
+« Ha ! Nous avons demandez ton nom, fille, pas ta position. »
 >
 P: Maman... se moque de moi.
 >
@@ -4365,16 +4369,16 @@ voiceQueen
 
 [[>exile-names]]
 
-::"of Many"
+::« de Plusieurs »
 <<do this.exilename2=true>>
 voiceQueen
 « Oh ? C'est vrai ? »
 >
 « C'est qui ce "Plusieurs" que tu parles ? »
 >
-« Peut-être c'est nos filles, nos sœurs ? »
+« Peut-être c'est nos filles, nos sœurs ?
 
-« Nous devrions penser non. »
+» Nous devrions penser non. »
 >
 « Tous celles qui sont assez fou de te considérer comme partie de leur nombre vont trouvé bientot que ce nombre fait défaut, oh, si peu... limité. »
 >
@@ -4382,7 +4386,7 @@ voiceQueen
 
 [[>exile-names]]
 
-::"Oecophylla"
+::« Oécophylles »
 <<do this.exilename3=true>>
 voiceQueen
 « ... »
@@ -4392,11 +4396,11 @@ voiceQueen
 P: Mother is shouting at me.
 >
 voiceQueen
-« Oecophylle ! »
+« Oécophylles ! »
 >
-« C'est notre nom ! Le nom de nos sœurs. Le nom de notre mére. »
+« C'est notre nom ! Le nom de nos sœurs. Le nom de notre mére.
 
-« Tu comprends ! »
+» Tu comprends ! »
 >
 « Pas le mien. Certainment pas le tien. C'est NOTRE nom ! »
 >
@@ -4453,7 +4457,7 @@ P: ...Et je suppose que j'ai m'effondé au sol, enfin.
 >
 P: Sœur Supérieure Trois tend une main.
 
-La Reine Mere Queen Mother fait un signe, et elle retire son offre.
+La Reine Mère fait un signe, et elle retire son offre.
 >Se lever
 P: Je n'ai pas besoin de son aide de toute façon. Je peux me tenir debout avec mes propres jambes.
 >
@@ -4538,14 +4542,14 @@ P: Je ne suis pas la bienvenue.
 P: ...
 >
 <<do this.scrim(1, 1000)>>
-P: C'est encore difficile de accepter accepter à quel point cela a changé ce jour-là.
+P: C'est encore difficile de accepter à quel point cela a changé ce jour-là.
 >
 <<do this.scene.goto({ area: 'town', x: 0, y: 10000 });this.show('bg_stars', { duration: 30000 })>>
 P: Vous me pardonnerez si je survole les détails plus fins de exil.
 >
 P: Ce n'est pas aussi romantique que vous pensez.
 
-Je ne suis pas aussi différent de toi, ou quelqu'un d'autre, d'ailleurs. Il m'a juste fallu un peu plus de temps pour trouver mon chemin.
+Je ne suis pas aussi différent de toi, ou quelqu'une d'autre, d'ailleurs. Il m'a juste fallu un peu plus de temps pour trouver mon chemin.
 >
 P: ...Hum ? Mon nom ?
 
@@ -4564,13 +4568,13 @@ P: Ça ne me manque pas de l'avoir.
 [[>exile4-noname]]
 
 ::exile4-noname
-P: Bien, parfois il y a un moment gênant, rencontrer quelqu'un sur le chemin : Nous disons nos salutations, il se présente, et j'esquive la question.
+P: Bien, parfois il y a un moment gênant, rencontrer quelqu'une sur le chemin : Nous disons nos salutations, elle se présente, et j'esquive la question.
 >
 P: Mais vous seriez surpris combien de voyageurs sont contents dans leur anonymat, et ne voient aucune raison de vous questionner.
 >
 P: Quoi de plus important, vraiment ?
 >
-P: Une poignée de mots que vous utiliserez une fois et que vous oublierez, ou un repas chaud après une longue journée ?
+P: Une poignée de mots que vous utiliserez une fois et que vous oublierez, ou un repas chaud après une longue journée ?
 >
 P: Quelque chose de vous appeler, ou la conscience de vous-même ?
 >
@@ -4587,11 +4591,11 @@ Je ne doute pas de ma décision.
 [[The End]]
 
 ::Elles ne me l'ont jamais vraiment pris.
-P: Sœur Vingt de Plusieurs Oecophylle, à votre service. Vingt, si vous etes pressé.
+P: Sœur Vingt de Plusieurs Oécophylles, à votre service. Vingt, si vous etes pressé.
 >
 P: Qu'est-ce qu'ils vont faire, me traquer ? Arrête-moi pour la désobéissance et expulse-moi à nouveau ?
 >
-P: Non, Maman en a fini avec moi. Je n'ai même pas vu d'autre Oecophylle depuis.
+P: Non, Maman en a fini avec moi. Je n'ai même pas vu d'autre Oécophylles depuis.
 >
 P: Elle— non, tous, elles étaient tellement préoccupés par ce que cela signifiait d'être une.
 
