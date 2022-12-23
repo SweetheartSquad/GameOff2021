@@ -632,7 +632,7 @@ P: Je ne peux pas faire confiance à ce qui reste pour être stable. Je dois ret
 ::intro-panic
 <<do this.gameObject.line = this.gameObject.line || this.shuffle([
 	'« La moitié du cortège était devant nous... tous parties... »',
-	'« La Reine Mère... ou est la Reine Mère!? »',
+	'« La Reine Mère... ou est la Reine Mère !? »',
 	'« Les sœurs... notre sœurs... »',
 	'« Non... ce n\'est pas possible... »',
 	'« Elles sont tombées. Nous ne pouvions pas leurs aider... »',
@@ -642,7 +642,7 @@ P: Je ne peux pas faire confiance à ce qui reste pour être stable. Je dois ret
 	'« La Reine Mère saura quoi faire. Elle sait toujours quoi faire. »',
 	'« Nous devons trouver refuge. Nous ne pouvons pas rester comme ça. »',
 	'« Ce n\'est pas possible. Ce n\'est pas possible. Ce n\'est pas possible. »',
-	'« Notre sœur ! Nous sommes heureux que vous allez bien. Aidez les autres, s\'il vous plaît! »',
+	'« Notre sœur ! Nous sommes heureux que vous allez bien. Aidez les autres, s\'il vous plaît ! »',
 	'« Notre sœur... »',
 	'P: Elle panique, et elle ne m\'écoute pas.',
 	'P: Elle est occupée avec les autres.',
