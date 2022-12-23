@@ -1905,7 +1905,7 @@ P: « Nos sœurs ont travaillé dur aujourd'hui...
 « Euh, vous savez comment c'est.... »
 >
 <<do this.gameObject.roam.active=true>>
-« Toujours un train de retard sur vous, ah ha! »
+« Toujours un train de retard sur vous, ah ha ! »
 [[>close]]
 
 ::19-camp-2
@@ -1934,7 +1934,7 @@ P: « Donc... merci. »
 >
 P: Elle semble surprise.
 >
-« Nous avons fait ce que n'importe qui ferait!
+« Nous avons fait ce que n'importe qui ferait !
 
 » Vous n'avez pas besoin de nous remercier. »
 >
@@ -2039,7 +2039,7 @@ P: « C'est bon ! Calmez-vous, s'il vous plaît. »
 
 ::« Devrions-nous nous inquiéter ? »
 <<do ++this.countwe>>
-« Non! Ce n'etait rien, vraiment! »
+« Non ! Ce n'etait rien, vraiment ! »
 [[>approach-2]]
 
 ::« Je ne dirai à personne. »
@@ -2134,14 +2134,14 @@ P: « Vous ne devez pas à dire. »
 
 [[« Nous n'avons pas l'imaginé. »]]
 [[« J'ai l'imaginé. »]]
-[[« Que voulez-vous dire? »]]
+[[« Que voulez-vous dire ? »]]
 
 ::« Nous n'avons pas l'imaginé. »
 <<do ++this.countwe>>
 P: « C'est encore difficile de faire notre travail sans devoir vérifier que tout le monde faire les leurs aussi. »
 >
 « C-ce n'est pas ce que je... pas comme ça. »
-[[>« Que voulez-vous dire? »]]
+[[>« Que voulez-vous dire ? »]]
 
 ::« J'ai l'imaginé. »
 <<do ++this.counti>>
@@ -2150,17 +2150,17 @@ P: « Il semble... difficile, pour le moins. »
 P: « Mais je pense que ce serait différent si j'étais responsable. »
 >
 « C-ce n'est pas ce que je... pas comme ça. »
-[[>« Que voulez-vous dire? »]]
+[[>« Que voulez-vous dire ? »]]
 
 
-::« Que voulez-vous dire? »
+::« Que voulez-vous dire ? »
 « Maman a des enfants. »
 >
 « Il me semble que ce serait... bien. D'avoir des enfants. »
 >
 P: « ...Mais vous savez que Maman n'élève pas les enfants. »
 >
-P: « Si c'est ce que vous voulez dire, pourquoi ne pas prendre une tournée dans le pépinière avec les sœurs infirmières? »
+P: « Si c'est ce que vous voulez dire, pourquoi ne pas prendre une tournée dans le pépinière avec les sœurs infirmières ? »
 >
 P: Ses antennes se froissent.
 >
@@ -2176,7 +2176,7 @@ P: C'est impossible, après tout.
 
 Elle le sait aussi bien que moi.
 >
-P: « ...C'est ce que vous avez souhaité? »
+P: « ...C'est ce que vous avez souhaité ? »
 >
 P: Elle penche la tête vers les étoiles, mais elle ne répond pas.
 >
@@ -2188,7 +2188,7 @@ P: « Il se fait assez tard. Nous devrions retourner. »
 >
 « Attendez... »
 >
-« ...Souhaitez-vous rester ici avec nous? »
+« ...Souhaitez-vous rester ici avec nous ? »
 >
 P: Elle croise les jambes nerveusement.
 >
