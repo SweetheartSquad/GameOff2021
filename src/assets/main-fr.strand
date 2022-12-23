@@ -420,7 +420,7 @@ P: Nous Suivons Le Chemin Capriceux
 [[Langue>language select]]
 [[Crédits]]
 [[Avertissements de contenus]]
-<<if this.debug>>[[node débogage]]<<endif>>
+<<if this.debug>>[[node débogage>debug menu]]<<endif>>
 
 ::Crédits
 P: Fabriqué par Sean, Michael, and IAN de SweetHeart Squad.
