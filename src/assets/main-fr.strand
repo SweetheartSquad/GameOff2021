@@ -1793,7 +1793,7 @@ P: Elle me regarde avec un mélange de dédain et d'épuisement.
 « Il faudra patienter. »
 [[>close]]
 
-::« Pouvons-nous écouter? »
+::« Pouvons-nous écouter ? »
 <<do ++this.countwe>>
 <<do this.historylesson=true>>
 « ...Vous nous surprenez, Vingt.
