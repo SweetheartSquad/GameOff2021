@@ -1796,7 +1796,7 @@ P: Elle me regarde avec un mélange de dédain et d'épuisement.
 ::« Pouvons-nous écouter? »
 <<do ++this.countwe>>
 <<do this.historylesson=true>>
-« ...Vous nous surprenez, Twenty.
+« ...Vous nous surprenez, Vingt.
 
 » Mais bien sûr : Prends un siège avec les autres enfants. »
 >
