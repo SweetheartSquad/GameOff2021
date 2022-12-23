@@ -1913,15 +1913,15 @@ P: « Nos sœurs ont travaillé dur aujourd'hui...
 >
 P: « Non, c'est juste... »
 
-[[« Nous voulions vous remercier. »]]
-[[« C'est rien. »]]
+[[« Nous voulions vous remercier. »]]
+[[« C'est rien. »]]
 
 ::« C'est rien. »
 <<do this.gameObject.roam.active=true>>
 P: Elle se penche la tête légèrement, mais fait un geste d'adieu.
 [[>close]]
 
-::« Nous voulions vous remercier. »
+::« Nous voulions vous remercier. »
 <<do ++this.counti>>
 « Remerciez-nous ? Pourquoi ? »
 >
@@ -1937,9 +1937,9 @@ P: Elle semble surprise.
 
 » Vous n'avez pas besoin de nous remercier. »
 >
-P: « Besoin ou pas, nous voulions le faire. »
+P: « Besoin ou pas, nous voulions le faire. »
 >
-« ...De rien ! »
+« ...De rien ! »
 >
 « Maintenant... »
 >
