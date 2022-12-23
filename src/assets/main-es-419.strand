@@ -525,6 +525,7 @@ Traducción al español (Latinoamérica) por David Pérez.
 ::language select
 [[en|this.setSource(game.app.loader.resources['main-en'].data);this.back();]]
 [[es-419|this.setSource(game.app.loader.resources['main-es-419'].data);this.back();]]
+[[fr|this.setSource(game.app.loader.resources['main-fr'].data);this.back();]]
 
 ::test-npc
 "Hola, soy un NPC."

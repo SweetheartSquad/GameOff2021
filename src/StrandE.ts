@@ -52,15 +52,15 @@ export class StrandE extends Strand {
 					link === '>'
 						? `>${link}`
 						: link
-								.split('|')
-								.map(
-									(l) =>
-										`[[${l || promptDefault}|this.goto('auto-${
-											autolink + 1
-										}')]]`
-								)
-								.concat(`\n::auto-${++autolink}`)
-								.join('\n')
+							.split('|')
+							.map(
+								(l) =>
+									`[[${l || promptDefault}|this.goto('auto-${
+										autolink + 1
+									}')]]`
+							)
+							.concat(`\n::auto-${++autolink}`)
+							.join('\n')
 				)
 				// action sugar: `[[|some js]]` (uses default prompt)
 				.replace(/^\[\[\|/gm, `[[${promptDefault}|`)
@@ -94,6 +94,7 @@ export class StrandE extends Strand {
 		const languageLabels: Partial<{ [key: string]: string }> = {
 			en: 'English',
 			'es-419': 'Español',
+			'fr': 'Français',
 		};
 		const languages = Object.keys(resources)
 			.filter((i) => i.startsWith('main-'))
@@ -102,8 +103,8 @@ export class StrandE extends Strand {
 		this.language = languages.includes(this.language || '')
 			? this.language
 			: browserLang({
-					languages,
-					fallback: 'en',
+				languages,
+				fallback: 'en',
 			  });
 		document.documentElement.lang = this.language || 'en';
 
@@ -112,8 +113,7 @@ export class StrandE extends Strand {
 			body: languages
 				.map(
 					(i) =>
-						`[[${
-							languageLabels[i] || i
+						`[[${languageLabels[i] || i
 						}|this.language='${i}';this.setSource(game.app.loader.resources['main-${i}'].data);this.back();]]`
 				)
 				.concat('[[back|this.back()]]')

@@ -525,6 +525,7 @@ Spanish (Latin America) translation by David Pérez.
 ::language select
 [[en|this.setSource(game.app.loader.resources['main-en'].data);this.back();]]
 [[es-419|this.setSource(game.app.loader.resources['main-es-419'].data);this.back();]]
+[[fr|this.setSource(game.app.loader.resources['main-fr'].data);this.back();]]
 
 ::test-npc
 "Hello I am an NPC."
@@ -3281,7 +3282,7 @@ P: I can't go back without checking this out first.
 P: 'Buddy system'.
 >
 <<do this.scrim(1, 1000)>>
-P: There's really only one solution, so I follow the pheremone trail back to the main group and report what I've learned.
+P: There's really only one solution, so I follow the pheromone trail back to the main group and report what I've learned.
 >
 P: ...
 >
