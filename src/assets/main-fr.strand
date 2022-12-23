@@ -3623,7 +3623,7 @@ P: Le jour baisse déjà. Je dois bouger.
 
 ::Continuer à suivre la trace
 <<do this.scene.goto({ area: 'deserter-path' })>>
-P: il n'y aurait aucune de trace ici si personne ne venait par ici.
+P: Il n'y aurait aucune de trace ici si personne ne venait par ici.
 >
 P: Je dois le suivre.
 >
