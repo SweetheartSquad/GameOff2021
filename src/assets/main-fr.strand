@@ -1832,14 +1832,14 @@ P: ...Est-ce une leçon d'histoire ou un voyage d'ego ?
 <<do this.show('')>>
 P: Une de les soeur plus jeunes dans l'audience parle :
 >
-« Vous étiez une Sœur Infirmière, Trois? »
+« Vous étiez une Sœur Infirmière, Trois ? »
 >
 <<do this.show('superiorIdle')>>
 « Naturellement ! Nous devions tous être celles, à l'époque. »
 >
 « Nous étions tous sauf des sœurs : Nous devions tout faire pour que nos futures sœurs grandissent, avec seulement les conseils de Mère, pas ses soins directs. »
 >
-« Et peut-être que nous avons trop bien fait notre travail : Vous avez tous grandi pour être si grand! »
+« Et peut-être que nous avons trop bien fait notre travail : Vous avez tous grandi pour être si grand ! »
 >
 P: Il y a une légère vague de rires des jeunes sœurs.
 >
@@ -1879,7 +1879,7 @@ P: Sœur Dix-et-neuf se requinque de sa place quand elle me voit.
 <<endif>>
 >
 <<do this.talked19=true>>
-« Sœur Vingt ! Comment allez-vous? »
+« Sœur Vingt ! Comment allez-vous ? »
 
 [[« J'ai connu mieux. »]]
 [[« Nous pourrions tous utiliser un repos. »]]
