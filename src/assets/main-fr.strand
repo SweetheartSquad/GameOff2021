@@ -427,8 +427,8 @@ P: Fabriqué par Sean, Michael, and IAN de SweetHeart Squad.
 
 Traduction français par IAN.
 
-[[More games|window.open('https://sweetheartsquad.itch.io', '_blank')]]
-[[Back|this.back()]]
+[[Trouver plus de jeus|window.open('https://sweetheartsquad.itch.io', '_blank')]]
+[[Retourner|this.back()]]
 
 ::close
 this should never render
@@ -1913,15 +1913,15 @@ P: « Nos sœurs ont travaillé dur aujourd'hui...
 >
 P: « Non, c'est juste... »
 
-[[« Je voulais vous remercier. »]]
-[[« C'est rien. »]]
+[[« Nous voulions vous remercier. »]]
+[[« C'est rien. »]]
 
 ::« C'est rien. »
 <<do this.gameObject.roam.active=true>>
 P: Elle se penche la tête légèrement, mais fait un geste d'adieu.
 [[>close]]
 
-::« Je voulais vous remercier. »
+::« Nous voulions vous remercier. »
 <<do ++this.counti>>
 « Remerciez-nous ? Pourquoi ? »
 >
@@ -1937,9 +1937,9 @@ P: Elle semble surprise.
 
 » Vous n'avez pas besoin de nous remercier. »
 >
-P: « Besoin ou pas, je voulais le faire. »
+P: « Besoin ou pas, nous voulions le faire. »
 >
-« ...Je vous en prie, alors ! »
+« ...De rien ! »
 >
 « Maintenant... »
 >
@@ -4391,7 +4391,7 @@ voiceQueen
 >
 « Tu OSES ? »
 >
-P: Mother is shouting at me.
+P: Maman me crie dessus.
 >
 voiceQueen
 « Oécophylles ! »
